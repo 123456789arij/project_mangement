@@ -149,7 +149,7 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/9.jpg" alt="">
+                                                        <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/9.jpg')}}" alt="">
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">Ella-Rose Henry</div>
@@ -171,7 +171,7 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/5.jpg" alt="">
+                                                        <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/5.jpg')}}" alt="">
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">Ruben Tillman</div>
@@ -193,7 +193,7 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
+                                                        <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/4.jpg')}}" alt="">
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">Vinnie Wagstaff</div>
@@ -215,7 +215,7 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
+                                                        <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/3.jpg')}}" alt="">
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">Ella-Rose Henry</div>
@@ -237,7 +237,7 @@
                                             <div class="widget-content p-0">
                                                 <div class="widget-content-wrapper">
                                                     <div class="widget-content-left mr-3">
-                                                        <img width="42" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
+                                                        <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/2.jpg')}}" alt="">
                                                     </div>
                                                     <div class="widget-content-left">
                                                         <div class="widget-heading">Ruben Tillman</div>
@@ -502,7 +502,7 @@
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
                                             <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
+                                                <img width="40" class="rounded-circle" src="{{asset('assets/images/avatars/3.jpg')}}" alt="">
                                             </div>
                                         </div>
                                         <div class="widget-content-left flex2">
@@ -527,7 +527,7 @@
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
                                             <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
+                                                <img width="40" class="rounded-circle" src="{{asset('assets/images/avatars/2.jpg')}}" alt="">
                                             </div>
                                         </div>
                                         <div class="widget-content-left flex2">
@@ -552,7 +552,7 @@
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left mr-3">
                                             <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle" src="assets/images/avatars/1.jpg" alt=""></div>
+                                                <img width="40" class="rounded-circle" src="{{asset('assets/images/avatars/1.jpg')}}" alt=""></div>
                                         </div>
                                         <div class="widget-content-left flex2">
                                             <div class="widget-heading">Vinnie Wagstaff</div>
