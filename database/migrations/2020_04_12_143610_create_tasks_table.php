@@ -22,8 +22,8 @@ class CreateTasksTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->longText('description');
-            $table->integer('priority');
-            $table->string('status');
+            $table->tinyInteger('priority');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

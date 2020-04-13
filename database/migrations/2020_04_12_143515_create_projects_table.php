@@ -24,7 +24,7 @@ class CreateProjectsTable extends Migration
                 ->on('categories')->onDelete('cascade');
             $table->date('start_date');
             $table->date('deadline');
-            $table->string('status');
+            $table->tinyInteger('status');
             $table->longText('description');
             $table->integer('progress_bar')->default(0);
             $table->timestamps();

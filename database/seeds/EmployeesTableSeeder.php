@@ -2,15 +2,16 @@
 
 use Illuminate\Database\Seeder;
 
-class CategoryTableSeeder extends Seeder
+class EmployeesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
+        public function run()
     {
-        factory(App\Category::class, 10)->create();
+        factory(App\Employee::class, 300)->create();
     }
+
 }
