@@ -5,10 +5,19 @@
             <li>
                 <a href="index.html" class="mm-active">
                     <i class="metismenu-icon pe-7s-rocket"></i>
-                    Dashboard Example 1
+                    Dashboard
                 </a>
             </li>
-            <li class="app-sidebar__heading">UI Components</li>
+            <li class="app-sidebar__heading">Clients</li>
+            <li>
+                <a href="{{route('client.index')}}">
+                    <i class="metismenu-icon"></i>
+                    Client
+                </a>
+            </li>
+            <li class="app-sidebar__heading">HR</li>
+
+
             <li
 
 
@@ -19,9 +28,9 @@
 
 
             >
-                <a href="#">
+                <a href="">
                     <i class="metismenu-icon pe-7s-diamond"></i>
-                    Elements
+                    Emplyoee
                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                 </a>
                 <ul
@@ -35,9 +44,9 @@
 
                 >
                     <li>
-                        <a href="elements-buttons-standard.html">
+                        <a href="{{route('department')}}">
                             <i class="metismenu-icon"></i>
-                            Buttons
+                       Département
                         </a>
                     </li>
                     <li>
@@ -84,7 +93,7 @@
                     </li>
                 </ul>
             </li>
-            <li
+         {{--   <li
 
 
 
@@ -163,37 +172,25 @@
                             </i>Calendar
                         </a>
                     </li>
-                    <li>
-                        <a href="components-pagination.html">
-                            <i class="metismenu-icon">
-                            </i>Pagination
-                        </a>
-                    </li>
-                    <li>
-                        <a href="components-scrollable-elements.html">
-                            <i class="metismenu-icon">
-                            </i>Scrollable
-                        </a>
-                    </li>
-                    <li>
-                        <a href="components-maps.html">
-                            <i class="metismenu-icon">
-                            </i>Maps
-                        </a>
-                    </li>
                 </ul>
-            </li>
+            </li>--}}
             <li  >
                 <a href="tables-regular.html">
                     <i class="metismenu-icon pe-7s-display2"></i>
                     Tables
                 </a>
             </li>
-            <li class="app-sidebar__heading">Widgets</li>
+            <li class="app-sidebar__heading">Travaille</li>
             <li>
-                <a href="dashboard-boxes.html">
+                <a href="{{route('project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
-                    Dashboard Boxes
+                   Projet
+                </a>
+            </li>
+            <li>
+                <a href="{{route('task')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                 Tâche
                 </a>
             </li>
             <li class="app-sidebar__heading">Forms</li>
