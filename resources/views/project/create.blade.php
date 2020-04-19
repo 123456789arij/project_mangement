@@ -1,10 +1,7 @@
 @extends('layouts.base')
 @section('cssBlock')
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <!--Plugin CSS file with desired skin-->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 @endsection
+
 @section('content')
     {{-- app-page-title--}}
     <div class="app-page-title">
@@ -14,7 +11,7 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div>Projet</div>
+                <div> PROJET</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -27,7 +24,7 @@
                                 <span class="btn-icon-wrapper pr-2 opacity-7">
                                      <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                                  </span>
-                               <a href="{{route('Entreprise.Employee.create')}}"
+                               <a href="{{route('entreprise.Employee.create')}}"
                                   style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
                            </button>--}}
                 </div>
@@ -41,7 +38,6 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -53,8 +49,7 @@
                 @endif
 
                 <div class="card-header">
-
-                    METTRE À JOUR LES DÉTAILS DU PROJET
+                    Ajouter un nouveau PROJET
                 </div>
 
                 <div class="tab-content">
@@ -62,72 +57,41 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('project.update',$project->id) }}">
-                                    @csrf
-                                    @method('PATCH')
+                                <form method="POST" action="{{route('project.store')}}">
                                     {{--  partie email +adresse--}}
                                     <div class="form-row">
+                                        @csrf
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
                                                 <label for="name"> nom du projet </label>
-                                                <input type="text" class="form-control" value="{{$project->name}}"
-                                                       name="name">
+                                                <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <label><strong>Catégories du projet </strong></label>
-                                            {{--      <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                          data-target="#exampleModalCenter">
-                                                      <a href="{{route('Entreprise.categorie.index')}}" style="color:white;">
-                                                          Ajouter Catégories du projet</a>
-                                                  </button> --}}
-                                            {{--  <button style="font-size: 15px; color: white;border: 1px solid"
-                                                    type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#exampleModalCenter">
-                                                <i class="fa fa-plus" style="font-size:15px"></i>
-
-                                                --}}{{--                                                      <a href="{{route('projet.create')}}"> </a>--}}{{--
-                                            </button>--}}
                                         </div>
                                     </div>
                                     <br>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            {{--<div class="position-relative form-group"for="Categories_Id">
+                                            <div class="position-relative form-group">
                                                 <label >categories </label>
-                                                <select class="mb-2 form-control-lg form-control" name="Categories_Id">
+                                       <select class="mb-2 form-control-lg form-control" name="category_id">
                                                     @foreach($categories as $category)
                                                         <option
-                                                            value="{{$category->id}}"> {{$category->name_categorie}} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>--}}
-                                        </div>
-                                    </div>
-                                    {{--Categorie du projet--}}
-                                    <div class="form-row">
-                                        <div class="col-12">
-                                            <div class="position-relative form-group" for="category_id">
-                                                <label>Categorie du projet</label>
-                                                <select class="mb-2 form-control-lg form-control" name="category_id">
-                                                    @foreach($categories as $category )
-                                                        <option> {{$category->name}} </option>
+                                                            value="{{$category->id}}"> {{$category->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    {{--/Categorie du projet--}}
                                     {{--client--}}
                                     <div class="form-row">
                                         <div class="col-12">
                                             <div class="position-relative form-group" for="client_id">
                                                 <label>Sélectionnez un client</label>
                                                 <select class="mb-2 form-control-lg form-control" name="client_id">
+                                                    <option value="">Choose....</option>
                                                     @foreach($clients as $client)
-                                                        <option> {{$client->name}} </option>
+                                                        <option
+                                                            value="{{$client->id}}"> {{$client->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -139,21 +103,20 @@
                                             <div class="position-relative form-group">
                                                 <label for="start_date"> Date de début </label>
                                                 <input type="date" class="form-control" id="start_date"
-                                                       value="{{$project->start_date}}"
-                                                       name="start_date">
+                                                       name="start_date" required>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
                                                 <label for="deadline"> Date limite</label>
                                                 <input type="date" class="form-control" id="deadline"
-                                                       name="deadline" value="{{$project->deadline}}">
+                                                       name="deadline" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label> L'état du projet </label>
-                                                <select class="mb-2 form-control form-control" name="status">
+                                                <label for="status"> L'état du projet </label>
+                                                <select class="mb-2 form-control form-control" name="status" required>
                                                     <option value="0"
                                                             @if (old('status')=="pas encore commencé")  checked @endif >
                                                         pas encore commencé
@@ -178,21 +141,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col-12">
 
-                                            <label for="">Statut d'achèvement du projet</label>
-                                            <input type="text" class="js-range-slider" name="my_range"
-                                                   value="{{$project->progress_bar}}"/>
-                                        </div>
-                                    </div>
 
                                     <div class="divider"></div>
                                     <br>
                                     <div class="col">
                                         <label for="description"><strong> Déscription du projet </strong></label>
-                                        <textarea id="textarea" name="description"
-                                                  value="{{$project->description}}"></textarea>
+                                        <textarea id="textarea" name="description"></textarea>
                                     </div>
 
                                     <div class="d-block text-center card-footer">
@@ -213,6 +168,10 @@
         </div>
     </div>
 @endsection
+
+
+
+
 @section('jsBlock')
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -226,24 +185,10 @@
             branding: false,
             plugins: "fullscreen",
             menubar: false,
-            setup: function (editor) {
-                editor.on('change', function () {
-                    tinymce.triggerSave();
-                });
-            },
             //  toolbar: "fullscreen",
         });
 
         //      tinymce.activeEditor.execCommand('mceFullScreen');
 
-    </script>
-    <!--Plugin JavaScript file-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
-    <script>
-        $(".js-range-slider").ionRangeSlider({
-            skin: "modern",
-            grid: true,
-            prefix: "%",
-        });
     </script>
 @endsection

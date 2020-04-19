@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Entreprise;
+namespace App\Http\Controllers;
 
-use App\Category;
+use App\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        //todo
+        $departments = Department::where('user_id', auth()->user()->id)->simplePaginate(5);
+        return view('department.index', compact('departments'));
     }
 
     /**
@@ -25,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("Entreprise.project.category.create");
+        return view('department.create');
     }
 
     /**
@@ -38,10 +40,14 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
-        ]);
+            'user_id' => 'required',
 
-        Category::create($request->all());
-        return redirect()->route('project')->with('toast_success', 'Categoryis successfully saved');
+        ]);
+        $department = new Department();
+        $department->name = $request->input('name');
+        $department->user_id = $request->input('user_id');
+        $department->save();
+        return redirect()->route('department')->with('toast_success', ' projet  is successfully saved');
     }
 
     /**
@@ -75,11 +81,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($request->category_id);
-
-        $category->update($request->all());
-
-        return back();
+        //
     }
 
     /**
@@ -90,6 +92,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $department = Department::findOrFail($id);
+        $department->delete();
+        return redirect()->route('department')->with('success', 'department is successfully deleted');
     }
 }

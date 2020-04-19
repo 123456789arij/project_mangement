@@ -26,7 +26,7 @@
                                 <span class="btn-icon-wrapper pr-2 opacity-7">
                                      <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                                  </span>
-                               <a href="{{route('Entreprise.Employee.create')}}"
+                               <a href="{{route('entreprise.Employee.create')}}"
                                   style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
                            </button>--}}
                 </div>

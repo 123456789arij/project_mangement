@@ -30,7 +30,7 @@
             >
                 <a href="">
                     <i class="metismenu-icon pe-7s-diamond"></i>
-                    Emplyoee
+                HR
                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                 </a>
                 <ul
@@ -50,9 +50,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="elements-dropdowns.html">
+                        <a href="{{route('emplyoee')}}">
                             <i class="metismenu-icon">
-                            </i>Dropdowns
+                            </i>    Emplyoee
                         </a>
                     </li>
                     <li>

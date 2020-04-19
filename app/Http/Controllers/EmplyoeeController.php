@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Entreprise;
-
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+use App\Employee;
 use Illuminate\Http\Request;
 
 class EmplyoeeController extends Controller
@@ -14,7 +13,8 @@ class EmplyoeeController extends Controller
      */
     public function index()
     {
-        //
+        $emplyoees = Employee::all();
+      return view('emplyoee.index', compact('emplyoees'));
     }
 
     /**

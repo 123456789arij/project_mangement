@@ -173,18 +173,17 @@
                                     </button>
                                     {{--                                    button show--}}
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                        <a href="{{route('client.show', $client->id) }})}}">
+                                        <a href="{{route('client.show',['id' => $client->id]) }})}}">
                                             <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
                                     {{--                                    button delete--}}
-                                    <form action="{{ route('client.destroy',$client->id) }}" method="post">.
+                                    <form action="{{route('client.destroy',['id' => $client->id])}}" method="post" class="delete-confirm">
                                         @csrf
                                         @method('DELETE')
-                                        <a href="/clientdestroy"
-                                           class="mr-2 btn-icon btn-icon-only btn btn-outline-danger  delete-confirm">
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                                             <i class="pe-7s-trash btn-icon-wrapper" style="font-size: 20px;"> </i>
-                                        </a>
+                                        </button>
                                     </form>
                                 </td>
 
@@ -221,19 +220,61 @@
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $('.delete-confirm').on('click', function (event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
+/*
+
+        $(document).on('click', '.delete-confirm', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
             swal({
-                title: 'Are you sure?',
-                text: 'This record and it`s details will be permanantly deleted!',
-                icon: 'warning',
-                buttons: ["Cancel", "Yes!"],
-            }).then(function (value) {
-                if (value) {
-                    window.location.href = url;
-                }
-            });
+                    title: "Are you sure!",
+                    type: "error",
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes!",
+                    showCancelButton: true,
+                },
+                function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{url('/destroy')}}",
+                        data: {id:id},
+                        success: function (data) {
+                            //
+                        }
+                    });
+                });
         });
+*/
+
+
+
+
+
+
+
+
+         /*   $('.delete-confirm').on('click', function () {
+                // return confirm('Are you sure want to delete?');
+                event.preventDefault();//this will hold the url
+                swal({
+                    title: "Are you sure?",
+                    text: "Once clicked, this will be softdeleted!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            swal("Done! category has been softdeleted!", {
+                                icon: "success",
+                                button: false,
+                            });
+                            location.reload(true);//this will release the event
+                        } else {
+                            swal("Your imaginary file is safe!");
+                        }
+                    });
+            });
+*/
+
     </script>
 @endsection

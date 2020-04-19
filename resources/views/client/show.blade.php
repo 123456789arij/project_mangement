@@ -40,7 +40,7 @@
                         <thead>
                         <tr>
 
-                            <th class="text-center">id</th>
+                            <th class="text-center">#</th>
                             <th class="text-center">nom du client</th>
                             {{--                            <th class="text-center">nom de l'entreprise</th>--}}
                             <th class="text-center">EMAIL</th>
@@ -57,15 +57,15 @@
                                     <td class="text-center text-muted">
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
-                                          <div class="widget-content-left mr-3">
+                                       {{--   <div class="widget-content-left mr-3">
                                                       <div class="widget-content-left">
                                                              img
                                                       </div>
-                                                  </div>
+                                                  </div>--}}
                                                 <div class="widget-content-left flex2">
                                                     <div class="widget-heading">
                                                         {{ $client->name }}   </div>
-                                                    <div class="widget-subheading opacity-7">Web Developer</div>
+{{--                                                    <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +74,6 @@
                                     <td class="text-center">
                                         <div class="badge badge-warning">{{ $client->created_at }}</div>
                                     </td>
-
                                 </tr>
                             </tbody>
                     </table>
