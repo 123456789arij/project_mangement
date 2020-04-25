@@ -28,7 +28,6 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //Todo enlever $users
         return view('client.create');
     }
 
@@ -45,7 +44,6 @@ class ClientController extends Controller
             'email' => 'required',
             'password' => 'required', 'string', 'min:6',
         ]);
-//        $user= User::find(1);
         $client = new Client();
         $client->name = $request->input('name');
         $client->email = $request->input('email');
@@ -57,8 +55,6 @@ class ClientController extends Controller
         $client->facebook = $request->input('facebook');
         $client->user_id = Auth::user()->id;
         $client->save();
-        $client->save();
-
         return redirect()->route('client.index')->with('toast_success', 'client is successfully saved');
     }
 
@@ -71,8 +67,13 @@ class ClientController extends Controller
     public function show($id)
     {
 //todo verifier si le client  appartient au entreprise connecté
+
+//        $client = Client::findOrFail($id);
+//        return view('client.show', compact('client'));
         $client = Client::findOrFail($id);
-        return view('client.show', compact('client'));
+        if ($client->user_id == auth()->id()) {
+            return view('client.show', compact('client'));
+        }
     }
 
     /**
@@ -85,7 +86,9 @@ class ClientController extends Controller
     {
         //meme test que show
         $client = Client::find($id);
-        return view('client.edit', compact('client'));
+        if ($client->user_id == auth()->id()) {
+            return view('client.edit', compact('client'));
+        }
     }
 
     /**

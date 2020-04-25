@@ -118,25 +118,25 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                  @if(session()->get('success'))
-                               <div class="alert alert-success">
-                                   {{ session()->get('success') }}
-                               </div><br />
-                           @endif
+                @if(session()->get('success'))
+                    <div class="alert alert-success">
+                        {{ session()->get('success') }}
+                    </div><br/>
+                @endif
 
                 <div class="card-header">Employees
                 </div>
-                      <br>
+                <br>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
                            class="display">
                         <thead class="text-center">
                         <tr>
-                            <th scope="col">id </th>
+                            <th scope="col">id</th>
                             <th scope="col">nom</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
-                            <th scope="col">ACTIONS </th>
+                            <th scope="col">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -146,11 +146,12 @@
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
-                                            {{--  <div class="widget-content-left mr-3">
-                                                  <div class="widget-content-left">
-                                                         img
-                                                  </div>
-                                              </div>--}}
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img src="{{asset($emplyoee->image)}}" class="rounded-circle"
+                                                         height="30px" width="30px" alt="im"/>
+                                                </div>
+                                            </div>
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading">
                                                     {{ $emplyoee->name }}   </div>
@@ -161,7 +162,7 @@
                                 </td>
                                 <td class="text-center"> {{ $emplyoee->email }}</td>
                                 <td class="text-center">
-                                    <div class="badge badge-warning">{{ $emplyoee->role }}</div>
+                                    <div class="text-center">{{ $emplyoee->role }}</div>
                                 </td>
                                 <td class="text-center" id="crud_btn">
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
@@ -170,13 +171,14 @@
                                         </a>
                                     </button>
                                     {{--                                    button show--}}
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outlbkshlerin@example.comine-info">
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
                                         <a href="{{route('emplyoee.show', $emplyoee->id) }})}}">
                                             <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
                                     {{--                                    button delete--}}
-                                    <form action="{{route('emplyoee.destroy',$emplyoee->id)}}" method="post" class="delete-confirm">
+                                    <form action="{{route('emplyoee.destroy',$emplyoee->id)}}" method="post"
+                                          class="delete-confirm">
                                         @csrf
                                         @method('DELETE')
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
@@ -186,18 +188,13 @@
                                 </td>
 
                             </tr>
-
-
                         @endforeach
                         </tbody>
                     </table>
-
-              {{--      <footer class="card-footer" style="float: right">
-
+                    <footer class="card-footer" style="float: right">
                         {{ $emplyoees->links() }}
-                    </footer>--}}
+                    </footer>
                 </div>
-
             </div>
         </div>
     </div>
@@ -216,63 +213,46 @@
             });
         });
     </script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    //sweet alert cdn
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
-/*
+        $(document).ready(function () {
 
-        $(document).on('click', '.delete-confirm', function (e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            swal({
-                    title: "Are you sure!",
-                    type: "error",
-                    confirmButtonClass: "btn-danger",
-                    confirmButtonText: "Yes!",
-                    showCancelButton: true,
-                },
-                function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{url('/destroy')}}",
-                        data: {id:id},
-                        success: function (data) {
-                            //
+            $("body").on("click", "#deleteCompany", function (e) {
+
+                if (!confirm("Do you really want to do this?")) {
+                    return false;
+                }
+
+                e.preventDefault();
+                var id = $(this).data("id");
+                // var id = $(this).attr('data-id');
+                var token = $("meta[name='csrf-token']").attr("content");
+                var url = e.target;
+
+                $.ajax(
+                    {
+                        url: url.href, //or you can use url: "company/"+id,
+                        type: 'DELETE',
+                        data: {
+                            _token: token,
+                            id: id
+                        },
+                        success: function (response) {
+
+                            $("#success").html(response.message)
+
+                            Swal.fire(
+                                'Remind!',
+                                'Company deleted successfully!',
+                                'success'
+                            )
                         }
                     });
-                });
-        });
-*/
-
-
-
-
-
-
-
-
-         /*   $('.delete-confirm').on('click', function () {
-                // return confirm('Are you sure want to delete?');
-                event.preventDefault();//this will hold the url
-                swal({
-                    title: "Are you sure?",
-                    text: "Once clicked, this will be softdeleted!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            swal("Done! category has been softdeleted!", {
-                                icon: "success",
-                                button: false,
-                            });
-                            location.reload(true);//this will release the event
-                        } else {
-                            swal("Your imaginary file is safe!");
-                        }
-                    });
+                return false;
             });
-*/
 
+
+        });
     </script>
 @endsection

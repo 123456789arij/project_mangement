@@ -18,7 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//Employee login
+Route::prefix('employee')->group(function () {
+    Route::get('/login', 'Auth\EmployeeController@showLoginForm')->name('employee.login');
+    Route::post('/login', 'Auth\EmployeeController@login')->name('employee.login.submit');
+    Route::post('logout/', 'Auth\EmployeeController@logout')->name('employee.logout');
 
+    Route::group(['middleware' => 'auth.employee'], function () {
+//        Route::get('/dashborad', 'employee\DashboradController@index')->name('employee.dashborad');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::prefix('clients')->group(function () {
@@ -39,6 +48,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/{project}/edit', 'ProjectController@edit')->name('project.edit');
         Route::patch('/{project}', 'ProjectController@update')->name('project.update');
         Route::delete('/{id}', 'ProjectController@destroy')->name('project.destroy');
+
+        Route::get('/membre/{id}', 'ProjectController@afficher_membre_projet')->name('membre_projet');
+        Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
+
+
     });
     //task
     Route::prefix('tasks')->group(function () {
@@ -62,7 +76,7 @@ Route::middleware('auth')->group(function () {
     });
     //emplyoee
     Route::prefix('emplyoee')->group(function () {
-        Route::get('/', 'EmplyoeeController@index')->name('emplyoee');
+        Route::get('/', 'EmplyoeeController@index')->name('emplyoee.index');
         Route::get('/create', 'EmplyoeeController@create')->name('emplyoee.create');
         Route::post('/store', 'EmplyoeeController@store')->name('emplyoee.store');
         Route::get('/{emplyoee}', 'EmplyoeeController@show')->name('emplyoee.show');
@@ -71,13 +85,16 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', 'EmplyoeeController@destroy')->name('emplyoee.destroy');
     });
     //Category
-    Route::get('category', 'entreprise\CategoryController@index')->name('category');
-    Route::get('category/create', 'entreprise\CategoryController@create')->name('category.create');
-    Route::post('category/store', 'entreprise\CategoryController@store')->name('category.store');
-    Route::get('show/{category}', 'entreprise\CategoryController@show')->name('category.show');
-    Route::get('category/{category}/edit', 'entreprise\CategoryController@edit')->name('category.edit');
-    Route::patch('category/{category}', 'entreprise\CategoryController@update')->name('category.update');
-    Route::delete('/categorydestroy/{id}', 'entreprise\CategoryController@destroy')->name('category.destroy');
+    Route::prefix('category')->group(function () {
+    Route::get('/', 'CategoryController@index')->name('category');
+    Route::get('/create', 'CategoryController@create')->name('category.create');
+    Route::post('/store', 'CategoryController@store')->name('category.store');
+    Route::get('/{category}', 'CategoryController@show')->name('category.show');
+    Route::get('/{category}/edit', 'CategoryController@edit')->name('category.edit');
+    Route::patch('/{category}', 'CategoryController@update')->name('category.update');
+    Route::delete('/{id}', 'CategoryController@destroy')->name('category.destroy');
+    });
+
 });
 
 

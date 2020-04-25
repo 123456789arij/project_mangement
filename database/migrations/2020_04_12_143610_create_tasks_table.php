@@ -23,7 +23,7 @@ class CreateTasksTable extends Migration
             $table->date('end_date');
             $table->longText('description');
             $table->tinyInteger('priority');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

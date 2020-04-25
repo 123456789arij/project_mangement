@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Client;
+use App\Employee;
+use App\File;
 use App\Project;
+use App\Projet;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -40,8 +44,9 @@ class ProjectController extends Controller
 
         //todo just your clients
         $categories = Category::all();
+        $file=File::all();
         $clients = auth()->user()->clients;
-        return view('project.create', compact('clients', 'categories'));
+        return view('project.create', compact('clients', 'categories','file'));
     }
 
 
@@ -72,7 +77,22 @@ class ProjectController extends Controller
         $project->deadline = $request->input('deadline');
         $project->category_id = $request->input('category_id');
         $project->client_id = $request->input('client_id');
+        $files = $request->file('file');
+
         $project->save();
+      dd($files);
+        if ($files) {
+
+            $destinationPath = '/files/';
+            $file_doc = time() . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('files'), $file_doc);
+
+            $file = new File();
+            $file->path = $destinationPath . $file_doc;
+            dd($request->file('file'));
+            $project->fileable($file)->save();
+        }
+
         return redirect()->route('project')->with('toast_success', ' projet  is successfully saved');
     }
 
@@ -138,4 +158,33 @@ class ProjectController extends Controller
         $project->delete();
         return redirect()->route('project')->with('success', 'produit is successfully deleted');
     }
+
+    public function afficher_membre_projet()
+    {
+        $projet = Project::findOrfail(2);
+        $membres=$projet->employees;
+        $employees = Employee::all();
+        return view('project.membre', compact('employees','membres'));
+    }
+
+    public function membre_projet(Request $request)
+    {
+        $emplyeeIds = $request->input('employee_id');
+        $projetId = $request->input('project_id');
+        $projet = Project::findOrfail(2);
+        $projet->employees()->sync($emplyeeIds);
+        return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

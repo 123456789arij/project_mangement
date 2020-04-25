@@ -1,5 +1,6 @@
 @extends('layouts.base')
 @section('cssBlock')
+    <link rel="stylesheet" type="text/css" href="{{asset('dropzone/dist/min/dropzone.min.css')}}">
 @endsection
 
 @section('content')
@@ -149,6 +150,7 @@
                                         <label for="description"><strong> Déscription du projet </strong></label>
                                         <textarea id="textarea" name="description"></textarea>
                                     </div>
+                                 <input type="file" name="file"  class="dropzone" id="dropzone">
 
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
@@ -191,4 +193,6 @@
         //      tinymce.activeEditor.execCommand('mceFullScreen');
 
     </script>
+    <!-- JS -->
+    <script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>
 @endsection

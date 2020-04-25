@@ -175,10 +175,9 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="mr-2 btn-icon btn-icon-only ">
-                                        {{--  <a href="{{route('afficher_membre_projet',$project->id)}}">
+                                     <a href="{{route('membre_projet',['id' => $project->id])}}">
 
-                                          </a>--}}
-                                        <i class=" pe-7s-plus" style="font-size: 20px;"></i>
+                                        <i class=" pe-7s-plus" style="font-size: 20px;"></i>  </a>
                                     </button>
                                     {{--           {{ $projet->description }}--}}
                                 </td>
@@ -257,4 +256,5 @@
             });
         });
     </script>
+
 @endsection

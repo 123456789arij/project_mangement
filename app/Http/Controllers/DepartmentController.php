@@ -15,7 +15,6 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //todo
         $departments = Department::where('user_id', auth()->user()->id)->simplePaginate(5);
         return view('department.index', compact('departments'));
     }
@@ -92,8 +91,7 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-        $department = Department::findOrFail($id);
-        $department->delete();
+        Department::where('user_id', auth()->user()->id)->findorfail($id)->delete();
         return redirect()->route('department')->with('success', 'department is successfully deleted');
     }
 }

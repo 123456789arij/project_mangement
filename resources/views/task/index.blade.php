@@ -21,7 +21,7 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
+                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                          <span class="btn-icon-wrapper pr-2 opacity-7">
                               <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                           </span>
@@ -147,7 +147,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="">{{ $task->project_id}}</a></td>
+                                    <a href="">{{ $task->project->name}}</a></td>
 
 
                                 <td style="color: tomato;font-size: 15px;">
@@ -174,18 +174,13 @@
 
                                     </form>
                                 </td>
-
                             </tr>
-
-
                         @endforeach
                         </tbody>
                     </table>
-
-                    {{--      <footer class="card-footer" style="float: right">
-
-                              {{ $projets->links() }}
-                          </footer>--}}
+                    <footer class="card-footer" style="float: right">
+                        {{ $tasks->links() }}
+                    </footer>
                 </div>
 
             </div>

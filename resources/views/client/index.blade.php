@@ -48,8 +48,7 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Total Des Employés</div>
-                            <div class="widget-subheading">Last year expenses</div>
+                            <div class="widget-heading">Total Des Clients</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success"></div>
@@ -161,7 +160,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center"> {{ $client->email }}</td>
-                                <td class="text-center"> {{ $client->user_id}}</td>
+                                <td class="text-center"> {{ $client->user->name}}</td>
                                 <td class="text-center">
                                     <div class="badge badge-warning">{{ $client->created_at }}</div>
                                 </td>

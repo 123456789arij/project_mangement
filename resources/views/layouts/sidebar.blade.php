@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('emplyoee')}}">
+                        <a href="{{route('emplyoee.index')}}">
                             <i class="metismenu-icon">
                             </i>    Emplyoee
                         </a>
