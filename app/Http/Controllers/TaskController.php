@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\File;
 use App\Project;
-use App\Projet;
 use App\Task;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -20,9 +20,9 @@ class TaskController extends Controller
     {
         $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
             $query->whereHas('client', function (Builder $query) {
-                $query->where('id', auth()->user()->id);
+                $query->where('user_id', auth()->user()->id);
             });
-        })->paginate(3);
+        })->paginate(5);
         return view('task.index', compact('tasks'));
 
     }
@@ -59,6 +59,7 @@ class TaskController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'priority' => 'required',
+            'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
         ]);
 
         $task = new Task();
@@ -67,15 +68,24 @@ class TaskController extends Controller
         $task->start_date = $request->input('start_date');
         $task->end_date = $request->input('end_date');
         $task->priority = $request->input('priority');
-    //TODO STATUS CHANGER DANS DB
+        //TODO STATUS CHANGER DANS DB
         $task->status = 0;
         $task->project_id = $request->input('project_id');
-        $emplyeeIds = $request->input('ids');
 
+
+        $emplyeeIds = $request->input('ids');
         $task->save();
         $task->employees()->sync($emplyeeIds);
-//        $emplyoee = Employee::find([3, 4]);
-//        $task->emplyoees()->attach( $emplyoee);
+
+        if ($files = $request->file('file')) {
+
+            $destinationPath = '/files/';
+            $file_doc = time() . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('files'), $file_doc);
+            $file = new File();
+            $file->path = $destinationPath . $file_doc;
+            $task->files()->save($file);
+        }
         return redirect()->route('task')->with('toast_success', 'task  is successfully saved');
     }
 
@@ -98,8 +108,14 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
+        $projects = Project::whereHas('client', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+        $employees = Employee::whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
         $task = Task::find($id);
-        return view('task.edit', compact('project'));
+        return view('task.edit', compact('task', 'projects', 'employees'));
     }
 
     /**
@@ -127,7 +143,9 @@ class TaskController extends Controller
         $task->priority = $request->input('priority');
         $task->status = $request->input('status');
         $task->project_id = $request->input('project_id');
+        $emplyeeIds = $request->input('ids');
         $task->save();
+        $task->employees()->sync($emplyeeIds);
         return redirect()->route('task')->with('toast_success', 'task is successfully updated');
     }
 
@@ -143,4 +161,30 @@ class TaskController extends Controller
         $task->delete();
         return redirect()->route('task')->with('success', 'task is successfully deleted');
     }
+
+    public function itemView()
+    {
+        $panddingItem = Task::where('status',0)->get();
+        $completeItem = Task::where('status',1)->get();
+
+        return view('task.dragAndDroppable',compact('panddingItem','completeItem'));
+    }
+
+    public function updateItems(Request $request)
+    {
+        $input = $request->all();
+
+        foreach ($input['panddingArr'] as $key => $value) {
+            $key = $key+1;
+           Task::where('id',$value)->update(['status'=>0,'order'=>$key]);
+        }
+
+        foreach ($input['completeArr'] as $key => $value) {
+            $key = $key+1;
+            Task::where('id',$value)->update(['status'=>1,'order'=>$key]);
+        }
+
+        return response()->json(['status'=>'success']);
+    }
+
 }

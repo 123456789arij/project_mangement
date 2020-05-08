@@ -26,7 +26,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('department.create');
+        $departement = auth()->user()->id;
+        return view('department.create', compact('departement'));
     }
 
     /**
@@ -39,14 +40,12 @@ class DepartmentController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'user_id' => 'required',
-
         ]);
         $department = new Department();
         $department->name = $request->input('name');
-        $department->user_id = $request->input('user_id');
+        $department->user_id = auth()->user()->id;
         $department->save();
-        return redirect()->route('department')->with('toast_success', ' projet  is successfully saved');
+        return redirect()->route('department')->with('toast_success', 'department is successfully saved');
     }
 
     /**
@@ -68,7 +67,8 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $department = Department::find($id);
+        return view('department.edit', compact('department'));
     }
 
     /**
@@ -80,7 +80,14 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $department = Department::findorfail($id);
+        $department->name = $request->input('name');
+        $department->user_id = auth()->user()->id;
+        $department->save();
+        return redirect()->route('department')->with('sucess', 'department is successfully updated');
     }
 
     /**

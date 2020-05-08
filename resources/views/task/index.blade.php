@@ -1,5 +1,7 @@
 @extends('layouts.base')
+@section('cssBlock')
 
+@endsection
 @section('content')
 
     {{-- app-page-title--}}
@@ -117,10 +119,11 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tâche</th>
-                            <th scope="col">projet</th>
-                            <th scope="col">Dedline</th>
-                            <th scope="col">Statut</th>
+                            <th scope="col">{{ __('messages.tasks') }}</th>
+                            <th scope="col">{{ __('messages.projects') }}</th>
+                            <th scope="col">{{ __('messages.assigned to') }}</th>
+                            <th scope="col">{{ __('messages.due date') }}</th>
+                            <th scope="col">{{ __('messages.status') }}</th>
                             <th colspan="2">Action</th>
 
                         </tr>
@@ -148,23 +151,33 @@
                                 </td>
                                 <td>
                                     <a href="">{{ $task->project->name}}</a></td>
+                                <td>
+                                    @foreach($task->employees as $employee)
+                                        <div  style="display:inline-block">
+                                            <img src="{{asset($employee->image)}}" class="rounded-circle"
+                                                 height="25px" width="25px" alt="im"/>
+                                        </div>
+                                    @endforeach
+                                </td>
 
-
-                                <td style="color: tomato;font-size: 15px;">
+                                <td style="color: green;font-size: 15px;">
                                     {{$task->end_date }}
                                 </td>
 
-
+                                <td style="color: tomato;font-size: 15px;">
+                                   @if($task->status ==1)
+                                        <span class="badge badge-success"> terminé</span>
+                                     @else
+                                        <span class="badge badge-danger">  incomplete</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
                                         <a href="{{route('task.edit',$task->id)}}">
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
-                                </td>
 
-
-                                <td>
                                     <form action="{{route('task.destroy',$task->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')

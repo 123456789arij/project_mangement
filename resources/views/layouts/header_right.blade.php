@@ -23,7 +23,7 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{route('logout') }}" method="POST" style="display: none;font-size: 20px;">
+                                <form id="logout-form" action="{{auth()->guard("employee")->check()? route('employee.logout'):route('logout') }}" method="POST" style="display: none;font-size: 20px;">
                                     @csrf
                                 </form>
                             </button>

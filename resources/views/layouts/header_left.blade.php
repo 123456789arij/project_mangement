@@ -25,5 +25,30 @@
                 Settings
             </a>
         </li>
-    </ul>        </div>
+    </ul>
+</div>
+
+
+{{--<select class="selectpicker">
+    <option>Mustard</option>
+    <option>Ketchup</option>
+
+</select>--}}
+<!-- Right Side Of Navbar -->
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false" v-pre>
+            Language <span class="caret"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ url('locale/en') }}">
+                <img src="{{asset('us.png')}}" style="position: relative;
+    display: inline-block;
+    line-height: 1em;" width="30px" height="30x"></a>
+            <a class="dropdown-item" href="{{ url('locale/fr') }}"><img src="{{asset('fr.png')}}" width="30px"
+                                                                        height="30x"></a>
+        </div>
+    </li>
+</ul>
 

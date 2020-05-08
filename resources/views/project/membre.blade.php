@@ -46,7 +46,7 @@
                                 class="active nav-link {{request()->is('')? 'active':null }}"
                                 href="">Projet</a>
                         </li>--}}
-                        <li class="nav-item"><a >Membre</a>
+                        <li class="nav-item"><a>Membre</a>
                         </li>
                         <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> Tache</a>
                         </li>
@@ -90,18 +90,17 @@
                                         @foreach($membres as $employee)
                                             <tr>
                                                 <th scope="row">{{$employee->name}}</th>
-                                                <td></td>
                                                 <td class="text-center">
-                                         {{--           <form action="{{ route('destroy_membre',$employee->id) }}"
-                                                          method="post">.
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                                            <i class="pe-7s-trash btn-icon-wrapper"
-                                                               style="font-size: 20px;"> </i></button>
+                                           {{--       <form action="{{ route('destroy_membre',$employee->id) }}"
+                                                                     method="post">.
+                                                                   @csrf
+                                                                   @method('DELETE')
+                                                                   <button
+                                                                       class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+                                                                       <i class="pe-7s-trash btn-icon-wrapper"
+                                                                          style="font-size: 20px;"> </i></button>
 
-                                                    </form>--}}
+                                                               </form>--}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -112,6 +111,7 @@
                                     <h2>Ajouter les Membre du projets </h2>
                                     <form method="POST" action="{{route('membre')}}">
                                         @csrf
+                                        <input type="hidden" name="project_id" value="{{$projet->id}}" >
                                         <select class="mb-2 form-control-lg form-control" name="employee_id[]" multiple>
                                             @foreach($employees as $employee)
                                                 <option

@@ -1,5 +1,12 @@
 @extends('layouts.base')
-
+@section('cssBlock')
+    <style>
+        #name{
+            text-transform: capitalize;
+            text-align: justify;
+        }
+    </style>
+@endsection
 @section('content')
     {{-- app-page-title--}}
     <div class="app-page-title">
@@ -10,7 +17,7 @@
                     <i class="pe-7s-car icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div> Départment
+                <div>{{ __('messages.departments') }}
                     {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                             elements and components
                         </div>--}}
@@ -39,8 +46,8 @@
                 <div class="widget-content-outer">
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Total Des Employés</div>
-                            <div class="widget-subheading">Last year expenses</div>
+                            <div class="widget-heading">Total Départment</div>
+                            {{--                            <div class="widget-subheading">Last year expenses</div>--}}
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success"></div>
@@ -109,7 +116,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Départment
+                <div class="card-header">{{ __('messages.departments') }}
 
                 </div>
                 <div class="table-responsive container">
@@ -117,22 +124,22 @@
                         <thead>
                         <tr class="text-center">
                             <th scope="col">id</th>
-                            <th scope="col">Départment</th>
+                            <th scope="col" style="text-align: justify"> {{ __('messages.departments') }}</th>
                             <th colspan="2">Action</th>
 
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="container text-center">
                         @foreach($departments as $department)
                             <tr>
-                                <td class="text-center text-muted">
+                                <td class="text-muted">
                                     {{ $department->id }}
                                 </td>
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left flex2">
-                                                <div class="widget-heading">
+                                                <div class="widget-heading" id="name">
                                                     {{ $department->name }}
                                                 </div>
                                             </div>

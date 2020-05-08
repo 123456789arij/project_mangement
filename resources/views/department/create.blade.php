@@ -41,7 +41,7 @@
             <div class="main-card mb-3 card">
 
                 <div class="card-header">
-                    Ajouter une nouvelle category du projet
+                    Ajouter Un Nouveau Département
                 </div>
 
                 <div class="tab-content">
@@ -50,7 +50,7 @@
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
                                 <form method="POST" action="{{ route('department.store') }}">
-                                    {{--  partie email +adresse--}}
+                                    {{--  Nom du Département--}}
                                     <div class="form-row">
                                         @csrf
                                         <div class="col-12 ">
@@ -60,21 +60,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="form-row">
-                                        <div class="col-12">
-                                            <div class="position-relative form-group">
-                                                <label>Sélectionnez un Employée</label>
-                                              {{--  <select class="mb-2 form-control-lg form-control" name="client_id">
-                                                    @foreach($clients as $client)
-                                                        <option
-                                                            value="{{$client->id}}"> {{$client->name}} </option>
-                                                    @endforeach
-                                                </select>--}}
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                                             <i class="pe-7s-trash btn-icon-wrapper"> </i></button>

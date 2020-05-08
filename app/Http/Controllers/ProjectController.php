@@ -7,8 +7,8 @@ use App\Client;
 use App\Employee;
 use App\File;
 use App\Project;
-use App\Projet;
-use Carbon\Carbon;
+
+
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -26,13 +26,15 @@ class ProjectController extends Controller
               ->where('clients.user_id', auth()->user()->id)
               ->select('projects.*')
               ->get();*/
-        $projects = Project::whereHas('client', function (Builder $query) {
+
+        $projects = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->user()->id);
             });
-        })->get();
+        })->paginate(5);
         return view('project.index', compact('projects'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -44,9 +46,9 @@ class ProjectController extends Controller
 
         //todo just your clients
         $categories = Category::all();
-        $file=File::all();
+        $file = File::all();
         $clients = auth()->user()->clients;
-        return view('project.create', compact('clients', 'categories','file'));
+        return view('project.create', compact('clients', 'categories', 'file'));
     }
 
 
@@ -58,7 +60,6 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //todo upload file
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -67,6 +68,7 @@ class ProjectController extends Controller
             'start_date' => 'required|date',
             'deadline' => 'required|date|after_or_equal:start_date',
             'client_id' => 'required',
+            'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
         ]);
 
         $project = new Project();
@@ -77,20 +79,15 @@ class ProjectController extends Controller
         $project->deadline = $request->input('deadline');
         $project->category_id = $request->input('category_id');
         $project->client_id = $request->input('client_id');
-        $files = $request->file('file');
-
         $project->save();
-      dd($files);
-        if ($files) {
+        if ($files = $request->file('file')) {
 
             $destinationPath = '/files/';
             $file_doc = time() . "." . $files->getClientOriginalExtension();
             $files->move(public_path('files'), $file_doc);
-
             $file = new File();
             $file->path = $destinationPath . $file_doc;
-            dd($request->file('file'));
-            $project->fileable($file)->save();
+            $project->files()->save($file);
         }
 
         return redirect()->route('project')->with('toast_success', ' projet  is successfully saved');
@@ -113,12 +110,22 @@ class ProjectController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
         $categories = Category::all();
         //todo your client
-        $clients = Client::all();
-        return view('project.edit', compact('project', 'categories', 'clients'));
+//        $clients = Client::whereHas('user', function (Builder $query) {
+//                $query->where('id', auth()->user()->id);
+//        })->get();
+        $project = Project::findorfail($id);
+
+
+        $clients = Client::with('projects')->whereHas('user', function (Builder $query) {
+            $query->where('id', auth()->user()->id);
+        })->get();
+
+
+        return view('project.edit', compact('project', 'clients', 'categories'));
     }
 
     /**
@@ -134,15 +141,21 @@ class ProjectController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
             'status' => 'required',
             'start_date' => 'required|date',
             'deadline' => 'required|date|after_or_equal:start_date',
-            'client_id' => 'required',
         ]);
         $project = Project::findOrFail($id);
-        $input = $request->all();
-        $project->fill($input)->save();
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->start_date = $request->input('start_date');
+        $project->deadline = $request->input('deadline');
+        $project->progress_bar = $request->input('my_range');
+        $project->status = $request->input('status');
+        $project->client_id = $request->input('client_id');
+        $project->category_id = $request->input('category_id');
+        $project->save();
+//        todo
         return redirect()->route('project')->with('toast_success', ' projet  is successfully saved');
     }
 
@@ -159,32 +172,36 @@ class ProjectController extends Controller
         return redirect()->route('project')->with('success', 'produit is successfully deleted');
     }
 
-    public function afficher_membre_projet()
+    public function afficher_membre_projet($id)
     {
-        $projet = Project::findOrfail(2);
-        $membres=$projet->employees;
-        $employees = Employee::all();
-        return view('project.membre', compact('employees','membres'));
+        $projet = Project::findOrfail($id);
+        $membres = $projet->employees;
+        $employees = Employee::whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+        return view('project.membre', compact('employees', 'membres', 'projet'));
     }
 
     public function membre_projet(Request $request)
     {
         $emplyeeIds = $request->input('employee_id');
         $projetId = $request->input('project_id');
-        $projet = Project::findOrfail(2);
+        $projet = Project::findOrfail($projetId);
         $projet->employees()->sync($emplyeeIds);
         return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
     }
 
+    public function destroy_membre($employee_id)
+    {
+//      $project = Project::findOrFail(1);
+//        $project->employees()->detach($employee_id);
+//       $project->delete();
+//       $project->employees()->sync($employee_id);
+//        $user = App\User::find(1);
+//
+//        $user->roles()->attach($roleId);
 
-
-
-
-
-
-
-
-
-
+        return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
+    }
 
 }

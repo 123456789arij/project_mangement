@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class EmplyoeeController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,10 @@ class EmplyoeeController extends Controller
      */
     public function index()
     {
-        $emplyoees = Employee::whereHas('department', function (Builder $query) {
+        $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->paginate(5);
-        return view('emplyoee.index', compact('emplyoees'));
+        return view('employee.index', compact('employees'));
 
     }
 
@@ -31,12 +31,8 @@ class EmplyoeeController extends Controller
      */
     public function create()
     {
-    /*    if (Session('sucess')) {
-            toast('Employee is successfully saved', 'success');
-        }*/
-
         $departments = auth()->user()->departments;
-        return view('emplyoee.create', compact('departments'));
+        return view('employee.create', compact('departments'));
     }
 
     /**
@@ -78,7 +74,7 @@ class EmplyoeeController extends Controller
             $emplyoee->image = $destinationPath . $profileImage;
         }
         $emplyoee->save();
-        return redirect()->route('emplyoee.index')->with('sucess');
+        return redirect()->route('employee.index')->with('sucess');
     }
 
 
@@ -103,7 +99,9 @@ class EmplyoeeController extends Controller
     public
     function edit($id)
     {
-        //
+        $employee = Employee::find($id);
+        $departments= Department::find($id);
+        return view('employee.edit', compact('employee','departments'));
     }
 
     /**
@@ -116,7 +114,39 @@ class EmplyoeeController extends Controller
     public
     function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required', 'string', 'min:6',
+            'role' => 'required',
+            'gender' => 'required',
+            'joining_date' => 'required',
+            'department_id' => 'required',
+            'image' => 'image | mimes:jpeg,png,jpg,gif,svg | max:2048',
+
+        ]);
+
+
+        $employee = Employee::findOrFail($id);
+        $employee->name = $request->input('name');
+        $employee->email = $request->input('email');
+        $employee->password = $request->input('password');
+        $employee->role = $request->input('role');
+        $employee->gender = $request->input('gender');
+        $employee->skills = $request->input('skills');
+        $employee->mobile = $request->input('mobile');
+        $employee->address = $request->input('address');
+        $employee->joining_date = $request->input('joining_date');
+        $employee->department_id = $request->input('department_id');
+        if ($files = $request->file('image')) {
+//       dd(request()->all());
+            $destinationPath = '/images/';
+            $profileImage = time() . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $employee->image = $destinationPath . $profileImage;
+        }
+        $employee->save(); //persist the data
+        return redirect()->route('employee.index')->with('toast_success', 'employee is successfully updated');
     }
 
     /**
@@ -128,8 +158,8 @@ class EmplyoeeController extends Controller
     public
     function destroy($id)
     {
-        $emplyoee = Employee::findOrFail($id);
-        $emplyoee->delete();
-        return redirect()->route('emplyoee.index')->with('success', 'emplyoee is successfully deleted');
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+        return redirect()->route('employee.index')->with('success', 'employee is successfully deleted');
     }
 }

@@ -74,6 +74,23 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
+        /*bordure de adresse*/
+        .purple-border textarea {
+            border: 1px solid #ba68c8;
+        }
+
+        .purple-border .form-control:focus {
+            border: 1px solid #ba68c8;
+            box-shadow: 0 0 0 0.2rem rgba(186, 104, 200, .25);
+        }
+
+        .green-border-focus .form-control:focus {
+            border: 1px solid #8bc34a;
+            box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+        }
+
+        /* /bordure de adresse*/
     </style>
 @endsection
 
@@ -133,17 +150,20 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('emplyoee.store') }}" class="container"
+                                <form method="POST" action="{{ route('employee.update',$employee->id) }}"
+                                      class="container"
                                       enctype="multipart/form-data">
-                                    {{ csrf_field() }}
+                                    @csrf
+                                    @method('PATCH')
                                     {{--                                      upload image--}}
                                     <div class="form-row">
                                         <div class="col-md-4" id="im">
                                             <div class="avatarContainer">
-                                                <label> Image Upload</label>
+                                                <label for="image"> Image Upload</label>
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit">
-                                                        <input type='file' name="image" value="{{ old('image') }}"
+                                                        <input type='file' name="image"
+                                                               value="{{$employee->image}}"
                                                                id="imageUpload"/>
                                                         <label for="imageUpload"></label>
                                                     </div>
@@ -160,13 +180,15 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="name"> NOM </label>
-                                                <input type="text" class="form-control" id="name" name="name" required>
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                       value="{{$employee->name }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="email">Email</label>
                                                 <input type="email" class="form-control" id="email" name="email"
+                                                       value="{{$employee->email }}"
                                                        class="@error('email', 'login') is-invalid @enderror" required>
                                                 @error('email', 'login')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -190,6 +212,7 @@
                                             <div class="position-relative form-group">
                                                 <label for="joining_date"> date d'inscription </label>
                                                 <input type="date" class="form-control" id="joining_date"
+                                                       value="{{$employee->joining_date}}"
                                                        name="joining_date">
                                             </div>
                                         </div>
@@ -198,12 +221,11 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="gender"> sex </label>
-                                                <select class="mb-2 form-control form-control" name="gender"
-                                                        id="projet_id">
-                                                    <option value="1" @if (old('gender')=="femme")  checked @endif >
+                                                <select class="mb-2 form-control form-control" name="gender">
+                                                    <option value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
                                                         femme
                                                     </option>
-                                                    <option value="2" @if (old('gender')=="homme")  checked @endif>
+                                                    <option value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
                                                         homme
                                                     </option>
                                                 </select>
@@ -214,16 +236,17 @@
 
 
                                     <div class="position-relative form-group">
-                                        <div class="col-12">
+                                        <div class="col-12 purple-border">
                                             <label for="address">Adresse</label>
-                                            <textarea name="address" id="exampleText" class="form-control">
-                                            </textarea>
+                                            <textarea name="address" rows="5" id="exampleText" class="form-control">
+                                          {{$employee->address}}  </textarea>
                                         </div>
                                     </div>
                                     <div class="position-relative form-group">
                                         <div class="col-12">
                                             <label for="skills">Compétence</label>
-                                            <input id="basic" type="text" name="skills" class="form-control">
+                                            <input id="basic" type="text" name="skills" class="form-control"
+                                                   value="{{$employee->skills}}">
                                         </div>
                                     </div>
                                     {{--  row role et departement--}}
@@ -234,16 +257,16 @@
                                             </label>
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" id="1" type="radio" name="role"
-                                                       value="1" @if (old('role')=="employee")  checked @endif >
+                                                       value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
                                                 <label class="custom-control-label" for="1">
                                                     Employée
                                                 </label>
                                             </div>
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" name="role" id="2"
-                                                       value="2" @if (old('role')=="admin")  checked @endif >
+                                                       value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
                                                 <label class="custom-control-label" for="2">
-                                                    Admin
+                                                    Chef de projet
                                                 </label>
                                             </div>
                                         </div>
@@ -251,48 +274,20 @@
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="department_id">
                                                 <label>Département</label>
-                                                <select class="mb-2 form-control-lg form-control"
-                                                        name="department_id">
-                                                    <option value="">Choose....</option>
+                                                {{--         <select class="mb-2 form-control-lg form-control"
+                                                                 name="department_id">
+                                                             <option value="">Choose....</option>
 
-                                                    @foreach( $departments as $department)
-                                                        <option
-                                                            value="{{$department->id}}"> {{$department->name}} </option>
-                                                    @endforeach
-                                                </select>
+                                                             @foreach( $departments as $department)
+                                                                 <option
+                                                                     value="{{$department->id}}"> {{$department->name}} </option>
+                                                             @endforeach
+                                                         </select>--}}
                                             </div>
                                         </div>
                                         {{--/departement--}}
                                     </div>
-                                    {{--  row role et departement--}}
-                                    {{-- image --}}
-                                    {{--      <div class="form-row">
-                                              <div class="col-md-12">
-                                                  <label for="image">File Select</label>
-                                                  <input type="file"
-                                                         class="form-control-file @error('image') is-invalid @enderror"
-                                                         name="image" id="image" value="{{ old('image') }}" name="image">
-                                              </div>
-                                          </div>--}}
 
-
-                                    {{--     <div class="row container">
-                                             <div class="small-12 medium-2 large-2 columns">
-                                                 <div class="circle">
-                                                     <!-- User Profile Image -->
-                                                     <img class="profile-pic"
-                                                          src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg">
-
-                                                     <!-- Default Image -->
-                                                     <!-- <i class="fa fa-user fa-5x"></i> -->
-                                                 </div>
-                                                 <div class="p-image">
-                                                     <i class="fa fa-camera upload-button"></i>
-                                                     <input class="file-upload" name="image" type="file" accept="image/*"/>
-                                                 </div>
-                                             </div>
-                                         </div>--}}
-                                    {{--/image --}}
                                     <br><br><br>
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">

@@ -33,7 +33,7 @@
                          <span class="btn-icon-wrapper pr-2 opacity-7">
                               <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                           </span>
-                        <a href="{{route('emplyoee.create')}}"
+                        <a href="{{route('employee.create')}}"
                            style="color: white;font-size: 15px;"> Ajouter un nouveau Employee </a>&nbsp;&nbsp;
                     </button>
                 </div>
@@ -124,60 +124,60 @@
                     </div><br/>
                 @endif
 
-                <div class="card-header">Employees
+                <div class="card-header">{{ __('messages.employees') }}
                 </div>
                 <br>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
                            class="display">
-                        <thead class="text-center">
+                        <thead>
                         <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">nom</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">ACTIONS</th>
+                            <th scope="col"  class="text-center">#</th>
+                            <th scope="col">{{ __('messages.name') }}</th>
+                            <th scope="col"  class="text-center">{{ __('messages.email') }}</th>
+                            <th scope="col"  class="text-center">{{ __('messages.role') }}</th>
+                            <th scope="col"  class="text-center">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($emplyoees as $emplyoee)
+                        @foreach($employees as $employee)
                             <tr>
-                                <td class="text-center text-muted"> {{ $emplyoee->id }}</td>
-                                <td class="text-center text-muted">
+                                <td class="text-center text-muted"> {{ $employee->id }}</td>
+                                <td>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left mr-3">
                                                 <div class="widget-content-left">
-                                                    <img src="{{asset($emplyoee->image)}}" class="rounded-circle"
-                                                         height="30px" width="30px" alt="im"/>
+                                                    <img src="{{asset($employee->image)}}" class="rounded-circle"
+                                                         height="40px" width="40px" alt="im"/>
                                                 </div>
                                             </div>
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading">
-                                                    {{ $emplyoee->name }}   </div>
-                                                {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
+                                                    {{$employee->name }}   </div>
+                                          <div class="widget-subheading opacity-7">Web Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center"> {{ $emplyoee->email }}</td>
+                                <td class="text-center"> {{ $employee->email }}</td>
                                 <td class="text-center">
-                                    <div class="text-center">{{ $emplyoee->role }}</div>
+                                    <div class="text-center">{{ $employee->role }}</div>
                                 </td>
                                 <td class="text-center" id="crud_btn">
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                        <a href="{{ route('emplyoee.edit', $emplyoee->id) }}">
+                                        <a href="{{ route('employee.edit', $employee->id) }}">
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
                                     {{--                                    button show--}}
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                        <a href="{{route('emplyoee.show', $emplyoee->id) }})}}">
+                                        <a href="{{route('employee.show', $employee->id) }})}}">
                                             <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
                                     {{--                                    button delete--}}
-                                    <form action="{{route('emplyoee.destroy',$emplyoee->id)}}" method="post"
+                                    <form action="{{route('employee.destroy',$employee->id)}}" method="post"
                                           class="delete-confirm">
                                         @csrf
                                         @method('DELETE')
@@ -192,7 +192,7 @@
                         </tbody>
                     </table>
                     <footer class="card-footer" style="float: right">
-                        {{ $emplyoees->links() }}
+                        {{ $employees->links() }}
                     </footer>
                 </div>
             </div>

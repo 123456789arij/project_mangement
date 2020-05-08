@@ -113,7 +113,7 @@
                                                 <label>Categorie du projet</label>
                                                 <select class="mb-2 form-control-lg form-control" name="category_id">
                                                     @foreach($categories as $category )
-                                                        <option> {{$category->name}} </option>
+                                                        <option value="{{$category->id}}"> {{$category->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -127,7 +127,7 @@
                                                 <label>Sélectionnez un client</label>
                                                 <select class="mb-2 form-control-lg form-control" name="client_id">
                                                     @foreach($clients as $client)
-                                                        <option> {{$client->name}} </option>
+                                                        <option   value="{{$client->id}}"> {{$client->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -138,7 +138,7 @@
                                         <div class="col-4">
                                             <div class="position-relative form-group">
                                                 <label for="start_date"> Date de début </label>
-                                                <input type="date" class="form-control" id="start_date"
+                                                <input type="date" class="form-control"
                                                        value="{{$project->start_date}}"
                                                        name="start_date">
                                             </div>
@@ -155,23 +155,23 @@
                                                 <label> L'état du projet </label>
                                                 <select class="mb-2 form-control form-control" name="status">
                                                     <option value="0"
-                                                            @if (old('status')=="pas encore commencé")  checked @endif >
+                                                        {{$project->status == '0' ? 'selected' : ''}}>
                                                         pas encore commencé
                                                     </option>
                                                     <option value="1"
-                                                            @if (old('status')=="en attente")  checked @endif>
+                                                        {{$project->status == '1' ? 'selected' : ''}}>
                                                         en attente
                                                     </option>
                                                     <option value="2"
-                                                            @if (old('status')=="en cour")  checked @endif>
+                                                        {{$project->status == '2' ? 'selected' : ''}}>
                                                         en cour
                                                     </option>
                                                     <option value="3"
-                                                            @if (old('status')=="annulé")  checked @endif>
+                                                        {{$project->status == '3' ? 'selected' : ''}}>
                                                         annulé
                                                     </option>
                                                     <option value="4"
-                                                            @if (old('status')=="fini")  checked @endif>
+                                                        {{$project->status == '4' ? 'selected' : ''}}>
                                                         fini
                                                     </option>
                                                 </select>
@@ -191,8 +191,7 @@
                                     <br>
                                     <div class="col">
                                         <label for="description"><strong> Déscription du projet </strong></label>
-                                        <textarea id="textarea" name="description"
-                                                  value="{{$project->description}}"></textarea>
+                                        <textarea id="textarea" name="description">{{$project->description}}</textarea>
                                     </div>
 
                                     <div class="d-block text-center card-footer">

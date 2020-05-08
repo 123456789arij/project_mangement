@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    {{--    <link href="https://transloadit.edgly.net/releases/uppy/v1.10.1/uppy.min.css" rel="stylesheet" >--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 @endsection
 
 @section('content')
@@ -65,13 +65,15 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('task.store') }}" class="container">
+                                <form method="POST" action="{{ route('task.store') }}" class="container"
+                                      enctype="multipart/form-data">
                                     {{--  partie email +adresse--}}
+                                    {{csrf_field()}}
                                     <div class="form-row">
-                                        @csrf
+
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label for="titre"> titre </label>
+                                                <label> Titre </label>
                                                 <input type="text" class="form-control" id="titre" name="titre"
                                                        required>
                                             </div>
@@ -103,32 +105,32 @@
                                         {{--                                    bouton radio--}}
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="priorite">
-                                                    <strong> priorité </strong>
+                                                <label>
+                                                    <strong> Priorité </strong>
                                                 </label>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
                                                            value="0"
-                                                           @if (old('priority')=="moyenne")  checked @endif >
+                                                           @if (old('priority')=="Medium")  checked @endif >
                                                     <label class="form-check-label">
-                                                        moyenne
+                                                        Medium
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
                                                            value="1"
-                                                           @if (old('priority')=="facile")  checked @endif >
+                                                           @if (old('priority')=="Low")  checked @endif >
                                                     <label class="form-check-label">
-                                                        facile
+                                                        Low
                                                     </label>
                                                 </div>
 
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
                                                            value="2"
-                                                           @if (old('priority') == "difficile") checked @endif >
+                                                           @if (old('priority') == "High") checked @endif >
                                                     <label class="form-check-label" for="exampleRadios3">
-                                                        difficile
+                                                        High
                                                     </label>
                                                 </div>
                                             </div>
@@ -140,24 +142,24 @@
                                         <div class="col-4">
                                             <div class="position-relative form-group">
                                                 <label for="start_date"> Date de début </label>
-                                                <input type="date" class="form-control" id="start_date"
+                                                <input type="date" class="form-control date"
                                                        name="start_date" required>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
                                                 <label for="end_date"> Date limite</label>
-                                                <input type="date" class="form-control" id="Deadline"
+                                                <input type="date" class="form-control date"
                                                        name="end_date" required>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
                                                 <label> Assigné à</label>
-                                                <select name="ids[]" multiple  class="mb-2 form-control-lg form-control">
-                                                @foreach($employees as $emplyoee)
-                                                             <option value="{{$emplyoee->id}}"> {{$emplyoee->name}} </option>
-                                                         @endforeach
+                                                <select name="ids[]" multiple class="mb-2 form-control-lg form-control">
+                                                    @foreach($employees as $emplyoee)
+                                                        <option value="{{$emplyoee->id}}"> {{$emplyoee->name}} </option>
+                                                    @endforeach
                                                 </select>
 
                                             </div>
@@ -175,12 +177,15 @@
                                     <br>
                                     <br>
                                     <div class="form-row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12" >
                                             <label for="image_name"> importer vos fichier :</label>
                                             {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
-                                            <input type="file" name="file_name"/>
+                                            <input type="file" name="file" />
+
                                         </div>
                                     </div>
+
+
                                     <br>
                                     <br>
                                     {{--                                    bouton radio--}}
@@ -216,6 +221,7 @@
 @endsection
 @section('jsBlock')
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/z16d94mf443baw8z854loin2821iav5xoeeauwqbzs789l2h/tinymce/5/tinymce.min.js"
@@ -231,19 +237,12 @@
         });
     </script>
 
-
-    {{--    using uppy editor --}}
-    {{--    <script src="https://transloadit.edgly.net/releases/uppy/v1.10.1/uppy.min.js"></script>
-        <script>
-            var uppy = Uppy.Core()
-                .use(Uppy.Dashboard, {
-                    inline: true,
-                    target: '#drag-drop-area'
-                })
-                .use(Uppy.Tus, {endpoint: 'https://master.tus.io/files/'})
-
-            uppy.on('complete', (result) => {
-                console.log('Upload complete! We’ve uploaded these files:', result.successful)
-            })
-        </script>--}}
+    <script>
+        $('.date').datepicker({
+            autoclose: true,
+            dateFormat: "yy-mm-dd"
+        });
+    </script>
+    {{--    dropezonne--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 @endsection

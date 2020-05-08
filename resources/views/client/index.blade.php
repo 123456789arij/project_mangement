@@ -5,7 +5,10 @@
         #crud_btn, form {
             display: flex;
             height: 40px;
-
+        }
+        #name {
+            text-transform: capitalize;
+            text-align: justify;
         }
     </style>
 @endsection
@@ -123,7 +126,7 @@
                                </div><br />
                            @endif
 
-                <div class="card-header">Client
+                <div class="card-header">{{ __('messages.clients') }}
                 </div>
                       <br>
                 <div class="table-responsive container">
@@ -132,10 +135,10 @@
                         <thead class="text-center">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">nom du client</th>
-                            <th scope="col">EMAIL</th>
-                            <th scope="col">nom de l'entreprise</th>
-                            <th>created_at</th>
+                            <th scope="col">{{ __('messages.name') }}</th>
+                            <th scope="col">{{ __('messages.email') }}</th>
+                            <th scope="col">{{ __('messages.company name') }}</th>
+                            <th>{{ __('messages.created_at') }}</th>
                             <th scope="col">ACTIONS</th>
                         </tr>
                         </thead>
@@ -152,7 +155,7 @@
                                                   </div>
                                               </div>--}}
                                             <div class="widget-content-left flex2">
-                                                <div class="widget-heading">
+                                                <div class="widget-heading" id="name">
                                                     {{ $client->name }}   </div>
                                                 {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                             </div>

@@ -58,10 +58,10 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{route('project.store')}}">
+                                <form method="POST" action="{{route('project.store')}}"  enctype="multipart/form-data">
                                     {{--  partie email +adresse--}}
                                     <div class="form-row">
-                                        @csrf
+                                        {{csrf_field()}}
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
                                                 <label for="name"> nom du projet </label>
@@ -73,8 +73,8 @@
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label >categories </label>
-                                       <select class="mb-2 form-control-lg form-control" name="category_id">
+                                                <label>categories </label>
+                                                <select class="mb-2 form-control-lg form-control" name="category_id">
                                                     @foreach($categories as $category)
                                                         <option
                                                             value="{{$category->id}}"> {{$category->name}} </option>
@@ -150,8 +150,9 @@
                                         <label for="description"><strong> Déscription du projet </strong></label>
                                         <textarea id="textarea" name="description"></textarea>
                                     </div>
-                                 <input type="file" name="file"  class="dropzone" id="dropzone">
-
+                                    <br>
+                                    <input type="file" name="file"  class="form-control-file">
+                                    <br>     <br>
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                                             <i class="pe-7s-trash btn-icon-wrapper"> </i></button>

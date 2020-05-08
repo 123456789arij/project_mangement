@@ -1,0 +1,6 @@
+chef de projet: edit employee ,statu projet  
+employee: project + tasks 
+changer l'etat de son projet c to 
+************************
+
+sidebar + ressource lang 
