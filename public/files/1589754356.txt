@@ -1,0 +1,43 @@
+Introduction Générale
+Chapitre 1 : Cadre général
+Introduction 
+Présentation de l’organisme d’accueil
+Problématique 
+Objectifs du projet
+Méthodologie adoptée 
+Planification des taches 
+Conclusion
+Chapitre 2 : Analyse et spécification des besoins
+Introduction
+Etude de l'existant
+Critiques de l'existant
+Solution proposée
+Identification des acteurs
+Spécification des besoins:
+- Besoins fonctionnels
+- Besoins non fonctionnels
+Langage de modélisation UML
+Diagramme de cas d'utilisation
+Rafinnement de quelques cas d'utilisations (ceux qui nécessite un rafinnement)
+Conclusion
+Chapitre 3 : L'étude conceptuelle
+Introduction
+Conception générale
+- Architecture générale
+- le patron de conception MVC ou autre
+Conception détaillée
+- Diagramme de classes
+- Modèle relationnel de données (s'il y en a)
+- Diagrammes de séquences 
+Conception des maquettes (wireframes)
+Conclusion 
+Chapitre 4 : Réalisation
+Introduction
+Environnement de réalisation
+- Env matériel
+- Env logiciel
+- Technologies utilisés(langages)
+Description des interfaces
+Conclusion 
+Conclusion générale et perspectives
+Webographie

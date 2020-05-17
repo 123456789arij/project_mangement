@@ -14,7 +14,7 @@
                     <i class="pe-7s-user icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                    METTRE À JOUR LES INFORMATIONS du CLIENT
+                    {{__('messages.UPDATE_CLIENT_INFO') }}
                 </div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                     elements and components
@@ -67,7 +67,7 @@
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">DÉTAILS DU CLIENT</h5>
+                                <h5 class="card-title">      {{__('messages.CLIENT_DETAILS') }}</h5>
                                 <hr>
                                 <form action="{{ route('client.update', $client->id ) }}" method="POST">
                                     {{--  partie email +adresse--}}
@@ -76,13 +76,13 @@
                                         @method('PATCH')
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> NOM </label>
+                                                <label for="name"> {{__('messages.name') }} </label>
                                                 <input type="text" class="form-control"  name="name" value="{{$client->name}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">Email</label>
+                                                <label for="email">{{__('messages.email') }}</label>
                                                 <input type="email" class="form-control"  name="email" value="{{$client->email}}"
                                                        class="@error('email', 'login') is-invalid @enderror">
                                                 @error('email', 'login')
@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="password">Password</label>
+                                                <label for="password">{{__('messages.Password') }} </label>
                                                 <input type="password" class="form-control" name="password">
                                             </div>
                                         </div>
@@ -103,35 +103,35 @@
                                         @csrf
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="mobile"> Télephone </label>
+                                                <label for="mobile"> {{__('messages.mobile') }} </label>
                                                 <input type="text" class="form-control" id="mobile" name="mobile" value="{{$client->mobile}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="address"> Adresse</label>
+                                                <label for="address"> {{__('messages.Address') }}</label>
                                                 <input type="text" class="form-control" id="address" name="address" value="{{$client->address}}">
                                             </div>
                                         </div>
                                     </div>
-                                    <h5 class="card-title"> AUTRES DÉTAILS DU CLIENT</h5>
+                                    <h5 class="card-title"> {{__('messages.CLIENT_OTHER_DETAILS') }}</h5>
                                     <hr>
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="linked_in"> Linkedin</label>
+                                                <label for="linked_in"> {{__('messages.Linkedin') }}</label>
                                                 <input type="text" class="form-control" value="{{$client->linked_in}}" name="linked_in">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="facebook"> Facebook</label>
+                                                <label for="facebook"> {{__('messages.Facebook') }}</label>
                                                 <input type="text" class="form-control" value="{{$client->facebook}}" name="facebook">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="skype"> Skype</label>
+                                                <label for="skype"> {{__('messages.Skype') }}</label>
                                                 <input type="text" class="form-control" value="{{$client->Skype}}" name="skype">
                                             </div>
                                         </div>

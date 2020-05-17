@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\employee;
 
 use App\Category;
+use App\Client;
 use App\Employee;
 use App\File;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\Repositories\ProjectRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -19,9 +22,22 @@ class ProjectController extends Controller
      */
     public function index()
     {
-
         $employee = auth()->guard('employee')->user();
-        $projects = $employee->projects()->paginate(5);
+
+        if (auth()->guard('employee')->user()->role == 2) {
+            $projects = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->whereHas('departments', function (Builder $query) {
+                        $query->where('id', auth()->guard('employee')->user()->department_id);
+                    });
+                });
+            })->paginate(5);
+
+//            $projects = $employee->projects()->paginate(5);
+
+        } else {
+            $projects = $employee->projects()->paginate(5);
+        }
         return view('project.index', compact('projects'));
 
     }
@@ -33,8 +49,17 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
+        if (auth()->guard('employee')->user()->role == 2) {
+            $categories = Category::all();
+            $file = File::all();
+            $clients = Client::whereHas('user', function (Builder $query) {
+                $query->whereHas('departments', function (Builder $query) {
+                    $query->where('id', auth()->guard('employee')->user()->department_id);
+                });
+            })->get();
+            return view('employee.project.create', compact('clients', 'categories', 'file'));
         }
+        abort(403);
     }
 
     /**
@@ -55,26 +80,16 @@ class ProjectController extends Controller
             'client_id' => 'required',
             'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
         ]);
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $status = $request->input('status');
+        $start_date = $request->input('start_date');
+        $deadline = $request->input('deadline');
+        $category_id = $request->input('category_id');
+        $client_id = $request->input('client_id');
+        $files = $request->file('file');
 
-        $project = new Project();
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->status = $request->input('status');
-        $project->start_date = $request->input('start_date');
-        $project->deadline = $request->input('deadline');
-        $project->category_id = $request->input('category_id');
-        $project->client_id = $request->input('client_id');
-        $project->save();
-        if ($files = $request->file('file')) {
-
-            $destinationPath = '/files/';
-            $file_doc = time() . "." . $files->getClientOriginalExtension();
-            $files->move(public_path('files'), $file_doc);
-            $file = new File();
-            $file->path = $destinationPath . $file_doc;
-            $project->files()->save($file);
-        }
-
+        ProjectRepository::createProject($name, $description, $status, $start_date, $deadline, $category_id, $client_id, $files);
         return redirect()->route('proj')->with('toast_success', ' projet  is successfully saved');
     }
 
@@ -86,7 +101,11 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+//        $reservation = Reservation::with('room', 'room.hotel')->get()->find($reservation->id);
+//        $hotel_id = $reservation->room->hotel_id;
+//        $hotelInfo = Hotel::with('rooms')->get()->find($hotel_id);
+        $project = Project::findorfail($id);
+        return view('employee.project.show', compact('project'));
     }
 
     /**
@@ -121,5 +140,24 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function afficher_membre_projet($id)
+    {
+        $projet = Project::findOrfail($id);
+        $membres = $projet->employees;
+        $employees = Employee::whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+        return view('project.membre', compact('employees', 'membres', 'projet'));
+    }
+
+    public function membre_projet(Request $request)
+    {
+        $emplyeeIds = $request->input('employee_id');
+        $projetId = $request->input('project_id');
+        $projet = Project::findOrfail($projetId);
+        $projet->employees()->sync($emplyeeIds);
+        return redirect()->route('proj')->with('toast_success', 'membre is successfully saved');
     }
 }

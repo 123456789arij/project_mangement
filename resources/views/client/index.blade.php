@@ -37,7 +37,7 @@
                               <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                           </span>
                         <a href="{{route('client.create')}}"
-                           style="color: white;font-size: 15px;"> Ajouter un nouveau client </a>&nbsp;&nbsp;
+                           style="color: white;font-size: 15px;">  {{__('messages.add_new_client') }}</a>&nbsp;&nbsp;
                     </button>
                 </div>
             </div>

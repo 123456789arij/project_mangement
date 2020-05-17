@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Client extends Model
+class Client extends Authenticatable
 {
+    protected $guard = 'client';
+
     protected $fillable = [
-        'name','email', 'password', 'mobile' , 'adsress' , 'linked_in' , 'skype' , 'facebook','user_id',
+        'name', 'email', 'password', 'mobile', 'adsress', 'linked_in', 'skype', 'facebook', 'user_id',
     ];
 
     public function user()

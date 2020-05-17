@@ -176,13 +176,13 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> NOM </label>
+                                                <label for="name"> {{ __('messages.name') }}</label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">Email</label>
+                                                <label for="email">{{ __('messages.email') }}</label>
                                                 <input type="email" class="form-control" id="email" name="email"
                                                        class="@error('email', 'login') is-invalid @enderror" required>
                                                 @error('email', 'login')
@@ -192,7 +192,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="password">Password</label>
+                                                <label for="password">{{ __('messages.Password') }}</label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
                                                        name="password" required>
@@ -205,7 +205,7 @@
                                         {{--  date d'inscription--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="joining_date"> date d'inscription </label>
+                                                <label for="joining_date"> {{ __('messages.Joining_Date') }}  </label>
                                                 <input type="date" class="form-control" id="joining_date"
                                                        name="joining_date">
                                             </div>
@@ -214,14 +214,14 @@
                                         {{--   sex--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="gender"> sex </label>
+                                                <label for="gender"> {{ __('messages.gender') }} </label>
                                                 <select class="mb-2 form-control form-control" name="gender"
                                                         id="projet_id">
                                                     <option value="1" @if (old('gender')=="femme")  checked @endif >
-                                                        femme
+                                                        {{ __('messages.female') }}
                                                     </option>
                                                     <option value="2" @if (old('gender')=="homme")  checked @endif>
-                                                        homme
+                                                        {{ __('messages.male') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -261,7 +261,7 @@
                                                 <input class="custom-control-input" type="radio" name="role" id="2"
                                                        value="2" @if (old('role')=="admin")  checked @endif >
                                                 <label class="custom-control-label" for="2">
-                                                    chef de projet
+                                                    Chef De Projet
                                                 </label>
                                             </div>
                                         </div>

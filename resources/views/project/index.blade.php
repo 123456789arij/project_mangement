@@ -73,18 +73,28 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                          <span class="btn-icon-wrapper pr-2 opacity-7">
                               <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                           </span>
-                        <a href="{{ route('project.create')}}"
-                           style="color: black;font-size: 15px;"> Ajouter un nouveau Projet </a>&nbsp;&nbsp;
-                    </button>
-
-                    <button type="button" class="btn btn-primary">
-                        <a href="{{route('category.create')}}" style="color:white;">
-                            Ajouter Catégories du projet</a>
-                    </button>
+                            <a href="{{ route('employee.project.create')}}"
+                               style="color: black;font-size: 15px;"> Ajouter un nouveau Projet </a>&nbsp;&nbsp;
+                        </button>
+                    @endif
+                    @if(auth()->user())
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                         <span class="btn-icon-wrapper pr-2 opacity-7">
+                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
+                          </span>
+                            <a href="{{ route('project.create')}}"
+                               style="color: black;font-size: 15px;"> Ajouter un nouveau Projet </a>&nbsp;&nbsp;
+                        </button>
+                        <button type="button" class="btn btn-primary">
+                            <a href="{{route('category.create')}}" style="color:white;">
+                                Ajouter Catégories du projet</a>
+                        </button>
+                    @endif
 
                 </div>
             </div>
@@ -206,10 +216,14 @@
                                                              --}}{{--  img--}}{{--
                                                         </div>
                                                     </div>--}}
+
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
-                                                    {{-- "{{route('projet.show',$projet->id)}}"--}}
-                                                    <a href="{{route('project.show',$project->id)}}">{{ $project->name }}</a>
+                                                    @if(auth()->guard('employee')->user())
+                                                        <a href="{{route('employee.project.show',$project->id)}}">{{ $project->name }}</a>
+                                                    @else
+                                                        <a href="{{route('project.show',$project->id)}}">{{ $project->name }}</a>
+                                                    @endif
                                                 </div>
                                                 {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                             </div>
@@ -289,17 +303,25 @@
                                 </td>
 
                                 <td class="text-center" id="crud_btn">
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                        <a href="{{route('project.show',$project->id)}}">
-                                            <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-
+                                    @if(auth()->guard('employee')->user())
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
+                                            <a href="{{route('employee.project.show',$project->id)}}">
+                                                <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                            </a>
+                                        </button>
+                                    @else
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
+                                            <a href="{{route('project.show',$project->id)}}">
+                                                <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                            </a>
+                                        </button>
+                                    @endif
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
                                         <a href="{{route('project.edit',$project->id)}}">
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
+
 
                                     <form action="{{route('project.destroy',$project->id)}}" method="post">
                                         @csrf

@@ -9,6 +9,7 @@ use App\File;
 use App\Project;
 
 
+use App\Repositories\ProjectRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -43,8 +44,6 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
-        //todo just your clients
         $categories = Category::all();
         $file = File::all();
         $clients = auth()->user()->clients;
@@ -70,25 +69,16 @@ class ProjectController extends Controller
             'client_id' => 'required',
             'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
         ]);
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $status = $request->input('status');
+        $start_date = $request->input('start_date');
+        $deadline = $request->input('deadline');
+        $category_id = $request->input('category_id');
+        $client_id = $request->input('client_id');
+        $files = $request->file('file');
 
-        $project = new Project();
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->status = $request->input('status');
-        $project->start_date = $request->input('start_date');
-        $project->deadline = $request->input('deadline');
-        $project->category_id = $request->input('category_id');
-        $project->client_id = $request->input('client_id');
-        $project->save();
-        if ($files = $request->file('file')) {
-
-            $destinationPath = '/files/';
-            $file_doc = time() . "." . $files->getClientOriginalExtension();
-            $files->move(public_path('files'), $file_doc);
-            $file = new File();
-            $file->path = $destinationPath . $file_doc;
-            $project->files()->save($file);
-        }
+        ProjectRepository::createProject($name, $description, $status, $start_date, $deadline, $category_id, $client_id, $files);
 
         return redirect()->route('project')->with('toast_success', ' projet  is successfully saved');
     }

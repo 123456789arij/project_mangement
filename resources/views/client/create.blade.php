@@ -13,7 +13,7 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div> Client </div>
+                <div>{{ __('messages.clients') }}</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -59,27 +59,27 @@
 
 
                 <div class="card-header">
-                    Ajouter un nouveau client
+                    {{__('messages.add_client') }}
                 </div>
 
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">DÉTAILS DU CLIENT</h5>
+                                <h5 class="card-title"> {{__('messages.CLIENT_DETAILS') }}</h5>
                                 <hr>
                                 <form method="POST" action="{{ route('client.store') }}">
                                     @csrf     {{--  partie email +adresse--}}
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> Nom du client  </label>
+                                                <label for="name"> {{__('messages.name') }} </label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">Email du client </label>
+                                                <label for="email">{{__('messages.email') }}</label>
                                                 <input type="email" class="form-control" id="email" name="email"
                                                        class="@error('email', 'login') is-invalid @enderror" required>
                                                 @error('email', 'login')
@@ -89,7 +89,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="password">Password du client </label>
+                                                <label for="password"> {{__('messages.Password') }} </label>
                                                 <input type="password" data-toggle="password"  class="form-control" id="password"
                                                        name="password" required>
                                             </div>
@@ -99,7 +99,7 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="mobile"> Télephone </label>
+                                                <label for="mobile"> {{__('messages.mobile') }}</label>
                                                 <input type="text" class="form-control" id="mobile" name="mobile">
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@
 
 
                                     <div class=" form-row">
-                                        <label for="address">Adresse</label>
+                                        <label for="address"> {{__('messages.Address') }}</label>
                                         <div class="col-12">
                                             <textarea name="address" id="exampleText" class="form-control">
                                             </textarea>
@@ -116,24 +116,24 @@
                                     <br><br>
 
 
-                                    <h5 class="card-title"> Autres Détails Du Client</h5>
+                                    <h5 class="card-title"> {{__('messages.CLIENT_OTHER_DETAILS') }}</h5>
                                     <hr>
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="linked_in"> Linkedin</label>
+                                                <label for="linked_in"> {{__('messages.Linkedin') }}</label>
                                                 <input type="text" class="form-control" id="linked_in" name="linked_in">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="facebook"> Facebook</label>
+                                                <label for="facebook">  {{__('messages.Facebook') }}</label>
                                                 <input type="text" class="form-control" id="facebook" name="facebook">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="skype"> Skype</label>
+                                                <label for="skype">  {{__('messages.Skype') }}</label>
                                                 <input type="text" class="form-control" id="skype" name="skype">
                                             </div>
                                         </div>

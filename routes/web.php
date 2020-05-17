@@ -22,7 +22,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-//Employee login
+//client AUthentification
+Route::prefix('client')->group(function () {
+    Route::get('/login', 'Auth\ClientController@showLoginForm')->name('client.login');
+    Route::post('/login', 'Auth\ClientController@login')->name('client.login.submit');
+    Route::post('logout/', 'Auth\ClientController@logout')->name('client.logout');
+    Route::group(['middleware' => 'auth.employee'], function () {
+        Route::get('/dashborad', 'client\DashboradController@index')->name('client.dashborad');
+        Route::get('/projects', 'client\ProjectController@index')->name('proj');
+    });
+});
+
+//Employee AUthentification
 Route::prefix('employee')->group(function () {
     Route::get('/login', 'Auth\EmployeeController@showLoginForm')->name('employee.login');
     Route::post('/login', 'Auth\EmployeeController@login')->name('employee.login.submit');
@@ -30,20 +41,30 @@ Route::prefix('employee')->group(function () {
     Route::group(['middleware' => 'auth.employee'], function () {
         Route::get('/dashborad', 'employee\DashboradController@index')->name('employee.dashborad');
         Route::get('/projects', 'employee\ProjectController@index')->name('proj');
-        Route::get('/create', 'employee\ProjectController@create')->name('employee.project.create');
-        Route::post('/store', 'employee\ProjectController@store')->name('employee.project.store');
+        Route::get('/tasks', 'employee\TaskController@index')->name('employee.task');
         Route::get('/{project}', 'employee\ProjectController@show')->name('employee.project.show');
+        Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
+        Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
+
+        Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
+        Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
+
         Route::get('/{id}/edit', 'employee\ProjectController@edit')->name('employee.project.edit');
         Route::patch('/{id}', 'employee\ProjectController@update')->name('employee.project.update');
         Route::delete('/{id}', 'employee\ProjectController@destroy')->name('employee.project.destroy');
 
         Route::get('/membre/{id}', 'employee\ProjectController@afficher_membre_projet')->name('employee.membre_projet');
         Route::post('/nouveau/membre/', 'employee\ProjectController@membre_projet')->name('employee.membre');
-        Route::get('/task', 'employee\TaskController@index')->name('employee.task');
+
     });
 });
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/gant', function () {
+        return view('project.gantt');
+    });
+
 //    project
     Route::prefix('projects')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project');
@@ -81,6 +102,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', 'TaskController@destroy')->name('task.destroy');
         Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
         Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
+        Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
 //        Route::get('/', array('as'=> 'front.home', 'uses' => 'ItemController@itemView'));
 //        Route::post('/update-items', array('as'=> 'update.items', 'uses' => 'ItemController@updateItems'));
     });

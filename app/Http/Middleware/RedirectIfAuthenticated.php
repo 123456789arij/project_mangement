@@ -18,6 +18,17 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        //guard client
+        if ($guard == "client" && Auth::guard($guard)->check()) {
+            return redirect(route('client.dashborad'));
+        }
+        if ($guard == null && Auth::guard('client')->check()) {
+            return redirect(route('client.dashborad'));
+        }
+        if ($guard == "client" && Auth::guard('web')->check()) {
+            return redirect('dashbord');
+        }
+
         //guard employee
         if ($guard == "employee" && Auth::guard($guard)->check()) {
             return redirect(route('employee.dashborad'));

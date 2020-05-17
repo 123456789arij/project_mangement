@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Employee;
+use App\Task;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,7 +26,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        /* define a admin user role */
+/*        Gate::define('employee_actions', function ($employee,$task) {
+            return   $task->is(auth()->guard('employee')->user()->role == 1);
+//                $task->is(auth()->guard('employee')->user()->role == 1);
+        });
+        if (Gate::allows('employee_actions')) {
+            return  is(auth()->guard('employee')->user()->role == 1);
 
-        //
+        }*/
+
     }
 }

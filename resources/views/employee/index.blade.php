@@ -5,7 +5,10 @@
         #crud_btn, form {
             display: flex;
             height: 40px;
+        }
 
+        #employee {
+            text-align: justify;
         }
     </style>
 @endsection
@@ -34,7 +37,7 @@
                               <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
                           </span>
                         <a href="{{route('employee.create')}}"
-                           style="color: white;font-size: 15px;"> Ajouter un nouveau Employee </a>&nbsp;&nbsp;
+                           style="color: white;font-size: 15px;">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;
                     </button>
                 </div>
             </div>
@@ -132,11 +135,11 @@
                            class="display">
                         <thead>
                         <tr>
-                            <th scope="col"  class="text-center">#</th>
+                            <th scope="col" class="text-center">#</th>
                             <th scope="col">{{ __('messages.name') }}</th>
-                            <th scope="col"  class="text-center">{{ __('messages.email') }}</th>
-                            <th scope="col"  class="text-center">{{ __('messages.role') }}</th>
-                            <th scope="col"  class="text-center">ACTIONS</th>
+                            <th scope="col" id="employee">{{ __('messages.email') }}</th>
+                            <th scope="col" id="employee">{{ __('messages.role') }}</th>
+                            <th scope="col" class="text-center">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -155,14 +158,18 @@
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading">
                                                     {{$employee->name }}   </div>
-                                          <div class="widget-subheading opacity-7">Web Developer</div>
+                                                <div class="widget-subheading opacity-7">Web Developer</div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="text-center"> {{ $employee->email }}</td>
-                                <td class="text-center">
-                                    <div class="text-center">{{ $employee->role }}</div>
+                                <td id="employee"> {{ $employee->email }}</td>
+                                <td id="employee">
+                                    @if($employee->role  == 1)
+                                        <span> Employée</span>
+                                    @else
+                                        <span>Chef De Projet</span>
+                                    @endif
                                 </td>
                                 <td class="text-center" id="crud_btn">
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
@@ -255,4 +262,9 @@
 
         });
     </script>
+@endsection
+@section('jsBlock')
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 @endsection

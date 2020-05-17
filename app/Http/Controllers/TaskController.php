@@ -52,7 +52,6 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //todo upload file
         $request->validate([
             'titre' => 'required',
             'description' => 'required',
@@ -97,7 +96,8 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task  = Task::findorfail($id);
+        return view('task.show', compact('task'));
     }
 
     /**
@@ -186,5 +186,12 @@ class TaskController extends Controller
 
         return response()->json(['status'=>'success']);
     }
+    public function changeStatus(Request $request)
+    {
+        $task = Task::find($request->task_id);
+        $task->status = $request->status;
+        $task->save();
 
+        return response()->json(['success'=>'User status change successfully.']);
+    }
 }

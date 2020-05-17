@@ -160,7 +160,7 @@
             <li>
                 <a href="{{route('employee.task')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
-                    {{ trans('messages.tasks') }}
+                    ta
                 </a>
             </li>
 

@@ -32,7 +32,7 @@
                                </div><br />
                            @endif--}}
 
-                <div class="card-header">Client
+                <div class="card-header">{{__('messages.client') }}
 
                 </div>
                 <div class="table-responsive">
@@ -41,10 +41,10 @@
                         <tr>
 
                             <th class="text-center">#</th>
-                            <th class="text-center">nom du client</th>
+                            <th class="text-center">{{__('messages.name') }}</th>
                             {{--                            <th class="text-center">nom de l'entreprise</th>--}}
-                            <th class="text-center">EMAIL</th>
-                            <th class="text-center">created_at</th>
+                            <th class="text-center">{{__('messages.email') }}</th>
+                            <th class="text-center"> {{__('messages.created_at') }}</th>
 
 
 
