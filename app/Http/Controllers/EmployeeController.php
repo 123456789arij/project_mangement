@@ -99,8 +99,11 @@ class EmployeeController extends Controller
     public
     function edit($id)
     {
+//        $employees = Employee::whereHas('department', function (Builder $query) {
+//            $query->where('user_id', auth()->user()->id);
+//        })->get();
         $employee = Employee::find($id);
-        $departments= Department::find($id);
+        $departments = Department::where('user_id', auth()->user()->id)->get();
         return view('employee.edit', compact('employee','departments'));
     }
 

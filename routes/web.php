@@ -27,9 +27,10 @@ Route::prefix('client')->group(function () {
     Route::get('/login', 'Auth\ClientController@showLoginForm')->name('client.login');
     Route::post('/login', 'Auth\ClientController@login')->name('client.login.submit');
     Route::post('logout/', 'Auth\ClientController@logout')->name('client.logout');
-    Route::group(['middleware' => 'auth.employee'], function () {
+    Route::group(['middleware' => 'auth.client'], function () {
         Route::get('/dashborad', 'client\DashboradController@index')->name('client.dashborad');
-        Route::get('/projects', 'client\ProjectController@index')->name('proj');
+        Route::get('/projects', 'client\ProjectController@index')->name('client.project');
+        Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
     });
 });
 
@@ -45,6 +46,10 @@ Route::prefix('employee')->group(function () {
         Route::get('/{project}', 'employee\ProjectController@show')->name('employee.project.show');
         Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
         Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
+
+        Route::get('/profile', 'employee\ProfileController@index')->name('profile');
+        Route::get('/{id}/profile', 'employee\ProfileController@edit')->name('employee.profile.edit');
+        Route::patch('/{id}', 'employee\ProfileController@update')->name('employee.profile.update');
 
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
@@ -65,6 +70,7 @@ Route::middleware('auth')->group(function () {
         return view('project.gantt');
     });
 
+    Route::get('/laravel_google_chart', 'ChartController@index')->name('pieChart');
 //    project
     Route::prefix('projects')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project');
@@ -103,6 +109,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
         Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
         Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
+        Route::get('/calander', 'TaskController@calander')->name('task.calander');
 //        Route::get('/', array('as'=> 'front.home', 'uses' => 'ItemController@itemView'));
 //        Route::post('/update-items', array('as'=> 'update.items', 'uses' => 'ItemController@updateItems'));
     });

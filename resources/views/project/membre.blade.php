@@ -1,6 +1,9 @@
 @extends('layouts.base')
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+
+    </style>
 @endsection
 @section('content')
     {{-- app-page-title--}}
@@ -12,7 +15,10 @@
                     <i class="pe-7s-car icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div> projet #
+                <div> {{ __('messages.project') }} #
+                    {{--                    @foreach($project as $projet)--}}
+                    {{--                        {{$projet->id}}--}}
+                    {{--                    @endforeach--}}
                     {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                             elements and components
                         </div>--}}
@@ -22,10 +28,13 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                                     <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                           </button>--}}
+                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                         <span class="btn-icon-wrapper pr-2 opacity-7">
+                              <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                          </span>
+                        <a href="{{route('project.edit',$project->id)}}"
+                           style="color: white;font-size: 15px;">   {{__('messages.edit') }}</a>&nbsp;&nbsp;
+                    </button>
                 </div>
             </div>
         </div>
@@ -56,62 +65,69 @@
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
-                        {{--                projet
-                                        <div class="tab-pane active {{request()->is('/Entreprise/projet/show') ? 'active':null }}"
-                                             id="{{url('/Entreprise/projet/show')}}" role="tabpanel">
-                                            <h4>Détaille du projet :</h4>
-                                         {{$projet->description}}
-                                            <br>
-                                               client détailles
-                                            <div class="col-md-6">
-                                                <div class="main-card mb-3 card">
-                                                    <div class="card-header">Client</div>
-                                                    <div class="card-body"><h5 class="card-title">client détailles</h5>
-                                                        With supporting text below as a natural lead-in to additional content.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             / client détailles
-                                        </div>
-                                        projet--}}
-                        <div>
-                            <h4>Membre du projet</h4>
                             <div class="row">
+                                {{--                   Project_Membres             --}}
                                 <div class="col-6">
+                                    <h4 style="text-align: center">{{ __('messages.Project_Membres') }}</h4>
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">role</th>
+                                            <th scope="col">{{ __('messages.name') }}</th>
+                                            <th scope="col">{{ __('messages.role') }}</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($membres as $employee)
                                             <tr>
-                                                <th scope="row">{{$employee->name}}</th>
-                                                <td class="text-center">
-                                           {{--       <form action="{{ route('destroy_membre',$employee->id) }}"
-                                                                     method="post">.
-                                                                   @csrf
-                                                                   @method('DELETE')
-                                                                   <button
-                                                                       class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                                                       <i class="pe-7s-trash btn-icon-wrapper"
-                                                                          style="font-size: 20px;"> </i></button>
+                                                <th scope="row">
+                                                    <div class="widget-content p-0">
+                                                        <div class="widget-content-wrapper">
+                                                            <div class="widget-content-left mr-3">
+                                                                <div class="widget-content-left">
+                                                                    <img src="{{asset($employee->image)}}"
+                                                                         class="rounded-circle"
+                                                                         height="40px" width="40px" alt="im"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="widget-content-left flex2">
+                                                                <div class="widget-heading">
+                                                                    {{$employee->name }}   </div>
+                                                                {{--                                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </th>
+                                                <td style="text-align: justify;">
+                                                    @if($employee->role  == 1)
+                                                        <span> Employée</span>
+                                                    @else
+                                                        <span>Chef De Projet</span>
+                                                    @endif
 
-                                                               </form>--}}
+                                                    {{--       <form action="{{ route('destroy_membre',$employee->id) }}"
+                                                                              method="post">.
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button
+                                                                                class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+                                                                                <i class="pe-7s-trash btn-icon-wrapper"
+                                                                                   style="font-size: 20px;"> </i></button>
+
+                                                                        </form>--}}
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+                                {{--                   /Project_Membres             --}}
+                                {{--                                add_Project_Membres     --}}
                                 <div class="col-6">
-                                    <h2>Ajouter les Membre du projets </h2>
+                                    <h4 style="text-align: center">{{ __('messages.add_Project_Membres') }} </h4>
                                     <form method="POST" action="{{route('membre')}}">
                                         @csrf
-                                        <input type="hidden" name="project_id" value="{{$projet->id}}" >
+                                        <input type="hidden" name="project_id" value="{{$project->id}}">
                                         <select class="mb-2 form-control-lg form-control" name="employee_id[]" multiple>
                                             @foreach($employees as $employee)
                                                 <option
@@ -119,12 +135,14 @@
                                                     {{$employee->name}} </option>
                                             @endforeach
                                         </select>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                        <button class="btn-wide btn btn-success" type="submit">
+                                            <i class="fas fa-check"></i>
+                                            Save
+                                        </button>
                                     </form>
-
                                 </div>
+                                {{--                               / add_Project_Membres     --}}
                             </div>
-                        </div>
                         <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
                             <button>Ajouter une Nouvelle tache</button>
                         </div>

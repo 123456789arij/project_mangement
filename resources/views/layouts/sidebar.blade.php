@@ -130,27 +130,37 @@
                    </li>
                </ul>
            </li>--}}
-        <li>
+
+
+     {{--   <li>
             <a href="tables-regular.html">
                 <i class="metismenu-icon pe-7s-display2"></i>
                 Tables
             </a>
-        </li>
+        </li>--}}
+
         <li class="app-sidebar__heading">Travaille</li>
-         @if (!Auth::guest())
-       <li>
-            <a href="{{route('project')}}">
-                <i class="metismenu-icon pe-7s-display2"></i>
-                {{ trans('messages.projects') }}
-            </a>
-        </li>
-        <li>
-            <a href="{{route('task')}}">
-                <i class="metismenu-icon pe-7s-display2"></i>
-                {{ trans('messages.tasks') }}
-            </a>
-        </li>
-        @else
+        @if(auth()->user())
+            <li>
+                <a href="{{route('project')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                    {{ trans('messages.projects') }}
+                </a>
+            </li>
+            <li>
+                <a href="{{route('task')}}">
+                    <i class="metismenu-icon fas fa-tasks"></i>
+                    {{ trans('messages.tasks') }}
+                </a>
+            </li>
+            <li>
+                <a href="{{route('task.calander')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                    {{ trans('messages.task_calendar') }}
+                </a>
+            </li>
+        @endif
+        @if(auth()->guard('employee')->user())
             <li>
                 <a href="{{route('proj')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
@@ -160,12 +170,24 @@
             <li>
                 <a href="{{route('employee.task')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
-                    ta
+                    {{ trans('messages.tasks') }}
                 </a>
             </li>
 
-
-
+        @endif
+        @if(auth()->guard('client')->user())
+            <li>
+                <a href="{{route('client.project')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                    {{ trans('messages.projects') }}
+                </a>
+            </li>
+          {{--  <li>
+                <a href="{{route('employee.task')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                    {{ trans('messages.tasks') }}
+                </a>
+            </li>--}}
         @endif
         <li class="app-sidebar__heading">Forms</li>
         <li>
@@ -176,21 +198,23 @@
         </li>
         <li>
             <a href="{{route('event')}}">
-                <i class="metismenu-icon pe-7s-eyedropper">
-                </i>      {{ trans('messages.events') }}
+                <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>
+{{--                <i class="fa  fa-calendar pr-1 pl-1">--}}
+{{--                <i class="metismenu-icon pe-7s-eyedropper">--}}
+                {{ trans('messages.events') }}
             </a>
         </li>
-        <li>
-            <a href="forms-validation.html">
-                <i class="metismenu-icon pe-7s-pendrive">
-                </i>Forms Validation
-            </a>
-        </li>
+{{--        <li>--}}
+{{--            <a href="forms-validation.html">--}}
+{{--                <i class="metismenu-icon pe-7s-pendrive">--}}
+{{--                </i>Forms Validation--}}
+{{--            </a>--}}
+{{--        </li>--}}
+
         <li class="app-sidebar__heading">Charts</li>
         <li>
-            <a href="charts-chartjs.html">
-                <i class="metismenu-icon pe-7s-graph2">
-                </i>ChartJS
+            <a href="{{route('pieChart')}}">
+                <i class="metismenu-icon  fas fa-chart-pie"></i> Pie Chart
             </a>
         </li>
         <li class="app-sidebar__heading">PRO Version</li>

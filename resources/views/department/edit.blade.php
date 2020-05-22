@@ -9,7 +9,14 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div> Départment</div>
+                <div>
+                    <h4 class="page-title">
+                        {{ __('messages.departments') }} # {{$department->id}} - {{$department->name}}
+                    </h4>
+
+
+
+                </div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -36,7 +43,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-header">
-                    Modifier Département
+                {{ __('messages.UPDATE_DEPARTMENT')}}
                 </div>
 
                 <div class="tab-content">
@@ -51,19 +58,17 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label> NOM </label>
+                                                <label>{{ __('messages.department') }}</label>
                                                 <input type="text" class="form-control" name="name"
                                                        value="{{$department->name}}">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <div class="d-block  card-footer">
+                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>

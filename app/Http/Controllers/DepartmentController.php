@@ -16,7 +16,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::where('user_id', auth()->user()->id)->simplePaginate(5);
+        $departments = Department::withCount('employees')->where('user_id', auth()->user()->id)->simplePaginate(5);
+
         return view('department.index', compact('departments'));
     }
 

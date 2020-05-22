@@ -109,10 +109,12 @@
                                         <div>
                                             Due Date : {{$task->end_date }} &nbsp;
 
-                                            @if($task->status ==1)
+                                            @if($task->status === 1)
                                                 <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
+                                            @elseif($task->status === 2)
+                                                <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
                                             @else
-                                                <span style="color: tomato"> {{ __('messages.Incomplete') }}</span>
+                                                <span class="badge badge-info"> {{ __('messages.inProgress') }}</span>
                                             @endif
                                         </div>
                                         <div>

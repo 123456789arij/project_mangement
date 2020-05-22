@@ -50,6 +50,32 @@
             margin: 10px 0;
             font-weight: 300;
         }
+
+        img {
+            display: inline-block;
+            float: left;       margin: 2px;
+
+        }
+
+        #add_membres {
+            color: #ab8ce4;
+            border: 1px solid #ab8ce4;
+            display: inline-block;
+            font-weight: 400;
+            white-space: nowrap;
+            vertical-align: middle;
+            text-decoration: none;
+        }
+
+        #add_membres:hover {
+            background: transparent;
+        }
+
+        .btn-circle {
+            border-radius: 4px;
+            background: transparent;
+            line-height: 1.428571429;
+        }
     </style>
 @endsection
 @section('content')
@@ -192,8 +218,8 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
                            class="display">
                         <thead>
-                        <tr class="text-center">
-                            <th scope="col">#</th>
+                        <tr style="text-align: justify">
+{{--                            <th scope="col">#</th>--}}
                             <th scope="col">{{ __('messages.project name') }}</th>
                             <th scope="col">{{ __('messages.members') }}</th>
                             <th scope="col">{{ __('messages.deadline') }}</th>
@@ -207,7 +233,7 @@
                         <tbody>
                         @foreach($projects  as $project)
                             <tr>
-                                <td class="text-center text-muted"> {{ $project->id }} </td>
+{{--                                <td class="text-center text-muted"> {{ $project->id }} </td>--}}
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
@@ -235,16 +261,17 @@
                                         {{--  <img src="{{asset($employee->image)}}" class="rounded-circle"
                                                height="40px" width="40px" alt="im"/>--}}
                                     </div>
-                                    <button class="mr-2 btn-icon btn-icon-only ">
-                                        <a href="{{route('membre_projet',['id' => $project->id])}}">
 
-                                            <i class=" pe-7s-plus" style="font-size: 20px;"></i> </a>
-                                    </button>
+                                    <a href="{{route('membre_projet',['id' => $project->id])}}" data-toggle="tooltip"
+                                       data-original-title="Add Project Members"
+                                       class="btn btn-primary btn-circle" id="add_membres"
+                                       style="width: 28px;height: 28px;padding: 3px;">
+                                        <i class=" pe-7s-plus" style="font-size: 20px;"></i>
+                                    </a>
                                     @foreach($project->employees as $employee)
-                                        <div style="display:inline-block">
-                                            <img src="{{asset($employee->image)}}" class="rounded-circle"
-                                                 height="25px" width="25px" alt="im"/>
-                                        </div>
+                                        <img src="{{asset($employee->image)}}" class="rounded-circle"
+                                             data-toggle="tooltip" data-original-title="{{$employee->name}}"
+                                             height="30px" width="30px" alt="employee"/>
                                     @endforeach
 
                                 </td>
@@ -290,15 +317,15 @@
                                 </td>
                                 <td id="status">
                                     @if($project->status == 0)
-                                        <span class="badge badge-pill badge-secondary">pas encore commencé</span>
+                                        <span class="badge badge-pill badge-secondary">{{__('messages.notStarted') }}</span>
                                     @elseif($project->status ==  1)
-                                        <span class="badge badge-pill badge-warning">en attente</span>
+                                        <span class="badge badge-pill badge-warning">{{__('messages.onHold') }}</span>
                                     @elseif($project->status ==  2)
-                                        <span class="badge badge-pill badge-info">en cour</span>
+                                        <span class="badge badge-pill badge-info">  {{__('messages.inProgress') }}</span>
                                     @elseif($project->status == 3)
-                                        <span class="badge badge-pill badge-danger">annulé</span>
+                                        <span class="badge badge-pill badge-danger">{{__('messages.canceled') }}</span>
                                     @elseif($project->status == 4)
-                                        <span class="badge badge-pill badge-success">fini</span>
+                                        <span class="badge badge-pill badge-success">{{__('messages.finished') }}</span>
                                     @endif
                                 </td>
 
@@ -309,18 +336,24 @@
                                                 <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                             </a>
                                         </button>
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
+                                            <a href="{{route('employee.project.edit',$project->id)}}">
+                                                <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                            </a>
+                                        </button>
                                     @else
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
                                             <a href="{{route('project.show',$project->id)}}">
                                                 <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                             </a>
                                         </button>
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
+                                            <a href="{{route('project.edit',$project->id)}}">
+                                                <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                            </a>
+                                        </button>
                                     @endif
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                        <a href="{{route('project.edit',$project->id)}}">
-                                            <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
+
 
 
                                     <form action="{{route('project.destroy',$project->id)}}" method="post">

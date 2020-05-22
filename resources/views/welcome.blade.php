@@ -121,7 +121,7 @@
                     <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
                           </span>
-                    <a href="#"
+                    <a href="{{route('client.login')}}"
                        style="color: white;font-size:15px;  font-weight: bold;">Client</a>&nbsp;&nbsp;
                 </button>
             </div>

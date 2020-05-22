@@ -14,8 +14,10 @@
                     <i class="pe-7s-user icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
-                    {{__('messages.UPDATE_CLIENT_INFO') }}
-                </div>
+                    <h4 class="page-title">    {{__('messages.client') }}
+                    # {{$client->id}}
+                     [ {{$client->name}} ]
+                    </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                     elements and components
                 </div>--}}
@@ -77,13 +79,15 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="name"> {{__('messages.name') }} </label>
-                                                <input type="text" class="form-control"  name="name" value="{{$client->name}}">
+                                                <input type="text" class="form-control" name="name"
+                                                       value="{{$client->name}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="email">{{__('messages.email') }}</label>
-                                                <input type="email" class="form-control"  name="email" value="{{$client->email}}"
+                                                <input type="email" class="form-control" name="email"
+                                                       value="{{$client->email}}"
                                                        class="@error('email', 'login') is-invalid @enderror">
                                                 @error('email', 'login')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -104,13 +108,15 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="mobile"> {{__('messages.mobile') }} </label>
-                                                <input type="text" class="form-control" id="mobile" name="mobile" value="{{$client->mobile}}">
+                                                <input type="text" class="form-control" id="mobile" name="mobile"
+                                                       value="{{$client->mobile}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="address"> {{__('messages.Address') }}</label>
-                                                <input type="text" class="form-control" id="address" name="address" value="{{$client->address}}">
+                                                <input type="text" class="form-control" id="address" name="address"
+                                                       value="{{$client->address}}">
                                             </div>
                                         </div>
                                     </div>
@@ -120,29 +126,29 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="linked_in"> {{__('messages.Linkedin') }}</label>
-                                                <input type="text" class="form-control" value="{{$client->linked_in}}" name="linked_in">
+                                                <input type="text" class="form-control" value="{{$client->linked_in}}"
+                                                       name="linked_in">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="facebook"> {{__('messages.Facebook') }}</label>
-                                                <input type="text" class="form-control" value="{{$client->facebook}}" name="facebook">
+                                                <input type="text" class="form-control" value="{{$client->facebook}}"
+                                                       name="facebook">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="skype"> {{__('messages.Skype') }}</label>
-                                                <input type="text" class="form-control" value="{{$client->Skype}}" name="skype">
+                                                <input type="text" class="form-control" value="{{$client->Skype}}"
+                                                       name="skype">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <a href="{{route('client.index')}}">
-                                                <i class="pe-7s-trash btn-icon-wrapper"></i></a></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
-
+                                    <div class="d-block  card-footer">
+                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
 
                                 </form>

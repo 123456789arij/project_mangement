@@ -1,6 +1,13 @@
 @extends('layouts.base')
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        img {
+            display: inline-block;
+            float: left;
+            margin: 2px;
+        }
+    </style>
 @endsection
 @section('content')
 
@@ -34,6 +41,66 @@
             </div>
         </div>
     </div>
+
+    @if(auth()->guard('employee')->user())
+        <form action="{{route('employee.task')}}" type="get">
+            <div class="row">
+                <div class="col-3">
+                    <select class="mb-2 form-control-lg form-control" name="project_id">
+                        <option value="">choose</option>
+                        @foreach($projects as $project)
+                            <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
+                                {{$project->name}} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="mb-2 form-control-lg form-control" name="status">
+                        <option value="">choose</option>
+                        @foreach( $status  as  $key=> $value)
+                            <option value="{{ $value}}" @if($statusId===$value) selected @endif>
+                                {{trans("messages.$key")}} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary" type="submit">filter</button>
+                </div>
+            </div>
+        </form>
+    @endif
+
+    {{--entreprise filtre--}}
+    @if(auth()->user())
+        <form action="{{route('task')}}" type="get">
+            <div class="row">
+                <div class="col-3">
+                    <select class="mb-2 form-control-lg form-control" name="project_id">
+                        <option value="">choose</option>
+                        @foreach($projects as $project)
+                            <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
+                                {{$project->name}} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3">
+                    <select class="mb-2 form-control-lg form-control" name="status">
+                        <option value="">choose</option>
+                        @foreach( $status  as  $key=> $value)
+                            <option value="{{ $value}}" @if($statusId===$value) selected @endif>
+                                {{trans("messages.$key")}} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary" type="submit">filter</button>
+                </div>
+            </div>
+        </form>
+    @endif
+    {{--/entreprise filtre--}}
+
+
     {{--                /app-page-title--}}
 
     <div class="row">
@@ -82,8 +149,9 @@
                                 <td>
                                     @foreach($task->employees as $employee)
                                         <div style="display:inline-block">
-                                            <img src="{{asset($employee->image)}}" class="rounded-circle"
-                                                 height="25px" width="25px" alt="im"/>
+                                            <img src="{{asset($employee->image)}}" data-toggle="tooltip"
+                                                 data-original-title="{{$employee->name}}" class="rounded-circle"
+                                                 height="30px" width="30px" alt="employee"/>
                                         </div>
                                     @endforeach
                                 </td>
@@ -93,21 +161,23 @@
                                 </td>
 
                                 <td style="color: tomato;font-size: 15px;">
-                                    @if($task->status ==1)
+                                    @if($task->status === 1)
                                         <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
-                                    @else
+                                    @elseif($task->status === 2)
                                         <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
+                                    @else
+                                        <span class="badge badge-info"> {{ __('messages.inProgress') }}</span>
                                     @endif
                                 </td>
 
 
                                 <td>
 
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                            <a href="{{route('task.edit',$task->id)}}">
-                                                <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                            </a>
-                                        </button>
+                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
+                                        <a href="{{route('task.edit',$task->id)}}">
+                                            <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                        </a>
+                                    </button>
 
                                     <form action="{{route('task.destroy',$task->id)}}" method="post">
                                         @csrf

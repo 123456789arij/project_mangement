@@ -89,8 +89,9 @@ class ProjectController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
+        $project = Project::withCount('employees')->with('employees')->findorfail($id);
         return view('project.show', compact('project'));
     }
 
@@ -164,20 +165,20 @@ class ProjectController extends Controller
 
     public function afficher_membre_projet($id)
     {
-        $projet = Project::findOrfail($id);
-        $membres = $projet->employees;
+        $project = Project::findOrfail($id);
+        $membres = $project->employees;
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->get();
-        return view('project.membre', compact('employees', 'membres', 'projet'));
+        return view('project.membre', compact('employees', 'membres', 'project'));
     }
 
     public function membre_projet(Request $request)
     {
         $emplyeeIds = $request->input('employee_id');
-        $projetId = $request->input('project_id');
-        $projet = Project::findOrfail($projetId);
-        $projet->employees()->sync($emplyeeIds);
+        $projectId = $request->input('project_id');
+        $project = Project::findOrfail($projectId);
+        $project->employees()->sync($emplyeeIds);
         return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
     }
 

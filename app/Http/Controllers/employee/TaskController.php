@@ -17,10 +17,12 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $employee = auth()->guard('employee')->user();
         $status = Task::STATUS;
+        $projectId = $request->input('project_id');
+        $statusId = $request->input('status');
         if (auth()->guard('employee')->user()->role == 2) {
             $projects = Project::whereHas('client', function (Builder $query) {
                 $query->whereHas('user', function (Builder $query) {
@@ -29,7 +31,10 @@ class TaskController extends Controller
                     });
                 });
             })->get();
-            $tasks = Task::whereHas('project', function (Builder $query) {
+            $tasks = Task::whereHas('project', function (Builder $query) use ($projectId) {
+                if ($projectId != null) {
+                    $query = $query->where('id', $projectId);
+                }
                 $query->whereHas('client', function (Builder $query) {
                     $query->whereHas('user', function (Builder $query) {
                         $query->whereHas('departments', function (Builder $query) {
@@ -37,13 +42,23 @@ class TaskController extends Controller
                         });
                     });
                 });
-            })->paginate(5);
+            });
+
         } else {
-            $tasks = $employee->tasks()->paginate(5);
+            $tasks = $employee->tasks();
+            if ($projectId != null) {
+                $tasks = $tasks->where('project_id', $projectId);
+            }
             $projects = $employee->projects;
         }
 
-        return view('task.index', compact('tasks', 'projects', 'status'));
+        if ($statusId != null) {
+            $tasks = $tasks->where('status', $statusId);
+        }
+
+        $tasks = $tasks->paginate(5);
+
+        return view('task.index', compact('tasks', 'projects', 'status', 'statusId', 'projectId'));
     }
 
     /**
@@ -56,12 +71,6 @@ class TaskController extends Controller
         if (auth()->guard('employee')->user()->role == 2) {
             $employees = auth()->guard('employee')->user();
             $projects = $employees->projects()->get();
-            /*     $projects = Project::whereHas('client', function (Builder $query) {
-                     $query->where('user_id', auth()->user()->id);
-                 })->get();
-                 $employees = Employee::whereHas('department', function (Builder $query) {
-                     $query->where('user_id', auth()->user()->id);
-                 })->get();*/
             return view('task.create', compact('projects', 'employees'));
         }
     }

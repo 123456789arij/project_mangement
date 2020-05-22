@@ -50,7 +50,7 @@
                 @endif
 
                 <div class="card-header">
-                    Ajouter un nouveau PROJET
+                    {{ __('messages.add_new_Project') }}
                 </div>
 
                 <div class="tab-content">
@@ -58,7 +58,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{route('project.store')}}"  enctype="multipart/form-data">
+                                <form method="POST" action="{{route('project.store')}}" enctype="multipart/form-data">
                                     {{--  partie email +adresse--}}
                                     <div class="form-row">
                                         {{csrf_field()}}
@@ -151,8 +151,8 @@
                                         <textarea id="textarea" name="description"></textarea>
                                     </div>
                                     <br>
-                                    <input type="file" name="file"  class="form-control-file">
-                                    <br>     <br>
+                                    <input type="file" name="file" class="form-control-file">
+                                    <br> <br>
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                                             <i class="pe-7s-trash btn-icon-wrapper"> </i></button>

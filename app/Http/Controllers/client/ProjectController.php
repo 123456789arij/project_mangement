@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
+use App\Project;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -16,7 +17,7 @@ class ProjectController extends Controller
     {
         $client = auth()->guard('client')->user();
         $projects = $client->projects()->paginate(5);
-        return view('project.index', compact('projects'));
+        return view('client.project.index', compact('projects'));
 
     }
 
@@ -49,7 +50,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::withCount('employees')->findorfail($id);
+//   dd($project);
+        return view('project.show', compact('project'));
     }
 
     /**

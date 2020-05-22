@@ -103,7 +103,11 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div> Employée</div>
+                <div>
+
+                    <h4 class="page-title">
+                        {{__('messages.employees') }} # {{$employee->id}} [ {{$employee->name}} ]
+                    </h4> </div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -142,7 +146,7 @@
 
 
                 <div class="card-header">
-                    Ajouter un nouveau Employée
+                    {{ __('messages.UPDATE_EMPLOYEE_INFO') }}
                 </div>
 
                 <div class="tab-content">
@@ -274,25 +278,21 @@
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="department_id">
                                                 <label>Département</label>
-                                                {{--         <select class="mb-2 form-control-lg form-control"
+                                                  <select class="mb-2 form-control-lg form-control"
                                                                  name="department_id">
-                                                             <option value="">Choose....</option>
-
                                                              @foreach( $departments as $department)
                                                                  <option
-                                                                     value="{{$department->id}}"> {{$department->name}} </option>
+                                                                     value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
                                                              @endforeach
-                                                         </select>--}}
+                                                         </select>
                                             </div>
                                         </div>
                                         {{--/departement--}}
                                     </div>
 
-                                    <br><br><br>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <div class="d-block  card-footer">
+                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
 
                                 </form>

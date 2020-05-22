@@ -44,6 +44,7 @@ Route::prefix('tasks')->group(function () {
     Route::delete('/{id}', 'TaskController@destroy')->name('task.destroy');
     Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
     Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
+
 //        Route::get('/', array('as'=> 'front.home', 'uses' => 'ItemController@itemView'));
 //        Route::post('/update-items', array('as'=> 'update.items', 'uses' => 'ItemController@updateItems'));
 });

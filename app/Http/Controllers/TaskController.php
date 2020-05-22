@@ -16,15 +16,23 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $projectId = $request->input('project_id');
+        $statusId = $request->input('status');
+
+        $status = Task::STATUS;
+        $projects = Project::whereHas('client', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+
         $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
             $query->whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
             });
         })->paginate(5);
-        return view('task.index', compact('tasks'));
 
+        return view('task.index', compact('tasks','status', 'projects', 'projectId', 'statusId'));
     }
 
     /**
@@ -96,7 +104,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        $task  = Task::findorfail($id);
+        $task = Task::findorfail($id);
         return view('task.show', compact('task'));
     }
 
@@ -164,10 +172,10 @@ class TaskController extends Controller
 
     public function itemView()
     {
-        $panddingItem = Task::where('status',0)->get();
-        $completeItem = Task::where('status',1)->get();
+        $panddingItem = Task::where('status', 0)->get();
+        $completeItem = Task::where('status', 1)->get();
 
-        return view('task.dragAndDroppable',compact('panddingItem','completeItem'));
+        return view('task.dragAndDroppable', compact('panddingItem', 'completeItem'));
     }
 
     public function updateItems(Request $request)
@@ -175,23 +183,24 @@ class TaskController extends Controller
         $input = $request->all();
 
         foreach ($input['panddingArr'] as $key => $value) {
-            $key = $key+1;
-           Task::where('id',$value)->update(['status'=>0,'order'=>$key]);
+            $key = $key + 1;
+            Task::where('id', $value)->update(['status' => 0, 'order' => $key]);
         }
 
         foreach ($input['completeArr'] as $key => $value) {
-            $key = $key+1;
-            Task::where('id',$value)->update(['status'=>1,'order'=>$key]);
+            $key = $key + 1;
+            Task::where('id', $value)->update(['status' => 1, 'order' => $key]);
         }
 
-        return response()->json(['status'=>'success']);
+        return response()->json(['status' => 'success']);
     }
+
     public function changeStatus(Request $request)
     {
         $task = Task::find($request->task_id);
         $task->status = $request->status;
         $task->save();
 
-        return response()->json(['success'=>'User status change successfully.']);
+        return response()->json(['success' => 'User status change successfully.']);
     }
 }

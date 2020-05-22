@@ -14,7 +14,9 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div>Projet</div>
+                <div><h4 class="page-title">
+                        {{__('messages.project') }} # {{$project->id}} - {{$project->name}}
+                    </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -54,7 +56,7 @@
 
                 <div class="card-header">
 
-                    METTRE À JOUR LES DÉTAILS DU PROJET
+                    {{__('messages.UPDATE_PROJECT_DETAILS') }}
                 </div>
 
                 <div class="tab-content">
@@ -75,45 +77,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <label><strong>Catégories du projet </strong></label>
-                                            {{--      <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                          data-target="#exampleModalCenter">
-                                                      <a href="{{route('entreprise.categorie.index')}}" style="color:white;">
-                                                          Ajouter Catégories du projet</a>
-                                                  </button> --}}
-                                            {{--  <button style="font-size: 15px; color: white;border: 1px solid"
-                                                    type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#exampleModalCenter">
-                                                <i class="fa fa-plus" style="font-size:15px"></i>
-
-                                                --}}{{--                                                      <a href="{{route('projet.create')}}"> </a>--}}{{--
-                                            </button>--}}
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            {{--<div class="position-relative form-group"for="Categories_Id">
-                                                <label >categories </label>
-                                                <select class="mb-2 form-control-lg form-control" name="Categories_Id">
-                                                    @foreach($categories as $category)
-                                                        <option
-                                                            value="{{$category->id}}"> {{$category->name_categorie}} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>--}}
-                                        </div>
-                                    </div>
                                     {{--Categorie du projet--}}
                                     <div class="form-row">
-                                        <div class="col-12">
+                                        <div class="col-md-6">
                                             <div class="position-relative form-group" for="category_id">
                                                 <label>Categorie du projet</label>
                                                 <select class="mb-2 form-control-lg form-control" name="category_id">
                                                     @foreach($categories as $category )
-                                                        <option value="{{$category->id}}"> {{$category->name}} </option>
+                                                        <option
+                                                            value="{{$category->id}}"{{ old('category_id', $project->category_id) == $category->id ? 'selected' : ''}}> {{$category->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -127,7 +99,8 @@
                                                 <label>Sélectionnez un client</label>
                                                 <select class="mb-2 form-control-lg form-control" name="client_id">
                                                     @foreach($clients as $client)
-                                                        <option   value="{{$client->id}}"> {{$client->name}} </option>
+                                                        <option
+                                                            value="{{$client->id}}"{{ old('client_id', $project->client_id) == $client->id ? 'selected' : ''}}> {{$client->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -156,23 +129,23 @@
                                                 <select class="mb-2 form-control form-control" name="status">
                                                     <option value="0"
                                                         {{$project->status == '0' ? 'selected' : ''}}>
-                                                        pas encore commencé
+                                                        {{__('messages.notStarted') }}
                                                     </option>
                                                     <option value="1"
                                                         {{$project->status == '1' ? 'selected' : ''}}>
-                                                        en attente
+                                                        {{__('messages.onHold') }}
                                                     </option>
                                                     <option value="2"
                                                         {{$project->status == '2' ? 'selected' : ''}}>
-                                                        en cour
+                                                        {{__('messages.inProgress') }}
                                                     </option>
                                                     <option value="3"
                                                         {{$project->status == '3' ? 'selected' : ''}}>
-                                                        annulé
+                                                        {{__('messages.canceled') }}
                                                     </option>
                                                     <option value="4"
                                                         {{$project->status == '4' ? 'selected' : ''}}>
-                                                        fini
+                                                        {{__('messages.finished') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -194,10 +167,9 @@
                                         <textarea id="textarea" name="description">{{$project->description}}</textarea>
                                     </div>
 
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <div class="d-block  card-footer">
+                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
 
                                 </form>

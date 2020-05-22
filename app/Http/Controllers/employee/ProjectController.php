@@ -101,9 +101,6 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-//        $reservation = Reservation::with('room', 'room.hotel')->get()->find($reservation->id);
-//        $hotel_id = $reservation->room->hotel_id;
-//        $hotelInfo = Hotel::with('rooms')->get()->find($hotel_id);
         $project = Project::findorfail($id);
         return view('employee.project.show', compact('project'));
     }
@@ -116,7 +113,14 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::findorfail($id);
+        $categories = Category::all();
+        $clients = Client::whereHas('user', function (Builder $query) {
+            $query->whereHas('departments', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            });
+        })->get();
+        return view('employee.project.edit', compact('project', 'clients', 'categories'));
     }
 
     /**
@@ -128,7 +132,25 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'start_date' => 'required|date',
+            'deadline' => 'required|date|after_or_equal:start_date',
+        ]);
+        $project = Project::findOrFail($id);
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->start_date = $request->input('start_date');
+        $project->deadline = $request->input('deadline');
+        $project->progress_bar = $request->input('my_range');
+        $project->status = $request->input('status');
+        $project->client_id = $request->input('client_id');
+        $project->category_id = $request->input('category_id');
+        $project->save();
+//        todo
+        return redirect()->route('proj')->with('toast_success', ' projet  is successfully saved');
     }
 
     /**

@@ -12,7 +12,9 @@
                     <i class="pe-7s-car icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div> projet #
+                <div><h4 class="page-title">
+                        {{__('messages.project') }} # {{$project->id}} - {{$project->name}}
+                    </h4>
                     {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                             elements and components
                         </div>--}}
@@ -58,7 +60,7 @@
                         <div class="tab-pane active" id="tab-eg115-0" role="tabpanel">
                             <h4>Détaille du projet :</h4>
                             {!! strip_tags($project->description) !!}
-{{--                            {{$project->description}}--}}
+                            {{--                            {{$project->description}}--}}
                             <br>
                             {{--   client détailles--}}
                             <div class="col-md-6">

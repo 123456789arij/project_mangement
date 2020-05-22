@@ -5,6 +5,12 @@
             text-transform: capitalize;
             text-align: justify;
         }
+
+        #membres {
+            text-transform: capitalize;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+        }
     </style>
 @endsection
 @section('content')
@@ -17,7 +23,7 @@
                     <i class="pe-7s-car icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>{{ __('messages.departments') }}
+                <div>   {{ __('messages.departments') }}
                     {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                             elements and components
                         </div>--}}
@@ -123,7 +129,7 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr class="text-center">
-                            <th scope="col">id</th>
+                            <th scope="col">#</th>
                             <th scope="col" style="text-align: justify"> {{ __('messages.departments') }}</th>
                             <th colspan="2">Action</th>
 
@@ -141,6 +147,8 @@
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
                                                     {{ $department->name }}
+                                                    &nbsp;&nbsp;
+                                                    <span class="badge badge-pill badge-success" id="membres">{{$department->employees_count}} &nbsp; Members</span>
                                                 </div>
                                             </div>
                                         </div>
