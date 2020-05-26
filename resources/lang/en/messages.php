@@ -60,6 +60,13 @@ return [
     'inProgress' => 'In Progress',
     'canceled' => 'Canceled',
     'finished' => 'Finished',
+    'total_clients' => 'Total Clients',
+    'total_Employees' => 'Total Employees',
+    'Total_Projects' => 'Total Projects',
+    'Total_Tasks' => 'Total Tasks',
+    'Pending_task' => 'Pending Task',
+    'Completed_task' => 'Completed Task',
+    'Task_Calendar'=> 'Task Calendar',
 
 
 ];

@@ -12,6 +12,16 @@ class Task extends Model
 
     const STATUS = ['Incomplete' => 0, 'Completed' => 1, 'inProgress' => 3];
 
+    protected $appends = ["open", "text"];
+
+    public function getOpenAttribute(){
+        return true;
+    }
+
+    public function getTextAttribute(){
+        return $this->titre;
+    }
+
     public function project()
     {
         return $this->belongsTo(Project::class);

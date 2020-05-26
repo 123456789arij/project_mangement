@@ -10,6 +10,38 @@
         #employee {
             text-align: justify;
         }
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #A9A9A9;
+            display: inline-block;
+            height: 20px;
+            margin: 20px 10px;
+        }
     </style>
 @endsection
 @section('content')
@@ -23,9 +55,11 @@
                     </i>
                 </div>
                 <div> Employees Dashboard
-                    {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
-                            elements and components
-                        </div>--}}
+                    <span class="vertical-line">  	&nbsp;
+                        <span class="label label-rouded label-custom pull-right">
+                        {{  $employeescount }}
+                    </span></span>
+                    {{ __('messages.total_Employees') }}
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -44,79 +78,6 @@
         </div>
     </div>
     {{--                /app-page-title--}}
-
-    <div class="row">
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
-                <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                        <div class="widget-content-left">
-                            <div class="widget-heading">Total Des Employés</div>
-                            <div class="widget-subheading">Last year expenses</div>
-                        </div>
-                        <div class="widget-content-right">
-                            <div class="widget-numbers text-success"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
-                <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                        <div class="widget-content-left">
-                            <div class="widget-heading">Products Sold</div>
-                            <div class="widget-subheading">Revenue streams</div>
-                        </div>
-                        <div class="widget-content-right">
-                            <div class="widget-numbers text-warning">$3M</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
-                <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                        <div class="widget-content-left">
-                            <div class="widget-heading">Followers</div>
-                            <div class="widget-subheading">People Interested</div>
-                        </div>
-                        <div class="widget-content-right">
-                            <div class="widget-numbers text-danger">45,9%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
-                <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                        <div class="widget-content-left">
-                            <div class="widget-heading">Income</div>
-                            <div class="widget-subheading">Expected totals</div>
-                        </div>
-                        <div class="widget-content-right">
-                            <div class="widget-numbers text-focus">$147</div>
-                        </div>
-                    </div>
-                    <div class="widget-progress-wrapper">
-                        <div class="progress-bar-sm progress-bar-animated-alt progress">
-                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
-                        </div>
-                        <div class="progress-sub-label">
-                            <div class="sub-label-left">Expenses</div>
-                            <div class="sub-label-right">100%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
@@ -135,7 +96,6 @@
                            class="display">
                         <thead>
                         <tr>
-                            <th scope="col" class="text-center">#</th>
                             <th scope="col">{{ __('messages.name') }}</th>
                             <th scope="col" id="employee">{{ __('messages.email') }}</th>
                             <th scope="col" id="employee">{{ __('messages.role') }}</th>
@@ -145,7 +105,6 @@
                         <tbody>
                         @foreach($employees as $employee)
                             <tr>
-                                <td class="text-center text-muted"> {{ $employee->id }}</td>
                                 <td>
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">

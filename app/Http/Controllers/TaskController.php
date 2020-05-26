@@ -32,7 +32,7 @@ class TaskController extends Controller
             });
         })->paginate(5);
 
-        return view('task.index', compact('tasks','status', 'projects', 'projectId', 'statusId'));
+        return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId'));
     }
 
     /**
@@ -203,4 +203,27 @@ class TaskController extends Controller
 
         return response()->json(['success' => 'User status change successfully.']);
     }
+
+
+//    public function bb(){
+//        dd('here');
+//    }
+//    public function calendar_task()
+//    {
+//        dd('here');
+//        if (request()->ajax()) {
+//            $start_date = (!empty($_GET["start_date"])) ? ($_GET["start_date"]) : ('');
+//
+//            $end_date = (!empty($_GET["end_date"])) ? ($_GET["end_date"]) : ('');
+//
+//
+//            $data = Task::whereDate('start_date', '>=', $start_date)->whereDate('end_date', '<=', $end_date)->get(['id', 'title', 'start_date', 'end_date']);
+//
+//            return Response::json($data);
+//
+//        }
+//
+//        return view('task.fullcalender');
+//    }
+
 }

@@ -352,6 +352,11 @@
                                                 <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                             </a>
                                         </button>
+                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-secondary">
+                                            <a href="{{route('gantt',$project->id)}}">
+                                                <i class="fas fa-chart-bar"style="font-size: 20px;"></i>
+                                            </a>
+                                        </button>
                                     @endif
 
 

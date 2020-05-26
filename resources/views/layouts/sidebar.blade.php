@@ -154,7 +154,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('task.calander')}}">
+                <a href="{{route('calendar')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
                     {{ trans('messages.task_calendar') }}
                 </a>
@@ -217,6 +217,12 @@
                 <i class="metismenu-icon  fas fa-chart-pie"></i> Pie Chart
             </a>
         </li>
+        <li>
+            <a href="{{route('donut_chart')}}">
+                <i class="metismenu-icon  fas fa-chart-pie"></i>     Donut Chart
+            </a>
+        </li>
+
         <li class="app-sidebar__heading">PRO Version</li>
         <li>
             <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/" target="_blank">

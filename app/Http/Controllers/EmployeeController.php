@@ -17,10 +17,13 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $employeescount = Employee::whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->count();
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->paginate(5);
-        return view('employee.index', compact('employees'));
+        return view('employee.index', compact('employees','employeescount'));
 
     }
 

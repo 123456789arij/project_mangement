@@ -66,11 +66,9 @@ Route::prefix('employee')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/gant', function () {
-        return view('project.gantt');
-    });
 
     Route::get('/laravel_google_chart', 'ChartController@index')->name('pieChart');
+    Route::get('/donut_chart', 'DonutChartController@index')->name('donut_chart');
 //    project
     Route::prefix('projects')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project');
@@ -83,9 +81,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/membre/{id}', 'ProjectController@afficher_membre_projet')->name('membre_projet');
         Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
-//        Route::delete('/{id}', 'ProjectController@destroy_membre')->name('destroy_membre');
 
-
+        Route::get('/gantt/{id}','GanttController@get')->name('gantt');
     });
     Route::prefix('clients')->group(function () {
         Route::get('/', 'ClientController@index')->name('client.index');
@@ -96,6 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{id}', 'ClientController@update')->name('client.update');
         Route::delete('/{id}', 'ClientController@destroy')->name('client.destroy');
     });
+    Route::get('/calendar', 'CalendarTaskController@index')->name('calendar');
 
     //task
     Route::prefix('tasks')->group(function () {
@@ -109,16 +107,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
         Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
         Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
-        Route::get('/calander', 'TaskController@calander')->name('task.calander');
+
 //        Route::get('/', array('as'=> 'front.home', 'uses' => 'ItemController@itemView'));
 //        Route::post('/update-items', array('as'=> 'update.items', 'uses' => 'ItemController@updateItems'));
     });
     //fullcalender
     Route::prefix('event')->group(function () {
-        Route::get('/add', 'EventController@createEvent');
-        Route::post('/add', 'EventController@store');
-        Route::get('/', 'EventController@calender')->name('event');
+        Route::get('/fullcalendareventmaster', 'EventController@index')->name('event');
+        Route::post('/fullcalendareventmaster/create', 'EventController@create');
+        Route::post('/fullcalendareventmaster/update', 'EventController@update');
+        Route::post('/fullcalendareventmaster/delete', 'EventController@destroy');
     });
+
     //department
     Route::prefix('departments')->group(function () {
         Route::get('/', 'DepartmentController@index')->name('department');

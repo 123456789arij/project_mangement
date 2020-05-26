@@ -17,8 +17,10 @@ class ClientController extends Controller
      */
     public function index()
     {
+
+        $clientsCount = Client::where('user_id', auth()->user()->id)->count();
         $clients = Client::where('user_id', auth()->user()->id)->simplePaginate(5);
-        return view('client.index', compact('clients'));
+        return view('client.index', compact('clients','clientsCount'));
     }
 
     /**

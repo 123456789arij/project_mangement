@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Event;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EventController extends Controller
 {
@@ -12,43 +13,47 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function index()
     {
-        $event = new Event();
-        $event->title = $request->get('title');
-        $event->start_date = $request->get('startdate');
-        $event->end_date = $request->get('enddate');
-        $event->save();
-        return redirect('event')->with('success', 'Event has been added');
+        if(request()->ajax())
+        {
+            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+
+            $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            return Response::json($data);
+        }
+        return view('fullEvent');
     }
 
-    public function calender()
+
+    public function create(Request $request)
     {
-//        $events = [];
-//        $data = Event::all();
-//        if($data->count())
-//        {
-//            foreach ($data as $key => $value)
-//            {
-//                $events[] = Calendar::event(
-//                    $value->title,
-//                    true,
-//                    new \DateTime($value->start_date),
-//                    new \DateTime($value->end_date.'+1 day'),
-//                    null,
-//                    // Add color
-//                    [
-//                        'color' => '#000000',
-//                        'textColor' => '#008000',
-//                    ]
-//                );
-//            }
-//        }
-// $calendar = Calendar::addEvents($events);
-        return view('event.index');
+        $insertArr = [ 'title' => $request->title,
+            'start' => $request->start,
+            'end' => $request->end
+        ];
+        $event = Event::insert($insertArr);
+        return Response::json($event);
     }
-    /*   public function createEvent()
-     {
-         return view('createevent');
-     }*/
+
+
+    public function update(Request $request)
+    {
+        $where = array('id' => $request->id);
+        $updateArr = ['title' => $request->title,'start' => $request->start, 'end' => $request->end];
+        $event  = Event::where($where)->update($updateArr);
+
+        return Response::json($event);
+    }
+
+
+    public function destroy(Request $request)
+    {
+        $event = Event::where('id',$request->id)->delete();
+
+        return Response::json($event);
+    }
+
 }

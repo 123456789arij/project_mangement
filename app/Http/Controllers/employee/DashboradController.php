@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
+use App\Project;
+use App\Task;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class DashboradController extends Controller
@@ -14,7 +17,33 @@ class DashboradController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $projects = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
+            $query->whereHas('user', function (Builder $query) {
+                $query->whereHas('departments', function (Builder $query) {
+                    $query->where('id', auth()->guard('employee')->user()->department_id);
+                });
+            });
+        })->count();
+        $tasks = Task::whereHas('project', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->whereHas('departments', function (Builder $query) {
+                        $query->where('id', auth()->guard('employee')->user()->department_id);
+                    });
+                });
+            });
+        })->count();
+
+        $taskscount = Task::where('status',2)->whereHas('project', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->whereHas('departments', function (Builder $query) {
+                        $query->where('id', auth()->guard('employee')->user()->department_id);
+                    });
+                });
+            });
+        })->count();
+        return view('home', compact('projects','tasks','taskscount'));
     }
 
     /**

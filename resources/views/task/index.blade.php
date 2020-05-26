@@ -92,9 +92,9 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-3">
-                    <button class="btn btn-primary" type="submit">filter</button>
-                </div>
+                <button type="submit" class="font-icon-wrapper font-icon-lg"  data-toggle="tooltip" data-original-title="filtre">
+                    <i class="pe-7s-filter icon-gradient bg-warm-flame"> </i>
+                </button>
             </div>
         </form>
     @endif
@@ -113,7 +113,6 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">{{ __('messages.tasks') }}</th>
                             <th scope="col">{{ __('messages.projects') }}</th>
                             <th scope="col">{{ __('messages.assigned to') }}</th>
@@ -126,7 +125,6 @@
                         <tbody>
                         @foreach(  $tasks  as  $task)
                             <tr>
-                                <td> {{$task->id }} </td>
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
