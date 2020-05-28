@@ -5,12 +5,23 @@
 @endsection
 @section('content')
 
-    <h3>{{ __('messages.Task_Calendar') }}</h3>
-    <div class="page-title-subheading">
-        Le calendrier indique les dates d’échéance des tâches.
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card">
+                <div class="card-header">
+                    <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;
+                    {{ __('messages.Task_Calendar') }}
+
+                </div>
+
+{{--                <div class="page-title-subheading">--}}
+{{--                    Le calendrier indique les dates d’échéance des tâches.--}}
+{{--                </div>--}}
+                <div id='calendar' class="container"></div>
+            </div>
+        </div>
     </div>
-    <br><br>
-    <div id='calendar'></div>
+
 @endsection
 @section('jsBlock')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"

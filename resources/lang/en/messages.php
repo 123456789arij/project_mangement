@@ -67,6 +67,7 @@ return [
     'Pending_task' => 'Pending Task',
     'Completed_task' => 'Completed Task',
     'Task_Calendar'=> 'Task Calendar',
+    'TaskReport'=>'Task Report',
 
 
 ];

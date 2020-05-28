@@ -65,7 +65,8 @@ return [
     'Total_Tasks' => 'Total Des Tâches',
     'Pending_task' => 'tâche en attente',
     'Completed_task' => 'tâche Terminée',
-    'Task_Calendar'=> 'Calendrier Des Tâches',
+    'Task_Calendar' => 'Calendrier Des Tâches',
+    'TaskReport' => 'Rapport de tâche',
 
 
 ];

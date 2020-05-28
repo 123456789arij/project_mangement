@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/data', 'GanttController@get');
+Route::get('/data/{id}', 'GanttController@get');
 //    project
 Route::prefix('projects')->group(function () {
     Route::get('/', 'ProjectController@index')->name('project');

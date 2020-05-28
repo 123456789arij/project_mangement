@@ -28,12 +28,18 @@ class ProjectController extends Controller
               ->select('projects.*')
               ->get();*/
 
+        $projectsCount = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
+            $query->whereHas('user', function (Builder $query) {
+                $query->where('id', auth()->user()->id);
+            });
+        })->count();
+
         $projects = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->user()->id);
             });
         })->paginate(5);
-        return view('project.index', compact('projects'));
+        return view('project.index', compact('projects','projectsCount'));
     }
 
 

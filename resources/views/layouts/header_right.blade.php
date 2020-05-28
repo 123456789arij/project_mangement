@@ -20,21 +20,7 @@
                                 @if(auth()->guard('employee')->user())
                                     Employee
                                 @endif
-
-
                             </h6>
-                            {{--                            @if(auth()->guard('employee')->user())--}}
-                            {{--                                @foreach($employees as $employee)--}}
-                            {{--                                    <a href="{{route('employee.profile.edit',$employee->id)}}" type="button" tabindex="0"--}}
-                            {{--                                       class="dropdown-item">User Account</a>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            @endif--}}
-
-                            {{--                            @if(auth()->guard('client')->user())--}}
-                            {{--                                @foreach(   $clients as $client)--}}
-                            {{--                                <a href="{{route('client.edit',$client->id)}}" type="button" tabindex="0" class="dropdown-item">User Account</a>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            @endif--}}
                             <div tabindex="-1" class="dropdown-divider"></div>
                             <button type="button" tabindex="0" class="dropdown-item">
                                 <a class="nav-link" href="{{ route('logout') }}"

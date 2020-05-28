@@ -43,7 +43,17 @@ class HomeController extends Controller
                     $query->where('user_id', auth()->user()->id);
                 });
             })->count();
-            return view('home', compact('userCount','employeesCount','projectsCount','tasksCount'));
+            $tasksPadaing = Task::with('project', 'employees')->where('status',2)->whereHas('project', function (Builder $query) {
+                $query->whereHas('client', function (Builder $query) {
+                    $query->where('user_id', auth()->user()->id);
+                });
+            })->count();
+            $tasksCompleted = Task::with('project', 'employees')->where('status',1)->whereHas('project', function (Builder $query) {
+                $query->whereHas('client', function (Builder $query) {
+                    $query->where('user_id', auth()->user()->id);
+                });
+            })->count();
+            return view('home', compact('userCount','employeesCount','projectsCount','tasksCount','tasksPadaing','tasksCompleted'));
         }
         if(auth()->guard('')->user())
         {

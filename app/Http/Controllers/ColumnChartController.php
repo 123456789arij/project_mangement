@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use App\Task;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ColumnChartController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $projects = Project::whereHas('client', function (Builder $query) {
+        $projects = Project::whereHas('client', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();
+
+        $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
-            })->get();
-
-            $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
-                $query->whereHas('client', function (Builder $query) {
-                    $query->where('user_id', auth()->user()->id);
-                });
-            })->get();
-
-
+            });
+        })->get();
+        if ($request->ajax()) {
             $statuses = [];
             foreach (Task::STATUS as $key => $value) {
                 $statuses[$value] = $key;

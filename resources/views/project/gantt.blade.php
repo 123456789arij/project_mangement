@@ -23,11 +23,11 @@
     <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
     <script>
 
-        // gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
+        gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
         gantt.config.order_branch = true;/*!*/
         gantt.config.order_branch_free = true;/*!*/
         gantt.init("gantt_here");
-        gantt.load("/api/data/");
+        gantt.load("/api/data/{{ $project->id }}");
         var dp = new gantt.dataProcessor("/api");/*!*/
         dp.init(gantt);/*!*/
         dp.setTransactionMode("REST");/*!*/

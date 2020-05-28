@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,7 +32,14 @@ class ChartController extends Controller
             }
             return response()->json(['status' => 'success', 'data' => $array]);
         }
-        return view('pie_chart');
+
+        $taskindex = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        })->paginate(5);
+
+        return view('pie_chart',compact('taskindex'));
     }
 
 

@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/laravel_google_chart', 'ChartController@index')->name('pieChart');
     Route::get('/donut_chart', 'DonutChartController@index')->name('donut_chart');
+    Route::get('/columnChart', 'ColumnChartController@index')->name('column_chart');
 //    project
     Route::prefix('projects')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project');

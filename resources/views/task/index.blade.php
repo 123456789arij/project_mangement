@@ -7,6 +7,38 @@
             float: left;
             margin: 2px;
         }
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #A9A9A9;
+            display: inline-block;
+            height: 20px;
+            margin: 20px 10px;
+        }
     </style>
 @endsection
 @section('content')
@@ -17,13 +49,14 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                    </i>
+                    <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div> Tâche Dashboard
-                    {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
-                            elements and components
-                        </div>--}}
+                    <span class="vertical-line">  	&nbsp;
+                        <span class="label label-rouded label-custom pull-right">
+                        {{  $tasksCount }}
+                    </span>
+                    </span>
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -69,8 +102,9 @@
             </div>
         </form>
     @endif
+    {{--/app-page-title--}}
 
-    {{--entreprise filtre--}}
+    {{--entreprise task filtre--}}
     @if(auth()->user())
         <form action="{{route('task')}}" type="get">
             <div class="row">
@@ -92,16 +126,15 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="font-icon-wrapper font-icon-lg"  data-toggle="tooltip" data-original-title="filtre">
+                <button type="submit" class="font-icon-wrapper font-icon-lg" data-toggle="tooltip"
+                        data-original-title="filtre">
                     <i class="pe-7s-filter icon-gradient bg-warm-flame"> </i>
                 </button>
             </div>
         </form>
     @endif
-    {{--/entreprise filtre--}}
+    {{--/entreprise  task filtre--}}
 
-
-    {{--                /app-page-title--}}
 
     <div class="row">
         <div class="col-md-12">
@@ -128,22 +161,16 @@
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
-                                            {{--  <div class="widget-content-left mr-3">
-                                                        <div class="widget-content-left">
-                                                             --}}{{--  img--}}{{--
-                                                        </div>
-                                                    </div>--}}
                                             <div>
                                                 <div>
                                                     <a href="{{route('task.show',$task->id)}}">{{ $task->titre}}</a>
                                                 </div>
-                                                {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="">{{ $task->project->name}}</a></td>
+                                    <a href="#">{{ $task->project->name}}</a></td>
                                 <td>
                                     @foreach($task->employees as $employee)
                                         <div style="display:inline-block">
@@ -196,7 +223,6 @@
                         {{ $tasks->links() }}
                     </footer>
                 </div>
-
             </div>
         </div>
     </div>

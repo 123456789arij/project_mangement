@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class GanttController extends Controller
 {
-    public function get(Request $request,$id)
+    public function get(Request $request, $id)
     {
         $project = Project::with('tasks')->findOrFail($id);
 
@@ -18,7 +19,11 @@ class GanttController extends Controller
             ];
 
             foreach ($project->tasks as $task) {
-                $data[] = ['id' => $task->id, 'text' => $task->titre, 'start_date' => $task->start_date, 'duration' => 5, 'progress' => 0, 'parent' => $project->id];
+                $start = Carbon::parse($task->start_date);
+                $end = Carbon::parse($task->end_date);
+
+                $diff = $end->diffInDays($start);
+                $data[] = ['id' => $task->id, 'text' => $task->titre, 'start_date' => $task->start_date, 'duration' => $diff, 'progress' => 0, 'parent' => $project->id];
             }
 
             return response()->json([
@@ -27,6 +32,6 @@ class GanttController extends Controller
             ]);
         }
 
-        return view('project.gantt', compact('project','id'));
+        return view('project.gantt', compact('project'));
     }
 }

@@ -25,14 +25,27 @@ class TaskController extends Controller
         $projects = Project::whereHas('client', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->get();
-
-        $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
+        $tasksCount = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
             $query->whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
             });
-        })->paginate(5);
+        })->count();
 
-        return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId'));
+        $tasks = Task::with('project', 'employees')->whereHas('project', function (Builder $query) use ($projectId) {
+            if ($projectId != null) {
+                $query = $query->where('id', $projectId);
+            }
+            $query->whereHas('client', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        });
+        if ($statusId != null) {
+            $tasks = $tasks->where('status', $statusId);
+        }
+
+        $tasks = $tasks->paginate(5);
+
+        return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId','tasksCount'));
     }
 
     /**

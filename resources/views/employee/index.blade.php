@@ -10,6 +10,7 @@
         #employee {
             text-align: justify;
         }
+
         .label-rouded, .label-rounded {
             border-radius: 50%;
             padding: 6px 8px;
@@ -58,7 +59,8 @@
                     <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
                         {{  $employeescount }}
-                    </span></span>
+                    </span>
+                    </span>
                     {{ __('messages.total_Employees') }}
                 </div>
             </div>
@@ -88,8 +90,7 @@
                     </div><br/>
                 @endif
 
-                <div class="card-header">{{ __('messages.employees') }}
-                </div>
+                <div class="card-header">{{ __('messages.employees') }}</div>
                 <br>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
