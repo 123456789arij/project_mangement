@@ -43,7 +43,7 @@ class HomeController extends Controller
                     $query->where('user_id', auth()->user()->id);
                 });
             })->count();
-            $tasksPadaing = Task::with('project', 'employees')->where('status',2)->whereHas('project', function (Builder $query) {
+            $tasksPadaing = Task::with('project', 'employees')->where('status',3)->whereHas('project', function (Builder $query) {
                 $query->whereHas('client', function (Builder $query) {
                     $query->where('user_id', auth()->user()->id);
                 });

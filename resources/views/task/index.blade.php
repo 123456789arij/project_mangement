@@ -7,6 +7,7 @@
             float: left;
             margin: 2px;
         }
+
         .label-rouded, .label-rounded {
             border-radius: 50%;
             padding: 6px 8px;
@@ -39,6 +40,17 @@
             height: 20px;
             margin: 20px 10px;
         }
+
+        #create_task_btn {
+            color: white;
+            font-size: 18px;
+        }
+
+        #create_task_btn:hover {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 @endsection
 @section('content')
@@ -52,11 +64,13 @@
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div> Tâche Dashboard
-                    <span class="vertical-line">  	&nbsp;
+                    @if(auth()->user())
+                        <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
                         {{  $tasksCount }}
                     </span>
                     </span>
+                    @endif
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -64,11 +78,12 @@
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
                     <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                          </span>
-                        <a href="{{ route('task.create')}}"
-                           style="color: white;font-size: 15px;"> Ajouter une nouvelle Tâche</a>&nbsp;&nbsp;
+                        <i class="fa fa-plus">
+                            <a href="{{ route('task.create')}}" id="create_task_btn">
+                                Ajouter une nouvelle Tâche
+
+                            </a>&nbsp;&nbsp;</i>
+
                     </button>
                 </div>
             </div>
@@ -80,7 +95,6 @@
             <div class="row">
                 <div class="col-3">
                     <select class="mb-2 form-control-lg form-control" name="project_id">
-                        <option value="">choose</option>
                         @foreach($projects as $project)
                             <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
                                 {{$project->name}} </option>
@@ -89,7 +103,6 @@
                 </div>
                 <div class="col-3">
                     <select class="mb-2 form-control-lg form-control" name="status">
-                        <option value="">choose</option>
                         @foreach( $status  as  $key=> $value)
                             <option value="{{ $value}}" @if($statusId===$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
@@ -110,7 +123,6 @@
             <div class="row">
                 <div class="col-3">
                     <select class="mb-2 form-control-lg form-control" name="project_id">
-                        <option value="">choose</option>
                         @foreach($projects as $project)
                             <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
                                 {{$project->name}} </option>
@@ -119,7 +131,6 @@
                 </div>
                 <div class="col-3">
                     <select class="mb-2 form-control-lg form-control" name="status">
-                        <option value="">choose</option>
                         @foreach( $status  as  $key=> $value)
                             <option value="{{ $value}}" @if($statusId===$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
@@ -163,7 +174,7 @@
                                         <div class="widget-content-wrapper">
                                             <div>
                                                 <div>
-                                                    <a href="{{route('task.show',$task->id)}}">{{ $task->titre}}</a>
+                                                    <a href="{{route('task.show',$task->id)}}">{{ $task->title}}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +202,7 @@
                                     @elseif($task->status === 2)
                                         <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
                                     @else
-                                        <span class="badge badge-info"> {{ __('messages.inProgress') }}</span>
+                                        <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
                                     @endif
                                 </td>
 

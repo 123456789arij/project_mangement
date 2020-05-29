@@ -13,12 +13,14 @@ class ChartController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = DB::table('tasks')
-                ->select(
-                    DB::raw('status as status'),
-                    DB::raw('count(*) as number'))
+            $data = Task::whereHas('project', function (Builder $query) {
+                $query->whereHas('client', function (Builder $query) {
+                    $query->where('user_id', auth()->user()->id);
+                });
+            })->select(
+                DB::raw('status as status'),
+                DB::raw('count(*) as number'))
                 ->groupBy('status')
-                ->whereIn('status', [0, 1, 3])
                 ->get();
 
             $statuses = [];
@@ -33,13 +35,8 @@ class ChartController extends Controller
             return response()->json(['status' => 'success', 'data' => $array]);
         }
 
-        $taskindex = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
-            $query->whereHas('client', function (Builder $query) {
-                $query->where('user_id', auth()->user()->id);
-            });
-        })->paginate(5);
 
-        return view('pie_chart',compact('taskindex'));
+        return view('pie_chart');
     }
 
 

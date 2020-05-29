@@ -12,7 +12,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
                 <div><h4 class="page-title">
                         {{__('messages.project') }} # {{$project->id}} - {{$project->name}}
@@ -21,7 +21,7 @@
                         elements and components
                     </div>--}}
             </div>
-            {{--   /page-title-wrapper--}}
+            {{--/page-title-wrapper--}}
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
@@ -129,15 +129,15 @@
                                                 <select class="mb-2 form-control form-control" name="status">
                                                     <option value="0"
                                                         {{$project->status == '0' ? 'selected' : ''}}>
-                                                        {{__('messages.notStarted') }}
+                                                        {{__('messages.not Started') }}
                                                     </option>
                                                     <option value="1"
                                                         {{$project->status == '1' ? 'selected' : ''}}>
-                                                        {{__('messages.onHold') }}
+                                                        {{__('messages.on Hold') }}
                                                     </option>
                                                     <option value="2"
                                                         {{$project->status == '2' ? 'selected' : ''}}>
-                                                        {{__('messages.inProgress') }}
+                                                        {{__('messages.In Progress') }}
                                                     </option>
                                                     <option value="3"
                                                         {{$project->status == '3' ? 'selected' : ''}}>

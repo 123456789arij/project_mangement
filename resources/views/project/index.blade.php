@@ -110,29 +110,37 @@
             height: 20px;
             margin: 20px 10px;
         }
-    /*    */
+
+        /*    */
         #gantt:hover {
             background: transparent;
         }
     </style>
 @endsection
 @section('content')
-
     {{-- app-page-title--}}
     <div class="app-page-title">
         <div class="page-title-wrapper">
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                    </i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
                 <div> Projets Dashboard
+                    @if(auth()->user())
                     <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
                         {{  $projectsCount }}
+                         </span>
+                    </span>
+                    @endif
+             {{--       @if(auth()->guard('employee')->user())
+                        <span class="vertical-line">  	&nbsp;
+                        <span class="label label-rouded label-custom pull-right">
+                        {{$projectscount}}
                     </span>
                     </span>
+                    @endif--}}
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -286,12 +294,12 @@
                                 <td id="status">
                                     @if($project->status == 0)
                                         <span
-                                            class="badge badge-pill badge-secondary">{{__('messages.notStarted') }}</span>
+                                            class="badge badge-pill badge-secondary">{{__('messages.not Started') }}</span>
                                     @elseif($project->status ==  1)
-                                        <span class="badge badge-pill badge-warning">{{__('messages.onHold') }}</span>
+                                        <span class="badge badge-pill badge-warning">{{__('messages.on Hold') }}</span>
                                     @elseif($project->status ==  2)
                                         <span
-                                            class="badge badge-pill badge-info">  {{__('messages.inProgress') }}</span>
+                                            class="badge badge-pill badge-info">  {{__('messages.In Progress') }}</span>
                                     @elseif($project->status == 3)
                                         <span class="badge badge-pill badge-danger">{{__('messages.canceled') }}</span>
                                     @elseif($project->status == 4)

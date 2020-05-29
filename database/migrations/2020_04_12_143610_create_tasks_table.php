@@ -15,7 +15,7 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('titre');
+            $table->string('title');
             $table->unsignedBigInteger('project_id');
             $table->foreign('project_id')->references('id')
                 ->on('projects')->onDelete('cascade');
@@ -23,7 +23,7 @@ class CreateTasksTable extends Migration
             $table->date('end_date');
             $table->longText('description');
             $table->tinyInteger('priority');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

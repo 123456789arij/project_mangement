@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Gestion de projet</title>
+    <title>Gestion Des Projets</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
@@ -27,9 +27,8 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!-- fonte  CSS -->
-{{--    <link href="{{asset('font-app/css/fontawesome.css')}}" rel="stylesheet">--}}
-{{--    <link href="{{asset('font-app/css/brands.css')}}" rel="stylesheet">--}}
-{{--    <link href="{{asset('font-app/css/solid.css')}}" rel="stylesheet">--}}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css">
 
     @yield('cssBlock')
 </head>
@@ -137,6 +136,8 @@
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+
+
 @include('sweetalert::alert')
 @yield('jsBlock')
 </html>

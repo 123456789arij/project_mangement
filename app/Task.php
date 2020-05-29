@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $fillable = [
-        'titre', 'project_id', 'start_date', 'end_date', 'description', 'priority', 'status',
+        'title', 'project_id', 'start_date', 'end_date', 'description', 'priority', 'status',
     ];
 
-    const STATUS = ['Incomplete' => 0, 'Completed' => 1, 'inProgress' => 3];
+    const STATUS = ['Completed' => 1, 'Incomplete' => 2, 'In Progress' => 3];
 
     protected $appends = ["open", "text"];
 
-    public function getOpenAttribute(){
+    public function getOpenAttribute()
+    {
         return true;
     }
 
-    public function getTextAttribute(){
-        return $this->titre;
+    public function getTextAttribute()
+    {
+        return $this->title;
     }
 
     public function project()

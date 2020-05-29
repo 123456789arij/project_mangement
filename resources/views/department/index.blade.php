@@ -20,7 +20,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                    <i class="fas fa-building icon-gradient bg-premium-dark">
                     </i>
                 </div>
                 <div>   {{ __('messages.departments') }}
@@ -57,7 +57,6 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr class="text-center">
-                            <th scope="col">#</th>
                             <th scope="col" style="text-align: justify"> {{ __('messages.departments') }}</th>
                             <th colspan="2">Action</th>
 
@@ -66,9 +65,6 @@
                         <tbody class="container text-center">
                         @foreach($departments as $department)
                             <tr>
-                                <td class="text-muted">
-                                    {{ $department->id }}
-                                </td>
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">

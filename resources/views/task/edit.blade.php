@@ -11,10 +11,10 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div><h4 class="page-title">
-                        {{__('messages.task') }} # {{$task->id}} - {{$task->titre}}
+                        {{__('messages.task') }} # {{$task->id}} - {{$task->title}}
                     </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
@@ -75,8 +75,8 @@
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
                                                 <label> Titre </label>
-                                                <input type="text" class="form-control" id="titre" name="titre"
-                                                       value="{{$task->titre}}">
+                                                <input type="text" class="form-control" id="title" name="title"
+                                                       value="{{$task->title}}">
                                             </div>
                                         </div>
                                     </div>
@@ -126,11 +126,14 @@
                                             <div class="position-relative form-group">
                                                 <label for="status"> Statut</label>
                                                 <select class="mb-2 form-control form-control" name="status">
-                                                    <option value="1" {{$task->status == '0' ? 'selected' : ''}} >
-                                                        TERMINÉ
+                                                    <option value="1" {{$task->status == '1' ? 'selected' : ''}} >
+                                                        {{ __('messages.Completed') }}
                                                     </option>
                                                     <option value="2" {{$task->status == '2' ? 'selected' : ''}} >
-                                                        incomplète
+                                                        {{ __('messages.Incomplete') }}
+                                                    </option>
+                                                    <option value="3" {{$task->status == '3' ? 'selected' : ''}} >
+                                                        {{ __('messages.In Progress') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -145,14 +148,14 @@
                                             </label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="0" {{ $task->priority == '0' ? 'checked' : ''}}>
+                                                       value="0" {{ $task->priority == '1' ? 'checked' : ''}}>
                                                 <label class="form-check-label">
                                                     Medium
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="1" {{ $task->priority == '1' ? 'checked' : ''}}>
+                                                       value="1" {{ $task->priority == '2' ? 'checked' : ''}}>
                                                 <label class="form-check-label">
                                                     Low
                                                 </label>
@@ -160,7 +163,7 @@
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="2"{{ $task->priority == '2' ? 'checked' : ''}}>
+                                                       value="2"{{ $task->priority == '3' ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="exampleRadios3">
                                                     High
                                                 </label>

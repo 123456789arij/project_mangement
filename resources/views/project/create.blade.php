@@ -10,15 +10,14 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
                 <div> PROJET</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
             </div>
-            {{--   /page-title-wrapper--}}
-
+            {{--/page-title-wrapper--}}
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
                     {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">

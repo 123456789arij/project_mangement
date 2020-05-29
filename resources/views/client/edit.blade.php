@@ -11,7 +11,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading container">
                 <div class="page-title-icon">
-                    <i class="pe-7s-user icon-gradient bg-mean-fruit"></i>
+                    <i class="fas fa-user-edit icon-gradient bg-arielle-smile"></i>
                 </div>
                 <div>
                     <h4 class="page-title">    {{__('messages.client') }}

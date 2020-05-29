@@ -74,7 +74,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titre' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -83,12 +83,11 @@ class TaskController extends Controller
         ]);
 
         $task = new Task();
-        $task->titre = $request->input('titre');
+        $task->title = $request->input('title');
         $task->description = $request->input('description');
         $task->start_date = $request->input('start_date');
         $task->end_date = $request->input('end_date');
         $task->priority = $request->input('priority');
-        //TODO STATUS CHANGER DANS DB
         $task->status = 0;
         $task->project_id = $request->input('project_id');
 
@@ -149,7 +148,7 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'titre' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -157,7 +156,7 @@ class TaskController extends Controller
 
         ]);
         $task = Task::findOrFail($id);
-        $task->titre = $request->input('titre');
+        $task->title = $request->input('title');
         $task->description = $request->input('description');
         $task->start_date = $request->input('start_date');
         $task->end_date = $request->input('end_date');

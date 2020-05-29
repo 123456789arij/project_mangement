@@ -11,7 +11,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div> Tâche</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
@@ -74,21 +74,11 @@
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
                                                 <label> Titre </label>
-                                                <input type="text" class="form-control" id="titre" name="titre"
+                                                <input type="text" class="form-control" id="titre" name="title"
                                                        required>
                                             </div>
                                         </div>
                                     </div>
-                                    {{--           <div class="col-md-4">
-                                                   <div class="position-relative form-group">
-                                                       <label for="email">Email</label>
-                                                       <input type="email" class="form-control" id="email" name="email" class="@error('email', 'login') is-invalid @enderror" required>
-                                                       @error('email', 'login')
-                                                       <div class="alert alert-danger">{{ $message }}</div>
-                                                       @enderror
-                                                   </div>
-                                               </div>--}}
-
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="projet_id">
@@ -102,7 +92,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        {{--                                    bouton radio--}}
+                                        {{--bouton radio--}}
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
                                                 <label>
@@ -110,7 +100,7 @@
                                                 </label>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
-                                                           value="0"
+                                                           value="1"
                                                            @if (old('priority')=="Medium")  checked @endif >
                                                     <label class="form-check-label">
                                                         Medium
@@ -118,7 +108,7 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
-                                                           value="1"
+                                                           value="2"
                                                            @if (old('priority')=="Low")  checked @endif >
                                                     <label class="form-check-label">
                                                         Low
@@ -127,7 +117,7 @@
 
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="priority"
-                                                           value="2"
+                                                           value="3"
                                                            @if (old('priority') == "High") checked @endif >
                                                     <label class="form-check-label" for="exampleRadios3">
                                                         High
@@ -135,7 +125,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--                                    /bouton radio--}}
+                                        {{-- /bouton radio--}}
                                     </div>
 
                                     <div class="form-row">
@@ -177,29 +167,15 @@
                                     <br>
                                     <br>
                                     <div class="form-row">
-                                        <div class="col-md-12" >
+                                        <div class="col-md-12">
                                             <label for="image_name"> importer vos fichier :</label>
                                             {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
-                                            <input type="file" name="file" />
+                                            <input type="file" name="file"/>
 
                                         </div>
                                     </div>
-
-
                                     <br>
                                     <br>
-                                    {{--                                    bouton radio--}}
-                                    {{--          <div class="form-row">
-
-
-                                                  <form method="post" action="{{route('tache.uploadImages')}}" class="dropzone" enctype="multipart/form-data" id="dropzone" >
-                                                      <div>
-                                                          <h3>Upload Multiple Image By Click On Box</h3>
-                                                      </div>
-                                                  </form>
-
-                                              </div>--}}
-                                    {{--                                  /  bouton radio--}}
                                     <div class="d-block text-center card-footer">
                                         <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
                                             <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
@@ -207,13 +183,10 @@
                                     </div>
 
                                 </form>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

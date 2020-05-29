@@ -43,7 +43,18 @@ class DashboradController extends Controller
                 });
             });
         })->count();
-        return view('home', compact('projects','tasks','taskscount'));
+
+        $task_home = Task::whereHas('project', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->whereHas('departments', function (Builder $query) {
+                        $query->where('id', auth()->guard('employee')->user()->department_id);
+                    });
+                });
+            });
+        })->paginate(5);
+
+        return view('home', compact('projects','tasks','taskscount','task_home'));
     }
 
     /**

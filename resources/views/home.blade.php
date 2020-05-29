@@ -17,7 +17,6 @@
                 <div>Dashboard
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -31,8 +30,9 @@
                             <div class="widget-content-left mr-3">
                                 <div class="widget-content-left">
                                     <a href="{{route('client.index')}}">
-                                        <img src="{{asset('home_user.png')}}" class="rounded-circle"
-                                             height="40px" width="40px" alt="im"/>
+                                        <i class="fas fa-user-tie icon-gradient bg-plum-plate" style="font-size: 50px;">
+                                        </i>
+
                                     </a>
                                 </div>
                             </div>
@@ -58,8 +58,8 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <a href="{{route('employee.index')}}" class="widget-content-left">
-                                    <img src="{{asset('employee.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
+                                    <i class="fas fa-users icon-gradient bg-mean-fruit" style="font-size: 50px;">
+                                    </i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
@@ -83,8 +83,7 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <a href="{{route('project')}}" class="widget-content-left">
-                                    <img src="{{asset('project.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
+                                    <i class='metismenu-icon fas fa-layer-group' style="font-size: 50px;"></i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
@@ -137,8 +136,7 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <a href="{{route('task')}}" class="widget-content-left">
-                                    <img src="{{asset('task.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
+                                    <i class='fas fa-tasks icon-gradient bg-ripe-malin' style='font-size:36px'></i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
@@ -163,8 +161,7 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <a href="{{route('task')}}" class="widget-content-left">
-                                    <img src="{{asset('Pending_task.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
+                                    <i class="fas fa-exclamation-triangle icon-gradient bg-sunny-morning" style="font-size:40px;"></i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
@@ -188,8 +185,7 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <a href="{{route('task')}}" class="widget-content-left">
-                                    <img src="{{asset('completed.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
+                                    <i class="fa fa-check-square-o icon-gradient bg-grow-early"  style="font-size:40px;"></i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
@@ -237,152 +233,191 @@
     @endif
     {{--    /count coll--}}
 
-    {{-- place for diagramme --}}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="main-card mb-3 card">
-                <div class="card-header">Active Users
-                    <div class="btn-actions-pane-right">
-                        <div role="group" class="btn-group-sm btn-group">
-                            <button class="active btn btn-focus">Last Week</button>
-                            <button class="btn btn-focus">All Month</button>
+
+    {{-- count coll of employee   --}}
+    @if(auth()->guard('employee')->user())
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                    <img src="{{asset('task.png')}}" class="rounded-circle"
+                                         height="40px" width="40px" alt="im"/>
+                                </div>
+                            </div>
+                            <div class="widget-content-left">
+                                <div class="widget-heading">{{ __('messages.Total_Tasks') }}</div>
+                                {{--                                <div style="background-color: white">Revenue streams</div>--}}
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text">{{$tasks}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Name</th>
-                            <th class="text-center">City</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="text-center text-muted">#345</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                     src="{{asset('assets/images/avatars/4.jpg')}}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">John Doe</div>
-                                            <div class="widget-subheading opacity-7">Web Developer</div>
-                                        </div>
-                                    </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                    <img src="{{asset('Pending_task.png')}}" class="rounded-circle"
+                                         height="40px" width="40px" alt="im"/>
                                 </div>
-                            </td>
-                            <td class="text-center">Madrid</td>
-                            <td class="text-center">
-                                <div class="badge badge-warning">Pending</div>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">
-                                    Details
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#347</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                     src="{{asset('assets/images/avatars/3.jpg')}}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Ruben Tillman</div>
-                                            <div class="widget-subheading opacity-7">Etiam sit amet orci
-                                                eget
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="widget-content-left">
+                                <div class="widget-heading">{{ __('messages.Pending_task') }}</div>
+                            </div>
+                            {{--                            <div class="widget-subheading">Revenue streams</div>--}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-warning">{{$taskscount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                    <img src="{{asset('completed.png')}}" class="rounded-circle"
+                                         height="36px" width="40px" alt="im"/>
                                 </div>
-                            </td>
-                            <td class="text-center">Berlin</td>
-                            <td class="text-center">
-                                <div class="badge badge-success">Completed</div>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">
-                                    Details
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#321</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                     src="{{asset('assets/images/avatars/2.jpg')}}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Elliot Huber</div>
-                                            <div class="widget-subheading opacity-7">Lorem ipsum dolor sic
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">London</td>
-                            <td class="text-center">
-                                <div class="badge badge-danger">In Progress</div>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-3" class="btn btn-primary btn-sm">
-                                    Details
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center text-muted">#55</td>
-                            <td>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left mr-3">
-                                            <div class="widget-content-left">
-                                                <img width="40" class="rounded-circle"
-                                                     src="{{asset('assets/images/avatars/1.jpg')}}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left flex2">
-                                            <div class="widget-heading">Vinnie Wagstaff</div>
-                                            <div class="widget-subheading opacity-7">UI Designer</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">Amsterdam</td>
-                            <td class="text-center">
-                                <div class="badge badge-info">On Hold</div>
-                            </td>
-                            <td class="text-center">
-                                <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">
-                                    Details
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            </div>
+                            <div class="widget-content-left">
+                                <div class="widget-heading">{{ __('messages.Completed_task') }}</div>
+                            </div>
+                            {{--                                <div class="widget-subheading">People Interested</div>--}}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-success">{{ $projects}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">Income</div>
+                                <div class="widget-subheading">Expected totals</div>
+                            </div>
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text-focus">$147</div>
+                            </div>
+                        </div>
+                        <div class="widget-progress-wrapper">
+                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100" style="width: 54%;"></div>
+                            </div>
+                            <div class="progress-sub-label">
+                                <div class="sub-label-left">Expenses</div>
+                                <div class="sub-label-right">100%</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{--/place for diagramme --}}
+
+        {{--2éme ligne--}}
+        <div class="row">
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <div class="widget-content-left">
+                                    <img src="{{asset('project.png')}}" class="rounded-circle"
+                                         height="40px" width="40px" alt="im"/>
+                                </div>
+                            </div>
+                            <div class="widget-content-left">
+                                <div class="widget-heading">{{ __('messages.Total_Projects') }}</div>
+                                {{--                                <div style="background-color: white">Revenue streams</div>--}}
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="widget-content-right">
+                                <div class="widget-numbers text">{{$projects}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--/2éme ligne--}}
+
+        {{-- employee tasks --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">task</div>
+                    <div class="table-responsive">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">{{ __('messages.tasks') }}</th>
+                                <th scope="col">{{ __('messages.due date') }}</th>
+                                <th scope="col">{{ __('messages.status') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($task_home as $task)
+                                <tr class="container">
+                                    <td>
+                                        <div class="widget-content p-0">
+                                            <div class="widget-content-wrapper">
+                                                <div class="widget-content-left flex2">
+                                                    <a href="{{route('employee.task')}}"
+                                                       class="widget-heading">{{ $task->title}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="widget-numbers text-danger">
+                                        {{$task->end_date }}
+                                    </td>
+
+                                    <td style="color: tomato;font-size: 15px;">
+                                        @if($task->status === 1)
+                                            <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
+                                        @elseif($task->status === 2)
+                                            <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
+                                        @else
+                                            <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <footer class="card-footer" style="float: right">
+                            {{ $task_home ->links() }}
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--/employee tasks--}}
+    @endif
+    {{--/count coll of employee     --}}
+
+
+
+
 
 
     {{--graph--}}
@@ -687,137 +722,156 @@
                 </div>
             </div>
         </div>
+        {{-- place for diagramme --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">Active Users
+                        <div class="btn-actions-pane-right">
+                            <div role="group" class="btn-group-sm btn-group">
+                                <button class="active btn btn-focus">Last Week</button>
+                                <button class="btn btn-focus">All Month</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th>Name</th>
+                                <th class="text-center">City</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center text-muted">#345</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle"
+                                                         src="{{asset('assets/images/avatars/4.jpg')}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">John Doe</div>
+                                                <div class="widget-subheading opacity-7">Web Developer</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">Madrid</td>
+                                <td class="text-center">
+                                    <div class="badge badge-warning">Pending</div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">#347</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle"
+                                                         src="{{asset('assets/images/avatars/3.jpg')}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">Ruben Tillman</div>
+                                                <div class="widget-subheading opacity-7">Etiam sit amet orci
+                                                    eget
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">Berlin</td>
+                                <td class="text-center">
+                                    <div class="badge badge-success">Completed</div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">#321</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle"
+                                                         src="{{asset('assets/images/avatars/2.jpg')}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">Elliot Huber</div>
+                                                <div class="widget-subheading opacity-7">Lorem ipsum dolor sic
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">London</td>
+                                <td class="text-center">
+                                    <div class="badge badge-danger">In Progress</div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-3" class="btn btn-primary btn-sm">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-muted">#55</td>
+                                <td>
+                                    <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left mr-3">
+                                                <div class="widget-content-left">
+                                                    <img width="40" class="rounded-circle"
+                                                         src="{{asset('assets/images/avatars/1.jpg')}}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="widget-content-left flex2">
+                                                <div class="widget-heading">Vinnie Wagstaff</div>
+                                                <div class="widget-subheading opacity-7">UI Designer</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">Amsterdam</td>
+                                <td class="text-center">
+                                    <div class="badge badge-info">On Hold</div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">
+                                        Details
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--/place for diagramme --}}
     @endif
     {{--/graph--}}
 
-    {{-- count coll of employee   --}}
-    @if(auth()->guard('employee')->user())
-        <div class="row">
-            <div class="col-md-6 col-xl-4">
-                <div class="card mb-3 widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left mr-3">
-                                <div class="widget-content-left">
-                                    <img src="{{asset('task.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
-                                </div>
-                            </div>
-                            <div class="widget-content-left">
-                                <div class="widget-heading">{{ __('messages.Total_Tasks') }}</div>
-                                {{--                                <div style="background-color: white">Revenue streams</div>--}}
-                            </div>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text">{{$tasks}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-6 col-xl-4">
-                <div class="card mb-3 widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left mr-3">
-                                <div class="widget-content-left">
-                                    <img src="{{asset('Pending_task.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
-                                </div>
-                            </div>
-                            <div class="widget-content-left">
-                                <div class="widget-heading">{{ __('messages.Pending_task') }}</div>
-                            </div>
-                            {{--                            <div class="widget-subheading">Revenue streams</div>--}}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text-warning">{{$taskscount}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-xl-4">
-                <div class="card mb-3 widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left mr-3">
-                                <div class="widget-content-left">
-                                    <img src="{{asset('completed.png')}}" class="rounded-circle"
-                                         height="36px" width="40px" alt="im"/>
-                                </div>
-                            </div>
-                            <div class="widget-content-left">
-                                <div class="widget-heading">{{ __('messages.Completed_task') }}</div>
-                            </div>
-                            {{--                                <div class="widget-subheading">People Interested</div>--}}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text-success">{{ $projects}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                <div class="card mb-3 widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left">
-                                <div class="widget-heading">Income</div>
-                                <div class="widget-subheading">Expected totals</div>
-                            </div>
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text-focus">$147</div>
-                            </div>
-                        </div>
-                        <div class="widget-progress-wrapper">
-                            <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100" style="width: 54%;"></div>
-                            </div>
-                            <div class="progress-sub-label">
-                                <div class="sub-label-left">Expenses</div>
-                                <div class="sub-label-right">100%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{--        yes--}}
-        <div class="row">
-            <div class="col-md-6 col-xl-4">
-                <div class="card mb-3 widget-content">
-                    <div class="widget-content-outer">
-                        <div class="widget-content-wrapper">
-                            <div class="widget-content-left mr-3">
-                                <div class="widget-content-left">
-                                    <img src="{{asset('project.png')}}" class="rounded-circle"
-                                         height="40px" width="40px" alt="im"/>
-                                </div>
-                            </div>
-                            <div class="widget-content-left">
-                                <div class="widget-heading">{{ __('messages.Total_Projects') }}</div>
-                                {{--                                <div style="background-color: white">Revenue streams</div>--}}
-                            </div>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="widget-content-right">
-                                <div class="widget-numbers text">{{$projects}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    @endif
-    {{--/count coll of employee     --}}
 
 
 @endsection

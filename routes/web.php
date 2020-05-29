@@ -47,9 +47,9 @@ Route::prefix('employee')->group(function () {
         Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
         Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
 
-        Route::get('/profile', 'employee\ProfileController@index')->name('profile');
-        Route::get('/{id}/profile', 'employee\ProfileController@edit')->name('employee.profile.edit');
-        Route::patch('/{id}', 'employee\ProfileController@update')->name('employee.profile.update');
+        Route::get('/profile', 'employee\EmployeeController@index')->name('profile');
+        Route::get('/{id}/profile', 'employee\EmployeeController@edit')->name('employee.profile.edit');
+        Route::patch('/employee/{id}', 'employee\EmployeeController@update')->name('employee.profile.update');
 
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
@@ -82,8 +82,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/membre/{id}', 'ProjectController@afficher_membre_projet')->name('membre_projet');
         Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
-
+//Gantt project
+//        Route::get('/data/{id}', 'GanttController@get');
         Route::get('/gantt/{id}','GanttController@get')->name('gantt');
+
     });
     Route::prefix('clients')->group(function () {
         Route::get('/', 'ClientController@index')->name('client.index');

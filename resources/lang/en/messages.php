@@ -55,9 +55,9 @@ return [
     'UPDATE_EMPLOYEE_INFO' => 'Update Employee Info',
     'update' => 'Update',
     'task_calendar' => 'Task Calendar',
-    'notStarted' => 'Not Started',
-    'onHold' => 'On Hold',
-    'inProgress' => 'In Progress',
+    'not Started' => 'Not Started',
+    'on Hold' => 'On Hold',
+    'In Progress' => 'In Progress',
     'canceled' => 'Canceled',
     'finished' => 'Finished',
     'total_clients' => 'Total Clients',
@@ -66,8 +66,9 @@ return [
     'Total_Tasks' => 'Total Tasks',
     'Pending_task' => 'Pending Task',
     'Completed_task' => 'Completed Task',
-    'Task_Calendar'=> 'Task Calendar',
-    'TaskReport'=>'Task Report',
+    'Task_Calendar' => 'Task Calendar',
+    'TaskReport' => 'Task Report',
+    'Dashboard' => 'Dashboard',
 
 
 ];

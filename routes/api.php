@@ -17,6 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/data/{id}', 'GanttController@get');
+Route::post('/link', 'LinkController@store')->name('link.store');
+Route::patch('/link/{id}', 'LinkController@update')->name('link.update');
+Route::delete('/link/{id}', 'LinkController@destroy')->name('link.destroy');
+
+
 //    project
 Route::prefix('projects')->group(function () {
     Route::get('/', 'ProjectController@index')->name('project');

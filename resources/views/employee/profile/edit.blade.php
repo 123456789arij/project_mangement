@@ -101,13 +101,13 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="fas fa-user-edit icon-gradient bg-arielle-smile"></i>
+                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
                 <div>
 
                     <h4 class="page-title">
-                        {{__('messages.employees') }} # {{$employee->id}} [ {{$employee->name}} ]
-                    </h4></div>
+                        {{__('messages.employees') }}  [ {{$employee->name}} ]
+                    </h4> </div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -154,7 +154,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('employee.update',$employee->id) }}"
+                                <form method="POST" action="{{route('employee.profile.update',$employee->id)}}"
                                       class="container"
                                       enctype="multipart/form-data">
                                     @csrf
@@ -204,23 +204,13 @@
                                                 <label for="password">Password</label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
-                                                       name="password" required>
+                                                       name="password">
                                             </div>
                                         </div>
                                     </div>
                                     {{--  /partie email +adresse--}}
 
                                     <div class="form-row">
-                                        {{--  date d'inscription--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="joining_date"> date d'inscription </label>
-                                                <input type="date" class="form-control" id="joining_date"
-                                                       value="{{$employee->joining_date}}"
-                                                       name="joining_date">
-                                            </div>
-                                        </div>
-                                        {{-- date d'inscription--}}
                                         {{--   sex--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
@@ -236,18 +226,17 @@
                                             </div>
                                         </div>
                                         {{--/sex--}}
-                                        {{--mobile--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="mobile"> Mobile </label>
-                                                <input type="tel" class="form-control" id="mobile"
-                                                       value="{{$employee->mobile}}"
-                                                       name="mobile">
-                                            </div>
-                                        </div>
-                                        {{--/mobile--}}
                                     </div>
-
+                                    {{--mobile--}}
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            <label for="mobile"> Mobile </label>
+                                            <input type="tel" class="form-control" id="mobile"
+                                                   value="{{$employee->mobile}}"
+                                                   name="mobile">
+                                        </div>
+                                    </div>
+                                    {{--/mobile--}}
 
                                     <div class="position-relative form-group">
                                         <div class="col-12 purple-border">
@@ -265,38 +254,20 @@
                                     </div>
                                     {{--  row role et departement--}}
                                     <div class="form-row">
-                                        <div class="col-md-4">
-                                            <label for="role">
-                                                <strong> role</strong>
-                                            </label>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" id="1" type="radio" name="role"
-                                                       value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
-                                                <label class="custom-control-label" for="1">
-                                                    Employée
-                                                </label>
-                                            </div>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="role" id="2"
-                                                       value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
-                                                <label class="custom-control-label" for="2">
-                                                    Chef de projet
-                                                </label>
-                                            </div>
-                                        </div>
+
                                         {{--    Département--}}
-                                        <div class="col-md-6">
+                                    {{--    <div class="col-md-6">
                                             <div class="position-relative form-group" for="department_id">
                                                 <label>Département</label>
-                                                <select class="mb-2 form-control-lg form-control"
-                                                        name="department_id">
-                                                    @foreach( $departments as $department)
-                                                        <option
-                                                            value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
-                                                    @endforeach
-                                                </select>
+                                                  <select class="mb-2 form-control-lg form-control"
+                                                                 name="department_id">
+                                                             @foreach( $departments as $department)
+                                                                 <option
+                                                                     value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
+                                                             @endforeach
+                                                         </select>
                                             </div>
-                                        </div>
+                                        </div>--}}
                                         {{--/departement--}}
                                     </div>
 

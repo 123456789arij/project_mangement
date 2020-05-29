@@ -17,8 +17,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                    </i>
+                    <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div> {{ __('messages.task') }} &nbsp; #{{$task->id}}
                 </div>
@@ -77,7 +76,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-4">
-                                    <label> {{$task->titre}}</label>
+                                    <label> {{$task->title}}</label>
 
                                     @if($task->priority == 0)
                                         <span class="badge badge-pill"
@@ -114,7 +113,7 @@
                                             @elseif($task->status === 2)
                                                 <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
                                             @else
-                                                <span class="badge badge-info"> {{ __('messages.inProgress') }}</span>
+                                                <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
                                             @endif
                                         </div>
                                         <div>

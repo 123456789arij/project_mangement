@@ -32,10 +32,8 @@ class ProjectController extends Controller
                     });
                 });
             })->paginate(5);
-
-//            $projects = $employee->projects()->paginate(5);
-
         } else {
+//            $projectcount = $employee->projects()->count();
             $projects = $employee->projects()->paginate(5);
         }
         return view('project.index', compact('projects'));

@@ -43,6 +43,16 @@
             height: 20px;
             margin: 20px 10px;
         }
+        #create_employee_btn {
+            color: white;
+            font-size: 18px;
+        }
+
+        #create_employee_btn:hover {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 @endsection
 @section('content')
@@ -52,7 +62,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                    <i class="fas fa-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
                 <div> Employees Dashboard
@@ -69,11 +79,9 @@
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
                     <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                          </span>
-                        <a href="{{route('employee.create')}}"
-                           style="color: white;font-size: 15px;">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;
+                        <i class="fas fa-user-plus" style="font-size: 15px;">
+                            &nbsp;&nbsp;
+                            <a href="{{route('employee.create')}}"id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
                     </button>
                 </div>
             </div>

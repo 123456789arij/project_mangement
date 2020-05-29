@@ -44,6 +44,17 @@
             height: 20px;
             margin: 20px 10px;
         }
+
+        #create_client_btn {
+            color: white;
+            font-size: 18px;
+        }
+
+        #create_client_btn:hover {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 @endsection
 @section('content')
@@ -53,7 +64,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                    <i class="fas fa-user-friends icon-gradient bg-mean-fruit">
                     </i>
                 </div>
                 <div> Client Dashboard
@@ -61,7 +72,7 @@
                         <span class="label label-rouded label-custom pull-right">
                         {{ $clientsCount }}
                     </span></span>
-                 {{ __('messages.total_clients') }}
+                    {{ __('messages.total_clients') }}
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -69,11 +80,11 @@
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
                     <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                          </span>
-                        <a href="{{route('client.create')}}"
-                           style="color: white;font-size: 15px;">  {{__('messages.add_new_client') }}</a>&nbsp;&nbsp;
+                        <i class="fas fa-user-plus" style="font-size: 15px;">
+                            &nbsp;&nbsp;
+                            <a href="{{route('client.create')}}" id="create_client_btn">
+                                {{__('messages.add_new_client') }}</a>
+                         </i>
                     </button>
                 </div>
             </div>
