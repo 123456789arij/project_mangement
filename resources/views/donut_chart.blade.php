@@ -10,7 +10,7 @@
                 <h3 align="center" style="margin-top:60px;">Percentage of status Project</h3><br/>
                 <div class="panel panel-default">
                     <div class="panel-body" align="center">
-                        <div id="piechart_3d" style="width: 1000px; height: 400px;"></div>
+                        <div id="donut" style="width: 1000px; height: 400px;"></div>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                         pieHole: 0.4,
                         chartArea: {left: 240},
                     };
-                    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                    var chart = new google.visualization.PieChart(document.getElementById('donut'));
                     chart.draw(data, options);
                 }
             });

@@ -92,26 +92,26 @@
 
         @endif
         @if(auth()->guard('client')->user())
+                <li>
+                    <a href="{{route('client.dashborad')}}" class="mm-active">
+                        <i class="metismenu-icon pe-7s-rocket"></i>
+                        {{ trans('messages.Dashboard') }}
+                    </a>
+                </li>
             <li>
                 <a href="{{route('client.project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
                     {{ trans('messages.projects') }}
                 </a>
             </li>
-            {{--  <li>
-                  <a href="{{route('employee.task')}}">
-                      <i class="metismenu-icon pe-7s-display2"></i>
-                      {{ trans('messages.tasks') }}
-                  </a>
-              </li>--}}
-        @endif
-            {{--   <li class="app-sidebar__heading">Forms</li>
-           {{-- <li>
-                    <a href="{{route('task.itemView')}}">
-                        <i class="metismenu-icon pe-7s-mouse">
-                        </i>task.itemView
+                <li>
+                    <a href="{{route('client.comment')}}">
+                        <i class="metismenu-icon pe-7s-display2"></i>
+                        {{ trans('messages.comments') }}
                     </a>
-                </li>--}}
+                </li>
+
+        @endif
 
             <li>
                 <a href="{{route('calendar')}}">

@@ -11,6 +11,21 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 12px;
         }
+        #create_department_btn {
+            color: white;
+            font-size: 18px;
+        }
+
+        #create_department_btn:hover {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 @endsection
 @section('content')
@@ -34,11 +49,9 @@
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
                     <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                          </span>
-                        <a href="{{ route('department.create') }}"
-                           style="color: black;font-size: 15px;"> Ajouter un nouveau Départment </a>&nbsp;&nbsp;
+                        <i class="fa fa-plus">
+                            <a href="{{ route('department.create') }}" id="create_department_btn"> Ajouter un nouveau Départment </a>&nbsp;&nbsp;
+                        </i>
                     </button>
                 </div>
             </div>

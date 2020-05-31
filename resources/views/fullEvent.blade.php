@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col">
-            <button style="float: right" class="btn-outline-primary">Add Event </button>
+            <button  type="button"  style="float: right" class="btn-outline-success" data-toggle="modal" data-target="#showCalander">Add Event </button>
         </div>
     </div>
     <br><br>

@@ -166,7 +166,7 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         $project->delete();
-        return redirect()->route('project')->with('success', 'produit is successfully deleted');
+        return redirect()->route('project')->with('success', 'Project is successfully deleted');
     }
 
     public function afficher_membre_projet($id)
@@ -188,17 +188,6 @@ class ProjectController extends Controller
         return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
     }
 
-    public function destroy_membre($employee_id)
-    {
-//      $project = Project::findOrFail(1);
-//        $project->employees()->detach($employee_id);
-//       $project->delete();
-//       $project->employees()->sync($employee_id);
-//        $user = App\User::find(1);
-//
-//        $user->roles()->attach($roleId);
 
-        return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
-    }
 
 }

@@ -1,12 +1,6 @@
 @extends('layouts.base')
 @section('cssBlock')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <style>
-        #crud_btn, form {
-            display: flex;
-            height: 40px;
-        }
-
         #name {
             text-transform: capitalize;
             text-align: justify;
@@ -84,7 +78,7 @@
                             &nbsp;&nbsp;
                             <a href="{{route('client.create')}}" id="create_client_btn">
                                 {{__('messages.add_new_client') }}</a>
-                         </i>
+                        </i>
                     </button>
                 </div>
             </div>
@@ -105,15 +99,15 @@
                 </div>
                 <br>
                 <div class="table-responsive container">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover"
                            class="display">
                         <thead class="text-center">
                         <tr>
-                            <th scope="col">{{ __('messages.name') }}</th>
-                            <th scope="col">{{ __('messages.email') }}</th>
-                            <th scope="col">{{ __('messages.company name') }}</th>
+                            <th>{{ __('messages.name') }}</th>
+                            <th>{{ __('messages.email') }}</th>
+                            <th>{{ __('messages.company name') }}</th>
                             <th>{{ __('messages.created_at') }}</th>
-                            <th scope="col">ACTIONS</th>
+                            <th colspan="3">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -122,11 +116,6 @@
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
-                                            {{--  <div class="widget-content-left mr-3">
-                                                  <div class="widget-content-left">
-                                                         img
-                                                  </div>
-                                              </div>--}}
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
                                                     {{ $client->name }}   </div>
@@ -140,19 +129,22 @@
                                 <td class="text-center">
                                     <div class="badge badge-warning">{{ $client->created_at }}</div>
                                 </td>
-                                <td class="text-center" id="crud_btn">
+                                <td>
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
                                         <a href="{{ route('client.edit', $client->id) }}">
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
-                                    {{--                                    button show--}}
+                                </td> {{--                                    button show--}}
+                                <td>
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
                                         <a href="{{route('client.show',['id' => $client->id]) }})}}">
                                             <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
                                         </a>
                                     </button>
-                                    {{--                                    button delete--}}
+                                </td>
+                                {{--  button delete--}}
+                                <td>
                                     <form action="{{route('client.destroy',['id' => $client->id])}}" method="post"
                                           class="delete-confirm">
                                         @csrf
@@ -184,16 +176,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                "paging": false,
-                "ordering": false,
-                "info": false
-            });
-        });
-    </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         /*

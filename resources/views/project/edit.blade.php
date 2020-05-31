@@ -127,24 +127,24 @@
                                             <div class="position-relative form-group">
                                                 <label> L'état du projet </label>
                                                 <select class="mb-2 form-control form-control" name="status">
-                                                    <option value="0"
-                                                        {{$project->status == '0' ? 'selected' : ''}}>
-                                                        {{__('messages.not Started') }}
-                                                    </option>
                                                     <option value="1"
                                                         {{$project->status == '1' ? 'selected' : ''}}>
-                                                        {{__('messages.on Hold') }}
+                                                        {{__('messages.not Started') }}
                                                     </option>
                                                     <option value="2"
                                                         {{$project->status == '2' ? 'selected' : ''}}>
-                                                        {{__('messages.In Progress') }}
+                                                        {{__('messages.on Hold') }}
                                                     </option>
                                                     <option value="3"
                                                         {{$project->status == '3' ? 'selected' : ''}}>
-                                                        {{__('messages.canceled') }}
+                                                        {{__('messages.In Progress') }}
                                                     </option>
                                                     <option value="4"
                                                         {{$project->status == '4' ? 'selected' : ''}}>
+                                                        {{__('messages.canceled') }}
+                                                    </option>
+                                                    <option value="5"
+                                                        {{$project->status == '5' ? 'selected' : ''}}>
                                                         {{__('messages.finished') }}
                                                     </option>
                                                 </select>

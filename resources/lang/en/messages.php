@@ -69,6 +69,9 @@ return [
     'Task_Calendar' => 'Task Calendar',
     'TaskReport' => 'Task Report',
     'Dashboard' => 'Dashboard',
+    'title' => 'Title',
+    'Logout'=>'Logout',
+    'comments' => 'Comments',
 
 
 ];

@@ -9,7 +9,7 @@ class Project extends Model
     protected $fillable = [
         'name', 'client_id', 'category_id', 'start_date', 'deadline', 'status', 'description', 'progress_bar',
     ];
-    const STATUS = ['not Started' => 0, 'on Hold' => 1, 'In Progress' => 2, 'canceled' => 3, 'finished' => 4];
+    const STATUS = ['not Started' => 1, 'on Hold' => 2, 'In Progress' => 3, 'canceled' => 4, 'finished' => 5];
 
 
     public function tasks()

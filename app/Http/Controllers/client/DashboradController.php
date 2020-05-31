@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\client;
 
+use App\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class DashboradController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $client = auth()->guard('client')->user();
+        $projects_client_count = $client->projects()->count();
+        $projects_client = $client->projects()->get();
+        return view('home',compact('projects_client_count','projects_client'));
     }
 
     /**
@@ -46,7 +50,7 @@ class DashboradController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -57,7 +61,10 @@ class DashboradController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client = Client::find($id);
+        if ($client->user_id == auth()->id()) {
+            return view('client.edit', compact('client'));
+        }
     }
 
     /**
@@ -69,7 +76,22 @@ class DashboradController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+
+        ]);
+        $client = Client::findOrFail($id);
+        $client->name = $request->input('name');
+        $client->email = $request->input('email');
+        $client->mobile = $request->input('mobile');
+        $client->address = $request->input('address');
+        $client->linked_in = $request->input('linked_in');
+        $client->skype = $request->input('skype');
+        $client->facebook = $request->input('facebook');
+        $client->user_id = auth()->user()->id;
+        $client->save(); //persist the data
+        return redirect()->route('client.index')->with('toast_success', 'Client is successfully updated');
     }
 
     /**

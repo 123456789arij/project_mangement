@@ -2,6 +2,28 @@
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <style>
+        #delete:hover {
+            color: white;
+        }
+
+        h5 {
+            font-size: 13px;
+            font-family: 'Montserrat', sans-serif;
+            color: #2b2b2b;
+            text-align: justify;
+            display: block;
+            font-size: 0.83em;
+            margin-block-start: 1.67em;
+            margin-block-end: 1.67em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+
+            line-height: 1.1;
+            margin: 10px 0;
+            font-weight: 300;
+        }
+
+
         img {
             display: inline-block;
             float: left;
@@ -51,6 +73,21 @@
             color: white;
             font-weight: bold;
         }
+
+        .project_task {
+            color: #24248f;
+            font-size: 18px;
+        }
+
+        .project_task:hover {
+            text-decoration: none;
+            color: #5c5cd6;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -81,9 +118,8 @@
                         <i class="fa fa-plus">
                             <a href="{{ route('task.create')}}" id="create_task_btn">
                                 Ajouter une nouvelle Tâche
-
-                            </a>&nbsp;&nbsp;</i>
-
+                            </a>
+                            &nbsp;&nbsp;</i>
                     </button>
                 </div>
             </div>
@@ -94,7 +130,9 @@
         <form action="{{route('employee.task')}}" type="get">
             <div class="row">
                 <div class="col-3">
+                    <label>Project </label>
                     <select class="mb-2 form-control-lg form-control" name="project_id">
+                        <option>all</option>
                         @foreach($projects as $project)
                             <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
                                 {{$project->name}} </option>
@@ -102,7 +140,9 @@
                     </select>
                 </div>
                 <div class="col-3">
+                    <label>Status </label>
                     <select class="mb-2 form-control-lg form-control" name="status">
+                        <option>all</option>
                         @foreach( $status  as  $key=> $value)
                             <option value="{{ $value}}" @if($statusId===$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
@@ -122,7 +162,9 @@
         <form action="{{route('task')}}" type="get">
             <div class="row">
                 <div class="col-3">
-                    <select class="mb-2 form-control-lg form-control" name="project_id">
+                    <label>Project </label>
+                    <select class="mb-2 form-control-lg form-control custom-select" name="project_id">
+                        <option value="">all</option>
                         @foreach($projects as $project)
                             <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
                                 {{$project->name}} </option>
@@ -130,16 +172,18 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <select class="mb-2 form-control-lg form-control" name="status">
-                        @foreach( $status  as  $key=> $value)
+                    <label>Status </label>
+                    <select class="mb-2 form-control-lg form-control custom-select" name="status">
+                        <option>all</option>
+                        @foreach($status  as  $key=> $value)
                             <option value="{{ $value}}" @if($statusId===$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="font-icon-wrapper font-icon-lg" data-toggle="tooltip"
+                <button type="submit" class="font-icon-wrapper font-icon-lg" data-toggle="tooltip" id="findBtn"
                         data-original-title="filtre">
-                    <i class="pe-7s-filter icon-gradient bg-warm-flame"> </i>
+                    <i class="pe-7s-filter icon-gradient bg-warm-flame"></i>
                 </button>
             </div>
         </form>
@@ -151,7 +195,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-header">
-                    Tâche
+                    {{ __('messages.tasks') }}
                 </div>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -181,7 +225,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#">{{ $task->project->name}}</a></td>
+                                    <a href="{{route('project')}}" class="project_task">{{ $task->project->name}}</a>
+                                </td>
                                 <td>
                                     @foreach($task->employees as $employee)
                                         <div style="display:inline-block">
@@ -207,22 +252,39 @@
                                 </td>
 
 
-                                <td>
-
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                        <a href="{{route('task.edit',$task->id)}}">
-                                            <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-
-                                    <form action="{{route('task.destroy',$task->id)}}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper" style="font-size: 20px;"> </i>
+                                <td class="text-center">
+                                    <div class="btn-group dropdown m-r-10 open">
+                                        <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
                                         </button>
+                                        <ul role="menu" class="dropdown-menu pull-right">
+                                            <li>
+                                                <a href="{{route('task.edit',$task->id)}}">
+                                                    <strong>
+                                                        <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                           style="font-size:20px;"></i>
+                                                        Edit
+                                                    </strong>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <form action="{{route('task.destroy',$task->id)}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="mr-2 btn-icon btn-icon-only btn">
+                                                        <strong>
+                                                            <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                               style="font-size: 20px;" id="delete">
+                                                            </i> Delete
+                                                        </strong>
 
-                                    </form>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+
+                                    </div>
 
                                 </td>
 
@@ -242,4 +304,22 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#findBtn").click(function () {
+                var project_id = $('project_id').val();
+                var status = $('status').val();
+
+                $.ajax({
+                    type: 'get',
+                    dataType: 'html',
+                    url: '{{url('/tasks')}}',
+                    data: 'project_id=' + project_id + 'status=' + status,
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -35,8 +35,9 @@ class ChartController extends Controller
             return response()->json(['status' => 'success', 'data' => $array]);
         }
 
-
-        return view('pie_chart');
+        return view('home');
+//
+//        return view('pie_chart');
     }
 
 

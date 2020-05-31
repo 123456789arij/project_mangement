@@ -5,9 +5,24 @@
                 <div class="widget-content-left">
                     <div class="btn-group pull-left">
                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                            <img width="42" class="rounded-circle" src="{{asset('assets/images/avatars/1.jpg')}}"
-                                 alt="">
-                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                            @if(auth()->guard('employee')->user())
+                                <img width="42" class="rounded-circle"
+                                     src="{{asset(auth()->guard('employee')->user()->image)}}"
+                                     alt="">
+                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                            @endif
+                            @if(auth()->user())
+                                <img width="42" class="rounded-circle"
+                                     src="{{asset('assets/images/avatars/1.jpg')}}"
+                                     alt="">
+                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                            @endif
+                            @if(auth()->guard('client')->user())
+                                <img width="42" class="rounded-circle"
+                                     src="{{asset('assets/images/avatars/1.jpg')}}"
+                                     alt="">
+                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                            @endif
                         </a>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                             <h6 tabindex="-1" class="dropdown-header">
@@ -23,23 +38,22 @@
                             </h6>
                             <h6 tabindex="-1" class="dropdown-header">
                                 @if(auth()->user())
-                                    Entreprise
                                 @endif
-                                @if(auth()->guard('employee')->user())
-                                    {{--             @foreach( $employee as $emp)
-                                                     <a href="{{route('employee.profile.edit',$emp->id)}}">
-                                                         <i class="nav-link-icon fa fa-cog"></i>
-                                                     </a>
-                                                 @endforeach--}}
-                                @endif
+                              {{--  @if(auth()->guard('employee')->user())
+                                    @foreach( $employee_profile as  $emp)
+                                            <a type="button" href="{{route('employee.profile.edit',$emp->id)}}"></a>
+                                        @endforeach
+
+                                @endif--}}
                             </h6>
                             <div tabindex="-1" class="dropdown-divider"></div>
-                            <button type="button" tabindex="0" class="dropdown-item">
+                            <button type="button" tabindex="0" class="dropdown-item" style="float: left">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-power-off" style="font-size:18px;color:red"></i>
-                                    {{ __('Logout') }}
+                                    <i class="fa fa-power-off" style="font-size:18px;"></i>
+                                    {{ trans('messages.Logout') }}
+                                    {{--                                    {{ __('Logout') }}--}}
                                 </a>
 
                                 <form id="logout-form"
@@ -76,12 +90,12 @@
                     </div>
                 </div>
                 <div class="widget-content-right header-user-info ml-3">
-                    <!-- Right Side Of Navbar -->
+                    <!-- lang app -->
                     <ul class="navbar-nav ml-auto pull-right visible-xs">
                         <!-- Authentication Links -->
                         @php $locale = session()->get('locale'); @endphp
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown"  role="button" data-toggle="dropdown"
+                            <a id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" v-pre>
                                 @switch($locale)
                                     @case('fr')
@@ -101,7 +115,7 @@
                             </div>
                         </li>
                     </ul>
-
+                    <!-- /lang app -->
 
                     {{--notification--}}
                     {{--   <button type="button" data-toggle="tooltip" title="notification" data-placement="bottom"

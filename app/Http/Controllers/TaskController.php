@@ -25,6 +25,7 @@ class TaskController extends Controller
         $projects = Project::whereHas('client', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->get();
+        //count tasks
         $tasksCount = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
             $query->whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
@@ -39,13 +40,14 @@ class TaskController extends Controller
                 $query->where('user_id', auth()->user()->id);
             });
         });
+
         if ($statusId != null) {
             $tasks = $tasks->where('status', $statusId);
         }
 
         $tasks = $tasks->paginate(5);
 
-        return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId','tasksCount'));
+        return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId', 'tasksCount'));
     }
 
     /**
@@ -216,26 +218,5 @@ class TaskController extends Controller
         return response()->json(['success' => 'User status change successfully.']);
     }
 
-
-//    public function bb(){
-//        dd('here');
-//    }
-//    public function calendar_task()
-//    {
-//        dd('here');
-//        if (request()->ajax()) {
-//            $start_date = (!empty($_GET["start_date"])) ? ($_GET["start_date"]) : ('');
-//
-//            $end_date = (!empty($_GET["end_date"])) ? ($_GET["end_date"]) : ('');
-//
-//
-//            $data = Task::whereDate('start_date', '>=', $start_date)->whereDate('end_date', '<=', $end_date)->get(['id', 'title', 'start_date', 'end_date']);
-//
-//            return Response::json($data);
-//
-//        }
-//
-//        return view('task.fullcalender');
-//    }
 
 }

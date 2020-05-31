@@ -15,6 +15,11 @@ class Client extends Authenticatable
         'name', 'email', 'password', 'mobile', 'adsress', 'linked_in', 'skype', 'facebook', 'user_id',
     ];
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');

@@ -43,22 +43,27 @@ class HomeController extends Controller
                     $query->where('user_id', auth()->user()->id);
                 });
             })->count();
-            $tasksPadaing = Task::with('project', 'employees')->where('status',3)->whereHas('project', function (Builder $query) {
+            $tasksPadaing = Task::with('project', 'employees')->where('status', 3)->whereHas('project', function (Builder $query) {
                 $query->whereHas('client', function (Builder $query) {
                     $query->where('user_id', auth()->user()->id);
                 });
             })->count();
-            $tasksCompleted = Task::with('project', 'employees')->where('status',1)->whereHas('project', function (Builder $query) {
+            $tasksCompleted = Task::with('project', 'employees')->where('status', 1)->whereHas('project', function (Builder $query) {
                 $query->whereHas('client', function (Builder $query) {
                     $query->where('user_id', auth()->user()->id);
                 });
             })->count();
-            return view('home', compact('userCount','employeesCount','projectsCount','tasksCount','tasksPadaing','tasksCompleted'));
-        }
-        if(auth()->guard('')->user())
-        {
 
-        }
+            $homeTask = Task::with('project', 'employees')->whereHas('project', function (Builder $query) {
+                $query->whereHas('client', function (Builder $query) {
+                    $query->where('user_id', auth()->user()->id);
+                });
+            })->get();
+            $projectsHome = Project::whereHas('client', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            })->get();
 
+            return view('home', compact('userCount', 'employeesCount', 'projectsCount', 'tasksCount', 'tasksPadaing','projectsHome', 'tasksCompleted','homeTask'));
+        }
     }
 }

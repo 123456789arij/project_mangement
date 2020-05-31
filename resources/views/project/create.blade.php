@@ -117,23 +117,23 @@
                                             <div class="position-relative form-group">
                                                 <label for="status"> L'état du projet </label>
                                                 <select class="mb-2 form-control form-control" name="status" required>
-                                                    <option value="0"
+                                                    <option value="1"
                                                             @if (old('status')=="pas encore commencé")  checked @endif >
                                                         pas encore commencé
                                                     </option>
-                                                    <option value="1"
+                                                    <option value="2"
                                                             @if (old('status')=="en attente")  checked @endif>
                                                         en attente
                                                     </option>
-                                                    <option value="2"
+                                                    <option value="3"
                                                             @if (old('status')=="en cour")  checked @endif>
                                                         en cour
                                                     </option>
-                                                    <option value="3"
+                                                    <option value="4"
                                                             @if (old('status')=="annulé")  checked @endif>
                                                         annulé
                                                     </option>
-                                                    <option value="4"
+                                                    <option value="5"
                                                             @if (old('status')=="fini")  checked @endif>
                                                         fini
                                                     </option>

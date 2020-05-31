@@ -172,9 +172,19 @@
                                                         <label for="imageUpload"></label>
                                                     </div>
                                                     <div class="avatar-preview">
-                                                        <div id="clock"
-                                                             style="background-image: url(https://4.bp.blogspot.com/-H232JumEqSc/WFKY-6H-zdI/AAAAAAAAAEw/DcQaHyrxHi863t8YK4UWjYTBZ72lI0cNACLcB/s1600/profile%2Bpicture.png);">
-                                                        </div>
+
+                                                        @if ("/images/{{$employee->image}}")
+                                                            <div id="clock"
+                                                                 style="background-image: url({{asset($employee->image)}});"
+                                                                 class="rounded-circle"
+                                                                 height="40px" width="40px">
+                                                            </div>
+
+                                                        @else
+                                                            <div id="clock"
+                                                                 style="background-image: url(https://4.bp.blogspot.com/-H232JumEqSc/WFKY-6H-zdI/AAAAAAAAAEw/DcQaHyrxHi863t8YK4UWjYTBZ72lI0cNACLcB/s1600/profile%2Bpicture.png);">
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -204,7 +214,7 @@
                                                 <label for="password">Password</label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
-                                                       name="password" required>
+                                                       name="password">
                                             </div>
                                         </div>
                                     </div>

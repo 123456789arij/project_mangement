@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,12 +14,15 @@ class DonutChartController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = DB::table('projects')
-                ->select(
-                    DB::raw('status as status'),
-                    DB::raw('count(*) as number'))
+            $data = Project::whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->where('id', auth()->user()->id);
+                });
+            })->select(
+                DB::raw('status as status'),
+                DB::raw('count(*) as number'))
                 ->groupBy('status')
-                ->whereIn('status', [0, 1, 2, 3, 4])
+                ->whereIn('status', [1, 2, 3, 4, 5])
                 ->get();
 
             $statuses = [];
@@ -32,7 +36,8 @@ class DonutChartController extends Controller
             }
             return response()->json(['status' => 'success', 'data' => $array]);
         }
-        return view('donut_chart');
+//        return view('donut_chart');
+        return view('home');
     }
 
 

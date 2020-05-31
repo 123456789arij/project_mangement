@@ -133,7 +133,6 @@
                             <th scope="col">{{ __('messages.project name') }}</th>
                             <th scope="col">{{ __('messages.members') }}</th>
                             <th scope="col">{{ __('messages.deadline') }}</th>
-                            {{--                            <th scope="col">{{ __('messages.client') }}</th>--}}
                             <th scope="col">{{ __('messages.completion') }}</th>
                             <th scope="col">{{ __('messages.status') }}</th>
                             <th scope="col">Action</th>
@@ -163,10 +162,6 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="widget-content-left">
-                                        {{--  <img src="{{asset($employee->image)}}" class="rounded-circle"
-                                               height="40px" width="40px" alt="im"/>--}}
-                                    </div>
                                     @foreach($project->employees as $employee)
                                         <img src="{{asset($employee->image)}}" class="rounded-circle"
                                              data-toggle="tooltip" data-original-title="{{$employee->name}}"

@@ -31,6 +31,7 @@ Route::prefix('client')->group(function () {
         Route::get('/dashborad', 'client\DashboradController@index')->name('client.dashborad');
         Route::get('/projects', 'client\ProjectController@index')->name('client.project');
         Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
+         Route::get('/comments', 'client\CommentController@index')->name('client.comment');
     });
 });
 
@@ -41,15 +42,17 @@ Route::prefix('employee')->group(function () {
     Route::post('logout/', 'Auth\EmployeeController@logout')->name('employee.logout');
     Route::group(['middleware' => 'auth.employee'], function () {
         Route::get('/dashborad', 'employee\DashboradController@index')->name('employee.dashborad');
+        //project
         Route::get('/projects', 'employee\ProjectController@index')->name('proj');
+//task
         Route::get('/tasks', 'employee\TaskController@index')->name('employee.task');
         Route::get('/{project}', 'employee\ProjectController@show')->name('employee.project.show');
         Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
         Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
-
-        Route::get('/profile', 'employee\EmployeeController@index')->name('profile');
-        Route::get('/{id}/profile', 'employee\EmployeeController@edit')->name('employee.profile.edit');
-        Route::patch('/employee/{id}', 'employee\EmployeeController@update')->name('employee.profile.update');
+//employee profile
+        Route::get('/profile/em', 'employee\DashboradController@profile')->name('profile');
+        Route::get('/{id}/profile', 'employee\DashboradController@edit')->name('employee.profile.edit');
+        Route::patch('/employee/{id}', 'employee\DashboradController@update')->name('employee.profile.update');
 
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
@@ -84,7 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
 //Gantt project
 //        Route::get('/data/{id}', 'GanttController@get');
-        Route::get('/gantt/{id}','GanttController@get')->name('gantt');
+        Route::get('/gantt/{id}', 'GanttController@get')->name('gantt');
 
     });
     Route::prefix('clients')->group(function () {
@@ -110,9 +113,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
         Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
         Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
-
-//        Route::get('/', array('as'=> 'front.home', 'uses' => 'ItemController@itemView'));
-//        Route::post('/update-items', array('as'=> 'update.items', 'uses' => 'ItemController@updateItems'));
     });
     //fullcalender
     Route::prefix('event')->group(function () {

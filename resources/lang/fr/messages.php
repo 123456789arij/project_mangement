@@ -69,6 +69,8 @@ return [
     'Task_Calendar' => 'Calendrier Des Tâches',
     'TaskReport' => 'Rapport de tâche',
     'Dashboard' => 'Tableau de bord',
-
+    'title' => 'Titre',
+    'Logout' => 'se déconnecter',
+    'comments' => 'Comments',
 
 ];
