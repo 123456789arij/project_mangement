@@ -125,7 +125,8 @@
             </div>
         </div>
     </div>
-
+    {{--/app-page-title--}}
+    {{--employee task filtre--}}
     @if(auth()->guard('employee')->user())
         <form action="{{route('employee.task')}}" type="get">
             <div class="row">
@@ -144,7 +145,7 @@
                     <select class="mb-2 form-control-lg form-control" name="status">
                         <option>all</option>
                         @foreach( $status  as  $key=> $value)
-                            <option value="{{ $value}}" @if($statusId===$value) selected @endif>
+                            <option value="{{ $value}}" @if($statusId==$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
                         @endforeach
                     </select>
@@ -155,7 +156,8 @@
             </div>
         </form>
     @endif
-    {{--/app-page-title--}}
+    {{--employee task filtre--}}
+
 
     {{--entreprise task filtre--}}
     @if(auth()->user())
@@ -174,9 +176,9 @@
                 <div class="col-3">
                     <label>Status </label>
                     <select class="mb-2 form-control-lg form-control custom-select" name="status">
-                        <option>all</option>
+                        <option value="">all</option>
                         @foreach($status  as  $key=> $value)
-                            <option value="{{ $value}}" @if($statusId===$value) selected @endif>
+                            <option value="{{ $value}}" @if($statusId==$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
                         @endforeach
                     </select>

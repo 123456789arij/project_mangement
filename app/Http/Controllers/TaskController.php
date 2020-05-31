@@ -40,6 +40,15 @@ class TaskController extends Controller
                 $query->where('user_id', auth()->user()->id);
             });
         });
+/*
+        if ($projectId != null && $statusId != null) {
+            $tasks = $tasks->where('id', $projectId);
+            $tasks = $tasks->where('status', $statusId);
+            /* $tasks = Task::join('projects', 'projects.id', 'tasks.project_id')
+                 ->where('tasks.project_id', $projectId)
+                 ->where('tasks.status', $statusId)
+                 ->get();*/
+
 
         if ($statusId != null) {
             $tasks = $tasks->where('status', $statusId);

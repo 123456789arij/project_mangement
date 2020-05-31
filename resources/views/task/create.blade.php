@@ -13,7 +13,7 @@
                 <div class="page-title-icon">
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
-                <div> Tâche</div>
+                <div> {{ __('messages.tasks') }}</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -73,7 +73,7 @@
 
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label> Titre </label>
+                                                <label> {{ __('messages.title') }}</label>
                                                 <input type="text" class="form-control" id="titre" name="title"
                                                        required>
                                             </div>
