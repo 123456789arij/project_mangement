@@ -154,168 +154,340 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('employee.update',$employee->id) }}"
-                                      class="container"
-                                      enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PATCH')
-                                    {{--                                      upload image--}}
-                                    <div class="form-row">
-                                        <div class="col-md-4" id="im">
-                                            <div class="avatarContainer">
-                                                <label for="image"> Image Upload</label>
-                                                <div class="avatar-upload">
-                                                    <div class="avatar-edit">
-                                                        <input type='file' name="image"
-                                                               value="{{$employee->image}}"
-                                                               id="imageUpload"/>
-                                                        <label for="imageUpload"></label>
-                                                    </div>
-                                                    <div class="avatar-preview">
+                                @if(auth()->user())
+                                    <form method="POST" action="{{ route('employee.update',$employee->id) }}"
+                                          class="container"
+                                          enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PATCH')
+                                        {{--                                      upload image--}}
+                                        <div class="form-row">
+                                            <div class="col-md-4" id="im">
+                                                <div class="avatarContainer">
+                                                    <label for="image"> Image Upload</label>
+                                                    <div class="avatar-upload">
+                                                        <div class="avatar-edit">
+                                                            <input type='file' name="image"
+                                                                   value="{{$employee->image}}"
+                                                                   id="imageUpload"/>
+                                                            <label for="imageUpload"></label>
+                                                        </div>
+                                                        <div class="avatar-preview">
 
-                                                        @if ("/images/{{$employee->image}}")
-                                                            <div id="clock"
-                                                                 style="background-image: url({{asset($employee->image)}});"
-                                                                 class="rounded-circle"
-                                                                 height="40px" width="40px">
-                                                            </div>
+                                                            @if ("/images/{{$employee->image}}")
+                                                                <div id="clock"
+                                                                     style="background-image: url({{asset($employee->image)}});"
+                                                                     class="rounded-circle"
+                                                                     height="40px" width="40px">
+                                                                </div>
 
-                                                        @else
-                                                            <div id="clock"
-                                                                 style="background-image: url(https://4.bp.blogspot.com/-H232JumEqSc/WFKY-6H-zdI/AAAAAAAAAEw/DcQaHyrxHi863t8YK4UWjYTBZ72lI0cNACLcB/s1600/profile%2Bpicture.png);">
-                                                            </div>
-                                                        @endif
+                                                            @else
+                                                                <div id="clock"
+                                                                     style="background-image: url(https://4.bp.blogspot.com/-H232JumEqSc/WFKY-6H-zdI/AAAAAAAAAEw/DcQaHyrxHi863t8YK4UWjYTBZ72lI0cNACLcB/s1600/profile%2Bpicture.png);">
+                                                                </div>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="name"> NOM </label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                       value="{{$employee->name }}">
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="name"> NOM </label>
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                           value="{{$employee->name }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                           value="{{$employee->email }}"
+                                                           class="@error('email', 'login') is-invalid @enderror"
+                                                           required>
+                                                    @error('email', 'login')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" data-toggle="password" class="form-control"
+                                                           id="password"
+                                                           name="password">
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                       value="{{$employee->email }}"
-                                                       class="@error('email', 'login') is-invalid @enderror" required>
-                                                @error('email', 'login')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" data-toggle="password" class="form-control"
-                                                       id="password"
-                                                       name="password">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{--  /partie email +adresse--}}
+                                        {{--  /partie email +adresse--}}
 
-                                    <div class="form-row">
-                                        {{--  date d'inscription--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="joining_date"> date d'inscription </label>
-                                                <input type="date" class="form-control" id="joining_date"
-                                                       value="{{$employee->joining_date}}"
-                                                       name="joining_date">
+                                        <div class="form-row">
+                                            {{--  date d'inscription--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="joining_date"> date d'inscription </label>
+                                                    <input type="date" class="form-control" id="joining_date"
+                                                           value="{{$employee->joining_date}}"
+                                                           name="joining_date">
+                                                </div>
                                             </div>
-                                        </div>
-                                        {{-- date d'inscription--}}
-                                        {{--   sex--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="gender"> sex </label>
-                                                <select class="mb-2 form-control form-control" name="gender">
-                                                    <option value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
-                                                        femme
-                                                    </option>
-                                                    <option value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
-                                                        homme
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        {{--/sex--}}
-                                        {{--mobile--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="mobile"> Mobile </label>
-                                                <input type="tel" class="form-control" id="mobile"
-                                                       value="{{$employee->mobile}}"
-                                                       name="mobile">
-                                            </div>
-                                        </div>
-                                        {{--/mobile--}}
-                                    </div>
-
-
-                                    <div class="position-relative form-group">
-                                        <div class="col-12 purple-border">
-                                            <label for="address">Adresse</label>
-                                            <textarea name="address" rows="5" id="exampleText" class="form-control">
-                                          {{$employee->address}}  </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="position-relative form-group">
-                                        <div class="col-12">
-                                            <label for="skills">Compétence</label>
-                                            <input id="basic" type="text" name="skills" class="form-control"
-                                                   value="{{$employee->skills}}">
-                                        </div>
-                                    </div>
-                                    {{--  row role et departement--}}
-                                    <div class="form-row">
-                                        <div class="col-md-4">
-                                            <label for="role">
-                                                <strong> role</strong>
-                                            </label>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" id="1" type="radio" name="role"
-                                                       value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
-                                                <label class="custom-control-label" for="1">
-                                                    Employée
-                                                </label>
-                                            </div>
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="role" id="2"
-                                                       value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
-                                                <label class="custom-control-label" for="2">
-                                                    Chef de projet
-                                                </label>
-                                            </div>
-                                        </div>
-                                        {{--    Département--}}
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group" for="department_id">
-                                                <label>Département</label>
-                                                <select class="mb-2 form-control-lg form-control"
-                                                        name="department_id">
-                                                    @foreach( $departments as $department)
+                                            {{-- date d'inscription--}}
+                                            {{--   sex--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="gender"> sex </label>
+                                                    <select class="mb-2 form-control form-control" name="gender">
                                                         <option
-                                                            value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
-                                                    @endforeach
-                                                </select>
+                                                            value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
+                                                            femme
+                                                        </option>
+                                                        <option
+                                                            value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
+                                                            homme
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{--/sex--}}
+                                            {{--mobile--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="mobile"> Mobile </label>
+                                                    <input type="tel" class="form-control" id="mobile"
+                                                           value="{{$employee->mobile}}"
+                                                           name="mobile">
+                                                </div>
+                                            </div>
+                                            {{--/mobile--}}
+                                        </div>
+
+
+                                        <div class="position-relative form-group">
+                                            <div class="col-12 purple-border">
+                                                <label for="address">Adresse</label>
+                                                <textarea name="address" rows="5" id="exampleText" class="form-control">
+                                          {{$employee->address}}  </textarea>
                                             </div>
                                         </div>
-                                        {{--/departement--}}
-                                    </div>
+                                        <div class="position-relative form-group">
+                                            <div class="col-12">
+                                                <label for="skills">Compétence</label>
+                                                <input id="basic" type="text" name="skills" class="form-control"
+                                                       value="{{$employee->skills}}">
+                                            </div>
+                                        </div>
+                                        {{--  row role et departement--}}
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <label for="role">
+                                                    <strong> role</strong>
+                                                </label>
+                                                <div class="custom-control custom-radio">
+                                                    <input class="custom-control-input" id="1" type="radio" name="role"
+                                                           value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
+                                                    <label class="custom-control-label" for="1">
+                                                        Employée
+                                                    </label>
+                                                </div>
+                                                <div class="custom-control custom-radio">
+                                                    <input class="custom-control-input" type="radio" name="role" id="2"
+                                                           value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
+                                                    <label class="custom-control-label" for="2">
+                                                        Chef de projet
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            {{--    Département--}}
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group" for="department_id">
+                                                    <label>Département</label>
+                                                    <select class="mb-2 form-control-lg form-control"
+                                                            name="department_id">
+                                                        @foreach( $departments as $department)
+                                                            <option
+                                                                value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{--/departement--}}
+                                        </div>
 
-                                    <div class="d-block  card-footer">
-                                        <button class="btn-wide btn btn-success" type="submit"><i
-                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
-                                    </div>
+                                        <div class="d-block  card-footer">
+                                            <button class="btn-wide btn btn-success" type="submit"><i
+                                                    class="fas fa-check"></i> {{ __('messages.update') }}</button>
+                                        </div>
 
-                                </form>
+                                    </form>
+                                @endif
+                                @if(auth()->guard('employee')->user())
+                                    <form method="POST" action="{{ route('chef.employee.update',$employee->id) }}"
+                                          class="container"
+                                          enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PATCH')
+                                        {{--                                      upload image--}}
+                                        <div class="form-row">
+                                            <div class="col-md-4" id="im">
+                                                <div class="avatarContainer">
+                                                    <label for="image"> Image Upload</label>
+                                                    <div class="avatar-upload">
+                                                        <div class="avatar-edit">
+                                                            <input type='file' name="image"
+                                                                   value="{{$employee->image}}"
+                                                                   id="imageUpload"/>
+                                                            <label for="imageUpload"></label>
+                                                        </div>
+                                                        <div class="avatar-preview">
+
+                                                            @if ("/images/{{$employee->image}}")
+                                                                <div id="clock"
+                                                                     style="background-image: url({{asset($employee->image)}});"
+                                                                     class="rounded-circle"
+                                                                     height="40px" width="40px">
+                                                                </div>
+
+                                                            @else
+                                                                <div id="clock"
+                                                                     style="background-image: url(https://4.bp.blogspot.com/-H232JumEqSc/WFKY-6H-zdI/AAAAAAAAAEw/DcQaHyrxHi863t8YK4UWjYTBZ72lI0cNACLcB/s1600/profile%2Bpicture.png);">
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="name"> NOM </label>
+                                                    <input type="text" class="form-control" id="name" name="name"
+                                                           value="{{$employee->name }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                           value="{{$employee->email }}"
+                                                           class="@error('email', 'login') is-invalid @enderror"
+                                                           required>
+                                                    @error('email', 'login')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" data-toggle="password" class="form-control"
+                                                           id="password"
+                                                           name="password">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--  /partie email +adresse--}}
+
+                                        <div class="form-row">
+                                            {{--  date d'inscription--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="joining_date"> date d'inscription </label>
+                                                    <input type="date" class="form-control" id="joining_date"
+                                                           value="{{$employee->joining_date}}"
+                                                           name="joining_date">
+                                                </div>
+                                            </div>
+                                            {{-- date d'inscription--}}
+                                            {{--   sex--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="gender"> sex </label>
+                                                    <select class="mb-2 form-control form-control" name="gender">
+                                                        <option
+                                                            value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
+                                                            femme
+                                                        </option>
+                                                        <option
+                                                            value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
+                                                            homme
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{--/sex--}}
+                                            {{--mobile--}}
+                                            <div class="col-md-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="mobile"> Mobile </label>
+                                                    <input type="tel" class="form-control" id="mobile"
+                                                           value="{{$employee->mobile}}"
+                                                           name="mobile">
+                                                </div>
+                                            </div>
+                                            {{--/mobile--}}
+                                        </div>
+
+
+                                        <div class="position-relative form-group">
+                                            <div class="col-12 purple-border">
+                                                <label for="address">Adresse</label>
+                                                <textarea name="address" rows="5" id="exampleText" class="form-control">
+                                          {{$employee->address}}  </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="position-relative form-group">
+                                            <div class="col-12">
+                                                <label for="skills">Compétence</label>
+                                                <input id="basic" type="text" name="skills" class="form-control"
+                                                       value="{{$employee->skills}}">
+                                            </div>
+                                        </div>
+                                        {{--  row role et departement--}}
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <label for="role">
+                                                    <strong> role</strong>
+                                                </label>
+                                                <div class="custom-control custom-radio">
+                                                    <input class="custom-control-input" id="1" type="radio" name="role"
+                                                           value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
+                                                    <label class="custom-control-label" for="1">
+                                                        Employée
+                                                    </label>
+                                                </div>
+                                                <div class="custom-control custom-radio">
+                                                    <input class="custom-control-input" type="radio" name="role" id="2"
+                                                           value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
+                                                    <label class="custom-control-label" for="2">
+                                                        Chef de projet
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            {{--    Département--}}
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group" for="department_id">
+                                                    <label>Département</label>
+                                                    <select class="mb-2 form-control-lg form-control"
+                                                            name="department_id">
+                                                        @foreach( $departments as $department)
+                                                            <option
+                                                                value="{{$department->id}}"{{ old('department_id', $employee->department_id) == $department->id ? 'selected' : ''}}> {{$department->name}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{--/departement--}}
+                                        </div>
+
+                                        <div class="d-block  card-footer">
+                                            <button class="btn-wide btn btn-success" type="submit"><i
+                                                    class="fas fa-check"></i> {{ __('messages.update') }}</button>
+                                        </div>
+
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

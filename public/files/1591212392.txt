@@ -1,0 +1,12 @@
+
+caractére espace  :          	&nbsp;
+pe-7s-info
+pe-7s-plus
+pe-7s-home
+pe-7s-power
+pe-7s-user
+pe-7s-delete-user
+pe-7s-add-user
+
+97CEC6
+far fa-building   département

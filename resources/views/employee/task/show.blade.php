@@ -3,9 +3,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <style>
 
-        #marke_completed {
-            font-size: 12px;
-            font-weight: bold;
+        .display-comment .display-comment {
+            margin-left: 40px
         }
 
     </style>
@@ -44,17 +43,8 @@
         <div class="col-md-12">
             <!------ carde tab ---------->
             <div class="mb-3 card">
-                <div class="card-header card-header-tab-animation">
-                    <ul class="nav nav-justified">
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-0" class="active nav-link">Task</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-1" class="nav-link">Membre</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> Tache</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> facture</a>
-                        </li>
-                    </ul>
+                <div class="card-header">
+                    {{ __('messages.task') }}
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -130,7 +120,7 @@
                             <div class="row">
                                 <div class="col-12 container">
                                     <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
-                                {{--    @foreach($comments as $comment)
+                              {{--      @foreach($comments as $comment)
                                         <div class="display-comment">
                                             <div style="display:inline-block">
                                                 <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
@@ -143,7 +133,8 @@
                                             <p>{{ $comment->body }}</p>
                                         </div>
                                     @endforeach--}}
-                                    @include('task.commentsDisplay', ['comments' => $task->comments, 'task_id' => $task->id])
+                                    @include('employee.task.comment_replies', ['comments' => $task->comments, 'task_id' => $task->id])
+
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                 </div>
                             </div>
@@ -154,10 +145,12 @@
                                         <strong>
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                             Add Comment </strong>
-                                        <form method="post" action="{{ route('comment.store') }}">
+                                        <form method="post" action="{{ route('employee.comment.store') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <textarea name="body" class="form-control" rows="3" placeholder="votre commentaire"></textarea>
+{{--                                                <textarea name="body" class="form-control" rows="3" placeholder="votre commentaire"></textarea>--}}
+
+                                                <input type="text" name="body" class="form-control" />
                                                 <input type="hidden" name="task_id" value="{{ $task->id }}"/>
                                             </div>
                                             <input type="submit" style="float: right" class="btn btn-warning col-sm-4"
@@ -174,32 +167,7 @@
                             </div>
                         </div>
                         {{--projet--}}
-                        <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
-                            <h4>Membre du projet</h4>
-                            <div class="row">
-                                <div class="col-6">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">role</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-6">
-                                    <h2>Ajouter les Membre du projets </h2>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
-                            <button>Ajouter une Nouvelle tache</button>
-                        </div>
                     </div>
                 </div>
             </div>

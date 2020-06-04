@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use App\Employee;
+use App\Project;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,7 +25,7 @@ class EmployeeController extends Controller
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->paginate(5);
-        return view('employee.index', compact('employees','employeescount'));
+        return view('employee.index', compact('employees', 'employeescount'));
 
     }
 
@@ -91,7 +92,13 @@ class EmployeeController extends Controller
     public
     function show($id)
     {
-        //
+        $employee = Employee::findorfail($id);
+        $projects = Project::with( 'employees')->whereHas('employees', function (Builder $query) {
+            $query->whereHas('department', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        })->get();
+        return view('employee.show', compact('employee', 'projects'));
     }
 
     /**
@@ -108,7 +115,7 @@ class EmployeeController extends Controller
 //        })->get();
         $employee = Employee::find($id);
         $departments = Department::where('user_id', auth()->user()->id)->get();
-        return view('employee.edit', compact('employee','departments'));
+        return view('employee.edit', compact('employee', 'departments'));
     }
 
     /**

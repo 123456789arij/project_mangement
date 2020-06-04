@@ -2,6 +2,9 @@
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <style>
+        #CLIENT_DETAILS{
+            background-color: #01c0c8;
+        }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
             margin: 10px 0;
@@ -171,11 +174,11 @@
                 </div>
                 <div id="status">
                     @if($project->status == 0)
-                        <span class="badge badge-pill badge-secondary">{{__('messages.notStarted') }}</span>
+                        <span class="badge badge-pill badge-secondary">{{__('messages.not Started') }}</span>
                     @elseif($project->status ==  1)
-                        <span class="badge badge-pill badge-warning">{{__('messages.onHold') }}</span>
+                        <span class="badge badge-pill badge-warning">{{__('messages.on Hold') }}</span>
                     @elseif($project->status ==  2)
-                        <span class="badge badge-pill badge-info">  {{__('messages.inProgress') }}</span>
+                        <span class="badge badge-pill badge-info">  {{__('messages.In Progress') }}</span>
                     @elseif($project->status == 3)
                         <span class="badge badge-pill badge-danger">{{__('messages.canceled') }}</span>
                     @elseif($project->status == 4)
@@ -218,16 +221,7 @@
             <!------ carde tab ---------->
             <div class="mb-3 card">
                 <div class="card-header card-header-tab-animation">
-                    <ul class="nav nav-justified">
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-0" class="active nav-link">Projet</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-1" class="nav-link">Membre</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> Tache</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> facture</a>
-                        </li>
-                    </ul>
+                    Projet
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -282,55 +276,30 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row m-t-25">
-                                <div class="col-md-4">
-                                    <div class="panel panel-inverse">
-                                        <div class="panel-heading">{{ __('messages.CLIENT_DETAILS') }}</div>
-                                        <div class="panel-wrapper collapse in">
-                                            <div class="panel-body">
-                                                <dl>
-                                                    <dt> {{ __('messages.name') }}</dt>
-                                                    <dd class="m-b-10">{{$project->client->name}}</dd>
-                                                    <dt> {{ __('messages.email') }}</dt>
-                                                    <dd class="m-b-10">{{$project->client->email}}</dd>
-                                                </dl>
-                                            </div>
+                            <br> <br> <br>
+                            <div class="card mb-3" style="max-width: 540px; position: center">
+                                <div class="panel-heading" id="CLIENT_DETAILS">{{ __('messages.CLIENT_DETAILS') }}</div>
+                                <div class="row no-gutters container">
+                                    <div class="col-md-4">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ __('messages.name') }} :</h5>
+                                            <h5 class="card-title">{{ __('messages.email') }} :</h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <p class="card-text">{{$project->client->name}}</p>
+                                            <p class="card-text">{{$project->client->email}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                             {{-- / client détailles--}}
 
                         </div>
 
-                        {{--projet--}}
-                        <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
-                            <h4>Membre du projet</h4>
-                            <div class="row">
-                                <div class="col-6">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">role</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-6">
-                                    <h2>Ajouter les Membre du projets </h2>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
-                            <button>Ajouter une Nouvelle tache</button>
-                        </div>
                     </div>
                 </div>
             </div>

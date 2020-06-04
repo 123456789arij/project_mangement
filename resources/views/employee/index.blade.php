@@ -1,11 +1,7 @@
 @extends('layouts.base')
 @section('cssBlock')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">--}}
     <style>
-        #crud_btn, form {
-            display: flex;
-            height: 40px;
-        }
 
         #employee {
             text-align: justify;
@@ -43,6 +39,7 @@
             height: 20px;
             margin: 20px 10px;
         }
+
         #create_employee_btn {
             color: white;
             font-size: 18px;
@@ -53,6 +50,65 @@
             color: white;
             font-weight: bold;
         }
+
+
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #A9A9A9;
+            display: inline-block;
+            height: 20px;
+            margin: 20px 10px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+
+        /*  btn crud */
+        .m-r-10 {
+            margin-right: 10px !important;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 9px 20px;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -81,7 +137,8 @@
                     <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                         <i class="fas fa-user-plus" style="font-size: 15px;">
                             &nbsp;&nbsp;
-                            <a href="{{route('employee.create')}}"id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
+                            <a href="{{route('employee.create')}}"
+                               id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
                     </button>
                 </div>
             </div>
@@ -99,6 +156,7 @@
                 @endif
 
                 <div class="card-header">{{ __('messages.employees') }}</div>
+
                 <br>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
@@ -108,7 +166,8 @@
                             <th scope="col">{{ __('messages.name') }}</th>
                             <th scope="col" id="employee">{{ __('messages.email') }}</th>
                             <th scope="col" id="employee">{{ __('messages.role') }}</th>
-                            <th scope="col" class="text-center">ACTIONS</th>
+
+                            <th colspan="3">ACTIONS</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -120,12 +179,20 @@
                                             <div class="widget-content-left mr-3">
                                                 <div class="widget-content-left">
                                                     <img src="{{asset($employee->image)}}" class="rounded-circle"
+                                                         data-toggle="tooltip" data-original-title="{{$employee->name}}"
                                                          height="40px" width="40px" alt="im"/>
                                                 </div>
                                             </div>
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading">
-                                                    {{$employee->name }}   </div>
+                                                    @if(auth()->user())
+                                                        <a href="{{route('employee.show',$employee->id)}}"> {{$employee->name }} </a>
+                                                    @endif
+                                                    @if(auth()->guard('employee')->user())
+                                                            <a href="{{route('chef.employee.show',$employee->id)}}"> {{$employee->name }} </a>
+                                                    @endif
+
+                                                </div>
                                                 <div class="widget-subheading opacity-7">Web Developer</div>
                                             </div>
                                         </div>
@@ -139,29 +206,95 @@
                                         <span>Chef De Projet</span>
                                     @endif
                                 </td>
-                                <td class="text-center" id="crud_btn">
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                        <a href="{{ route('employee.edit', $employee->id) }}">
-                                            <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-                                    {{--                                    button show--}}
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                        <a href="{{route('employee.show', $employee->id) }})}}">
-                                            <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-                                    {{--                                    button delete--}}
-                                    <form action="{{route('employee.destroy',$employee->id)}}" method="post"
-                                          class="delete-confirm">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper" style="font-size: 20px;"> </i>
-                                        </button>
-                                    </form>
-                                </td>
 
+                                <td class="text-center">
+                                    @if(auth()->user())
+                                        <div class="btn-group dropdown m-r-10 open">
+                                            <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                    type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="{{ route('employee.edit', $employee->id) }}">
+                                                        <strong>
+                                                            <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                               style="font-size:20px;"></i>
+                                                            Edit
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{route('employee.show', $employee->id) }})}}">
+                                                        <strong> <i
+                                                                class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
+                                                                style="font-size: 20px;"></i>
+                                                            Show
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{route('employee.destroy',$employee->id)}}"
+                                                          method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        &nbsp;
+                                                        <button class="mr-2 btn-icon btn-icon-only btn">
+                                                            <strong>
+                                                                <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                                   style="font-size: 20px;" id="delete">
+                                                                </i> Delete
+                                                            </strong>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    @if(auth()->guard('employee')->user())
+                                        <div class="btn-group dropdown m-r-10 open">
+                                            <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                    type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="{{ route('chef.employee.edit', $employee->id) }}">
+                                                        <strong>
+                                                            <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                               style="font-size:20px;"></i>
+                                                            Edit
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{route('chef.employee.show', $employee->id) }})}}">
+                                                        <strong> <i
+                                                                class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
+                                                                style="font-size: 20px;"></i>
+                                                            Show
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{route('employee.destroy',$employee->id)}}"
+                                                          method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        &nbsp;
+                                                        <button class="mr-2 btn-icon btn-icon-only btn">
+                                                            <strong>
+                                                                <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                                   style="font-size: 20px;" id="delete">
+                                                                </i> Delete
+                                                            </strong>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -178,16 +311,16 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                "paging": false,
-                "ordering": false,
-                "info": false
-            });
-        });
-    </script>
+    {{--  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              $('#example').DataTable({
+                  "paging": false,
+                  "ordering": false,
+                  "info": false
+              });
+          });
+      </script>--}}
     //sweet alert cdn
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>

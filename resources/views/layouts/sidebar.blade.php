@@ -76,9 +76,37 @@
                 </a>
             </li>
 
-                <li class="app-sidebar__heading">Travaille</li>
+                <li class="app-sidebar__heading">HR</li>
+
+
+                <li
+
+
+                >
+                    <a href="">
+                        <i class="metismenu-icon pe-7s-diamond"></i>
+                        HR
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
+
+
+                    >
+
+                        <li>
+                            <a href="{{route('chef.employee.index')}}">
+                                <i class="metismenu-icon">
+                                </i> {{ trans('messages.employees') }}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                        <li class="app-sidebar__heading">Travaille</li>
             <li>
-                <a href="{{route('proj')}}">
+                <a href="{{route('employee.project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
                     {{ trans('messages.projects') }}
                 </a>

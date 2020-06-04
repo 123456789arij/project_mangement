@@ -170,7 +170,7 @@
                                         <div class="col-md-12">
                                             <label for="image_name"> importer vos fichier :</label>
                                             {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
-                                            <input type="file" name="file"/>
+                                            <input type="file" name="file[]" multiple/>
 
                                         </div>
                                     </div>

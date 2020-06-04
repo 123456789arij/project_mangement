@@ -83,7 +83,7 @@
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
-                                                    {{ $department->name }}
+                                                 <a href="{{route('department.show',$department->id)}}"> {{ $department->name }}</a>
                                                     &nbsp;&nbsp;
                                                     <span class="badge badge-pill badge-success" id="membres">{{$department->employees_count}} &nbsp; Members</span>
                                                 </div>
@@ -91,7 +91,6 @@
                                         </div>
                                     </div>
                                 </td>
-
 
                                 <td class="text-center">
                                     <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">

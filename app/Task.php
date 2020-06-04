@@ -33,7 +33,10 @@ class Task extends Model
     {
         return $this->morphMany('App\File', 'fileable');
     }
-
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable')->whereNull('parent_id');
+    }
     public function employees()
     {
         return $this->belongsToMany('App\Employee');

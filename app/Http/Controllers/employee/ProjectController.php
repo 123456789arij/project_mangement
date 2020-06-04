@@ -88,7 +88,7 @@ class ProjectController extends Controller
         $files = $request->file('file');
 
         ProjectRepository::createProject($name, $description, $status, $start_date, $deadline, $category_id, $client_id, $files);
-        return redirect()->route('proj')->with('toast_success', ' projet  is successfully saved');
+        return redirect()->route('employee.project')->with('toast_success', ' projet  is successfully saved');
     }
 
     /**
@@ -99,7 +99,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::findorfail($id);
+        $project = Project::withCount('employees')->with('employees')->findorfail($id);
         return view('employee.project.show', compact('project'));
     }
 
@@ -130,7 +130,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'description' => 'required',
             'status' => 'required',
@@ -147,8 +147,7 @@ class ProjectController extends Controller
         $project->client_id = $request->input('client_id');
         $project->category_id = $request->input('category_id');
         $project->save();
-//        todo
-        return redirect()->route('proj')->with('toast_success', ' projet  is successfully saved');
+        return redirect()->route('employee.project')->with('toast_success', ' projet  is successfully saved');
     }
 
     /**
@@ -159,25 +158,27 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        $project->delete();
+        return redirect()->route('employee.project')->with('success', 'Project is successfully deleted');
     }
 
     public function afficher_membre_projet($id)
     {
-        $projet = Project::findOrfail($id);
-        $membres = $projet->employees;
+        $project = Project::findOrfail($id);
+        $membres = $project->employees;
         $employees = Employee::whereHas('department', function (Builder $query) {
-            $query->where('user_id', auth()->user()->id);
+            $query->where('id', auth()->guard('employee')->user()->department_id);
         })->get();
-        return view('project.membre', compact('employees', 'membres', 'projet'));
+        return view('employee.project.membre', compact('employees', 'membres', 'project'));
     }
 
     public function membre_projet(Request $request)
     {
         $emplyeeIds = $request->input('employee_id');
-        $projetId = $request->input('project_id');
-        $projet = Project::findOrfail($projetId);
-        $projet->employees()->sync($emplyeeIds);
-        return redirect()->route('proj')->with('toast_success', 'membre is successfully saved');
+        $projectId = $request->input('project_id');
+        $project = Project::findOrfail($projectId);
+        $project->employees()->sync($emplyeeIds);
+        return redirect()->route('employee.project')->with('toast_success', 'membre is successfully saved');
     }
 }

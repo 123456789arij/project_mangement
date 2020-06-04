@@ -186,11 +186,10 @@
                 <div class="d-inline-block dropdown text-center">
                     @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                         <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                          </span>
-                            <a href="{{ route('employee.project.create')}}"
-                               style="color: black;font-size: 15px;"> Ajouter un nouveau Projet </a>&nbsp;&nbsp;
+                            <i class="fa fa-plus" style="font-size: 20px;">
+                                <a href="{{ route('employee.project.create')}}" id="create_Projet_btn">
+                                    Ajouter un nouveau Projet </a>&nbsp;
+                                &nbsp;</i>
                         </button>
                     @endif
                     @if(auth()->user())
@@ -263,7 +262,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
-                                        <a href="{{route('membre_projet',['id' => $project->id])}}"
+                                        <a href="{{route('employee.membre_projet',['id' => $project->id])}}"
                                            data-toggle="tooltip"
                                            data-original-title="Add Project Members"
                                            class="btn btn-primary btn-circle" id="add_membres"
@@ -272,14 +271,15 @@
                                         </a>
                                     @endif
                                     @if(auth()->user())
-                                            <a href="{{route('membre_projet',['id' => $project->id])}}"
-                                               data-toggle="tooltip"
-                                               data-original-title="Add Project Members"
-                                               class="btn btn-primary btn-circle" id="add_membres"
-                                               style="width: 28px;height: 28px;padding: 3px;">
-                                                <i class=" pe-7s-plus" style="font-size: 20px;"></i>
-                                            </a>
-                                    @endif
+                                        <a href="{{route('membre_projet',['id' => $project->id])}}"
+                                           data-toggle="tooltip"
+                                           data-original-title="Add Project Members"
+                                           class="btn btn-primary btn-circle" id="add_membres"
+                                           style="width: 28px;height: 28px;padding: 3px;">
+                                            <i class=" pe-7s-plus" style="font-size: 20px;"></i>
+                                        </a>
+                                        @endif
+
                                     @foreach($project->employees as $employee)
                                         <img src="{{asset($employee->image)}}" class="rounded-circle"
                                              data-toggle="tooltip" data-original-title="{{$employee->name}}"
@@ -345,6 +345,7 @@
                                 </td>
 
                                 @if(auth()->guard('employee')->user())
+
                                     <td class="text-center">
                                         <div class="btn-group dropdown m-r-10 open">
                                             <button aria-expanded="true" data-toggle="dropdown" class="btn"
@@ -369,6 +370,21 @@
                                                             Edit
                                                         </strong>
                                                     </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{route('employee.project.destroy',$project->id)}}"
+                                                          method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        &nbsp;
+                                                        <button class="mr-2 btn-icon btn-icon-only btn">
+                                                            <strong>
+                                                                <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                                   style="font-size: 20px;" id="delete">
+                                                                </i> Delete
+                                                            </strong>
+                                                        </button>
+                                                    </form>
                                                 </li>
                                             </ul>
 

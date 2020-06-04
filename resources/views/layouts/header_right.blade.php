@@ -32,19 +32,23 @@
                                 @if(auth()->user())
                                     Entreprise
                                 @endif
+                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                                    Chef de projet
+                                @endif
                                 @if(auth()->guard('employee')->user())
                                     Employee
                                 @endif
                             </h6>
                             <h6 tabindex="-1" class="dropdown-header">
                                 @if(auth()->user())
+                                    {{--                                        <a href="{{route('user.edit',$user->id)}}">edit</a>--}}
                                 @endif
-                              {{--  @if(auth()->guard('employee')->user())
-                                    @foreach( $employee_profile as  $emp)
-                                            <a type="button" href="{{route('employee.profile.edit',$emp->id)}}"></a>
-                                        @endforeach
+                                {{--  @if(auth()->guard('employee')->user())
+                                      @foreach( $employee_profile as  $emp)
+                                              <a type="button" href="{{route('employee.profile.edit',$emp->id)}}"></a>
+                                          @endforeach
 
-                                @endif--}}
+                                  @endif--}}
                             </h6>
                             <div tabindex="-1" class="dropdown-divider"></div>
                             <button type="button" tabindex="0" class="dropdown-item" style="float: left">

@@ -12,7 +12,7 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
                 <div><h4 class="page-title">
                         {{__('messages.project') }} # {{$project->id}} - {{$project->name}}

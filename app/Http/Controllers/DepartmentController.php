@@ -58,7 +58,8 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        //
+        $department = Department::with('employees')->findorfail($id);
+        return view('department.show',compact('department'));
     }
 
     /**

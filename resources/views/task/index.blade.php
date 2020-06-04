@@ -191,8 +191,6 @@
         </form>
     @endif
     {{--/entreprise  task filtre--}}
-
-
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
@@ -219,9 +217,15 @@
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
                                             <div>
+                                                @if(auth()->guard('employee')->user())
+                                                    <div>
+                                                        <a href="{{route('employee.task.show',$task->id)}}">{{ $task->title}}</a>
+                                                    </div>
+                                                @else
                                                 <div>
                                                     <a href="{{route('task.show',$task->id)}}">{{ $task->title}}</a>
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

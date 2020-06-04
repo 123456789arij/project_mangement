@@ -7,13 +7,13 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class="fas fa-building icon-gradient bg-premium-dark">
+                    </i>
                 </div>
                 <div>
                     <h4 class="page-title">
                         {{ __('messages.departments') }} # {{$department->id}} - {{$department->name}}
                     </h4>
-
 
 
                 </div>
@@ -43,7 +43,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-header">
-                {{ __('messages.UPDATE_DEPARTMENT')}}
+                    {{ __('messages.UPDATE_DEPARTMENT')}}
                 </div>
 
                 <div class="tab-content">

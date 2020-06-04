@@ -110,7 +110,6 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $categories = Category::all();
-        //todo your client
 //        $clients = Client::whereHas('user', function (Builder $query) {
 //                $query->where('id', auth()->user()->id);
 //        })->get();
@@ -152,7 +151,6 @@ class ProjectController extends Controller
         $project->client_id = $request->input('client_id');
         $project->category_id = $request->input('category_id');
         $project->save();
-//        todo
         return redirect()->route('project')->with('toast_success', ' projet  is successfully saved');
     }
 

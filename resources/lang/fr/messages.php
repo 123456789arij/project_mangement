@@ -71,6 +71,6 @@ return [
     'Dashboard' => 'Tableau de bord',
     'title' => 'Titre',
     'Logout' => 'se déconnecter',
-    'comments' => 'Comments',
+    'comments' => 'Commentaire',
 
 ];

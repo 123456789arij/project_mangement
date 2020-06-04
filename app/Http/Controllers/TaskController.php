@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Employee;
 use App\File;
 use App\Project;
@@ -40,14 +41,14 @@ class TaskController extends Controller
                 $query->where('user_id', auth()->user()->id);
             });
         });
-/*
-        if ($projectId != null && $statusId != null) {
-            $tasks = $tasks->where('id', $projectId);
-            $tasks = $tasks->where('status', $statusId);
-            /* $tasks = Task::join('projects', 'projects.id', 'tasks.project_id')
-                 ->where('tasks.project_id', $projectId)
-                 ->where('tasks.status', $statusId)
-                 ->get();*/
+        /*
+                if ($projectId != null && $statusId != null) {
+                    $tasks = $tasks->where('id', $projectId);
+                    $tasks = $tasks->where('status', $statusId);
+                    /* $tasks = Task::join('projects', 'projects.id', 'tasks.project_id')
+                         ->where('tasks.project_id', $projectId)
+                         ->where('tasks.status', $statusId)
+                         ->get();*/
 
 
         if ($statusId != null) {
@@ -108,7 +109,6 @@ class TaskController extends Controller
         $task->employees()->sync($emplyeeIds);
 
         if ($files = $request->file('file')) {
-
             $destinationPath = '/files/';
             $file_doc = time() . "." . $files->getClientOriginalExtension();
             $files->move(public_path('files'), $file_doc);
@@ -128,7 +128,12 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::findorfail($id);
-        return view('task.show', compact('task'));
+        $comments = Comment::whereHas('employee', function (Builder $query) {
+            $query->whereHas('department', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        })->get();
+        return view('task.show', compact('task', 'comments'));
     }
 
     /**

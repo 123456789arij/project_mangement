@@ -28,10 +28,10 @@ Route::prefix('client')->group(function () {
     Route::post('/login', 'Auth\ClientController@login')->name('client.login.submit');
     Route::post('logout/', 'Auth\ClientController@logout')->name('client.logout');
     Route::group(['middleware' => 'auth.client'], function () {
-        Route::get('/dashborad', 'client\DashboradController@index')->name('client.dashborad');
+        Route::get('/dashboard', 'client\DashboradController@index')->name('client.dashborad');
         Route::get('/projects', 'client\ProjectController@index')->name('client.project');
         Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
-         Route::get('/comments', 'client\CommentController@index')->name('client.comment');
+        Route::get('/comments', 'client\CommentController@index')->name('client.comment');
     });
 });
 
@@ -41,14 +41,31 @@ Route::prefix('employee')->group(function () {
     Route::post('/login', 'Auth\EmployeeController@login')->name('employee.login.submit');
     Route::post('logout/', 'Auth\EmployeeController@logout')->name('employee.logout');
     Route::group(['middleware' => 'auth.employee'], function () {
-        Route::get('/dashborad', 'employee\DashboradController@index')->name('employee.dashborad');
+        Route::get('/dashboard', 'employee\DashboradController@index')->name('employee.dashborad');
+        //        add employee
+        Route::get('/dashboard/employee', 'employee\EmployeeController@index')->name('chef.employee.index');
+        Route::get('/create/employee', 'employee\EmployeeController@create')->name('chef.employee.create');
+        Route::post('/store/employee', 'employee\EmployeeController@store')->name('chef.employee.store');
+        Route::get('/{employee}/edit', 'employee\EmployeeController@edit')->name('chef.employee.edit');
+        Route::patch('/{employee}', 'employee\EmployeeController@update')->name('chef.employee.update');
+        Route::get('/{employee}', 'employee\EmployeeController@show')->name('chef.employee.show');
         //project
-        Route::get('/projects', 'employee\ProjectController@index')->name('proj');
+        Route::get('/projects/dashboard', 'employee\ProjectController@index')->name('employee.project');
 //task
-        Route::get('/tasks', 'employee\TaskController@index')->name('employee.task');
+        Route::get('/dashboard/tasks/', 'employee\TaskController@index')->name('employee.task');
         Route::get('/{project}', 'employee\ProjectController@show')->name('employee.project.show');
         Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
         Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
+        Route::get('/{tasks}/employee', 'employee\TaskController@show')->name('employee.task.show');
+        Route::get('/{id}/task/edit', 'employee\TaskController@edit')->name('employee.task.edit');
+        Route::patch('/{id}/task/', 'employee\TaskController@update')->name('employee.task.update');
+//        comment
+        Route::get('/comment', 'employee\CommentController@index')->name('employee.comment');
+        Route::get('/create/comment', 'employee\CommentController@create')->name('employee.comment.create');
+        Route::post('/store/comment', 'employee\CommentController@store')->name('employee.comment.store');
+        Route::post('/reply/add', 'employee\CommentController@replyStore')->name('employee.reply.add');
+
+
 //employee profile
         Route::get('/profile/em', 'employee\DashboradController@profile')->name('profile');
         Route::get('/{id}/profile', 'employee\DashboradController@edit')->name('employee.profile.edit');
@@ -75,7 +92,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/columnChart', 'ColumnChartController@index')->name('column_chart');
 //    project
     Route::prefix('projects')->group(function () {
-        Route::get('/', 'ProjectController@index')->name('project');
+        Route::get('/dashboard/', 'ProjectController@index')->name('project');
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/store', 'ProjectController@store')->name('project.store');
         Route::get('/{project}', 'ProjectController@show')->name('project.show');
@@ -90,6 +107,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/gantt/{id}', 'GanttController@get')->name('gantt');
 
     });
+    Route::prefix('user')->group(function () {
+        Route::get('/', 'UserContoller@index')->name('user');
+        Route::get('/{user}/edit', 'UserContoller@edit')->name('user.edit');
+        Route::patch('/{user}', 'UserContoller@update')->name('user.update');
+    });
     Route::prefix('clients')->group(function () {
         Route::get('/', 'ClientController@index')->name('client.index');
         Route::get('/create', 'ClientController@create')->name('client.create');
@@ -103,15 +125,18 @@ Route::middleware('auth')->group(function () {
 
     //task
     Route::prefix('tasks')->group(function () {
-        Route::get('/', 'TaskController@index')->name('task');
+        Route::get('/dashboard', 'TaskController@index')->name('task');
         Route::get('/create', 'TaskController@create')->name('task.create');
         Route::post('/store', 'TaskController@store')->name('task.store');
         Route::get('/{task}', 'TaskController@show')->name('task.show');
         Route::get('/{task}/edit', 'TaskController@edit')->name('task.edit');
         Route::patch('/{task}', 'TaskController@update')->name('task.update');
         Route::delete('/{id}', 'TaskController@destroy')->name('task.destroy');
-        Route::get('/itemView', 'TaskController@itemView')->name('task.itemView');
-        Route::post('/updateItem', 'TaskController@updateItems')->name('task.updateItems');
+//        comment
+        Route::get('/comment', 'CommentController@index')->name('comment');
+        Route::get('/comment', 'CommentController@create')->name('comment.create');
+        Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+        Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
         Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
     });
     //fullcalender

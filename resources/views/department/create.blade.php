@@ -11,7 +11,8 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class="fas fa-building icon-gradient bg-premium-dark">
+                    </i>
                 </div>
                 <div> Départment</div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in

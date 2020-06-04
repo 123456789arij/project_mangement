@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\employee;
 
+use App\Comment;
 use App\Employee;
 use App\File;
 use App\Http\Controllers\Controller;
@@ -127,7 +128,13 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+        $task = Task::findorfail($id);
+        $comments = Comment::whereHas('employee', function (Builder $query) {
+            $query->whereHas('department', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            });
+        })->get();
+        return view('employee.task.show', compact('task','comments'));
     }
 
     /**
@@ -139,7 +146,14 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        return view('task.edit', compact('task'));
+        $projects = Project::whereHas('client', function (Builder $query) {
+            $query->whereHas('user', function (Builder $query) {
+                $query->whereHas('departments', function (Builder $query) {
+                    $query->where('id', auth()->guard('employee')->user()->department_id);
+                });
+            });
+        })->get();
+        return view('task.edit', compact('task','projects'));
     }
 
     /**
@@ -183,8 +197,6 @@ class TaskController extends Controller
     {
         //
     }
-
-
 
 
 }
