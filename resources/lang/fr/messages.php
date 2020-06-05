@@ -36,7 +36,7 @@ return [
     'gender' => ' sex',
     'female' => 'Femme',
     'male' => 'Homme',
-
+    'skills' => 'Compétence',
     'task' => 'Tâche',
     'project' => 'Projet',
     'department' => 'Département',

@@ -486,7 +486,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab-eg-55">
                             <div class="widget-chart p-3">
-                                <div style="height: 600px">
+                                <div style="height: 700px">
                                     <table class="align-middle mb-0 table table-borderless">
                                         <thead>
                                         <tr>

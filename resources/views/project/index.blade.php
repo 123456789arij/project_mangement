@@ -220,11 +220,18 @@
 
                 <div class="card-header">{{ __('messages.projects') }}</div>
                 <br>
-
-                <form action="{{route('employee.project')}}" method="get" role="search" style="float: right">
-                    <input type="text" name="search" placeholder="Type to search">
-                    <button type="submit">search</button>
-                </form>
+                @if(auth()->guard('employee')->user())
+                    <form action="{{route('employee.project')}}" method="get" role="search" style="float: right">
+                        <input type="text" name="search" placeholder="Type to search">
+                        <button type="submit">search</button>
+                    </form>
+                @endif
+                @if(auth()->user())
+                        <form action="{{route('project')}}" method="get" role="search" style="float: right">
+                            <input type="text" name="search" placeholder="Type to search">
+                            <button type="submit">search</button>
+                        </form>
+                @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" class="display">
                         <thead>

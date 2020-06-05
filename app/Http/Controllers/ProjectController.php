@@ -20,14 +20,13 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         /*  $projects = Project::join('clients', 'clients.id', '=', 'projects.client_id')
               ->where('clients.user_id', auth()->user()->id)
               ->select('projects.*')
               ->get();*/
-
+        $search = $request->input('search');
         $projectsCount = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->user()->id);
@@ -38,7 +37,12 @@ class ProjectController extends Controller
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->user()->id);
             });
-        })->paginate(5);
+        });
+        if ($search) {
+            $projects = $projects->where("name", "LIKE", "%{$search}%");
+
+        }
+        $projects = $projects->paginate(5);
         return view('project.index', compact('projects','projectsCount'));
     }
 

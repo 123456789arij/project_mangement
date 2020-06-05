@@ -93,11 +93,7 @@ class EmployeeController extends Controller
     function show($id)
     {
         $employee = Employee::findorfail($id);
-        $projects = Project::with( 'employees')->whereHas('employees', function (Builder $query) {
-            $query->whereHas('department', function (Builder $query) {
-                $query->where('user_id', auth()->user()->id);
-            });
-        })->get();
+        $projects = $employee->projects;
         return view('employee.show', compact('employee', 'projects'));
     }
 

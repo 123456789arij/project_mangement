@@ -36,6 +36,7 @@ return [
     'gender' => 'Gender',
     'female' => 'Female',
     'male' => 'Male',
+    'skills' => 'Skills',
     'Incomplete' => 'Incomplete',
     'Completed' => 'completed',
 //    single
@@ -70,7 +71,7 @@ return [
     'TaskReport' => 'Task Report',
     'Dashboard' => 'Dashboard',
     'title' => 'Title',
-    'Logout'=>'Logout',
+    'Logout' => 'Logout',
     'comments' => 'Comments',
 
 
