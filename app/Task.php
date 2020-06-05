@@ -35,7 +35,7 @@ class Task extends Model
     }
     public function comments()
     {
-        return $this->morphMany('App\Comment', 'commentable')->whereNull('parent_id');
+        return $this->morphMany('App\Comment', 'commentable');
     }
     public function employees()
     {

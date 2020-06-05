@@ -133,7 +133,7 @@
                 <div class="col-3">
                     <label>Project </label>
                     <select class="mb-2 form-control-lg form-control" name="project_id">
-                        <option>all</option>
+                        <option value="">all</option>
                         @foreach($projects as $project)
                             <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
                                 {{$project->name}} </option>
@@ -143,15 +143,18 @@
                 <div class="col-3">
                     <label>Status </label>
                     <select class="mb-2 form-control-lg form-control" name="status">
-                        <option>all</option>
+                        <option value="">all</option>
                         @foreach( $status  as  $key=> $value)
                             <option value="{{ $value}}" @if($statusId==$value) selected @endif>
                                 {{trans("messages.$key")}} </option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="col-3">
-                    <button class="btn btn-primary" type="submit">filter</button>
+                    <button class="font-icon-wrapper font-icon-lg" type="submit" data-toggle="tooltip" id="findBtn"
+                            data-original-title="filtre">
+                        <i class="pe-7s-filter icon-gradient bg-ripe-malin"></i></button>
                 </div>
             </div>
         </form>
@@ -222,17 +225,26 @@
                                                         <a href="{{route('employee.task.show',$task->id)}}">{{ $task->title}}</a>
                                                     </div>
                                                 @else
-                                                <div>
-                                                    <a href="{{route('task.show',$task->id)}}">{{ $task->title}}</a>
-                                                </div>
+                                                    <div>
+                                                        <a href="{{route('task.show',$task->id)}}">{{ $task->title}}</a>
+                                                    </div>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <a href="{{route('project')}}" class="project_task">{{ $task->project->name}}</a>
-                                </td>
+                                @if(auth()->guard('employee')->user())
+                                    <td>
+                                        <a href="{{route('employee.project')}}"
+                                           class="project_task">{{ $task->project->name}}</a>
+                                    </td>
+                                @endif
+                                @if(auth()->user())
+                                    <td>
+                                        <a href="{{route('project')}}"
+                                           class="project_task">{{ $task->project->name}}</a>
+                                    </td>
+                                @endif
                                 <td>
                                     @foreach($task->employees as $employee)
                                         <div style="display:inline-block">

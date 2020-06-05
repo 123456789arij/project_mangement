@@ -283,18 +283,18 @@
                     <div class="widget-content-outer">
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
-                                <a href="{{route('proj')}}" class="widget-content-left">
+                                <a href="{{route('employee.project')}}" class="widget-content-left">
                                     <i class='metismenu-icon fas fa-layer-group' style="font-size: 50px;"></i>
                                 </a>
                             </div>
                             <div class="widget-content-left">
-                                <a href="{{route('proj')}}" class="widget-heading  text-secondary">
+                                <a href="{{route('employee.project')}}" class="widget-heading  text-secondary">
                                     {{ __('messages.Total_Projects') }}
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <div class="widget-content-right">
-                                <a href="{{route('proj')}}" class="widget-numbers text-secondary">
+                                <a href="{{route('employee.project')}}" class="widget-numbers text-secondary">
                                     {{$projects}}
                                 </a>
                             </div>
@@ -329,7 +329,7 @@
                                                     {{ $i}}.
                                                     <a href="{{route('employee.task')}}"
                                                        class="widget-heading">{{ $task->title}}</a>
-                                                    <a href="{{route('proj')}}"
+                                                    <a href="{{route('employee.project')}}"
                                                        class="project_task"> {{ $task->project->name}}</a>
                                                 </div>
                                             </div>

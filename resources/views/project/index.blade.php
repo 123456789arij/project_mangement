@@ -171,13 +171,6 @@
                          </span>
                     </span>
                     @endif
-                    {{--       @if(auth()->guard('employee')->user())
-                               <span class="vertical-line">  	&nbsp;
-                               <span class="label label-rouded label-custom pull-right">
-                               {{$projectscount}}
-                           </span>
-                           </span>
-                           @endif--}}
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -225,10 +218,13 @@
                     </div>
                 @endif
 
-                <div class="card-header">{{ __('messages.projects') }}
-
-                </div>
+                <div class="card-header">{{ __('messages.projects') }}</div>
                 <br>
+
+                <form action="{{route('employee.project')}}" method="get" role="search" style="float: right">
+                    <input type="text" name="search" placeholder="Type to search">
+                    <button type="submit">search</button>
+                </form>
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" class="display">
                         <thead>
@@ -278,7 +274,7 @@
                                            style="width: 28px;height: 28px;padding: 3px;">
                                             <i class=" pe-7s-plus" style="font-size: 20px;"></i>
                                         </a>
-                                        @endif
+                                    @endif
 
                                     @foreach($project->employees as $employee)
                                         <img src="{{asset($employee->image)}}" class="rounded-circle"
@@ -461,4 +457,5 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 @endsection

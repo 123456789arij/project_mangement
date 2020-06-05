@@ -20,10 +20,11 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $employee = auth()->guard('employee')->user();
 
+        $search = $request->input('search');
         if (auth()->guard('employee')->user()->role == 2) {
             $projects = Project::with('client', 'employees')->whereHas('client', function (Builder $query) {
                 $query->whereHas('user', function (Builder $query) {
@@ -31,11 +32,16 @@ class ProjectController extends Controller
                         $query->where('id', auth()->guard('employee')->user()->department_id);
                     });
                 });
-            })->paginate(5);
+            });
         } else {
-//            $projectcount = $employee->projects()->count();
-            $projects = $employee->projects()->paginate(5);
+            $projects = $employee->projects();
         }
+        if ($search) {
+            $projects = $projects->where("name", "LIKE", "%{$search}%");
+
+        }
+        $projects = $projects->paginate(5);
+
         return view('project.index', compact('projects'));
 
     }

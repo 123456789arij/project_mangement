@@ -56,9 +56,7 @@ class TaskController extends Controller
         if ($statusId != null) {
             $tasks = $tasks->where('status', $statusId);
         }
-
         $tasks = $tasks->paginate(5);
-
         return view('task.index', compact('tasks', 'projects', 'status', 'statusId', 'projectId'));
     }
 
@@ -129,12 +127,8 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::findorfail($id);
-        $comments = Comment::whereHas('employee', function (Builder $query) {
-            $query->whereHas('department', function (Builder $query) {
-                $query->where('id', auth()->guard('employee')->user()->department_id);
-            });
-        })->get();
-        return view('employee.task.show', compact('task','comments'));
+        $comments = $task->comments()->with('employee')->orderBy('created_at','desc')->get();
+        return view('employee.task.show', compact('task', 'comments'));
     }
 
     /**
@@ -153,7 +147,7 @@ class TaskController extends Controller
                 });
             });
         })->get();
-        return view('task.edit', compact('task','projects'));
+        return view('task.edit', compact('task', 'projects'));
     }
 
     /**

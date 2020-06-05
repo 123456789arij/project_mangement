@@ -157,7 +157,7 @@
             </a>
         </li>
         @if(auth()->user())
-        <li class="app-sidebar__heading">Charts</li>
+      {{--  <li class="app-sidebar__heading">Charts</li>
         <li>
             <a href="{{route('pieChart')}}">
                 <i class="metismenu-icon  fas fa-chart-pie"></i> Pie Chart
@@ -167,7 +167,7 @@
             <a href="{{route('donut_chart')}}">
                 <i class="metismenu-icon  fas fa-chart-pie"></i> Donut Chart
             </a>
-        </li>
+        </li>--}}
 
         <li class="app-sidebar__heading">Column Chart</li>
         <li>

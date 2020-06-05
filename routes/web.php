@@ -100,6 +100,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{id}', 'ProjectController@update')->name('project.update');
         Route::delete('/{id}', 'ProjectController@destroy')->name('project.destroy');
 
+
         Route::get('/membre/{id}', 'ProjectController@afficher_membre_projet')->name('membre_projet');
         Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
 //Gantt project

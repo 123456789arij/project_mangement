@@ -133,7 +133,7 @@
                                             <p>{{ $comment->body }}</p>
                                         </div>
                                     @endforeach--}}
-                                    @include('employee.task.comment_replies', ['comments' => $task->comments, 'task_id' => $task->id])
+                                    @include('employee.task.comment_replies', ['comments' => $comments])
 
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                 </div>

@@ -6,20 +6,20 @@
         </div>
         <button class="close"></button>
     </div>
-    <ul class="header-menu nav">
+{{--    <ul class="header-menu nav">
         <li class="nav-item">
             <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-link-icon fa fa-database"> </i>
                 Statistics
             </a>
-        </li>
+        </li>--}}
   {{--      <li class="dropdown nav-item">
             <a href="javascript:void(0);" class="nav-link">
                 <i class="nav-link-icon fa fa-cog"></i>
                 Settings
             </a>
         </li>--}}
-    </ul>
+{{--    </ul>--}}
 </div>
 
 
