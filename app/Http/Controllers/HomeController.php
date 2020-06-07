@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Employee;
+use App\Feed;
 use App\Project;
 use App\Task;
 use App\User;
@@ -62,8 +63,12 @@ class HomeController extends Controller
             $projectsHome = Project::whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
             })->get();
-
-            return view('home', compact('userCount', 'employeesCount', 'projectsCount', 'tasksCount', 'tasksPadaing','projectsHome', 'tasksCompleted','homeTask'));
+            $feeds = Feed::whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->where('id', auth()->user()->id);
+                });
+            })->get();
+            return view('home', compact('userCount', 'feeds', 'employeesCount', 'projectsCount', 'tasksCount', 'tasksPadaing', 'projectsHome', 'tasksCompleted', 'homeTask'));
         }
     }
 }

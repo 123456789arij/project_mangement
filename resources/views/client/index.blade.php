@@ -49,6 +49,42 @@
             color: white;
             font-weight: bold;
         }
+
+        /*search */
+        .active-purple-3 input[type=text] {
+            border: 1px solid #ce93d8;
+            box-shadow: 0 0 0 1px #ce93d8;
+        }
+
+        .ml-3, .mx-3 {
+            margin-left: 1rem !important;
+        }
+
+        .w-75 {
+            width: 75% !important;
+        }
+
+        .active-purple .fas, .active-purple-2 .fas, .active-purple-3 .fas, .active-purple-4 .fas {
+            color: #ce93d8;
+        }
+
+        .active-purple .fa, .active-purple-2 .fa {
+            color: #ce93d8;
+        }
+
+        #search:hover {
+            border: 1px solid #ce93d8;
+        }
+
+        button {
+            border: transparent;
+            background-color: transparent;
+        }
+
+        .active-purple input[type=text] {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+        }
     </style>
 @endsection
 @section('content')
@@ -95,9 +131,18 @@
                     </div><br/>
                 @endif
 
-                <div class="card-header">{{ __('messages.clients') }}
-                </div>
+                <div class="card-header">{{ __('messages.clients') }}</div>
                 <br>
+                {{--search--}}
+                <form action="{{route('client.index')}}"
+                      class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
+                      method="get" role="search">
+                    <div style="float: right" class="container">
+                        <input type="text" name="search" placeholder="search" id="search">
+                        <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                    </div>
+                </form>
+                {{--search--}}
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover"
                            class="display">
@@ -118,7 +163,8 @@
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
-                                                    {{ $client->name }}   </div>
+                                                    <a href="{{route('client.show',$client->id)}}"> {{ $client->name }} </a>
+                                                </div>
                                                 {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                             </div>
                                         </div>

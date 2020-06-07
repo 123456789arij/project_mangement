@@ -31,7 +31,10 @@ Route::prefix('client')->group(function () {
         Route::get('/dashboard', 'client\DashboradController@index')->name('client.dashborad');
         Route::get('/projects', 'client\ProjectController@index')->name('client.project');
         Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
-        Route::get('/comments', 'client\CommentController@index')->name('client.comment');
+        Route::get('/feedback', 'client\FeedbackController@index')->name('client.feedback');
+        Route::get('/client/feedback', 'client\FeedbackController@create')->name('client.feedback.create');
+        Route::post('/client/feedback', 'client\FeedbackController@store')->name('client.feedback.store');
+        Route::get('/chart', 'ClientChartController@index')->name('clientChart');
     });
 });
 
@@ -59,11 +62,10 @@ Route::prefix('employee')->group(function () {
         Route::get('/{tasks}/employee', 'employee\TaskController@show')->name('employee.task.show');
         Route::get('/{id}/task/edit', 'employee\TaskController@edit')->name('employee.task.edit');
         Route::patch('/{id}/task/', 'employee\TaskController@update')->name('employee.task.update');
-//        comment
-        Route::get('/comment', 'employee\CommentController@index')->name('employee.comment');
-        Route::get('/create/comment', 'employee\CommentController@create')->name('employee.comment.create');
-        Route::post('/store/comment', 'employee\CommentController@store')->name('employee.comment.store');
-        Route::post('/reply/add', 'employee\CommentController@replyStore')->name('employee.reply.add');
+//        feedback
+        Route::get('/feedback', 'employee\CommentController@index')->name('employee.feedback');
+        Route::get('/create/feedback', 'employee\CommentController@create')->name('employee.feedback.create');
+        Route::post('/store/feedback', 'employee\CommentController@store')->name('employee.feedback.store');
 
 
 //employee profile
@@ -133,10 +135,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/{task}/edit', 'TaskController@edit')->name('task.edit');
         Route::patch('/{task}', 'TaskController@update')->name('task.update');
         Route::delete('/{id}', 'TaskController@destroy')->name('task.destroy');
-//        comment
-        Route::get('/comment', 'CommentController@index')->name('comment');
-        Route::get('/comment', 'CommentController@create')->name('comment.create');
-        Route::post('/comment/store', 'CommentController@store')->name('comment.store');
+//        feedback
+        Route::get('/feedback', 'CommentController@index')->name('feedback');
+        Route::get('/feedback', 'CommentController@create')->name('feedback.create');
+        Route::post('/feedback/store', 'CommentController@store')->name('feedback.store');
         Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
         Route::get('/changeStatus', 'TaskController@changeStatus')->name('task.changeStatus');
     });

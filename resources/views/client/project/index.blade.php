@@ -1,15 +1,6 @@
 @extends('layouts.base')
 @section('cssBlock')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <style>
-        #crud_btn, form {
-            display: flex;
-            height: 40px;
-        }
-
-        #show {
-            background: transparent;
-        }
 
         .pull-right {
             float: right !important;
@@ -81,6 +72,24 @@
             background: transparent;
             line-height: 1.428571429;
         }
+        /*  btn crud */
+        .m-r-10 {
+            margin-right: 10px !important;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 9px 20px;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
     </style>
 @endsection
 @section('content')
@@ -91,45 +100,34 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                    </i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
-                <div> Projets Dashboard
-                    {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
-                            elements and components
-                        </div>--}}
-                </div>
+                <div> Projets Dashboard</div>
             </div>
-            {{--   /page-title-wrapper--}}
-            {{--
-                        <div class="page-title-actions">
-                            <div class="d-inline-block dropdown text-center">
-                            </div>
-                        </div>--}}
         </div>
     </div>
-    {{--                /app-page-title--}}
+    {{--  /app-page-title--}}
 
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-
                 @if(session()->get('success'))
                     <div class="alert alert-success">
                         {{ session()->get('success') }}
                     </div>
                 @endif
-
-                <div class="card-header">Projets
-
-                </div>
+                <div class="card-header">{{ __('messages.projects') }}</div>
+{{--                    <form action="{{route('client.project')}}" method="get" role="search" style="float: right">--}}
+{{--                        <div  style="float: right">--}}
+{{--                            <input type="text" name="search" placeholder="Type to search">--}}
+{{--                            <button type="submit">search</button>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
                 <br>
                 <div class="table-responsive container">
-                    <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
-                           class="display">
+                    <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                         <tr style="text-align: justify">
-                            {{--                            <th scope="col">#</th>--}}
                             <th scope="col">{{ __('messages.project name') }}</th>
                             <th scope="col">{{ __('messages.members') }}</th>
                             <th scope="col">{{ __('messages.deadline') }}</th>
@@ -142,16 +140,9 @@
                         <tbody>
                         @foreach($projects  as $project)
                             <tr>
-                                {{--                                <td class="text-center text-muted"> {{ $project->id }} </td>--}}
                                 <td class="text-center text-muted">
                                     <div class="widget-content p-0">
                                         <div class="widget-content-wrapper">
-                                            {{--  <div class="widget-content-left mr-3">
-                                                        <div class="widget-content-left">
-                                                             --}}{{--  img--}}{{--
-                                                        </div>
-                                                    </div>--}}
-
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
                                                     <a href="{{route('client.project.show',$project->id)}}">{{ $project->name }}</a>
@@ -168,16 +159,12 @@
                                              height="30px" width="30px" alt="employee"/>
 
                                     @endforeach
-
                                 </td>
                                 <td class="text-center">
                                     <div class="badge badge-warning">
                                         {{ $project->deadline}}
                                     </div>
                                 </td>
-                                {{--                                <td id="client">--}}
-                                {{--                                    {{ $project->client->name}}--}}
-                                {{--                                </td>--}}
                                 <td class="text-center">
                                     @if($project->progress_bar <50)
                                         <h5>Progress
@@ -211,60 +198,38 @@
                                     @endif
                                 </td>
                                 <td id="status">
-                                    @if($project->status == 0)
-                                        <span class="badge badge-pill badge-secondary">pas encore commencé</span>
-                                    @elseif($project->status ==  1)
-                                        <span class="badge badge-pill badge-warning">en attente</span>
+                                    @if($project->status == 1)
+                                        <span
+                                            class="badge badge-pill badge-secondary">{{__('messages.not Started') }}</span>
                                     @elseif($project->status ==  2)
-                                        <span class="badge badge-pill badge-info">en cour</span>
-                                    @elseif($project->status == 3)
-                                        <span class="badge badge-pill badge-danger">annulé</span>
+                                        <span class="badge badge-pill badge-warning">{{__('messages.on Hold') }}</span>
+                                    @elseif($project->status ==  3)
+                                        <span
+                                            class="badge badge-pill badge-info">  {{__('messages.In Progress') }}</span>
                                     @elseif($project->status == 4)
-                                        <span class="badge badge-pill badge-success">fini</span>
+                                        <span class="badge badge-pill badge-danger">{{__('messages.canceled') }}</span>
+                                    @elseif($project->status == 5)
+                                        <span class="badge badge-pill badge-success">{{__('messages.finished') }}</span>
                                     @endif
                                 </td>
-
-                                <td class="text-center" id="crud_btn">
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info" id="show">
-                                        <a href="{{route('client.project.show',$project->id)}}" data-toggle="tooltip"
-                                           data-original-title="View Project Details">
-                                            <i class="pe-7s-search" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-                                    {{--    @if(auth()->guard('employee')->user())
-                                            <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                                <a href="{{route('employee.project.show',$project->id)}}">
-                                                    <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                <td class="text-center">
+                                    <div class="btn-group dropdown m-r-10 open">
+                                        <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu pull-right">
+                                            <li>
+                                                <a href="{{route('client.project.show',$project->id)}}">
+                                                    <strong>
+                                                        <i class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
+                                                            style="font-size: 20px;"></i>
+                                                        Show
+                                                    </strong>
                                                 </a>
-                                            </button>
-                                            <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                                <a href="{{route('employee.project.edit',$project->id)}}">
-                                                    <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                                </a>
-                                            </button>
-                                        @else
-                                            <button class="mr-2 btn-icon btn-icon-only btn btn-outline-info">
-                                                <a href="{{route('project.show',$project->id)}}">
-                                                    <i class="pe-7s-info  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                                </a>
-                                            </button>
-                                            <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                                <a href="{{route('project.edit',$project->id)}}">
-                                                    <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                                </a>
-                                            </button>
-                                        @endif
-    --}}
-
-
-                                    {{--     <form action="{{route('project.destroy',$project->id)}}" method="post">
-                                             @csrf
-                                             @method('DELETE')
-                                             <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                                 <i class="pe-7s-trash btn-icon-wrapper" style="font-size: 20px;"> </i>
-                                             </button>
-                                         </form>--}}
-
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -284,15 +249,4 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable({
-                "paging": false,
-                "ordering": false,
-                "info": false
-            });
-        });
-    </script>
-
 @endsection

@@ -153,45 +153,6 @@
                                 </div>
                             </div>
                             <br><br>
-                            <!-- Carousel start -->
-                            <div class="col-md-5">
-                                <div id="CarouselTest" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#CarouselTest" data-slide-to="0" class="active"></li>
-                                        <li data-target="#CarouselTest" data-slide-to="1"></li>
-                                        <li data-target="#CarouselTest" data-slide-to="2"></li>
-
-                                    </ol>
-                                    <div class="carousel-inner container">
-                                        <div class="carousel-item active">
-                                            <img class="d-block"
-                                                 src="https://digit-u.com/wp-content/uploads/2019/12/21.jpg" alt=""
-                                                 width="450" height="300">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block"
-                                                 src="https://www.nbs-system.com/wp-content/uploads/2015/02/150219_Securite_Enjeu-788x433.jpg"
-                                                 width="450" height="300" alt="">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block"
-                                                 src="https://www.webhopers.com/wp-content/uploads/2019/09/Top-10-Web-Development-Companies-In-Australia.png"
-                                                 alt="" width="450" height="300">
-                                        </div>
-                                        <a class="carousel-control-prev" href="#CarouselTest" role="button"
-                                           data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#CarouselTest" role="button"
-                                           data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of carousel -->
                         </div>
                     </div>
                     <!-- End of card -->

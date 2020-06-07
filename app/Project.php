@@ -37,4 +37,8 @@ class Project extends Model
     {
         return $this->belongsToMany('App\Employee');
     }
+    public function feeds()
+    {
+        return $this->morphMany('App\Feed', 'feedable');
+    }
 }

@@ -64,10 +64,10 @@ cloud-upload:
 code-fork:
   name: code-branch
 comment-alt:
-  name: comment-dots
+  name: feedback-dots
   prefix: far
 commenting:
-  name: comment-dots
+  name: feedback-dots
 compass:
   prefix: far
 compress:

@@ -89,7 +89,7 @@ if (wysihtml.browser.supported()) {
       "Picked correctly to first ruleset"
     );
     assert.htmlEqual(
-      wysihtml.quirks.cleanPastedHTML('<p class="MsoNormal">test<!-- secret comment here --></p>', options),
+      wysihtml.quirks.cleanPastedHTML('<p class="MsoNormal">test<!-- secret feedback here --></p>', options),
       "test",
       "First ruleset removes comments correctly"
     );
@@ -101,8 +101,8 @@ if (wysihtml.browser.supported()) {
       "Picked correctly to second ruleset"
     );
     assert.htmlEqual(
-      wysihtml.quirks.cleanPastedHTML('<p class="SomeOtherClass">test<!-- secret comment here --></p>', options),
-      '<p class="SomeOtherClass">test<!-- secret comment here --></p>',
+      wysihtml.quirks.cleanPastedHTML('<p class="SomeOtherClass">test<!-- secret feedback here --></p>', options),
+      '<p class="SomeOtherClass">test<!-- secret feedback here --></p>',
       "Second ruleset keeps comments correctly"
     );
   });

@@ -55,17 +55,6 @@ class CommentController extends Controller
         $task->comments()->save($comment);
         return back();
     }
-    public function replyStore(Request $request)
-    {
-        $reply = new Comment();
-        $reply->body = $request->input('body');
-        $reply->employee_id =auth()->guard('employee')->user()->id;
-        $reply->parent_id = $request->input('comment_id');
-        $task = Task::find($request->input('task_id'));
-        $task->comments()->save($reply);
-        return back();
-
-    }
     /**
      * Display the specified resource.
      *

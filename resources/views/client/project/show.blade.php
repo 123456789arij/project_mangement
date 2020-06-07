@@ -1,6 +1,7 @@
 @extends('layouts.base')
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         #CLIENT_DETAILS {
             background-color: #01c0c8;
@@ -293,58 +294,74 @@
                             </div>
                             {{-- / client détailles--}}
                         </div>
-                        @if(auth()->guard('client')->user())
-                            {{--feedback --}}
-                            <div class="row">
-                                <div class="col-12 container">
-                                    <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
-                                    @foreach($feedbacks as $feedback)
-                                        <div class="display-comment">
-                                            {{--  <div style="display:inline-block">
-                                                  <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
-                                                       data-original-title="{{ $comment->employee->name}}"
-                                                       class="rounded-circle"
-                                                       height="42px" width="42px" alt="employee"/>
-                                              </div>--}}
-                                            &nbsp;&nbsp; <strong>{{ $feedback->client->name  }}</strong>
-                                            <br>
-                                            <p>{{ $feedback->body }}</p>
-                                            {{--                                        <h6>{{ $feedback->created_at->toDateString()}}</h6>--}}
-                                        </div>
-                                    @endforeach
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <strong>
-                                                    <i class="pe-7s-note  btn-icon-wrapper"
-                                                       style="font-size: 20px;"></i>
-                                                    Add Comment </strong>
-                                                <form method="post" action="{{ route('client.feedback.store') }}">
-                                                    @csrf
-                                                    <div class="form-group">
+                        {{--feedback --}}
+                        <div class="row">
+                            <div class="col-12 container">
+                                <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
+                                @foreach($feeds as $feed)
+                                    <div class="display-comment container">
+                                        {{--  <div style="display:inline-block">
+                                              <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
+                                                   data-original-title="{{ $comment->employee->name}}"
+                                                   class="rounded-circle"
+                                                   height="42px" width="42px" alt="employee"/>
+                                          </div>--}}
+                                       &nbsp;&nbsp; <strong>{{$feed->client->name}}</strong>
+                                        <small class="text-muted ml-3" style="float: right">{{ $feed->created_at->toDateString()}}</small>
+                                        <br><br>
+                                        <textarea class="form-control text-justify">{{$feed->body }}</textarea>
+                                        {{--                                            <p>{{ $feedback->star }}</p>--}}
+
+                                    </div>
+                                @endforeach
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <strong>
+                                                <i class="pe-7s-note  btn-icon-wrapper"
+                                                   style="font-size: 20px;"></i>
+                                                Add Comment </strong>
+                                            <form method="post" action="{{ route('client.feedback.store') }}">
+                                                @csrf
+                                                <div class="form-group">
                                                 <textarea name="body" class="form-control" rows="3"
                                                           placeholder="votre commentaire"></textarea>
-                                                        <input type="hidden" name="project_id"
-                                                               value="{{ $project->id }}"/>
-                                                    </div>
-                                                    <input type="submit" style="float: right"
-                                                           class="btn btn-warning col-sm-4"
-                                                           value="Add Comment"/>
-                                                </form>
-                                            </div>
+                                                    <input type="hidden" name="project_id"
+                                                           value="{{ $project->id }}"/>
 
-                                        </div>
-                                        {{-- add feedback --}}
-                                        <div class="col-sm-4">
+                                                    {{--      <?php $star = 1.6; $star = round($star, 0)?>
+                                                          @for($i= 1;$i<=$star;$i++)
+                                                              @if($i>5)
+                                                                  @break(0);
+                                                              @endif
+                                                              <i class="fa fa-star" name="star"
+                                                                 style="color: @if($star<3) yellow @else green @endif"></i>
+                                                          @endfor
+                                                          @if(5-$star > 0)
+                                                              @for($i= 1;$i<=5-$star;$i++)
+                                                                  <i class="fa fa-star" name="star"></i>
+                                                              @endfor
+                                                          @endif--}}
+                                                </div>
 
+                                                <input type="submit" style="float: right"
+                                                       class="btn btn-warning col-sm-4"
+                                                       value="Add Comment"/>
+                                            </form>
                                         </div>
-                                        {{--/add feedback --}}
+
                                     </div>
-                                    <div tabindex="-1" class="dropdown-divider"></div>
+                                    {{-- add feedback --}}
+                                    <div class="col-sm-4">
+
+                                    </div>
+                                    {{--/add feedback --}}
                                 </div>
+                                <div tabindex="-1" class="dropdown-divider"></div>
                             </div>
-                            {{--/feedback --}}
-                        @endif
+                        </div>
+                        {{--/feedback --}}
                     </div>
                 </div>
             </div>

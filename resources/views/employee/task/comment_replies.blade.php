@@ -16,13 +16,13 @@
 {{--            <div class="form-group">--}}
 {{--                <textarea name="body" class="form-control" rows="3" placeholder="votre commentaire"></textarea>--}}
 {{--                <input type="hidden" name="task_id" value="{{ $task->id }}"/>--}}
-{{--                <input type="hidden" name="comment_id" value="{{ $comment->id }}">--}}
+{{--                <input type="hidden" name="comment_id" value="{{ $feedback->id }}">--}}
 {{--            </div>--}}
 {{--            <input type="submit" style="float: right" class="btn btn-warning col-sm-4"--}}
 {{--                   value="Reply" />--}}
 {{--        </form>--}}
 
-{{--        @include('employee.task.comment_replies', ['comments' => $comment->replies])--}}
+{{--        @include('employee.task.comment_replies', ['comments' => $feedback->replies])--}}
 
 
 

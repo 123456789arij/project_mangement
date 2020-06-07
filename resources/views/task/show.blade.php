@@ -126,11 +126,11 @@
 
                             <div tabindex="-1" class="dropdown-divider"></div>
 
-                            {{--comment --}}
+                            {{--feedback --}}
                             <div class="row">
                                 <div class="col-12 container">
                                     <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
-                                {{--    @foreach($comments as $comment)
+                                    @foreach($comments as $comment)
                                         <div class="display-comment">
                                             <div style="display:inline-block">
                                                 <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
@@ -141,36 +141,37 @@
                                             &nbsp;&nbsp; <strong>{{ $comment->employee->name  }}</strong>
                                             <br>
                                             <p>{{ $comment->body }}</p>
+                                            <h6>{{ $comment->created_at->toDateString()}}</h6>
                                         </div>
-                                    @endforeach--}}
-                                    @include('task.commentsDisplay', ['comments' => $task->comments, 'task_id' => $task->id])
+                                    @endforeach
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                 </div>
                             </div>
-                            {{--/comment --}}
+                            {{--/feedback --}}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <strong>
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                            Add Comment </strong>
-                                        <form method="post" action="{{ route('comment.store') }}">
+                                           Post Comment </strong>
+                                        <form method="post" action="{{ route('feedback.store') }}">
                                             @csrf
                                             <div class="form-group">
-                                                <textarea name="body" class="form-control" rows="3" placeholder="votre commentaire"></textarea>
+                                                <textarea name="body" class="form-control" rows="3"
+                                                          placeholder="votre commentaire"></textarea>
                                                 <input type="hidden" name="task_id" value="{{ $task->id }}"/>
                                             </div>
                                             <input type="submit" style="float: right" class="btn btn-warning col-sm-4"
-                                                   value="Add Comment"/>
+                                                   value="Post Comment"/>
                                         </form>
                                     </div>
 
                                 </div>
-                                {{-- add comment --}}
+                                {{-- add feedback --}}
                                 <div class="col-sm-4">
 
                                 </div>
-                                {{--/add comment --}}
+                                {{--/add feedback --}}
                             </div>
                         </div>
                         {{--projet--}}

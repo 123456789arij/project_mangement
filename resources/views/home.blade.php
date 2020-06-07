@@ -383,8 +383,56 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <a href="{{route('client.project')}}" class="widget-content-left">
+                                    <i class="fa fa-check-square-o icon-gradient bg-grow-early"
+                                       style="font-size:40px;"></i>
+                                </a>
+                            </div>
+                            <div class="widget-content-left">
+                                <a href="{{route('client.project')}}" class="widget-heading text-secondary">
+                                    {{ __('messages.Completed_project') }}
+                                </a>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="widget-content-right">
+                                <a href="{{route('client.project')}}" class="widget-numbers text-secondary">
+                                    {{$projects_completed_client_count }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
+                <div class="card mb-3 widget-content">
+                    <div class="widget-content-outer">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left mr-3">
+                                <a href="{{route('client.project')}}" class="widget-content-left">
+                                    <i class="fas fa-exclamation-triangle icon-gradient bg-sunny-morning"
+                                       style="font-size:40px;"></i>
+                                </a>
+                            </div>
+                            <div class="widget-content-left">
+                                <a href="{{route('client.project')}}" class="widget-heading text-secondary">
+                                    {{ __('messages.Pending_project') }}
+                                </a>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="widget-content-right">
+                                <a href="{{route('client.project')}}" class="widget-numbers text-secondary">
+                                    {{ $projects_Pending_client_count }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {{-- employee tasks --}}
+        {{--project date --}}
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <div class="main-card mb-3 card">
@@ -425,7 +473,19 @@
                 </div>
             </div>
         </div>
-        {{--/employee tasks--}}
+        {{--/project date--}}
+
+        {{-- place for diagramme --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">Satistique of project status
+                    </div>
+                    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+        {{--/place for diagramme --}}
 
     @endif
     {{--/count coll of client--}}
@@ -437,7 +497,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
-                    <div class="card-header">Satistique of status tasks
+                    <div class="card-header">Satistique of project status
                     </div>
                     <div id="donut" style="width: 1000px; height: 400px;"></div>
 
@@ -453,7 +513,7 @@
                     <div class="card-header-tab card-header-tab-animation card-header">
                         <div class="card-header-title">
                             <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                            Sales Report
+                            Satistique of task status
                         </div>
                     </div>
 
@@ -532,8 +592,49 @@
 
                 </div>
             </div>
-        </div>
+            {{--            client feedback--}}
+            <div class="col-md-12 col-lg-6">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title">
+                            <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                            <th scope="col">{{ __('messages.feedback') }}  {{ __('messages.clients') }} </th>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="tab-eg-55">
+                            <div class="widget-chart p-3">
+                                <div style="height: 700px">
+                                    @foreach($feeds as $feed)
+                                        <div class="display-comment">
+                                            {{--  <div style="display:inline-block">
+                                                  <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
+                                                       data-original-title="{{ $comment->employee->name}}"
+                                                       class="rounded-circle"
+                                                       height="42px" width="42px" alt="employee"/>
+                                              </div>--}}
+                                            &nbsp;&nbsp; <strong class="text-justify">{{$feed->client->name}}</strong>
+                                            <small class="text-muted ml-3"
+                                                   style="float: right">{{ $feed->created_at->toDateString()}}</small>
+                                            <br>
+                                            <div  class="container" style="border: 1px solid darkgray;border-radius: 12px; padding: 5px;">
+                                                <p class="text-justify">{{$feed->body }}</p>
+                                                {{--                                            <p>{{ $feedback->star }}</p>--}}
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div tabindex="-1" class="dropdown-divider"></div>
+                                    @endforeach
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- /client feedback--}}
+
+        </div>
     @endif
     {{--/graph--}}
 
@@ -567,6 +668,32 @@
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('donut'));
                     chart.draw(data, options);
+                }
+            });
+        }
+    </script>
+
+    {{--client chart--}}
+    <script>
+        google.charts.load('current', {'packages': ['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '{{route('clientChart')}}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var analytics = (response.data);
+                    var data = google.visualization.arrayToDataTable(analytics);
+                    var options = {
+                        chart: {
+                            title: 'Company Performance',
+                            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                        }
+                    };
+                    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
                 }
             });
         }

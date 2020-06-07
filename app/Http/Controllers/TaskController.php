@@ -21,7 +21,7 @@ class TaskController extends Controller
     {
         $projectId = $request->input('project_id');
         $statusId = $request->input('status');
-
+        $search = $request->input('search');
         $status = Task::STATUS;
         $projects = Project::whereHas('client', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
@@ -44,7 +44,10 @@ class TaskController extends Controller
         if ($statusId != null) {
             $tasks = $tasks->where('status', $statusId);
         }
+        if ($search) {
+            $tasks = $tasks->where("title", "LIKE", "%{$search}%");
 
+        }
         $tasks = $tasks->paginate(5);
 
         return view('task.index', compact('tasks', 'status', 'projects', 'projectId', 'statusId', 'tasksCount'));
@@ -118,11 +121,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::findorfail($id);
-        $comments = Comment::whereHas('employee', function (Builder $query) {
-            $query->whereHas('department', function (Builder $query) {
-                $query->where('user_id', auth()->user()->id);
-            });
-        })->get();
+        $comments = $task->comments()->with('employee')->orderBy('created_at','desc')->get();
         return view('task.show', compact('task', 'comments'));
     }
 

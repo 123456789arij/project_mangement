@@ -17,8 +17,10 @@ class DashboradController extends Controller
     {
         $client = auth()->guard('client')->user();
         $projects_client_count = $client->projects()->count();
+        $projects_completed_client_count = $client->projects()->where('status',5)->count();
+        $projects_Pending_client_count = $client->projects()->where('status',1)->count();
         $projects_client = $client->projects()->get();
-        return view('home',compact('projects_client_count','projects_client'));
+        return view('home',compact('projects_client_count','projects_Pending_client_count','projects_client','projects_completed_client_count'));
     }
 
     /**

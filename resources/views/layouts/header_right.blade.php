@@ -57,7 +57,7 @@
                                                      document.getElementById('logout-form').submit();">
                                     <i class="fa fa-power-off" style="font-size:18px;"></i>
                                     {{ trans('messages.Logout') }}
-                                    {{--                                    {{ __('Logout') }}--}}
+                                    {{--   {{ __('Logout') }}--}}
                                 </a>
 
                                 <form id="logout-form"

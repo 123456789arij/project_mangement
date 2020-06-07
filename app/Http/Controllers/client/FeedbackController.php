@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\client;
 
+use App\Feed;
 use App\Http\Controllers\Controller;
+use App\Project;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class FeedbackController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +17,12 @@ class CommentController extends Controller
      */
     public function index()
     {
-
-        return view('client.comment');
+        $feed = Feed::whereHas('client', function (Builder $query) {
+            $query->whereHas('user', function (Builder $query) {
+                $query->where('id', auth()->guard('client')->user()->user_id);
+            });
+        })->get();
+        return view('client.project.show', compact('feed'));
     }
 
     /**
@@ -36,8 +43,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'body' => 'required',
+//            'star' => 'required',
+        ]);
+
+        $feed = new Feed();
+        $feed->body = $request->input('body');
+//        $feedback->star = $request->input('star');
+        $feed->client_id = auth()->guard('client')->user()->id;
+        $project = Project::find($request->project_id);
+        $project->feeds()->save($feed);
+        return back();
     }
+
 
     /**
      * Display the specified resource.
@@ -56,7 +75,8 @@ class CommentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         //
     }
@@ -68,7 +88,8 @@ class CommentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         //
     }
@@ -79,7 +100,8 @@ class CommentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
     }

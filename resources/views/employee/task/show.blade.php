@@ -7,6 +7,21 @@
             margin-left: 40px
         }
 
+        .text-muted {
+            color: #8898aa !important;
+        }
+
+        .ml-3, .mx-3 {
+            margin-left: 1rem !important;
+        }
+
+        .mb-2, .my-2 {
+            margin-bottom: 0.5rem !important;
+        }
+
+        .justify-content-between {
+            justify-content: space-between !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -57,18 +72,21 @@
                                         <i class="fa fa-check" style="font-size: 20px;"></i>
                                         {{ __('messages.marke_as_complete') }}  </a>
                                 </div>
-                                <div class="col-4">
-                                    <a href="{{route('task.edit',$task->id)}}"
-                                       class="mr-2 btn-icon btn-icon-only btn btn-outline-primary">
-                                        <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        {{ __('messages.edit') }}  </a>
-                                </div>
+                                @if(auth()->user())
+                                    <div class="col-4 container">
+                                        <div style="float: right">
+                                            <a href="{{route('task.edit',$task->id)}}"
+                                               class="mr-2 btn-icon btn-icon-only btn btn-outline-primary">
+                                                <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                                                {{ __('messages.edit') }}  </a>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-4">
-                                    <label> {{$task->title}}</label>
-
+                                    <h5>   {{ __('messages.title') }} : <u>{{$task->title}}</u></h5>
                                     @if($task->priority == 0)
                                         <span class="badge badge-pill"
                                               style="background-color: #fcf2ed;font-size: 75%;border-radius: 60px;">Priority =>
@@ -116,11 +134,11 @@
 
                             <div tabindex="-1" class="dropdown-divider"></div>
 
-                            {{--comment --}}
+                            {{--feedback --}}
                             <div class="row">
                                 <div class="col-12 container">
                                     <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
-                              {{--      @foreach($comments as $comment)
+                                    @foreach($comments as $comment)
                                         <div class="display-comment">
                                             <div style="display:inline-block">
                                                 <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
@@ -128,29 +146,30 @@
                                                      class="rounded-circle"
                                                      height="42px" width="42px" alt="employee"/>
                                             </div>
-                                            &nbsp;&nbsp; <strong>{{ $comment->employee->name  }}</strong>
-                                            <br>
-                                            <p>{{ $comment->body }}</p>
+                                            <small class="text-muted ml-3"
+                                                   style="float: right">{{ $comment->created_at->toDateString()}}</small>
+                                            &nbsp;&nbsp; <strong
+                                                class="mb-sm-0">{{ $comment->employee->name  }}</strong>
+                                            <p class="d-sm-flex justify-content-between mb-2">{{ $comment->body }}</p>
+
                                         </div>
-                                    @endforeach--}}
-                                    @include('employee.task.comment_replies', ['comments' => $comments])
+                                    @endforeach
 
                                     <div tabindex="-1" class="dropdown-divider"></div>
                                 </div>
                             </div>
-                            {{--/comment --}}
+                            {{--/feedback --}}
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <strong>
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
                                             Add Comment </strong>
-                                        <form method="post" action="{{ route('employee.comment.store') }}">
+                                        <form method="post" action="{{ route('employee.feedback.store') }}">
                                             @csrf
                                             <div class="form-group">
-{{--                                                <textarea name="body" class="form-control" rows="3" placeholder="votre commentaire"></textarea>--}}
-
-                                                <input type="text" name="body" class="form-control" />
+                                                <textarea name="body" cols="30" class="col-lg" row="2"
+                                                          placeholder="votre commentaire"></textarea>
                                                 <input type="hidden" name="task_id" value="{{ $task->id }}"/>
                                             </div>
                                             <input type="submit" style="float: right" class="btn btn-warning col-sm-4"
@@ -159,11 +178,11 @@
                                     </div>
 
                                 </div>
-                                {{-- add comment --}}
+                                {{-- add feedback --}}
                                 <div class="col-sm-4">
 
                                 </div>
-                                {{--/add comment --}}
+                                {{--/add feedback --}}
                             </div>
                         </div>
                         {{--projet--}}

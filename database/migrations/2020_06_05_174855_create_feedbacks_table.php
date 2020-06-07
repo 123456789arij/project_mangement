@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration
+class CreateFeedbacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('feeds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('body');
-            $table->integer('employee_id')->unsigned();
-            $table->integer('commentable_id');
-            $table->string('commentable_type');
-
+//            $table->tinyInteger('star');
+            $table->integer('client_id')->unsigned();
+            $table->integer('feedable_id');
+            $table->string('feedable_type');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('feedbacks');
     }
 }

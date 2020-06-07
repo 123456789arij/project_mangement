@@ -72,5 +72,9 @@ return [
     'title' => 'Titre',
     'Logout' => 'se déconnecter',
     'comments' => 'Commentaire',
+    'feedback' => 'Feedback',
+    'Pending_project' => 'Projet en attente',
+    'Completed_project' => 'Projet Terminée',
+
 
 ];

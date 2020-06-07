@@ -41,7 +41,7 @@ class CommentController extends Controller
                 });
             });
         })->get();
-        return view('task.comment _create', compact('comment'));
+        return view('task.feedback _create', compact('comment'));
     }
 
     /**

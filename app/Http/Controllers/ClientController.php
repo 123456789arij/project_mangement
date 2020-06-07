@@ -15,12 +15,17 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        $search = $request->input('search');
         $clientsCount = Client::where('user_id', auth()->user()->id)->count();
-        $clients = Client::where('user_id', auth()->user()->id)->simplePaginate(5);
-        return view('client.index', compact('clients','clientsCount'));
+         $clients = Client::where('user_id', auth()->user()->id);
+         if ($search) {
+            $clients = $clients->where("name", "LIKE", "%{$search}%");
+
+        }
+        $clients =$clients->simplePaginate(5);
+        return view('client.index', compact('clients', 'clientsCount'));
     }
 
     /**
@@ -68,13 +73,10 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-//todo verifier si le client  appartient au entreprise connecté
-
-//        $client = Client::findOrFail($id);
-//        return view('client.show', compact('client'));
         $client = Client::findOrFail($id);
         if ($client->user_id == auth()->id()) {
-            return view('client.show', compact('client'));
+            $projects = $client->projects;
+            return view('client.show', compact('client', 'projects'));
         }
     }
 
@@ -86,7 +88,6 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //meme test que show
         $client = Client::find($id);
         if ($client->user_id == auth()->id()) {
             return view('client.edit', compact('client'));

@@ -88,6 +88,44 @@
             text-decoration: none;
         }
 
+        .active-purple-3 input[type=text] {
+            border: 1px solid #ce93d8;
+            box-shadow: 0 0 0 1px #ce93d8;
+        }
+
+        .ml-3, .mx-3 {
+            margin-left: 1rem !important;
+        }
+
+        .w-75 {
+            width: 75% !important;
+        }
+
+        .active-purple .fas, .active-purple-2 .fas, .active-purple-3 .fas, .active-purple-4 .fas {
+            color: #ce93d8;
+        }
+
+        .active-purple .fa, .active-purple-2 .fa {
+            color: #ce93d8;
+        }
+
+        #search:hover {
+            border: 1px solid #ce93d8;
+        }
+
+        button {
+            border: transparent;
+            background-color: transparent;
+        }
+
+        .active-purple input[type=text] {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+        }
+
+        #btn_search {
+
+        }
     </style>
 @endsection
 @section('content')
@@ -197,9 +235,30 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">
-                    {{ __('messages.tasks') }}
-                </div>
+                <div class="card-header">{{ __('messages.tasks') }}</div>
+                <br>
+                {{--search--}}
+                @if(auth()->user())
+                    <form action="{{route('task')}}"
+                          class="d-flex mb-5 active-purple-3 active-purple-4"
+                          method="get" role="search">
+                        <div id="btn_search" class="container">
+                            <input type="text" name="search" placeholder="search" id="search">
+                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                        </div>
+                    </form>
+                @endif
+                {{--/search--}}
+                @if(auth()->guard('employee')->user())
+                    <form action="{{route('employee.task')}}"
+                          class="d-flex mb-5 active-purple-3 active-purple-4"
+                          method="get" role="search">
+                        <div id="btn_search" class="container">
+                            <input type="text" name="search" placeholder="search" id="search">
+                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                        </div>
+                    </form>
+                @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>

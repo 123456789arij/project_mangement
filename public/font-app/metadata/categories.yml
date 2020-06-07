@@ -412,11 +412,11 @@ charity:
   label: Charity
 chat:
   icons:
-    - comment
-    - comment-alt
-    - comment-dots
-    - comment-medical
-    - comment-slash
+    - feedback
+    - feedback-alt
+    - feedback-dots
+    - feedback-medical
+    - feedback-slash
     - comments
     - frown
     - icons
@@ -519,8 +519,8 @@ communication:
     - broadcast-tower
     - bullhorn
     - chalkboard
-    - comment
-    - comment-alt
+    - feedback
+    - feedback-alt
     - comments
     - envelope
     - envelope-open
@@ -888,7 +888,7 @@ finance:
     - chart-line
     - chart-pie
     - coins
-    - comment-dollar
+    - feedback-dollar
     - comments-dollar
     - credit-card
     - donate
@@ -1517,7 +1517,7 @@ marketing:
     - ad
     - bullhorn
     - bullseye
-    - comment-dollar
+    - feedback-dollar
     - comments-dollar
     - envelope-open-text
     - funnel-dollar
@@ -1563,7 +1563,7 @@ medical:
     - cannabis
     - capsules
     - clinic-medical
-    - comment-medical
+    - feedback-medical
     - crutch
     - diagnoses
     - disease
@@ -2108,7 +2108,7 @@ shapes:
     - certificate
     - circle
     - cloud
-    - comment
+    - feedback
     - file
     - folder
     - heart
@@ -2145,8 +2145,8 @@ social:
     - bell
     - birthday-cake
     - camera
-    - comment
-    - comment-alt
+    - feedback
+    - feedback-alt
     - envelope
     - hashtag
     - heart
@@ -2250,9 +2250,9 @@ status:
     - calendar-week
     - cart-arrow-down
     - cart-plus
-    - comment
-    - comment-alt
-    - comment-slash
+    - feedback
+    - feedback-alt
+    - feedback-slash
     - compass
     - door-closed
     - door-open

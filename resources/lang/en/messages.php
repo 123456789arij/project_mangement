@@ -73,6 +73,9 @@ return [
     'title' => 'Title',
     'Logout' => 'Logout',
     'comments' => 'Comments',
+    'feedback' => 'Feedback',
+    'Pending_project' => 'Pending Project',
+    'Completed_project' => 'Completed Project',
 
 
 ];

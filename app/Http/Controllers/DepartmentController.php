@@ -14,10 +14,15 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departments = Department::withCount('employees')->where('user_id', auth()->user()->id)->simplePaginate(5);
+        $search = $request->input('search');
+        $departments = Department::withCount('employees')->where('user_id', auth()->user()->id);
+        if ($search) {
+            $departments = $departments->where("name", "LIKE", "%{$search}%");
 
+        }
+        $departments = $departments->paginate(5);
         return view('department.index', compact('departments'));
     }
 

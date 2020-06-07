@@ -133,9 +133,9 @@
                 </a>
             </li>
                 <li>
-                    <a href="{{route('client.comment')}}">
+                    <a href="{{route('client.feedback')}}">
                         <i class="metismenu-icon pe-7s-display2"></i>
-                        {{ trans('messages.comments') }}
+                        {{ trans('messages.feedback') }}
                     </a>
                 </li>
 
@@ -147,7 +147,7 @@
                     {{ trans('messages.task_calendar') }}
                 </a>
             </li>
-
+            <li class="app-sidebar__heading">  {{ trans('messages.events') }}</li>
         <li>
             <a href="{{route('event')}}">
                 <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>
@@ -169,14 +169,14 @@
             </a>
         </li>--}}
 
-        <li class="app-sidebar__heading">Column Chart</li>
-        <li>
+{{--        <li class="app-sidebar__heading">Column Chart</li>--}}
+     {{--   <li>
             <a href="{{route('column_chart')}}" target="_blank">
                 <i class="metismenu-icon pe-7s-graph2">
                 </i>
                 Column Chart
             </a>
-        </li>
+        </li>--}}
         @endif
     </ul>
 </div>

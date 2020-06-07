@@ -16,15 +16,21 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search');
         $employeescount = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->count();
 
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
-        })->paginate(5);
+        });
+        if ($search) {
+            $employees = $employees->where("name", "LIKE", "%{$search}%");
+
+        }
+        $employees = $employees->paginate(5);
         return view('employee.index', compact('employees', 'employeescount'));
 
     }

@@ -8197,7 +8197,7 @@ getText = Sizzle.getText = function( elem ) {
 		// If no nodeType, this is expected to be an array
 		while ( ( node = elem[ i++ ] ) ) {
 
-			// Do not traverse comment nodes
+			// Do not traverse feedback nodes
 			ret += getText( node );
 		}
 	} else if ( nodeType === 1 || nodeType === 9 || nodeType === 11 ) {
@@ -8217,7 +8217,7 @@ getText = Sizzle.getText = function( elem ) {
 		return elem.nodeValue;
 	}
 
-	// Do not include comment or processing instruction nodes
+	// Do not include feedback or processing instruction nodes
 
 	return ret;
 };
@@ -8677,7 +8677,7 @@ Expr = Sizzle.selectors = {
 
 			// http://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
-			//   but not by others (comment: 8; processing instruction: 7; etc.)
+			//   but not by others (feedback: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
 			for ( elem = elem.firstChild; elem; elem = elem.nextSibling ) {
 				if ( elem.nodeType < 6 ) {
@@ -13363,7 +13363,7 @@ jQuery.extend( {
 	// Get and set the style property on a DOM Node
 	style: function( elem, name, value, extra ) {
 
-		// Don't set styles on text and comment nodes
+		// Don't set styles on text and feedback nodes
 		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
 			return;
 		}
@@ -14467,7 +14467,7 @@ jQuery.extend( {
 		var ret, hooks,
 			nType = elem.nodeType;
 
-		// Don't get/set attributes on text, comment and attribute nodes
+		// Don't get/set attributes on text, feedback and attribute nodes
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -14599,7 +14599,7 @@ jQuery.extend( {
 		var ret, hooks,
 			nType = elem.nodeType;
 
-		// Don't get/set properties on text, comment and attribute nodes
+		// Don't get/set properties on text, feedback and attribute nodes
 		if ( nType === 3 || nType === 8 || nType === 2 ) {
 			return;
 		}
@@ -15103,7 +15103,7 @@ jQuery.extend( jQuery.event, {
 
 		cur = lastElement = tmp = elem = elem || document;
 
-		// Don't do events on text and comment nodes
+		// Don't do events on text and feedback nodes
 		if ( elem.nodeType === 3 || elem.nodeType === 8 ) {
 			return;
 		}
@@ -15500,7 +15500,7 @@ var
 	 */
 	transports = {},
 
-	// Avoid comment-prolog char sequence (#10098); must appease lint and evade compression
+	// Avoid feedback-prolog char sequence (#10098); must appease lint and evade compression
 	allTypes = "*/".concat( "*" ),
 
 	// Anchor tag for parsing the document origin
@@ -17332,7 +17332,7 @@ jQuery.noConflict = function( deep ) {
 };
 
 // Expose jQuery and $ identifiers, even in AMD
-// (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
+// (#7102#feedback:10, https://github.com/jquery/jquery/pull/557)
 // and CommonJS for browser emulators (#13566)
 if ( typeof noGlobal === "undefined" ) {
 	window.jQuery = window.$ = jQuery;
@@ -23452,7 +23452,7 @@ return jQuery;
     }
 
     /**
-     * Extracts wrapper details from the `source` body comment.
+     * Extracts wrapper details from the `source` body feedback.
      *
      * @private
      * @param {string} source The source to inspect.
@@ -23575,7 +23575,7 @@ return jQuery;
     }
 
     /**
-     * Inserts wrapper `details` in a comment at the top of the `source` body.
+     * Inserts wrapper `details` in a feedback at the top of the `source` body.
      *
      * @private
      * @param {string} source The source to modify.
@@ -24014,7 +24014,7 @@ return jQuery;
 
     /**
      * Sets the `toString` method of `wrapper` to mimic the source of `reference`
-     * with wrapper details in a comment at the top of the source body.
+     * with wrapper details in a feedback at the top of the source body.
      *
      * @private
      * @param {Function} wrapper The function to modify.
@@ -40928,7 +40928,7 @@ function createComponent (
     Ctor = resolveAsyncComponent(asyncFactory, baseCtor);
     if (Ctor === undefined) {
       // return a placeholder node for async component, which is rendered
-      // as a comment node but preserves all the raw information for the node.
+      // as a feedback node but preserves all the raw information for the node.
       // the information will be used for async server-rendering and hydration.
       return createAsyncPlaceholder(
         asyncFactory,
@@ -46535,7 +46535,7 @@ var Transition = {
       oldChild.data &&
       !isSameChild(child, oldChild) &&
       !isAsyncPlaceholder(oldChild) &&
-      // #6687 component root is a comment node
+      // #6687 component root is a feedback node
       !(oldChild.componentInstance && oldChild.componentInstance._vnode.isComment)
     ) {
       // replace old child transition data with fresh one
@@ -46975,7 +46975,7 @@ var startTagOpen = new RegExp(("^<" + qnameCapture));
 var startTagClose = /^\s*(\/?)>/;
 var endTag = new RegExp(("^<\\/" + qnameCapture + "[^>]*>"));
 var doctype = /^<!DOCTYPE [^>]+>/i;
-// #7298: escape - to avoid being passed as HTML comment when inlined in page
+// #7298: escape - to avoid being passed as HTML feedback when inlined in page
 var comment = /^<!\--/;
 var conditionalComment = /^<!\[/;
 
@@ -49875,7 +49875,7 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null,
   null,
   null
-  
+
 )
 
 /* hot reload */
@@ -49895,7 +49895,7 @@ component.options.__file = "resources/js/components/ExampleComponent.vue"
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 

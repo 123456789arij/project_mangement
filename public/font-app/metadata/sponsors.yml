@@ -333,7 +333,7 @@ medapps:
   icons:
     - book-medical
     - clinic-medical
-    - comment-medical
+    - feedback-medical
     - crutch
     - disease
     - hospital-user
@@ -473,10 +473,10 @@ rock-rms:
   url: 'http://rockrms.com'
 rocket-chat:
   icons:
-    - comment
-    - comment-alt
-    - comment-dots
-    - comment-slash
+    - feedback
+    - feedback-alt
+    - feedback-dots
+    - feedback-slash
     - comments
     - frown
     - meh
@@ -575,7 +575,7 @@ supple:
     - ad
     - bullhorn
     - bullseye
-    - comment-dollar
+    - feedback-dollar
     - comments-dollar
     - envelope-open-text
     - funnel-dollar

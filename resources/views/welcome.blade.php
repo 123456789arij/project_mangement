@@ -72,8 +72,10 @@
 
         .bg {
             /* The image used */
-            background-image: url("photo.jpg");
-
+            /*background-image: url("photo.jpg");*/
+            background-image: url({{asset('mt-image-59712777.jpg')}});
+            width: 100%;
+            display: inline-block;
             /* Full height */
             height: 100%;
 
@@ -87,21 +89,32 @@
 </head>
 <body class="bg">
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
 
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
 
     <div class="content">
+        @if (Route::has('login'))
+            <div class="page-title-actions">
+                <div class="d-inline-block dropdown text-center links container">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{ route('login') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                           style="color: white;font-size:15px; padding: 8px;  font-weight: bold;">
+                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                          </span>
+                            Entreprise</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                               style="color: white;font-size:15px;  font-weight: bold;">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            </div>
+        @endif
+        {{--  employee--}}
         <div class="page-title-actions">
             <div class="d-inline-block dropdown text-center">
                 <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
@@ -114,7 +127,7 @@
             </div>
         </div>
         <br>
-{{--        client--}}
+        {{--        client--}}
         <div class="page-title-actions">
             <div class="d-inline-block dropdown text-center">
                 <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
@@ -126,8 +139,6 @@
                 </button>
             </div>
         </div>
-
-
 
 
     </div>

@@ -4367,7 +4367,7 @@ comment:
     - 5.0.0
     - 5.0.9
     - 5.10.1
-  label: comment
+  label: feedback
   search:
     terms:
       - bubble
