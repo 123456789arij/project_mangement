@@ -1,7 +1,9 @@
 @extends('layouts.base')
 @section('cssBlock')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    {{--    <link href="https://transloadit.edgly.net/releases/uppy/v1.10.1/uppy.min.css" rel="stylesheet" >--}}
+    <link rel="stylesheet" href="{{ asset('plugins/bower_components/summernote/dist/summernote.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.css') }}">
+
 @endsection
 
 @section('content')
@@ -174,8 +176,8 @@
                                     <div class="divider"></div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label for="description"><strong> Déscription du Tâche </strong></label>
-                                            <textarea id="textarea" name="description">
+                                            <label  class="control-label"><strong> Déscription du Tâche </strong></label>
+                                            <textarea id="description" name="description" class="form-control summernote">
                                                        {{$task->description }}
                                             </textarea>
                                         </div>
@@ -212,7 +214,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/z16d94mf443baw8z854loin2821iav5xoeeauwqbzs789l2h/tinymce/5/tinymce.min.js"
+{{--    <script src="https://cdn.tiny.cloud/1/z16d94mf443baw8z854loin2821iav5xoeeauwqbzs789l2h/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -223,21 +225,25 @@
             menubar: false,
             //  toolbar: "fullscreen",
         });
+    </script>--}}
+    <script src="{{ asset('plugins/bower_components/custom-select/custom-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('plugins/bower_components/summernote/dist/summernote.min.js') }}"></script>
+    <script>
+        $('.summernote').summernote({
+            height: 100,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: false,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ["view", ["fullscreen"]]
+            ]
+        });
+
     </script>
-
-
-    {{--    using uppy editor --}}
-    {{--    <script src="https://transloadit.edgly.net/releases/uppy/v1.10.1/uppy.min.js"></script>
-        <script>
-            var uppy = Uppy.Core()
-                .use(Uppy.Dashboard, {
-                    inline: true,
-                    target: '#drag-drop-area'
-                })
-                .use(Uppy.Tus, {endpoint: 'https://master.tus.io/files/'})
-
-            uppy.on('complete', (result) => {
-                console.log('Upload complete! We’ve uploaded these files:', result.successful)
-            })
-        </script>--}}
 @endsection

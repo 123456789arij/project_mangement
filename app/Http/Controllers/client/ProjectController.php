@@ -51,8 +51,8 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::withCount('employees')->findorfail($id);
-        $feeds = $project->feeds()->with('client')->get();
-        return view('client.project.show', compact('project', 'feeds'));
+//        $feeds = $project->feeds()->with('client')->get();
+        return view('client.project.show', compact('project'));
     }
 
     /**

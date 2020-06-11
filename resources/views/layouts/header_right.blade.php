@@ -11,15 +11,21 @@
                                      alt="">
                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                             @endif
-                            @if(auth()->user())
+                            @if(auth()->user()&& auth()->user()->role_id == 1)
                                 <img width="42" class="rounded-circle"
-                                     src="{{asset('assets/images/avatars/1.jpg')}}"
+                                     src="{{asset(auth()->user()->logo)}}"
                                      alt="">
                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                             @endif
                             @if(auth()->guard('client')->user())
                                 <img width="42" class="rounded-circle"
-                                     src="{{asset('assets/images/avatars/1.jpg')}}"
+                                     src="{{asset(auth()->guard('client')->user()->image)}}"
+                                     alt="">
+                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                            @endif
+                            @if(auth()->user()&& auth()->user()->role_id == 0)
+                                <img width="42" class="rounded-circle"
+                                     src="{{asset(auth()->user()->logo)}}"
                                      alt="">
                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                             @endif
@@ -29,18 +35,21 @@
                                 @if(auth()->guard('client')->user())
                                     Client
                                 @endif
-                                @if(auth()->user())
+                                @if(auth()->user()&& auth()->user()->role_id == 1)
                                     Entreprise
+                                @endif
+                                @if(auth()->user()&& auth()->user()->role_id ==  0)
+                                    Super Admin
                                 @endif
                                 @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                     Chef de projet
                                 @endif
-                                @if(auth()->guard('employee')->user())
+                                @if(auth()->guard('employee')->user()&& auth()->guard('employee')->user()->role==1)
                                     Employee
                                 @endif
                             </h6>
                             <h6 tabindex="-1" class="dropdown-header">
-                                @if(auth()->user())
+                                @if(auth()->user()&& auth()->user()->role_id == 1)
                                     {{--                                        <a href="{{route('user.edit',$user->id)}}">edit</a>--}}
                                 @endif
                                 {{--  @if(auth()->guard('employee')->user())
@@ -74,7 +83,10 @@
                         @if(auth()->guard('client')->user())
                             {{auth()->guard('client')->user()->name}}
                         @endif
-                        @if(auth()->user())
+                        @if(auth()->user()&& auth()->user()->role_id == 1)
+                            {{auth()->user()->name }}
+                        @endif
+                        @if(auth()->user()&& auth()->user()->role_id == 0)
                             {{auth()->user()->name }}
                         @endif
                         @if(auth()->guard('employee')->user())
@@ -85,8 +97,11 @@
                         @if(auth()->guard('client')->user())
                             Client
                         @endif
-                        @if(auth()->user())
+                        @if(auth()->user()&& auth()->user()->role_id ==  1)
                             Entreprise
+                        @endif
+                        @if(auth()->user()&& auth()->user()->role_id ==  0)
+                            Super Admin
                         @endif
                         @if(auth()->guard('employee')->user())
                             Employee

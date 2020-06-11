@@ -17,19 +17,36 @@ class GanttController extends Controller
         if ($request->ajax()) {
 
             $data = [
-                ['id' => $project->id, 'text' => $project->name, 'start_date' => $project->start_date,
-                    'duration' => 5, 'progress' => $project->progress_bar / 100, 'parent' => 0]
+                ['id' => $project->id,
+                    'text' => $project->name,
+                    'start_date' => $project->start_date,
+                    'duration' => 5,
+                    'progress' => $project->progress_bar / 100,
+                    'parent' => 0,
+                    'dependent_task_id' => null,
+                  ]
             ];
             $ids = [];
             foreach ($project->tasks as $task) {
+                $id = $id + 1;
                 $ids[] = $task->id;
                 $start = Carbon::parse($task->start_date);
                 $end = Carbon::parse($task->end_date);
-
                 $diff = $end->diffInDays($start);
-                $data[] = ['id' => $task->id, 'text' => $task->title, 'start_date' => $task->start_date, 'duration' => $diff, 'progress' => 0, 'parent' => $project->id];
+                $diff =$diff + 1;
+
+                $data[] = ['id' => $task->id,
+                    'text' => $task->title,
+                    'start_date' => $task->start_date,
+                    'duration' => $diff,
+                    'progress' => 0,
+                    'parent' => $project->id,
+                    'dependent_task_id' => $task->dependent_task_id,
+                ];
             }
-            $link = Link::whereIn('source',$ids)->get();
+
+
+            $link = Link::whereIn('source', $ids)->get();
 
             return response()->json([
                 "data" => $data,

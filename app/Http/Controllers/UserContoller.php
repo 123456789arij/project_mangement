@@ -15,6 +15,7 @@ class UserContoller extends Controller
      */
     public function index()
     {
+
         $user = Auth::user();
         return view('layouts.header_right', compact('user'));
     }

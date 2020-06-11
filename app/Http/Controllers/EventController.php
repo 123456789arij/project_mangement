@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\EventAttendee;
+use App\Events\EventInviteEvent;
+use App\Helper\Reply;
+use App\Http\Requests\Events\StoreEvent;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -38,6 +44,29 @@ class EventController extends Controller
         return Response::json($event);
     }
 
+    public function store(StoreEvent $request)
+    {
+        $event = new Event();
+        $event->title = $request->title;
+        $event->description = $request->description;
+        $event->start = Carbon::createFromFormat($this->global->date_format, $request->start_date)->format('Y-m-d') . ' ' . Carbon::createFromFormat($this->global->time_format, $request->start)->format('H:i:s');
+        $event->end = Carbon::createFromFormat($this->global->date_format, $request->end_date)->format('Y-m-d') . ' ' . Carbon::createFromFormat($this->global->time_format, $request->end)->format('H:i:s');
+
+
+        $event->label_color = $request->label_color;
+        $event->save();
+
+        /*
+        if ($request->user_id) {
+            foreach ($request->user_id as $userId) {
+                EventAttendee::firstOrCreate(['user_id' => $userId, 'event_id' => $event->id]);
+            }
+            $attendees = User::whereIn('id', $request->user_id)->get();
+            event(new EventInviteEvent($event, $attendees));
+        }
+
+        return Reply::success(__('messages.eventCreateSuccess'));*/
+    }
 
     public function update(Request $request)
     {

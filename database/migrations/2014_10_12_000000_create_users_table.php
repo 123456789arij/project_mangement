@@ -23,7 +23,7 @@ CreateUsersTable extends Migration
             $table->tinyInteger('role_id')->default(1);
             $table->string('address')->nullable();
             $table->string('mobile')->nullable();
-            $table->string('logo')->nullable();
+            $table->string('logo')->default('/images/user.png');
             $table->rememberToken();
             $table->timestamps();
         });

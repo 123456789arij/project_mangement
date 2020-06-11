@@ -29,6 +29,7 @@ class CreateEmployeesTable extends Migration
             $table->text('skills')->nullable();
             $table->string('image')->default('/images/user.png');
             $table->string('address')->nullable();
+            $table->string('specialty')->nullable();
             $table->timestamps();
         });
     }

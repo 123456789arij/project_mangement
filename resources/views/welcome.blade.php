@@ -92,6 +92,20 @@
 
 
     <div class="content">
+        {{--  superAdmin--}}
+        <div class="page-title-actions">
+            <div class="d-inline-block dropdown text-center">
+                <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                          </span>
+                    <a href="{{ route('super_admin')}}"
+                       style="color: white;font-size:15px;  font-weight: bold;"> Super Admin</a>&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
+        <br>
+
         @if (Route::has('login'))
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center links container">

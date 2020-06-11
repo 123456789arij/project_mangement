@@ -88,10 +88,9 @@ Route::prefix('employee')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-
     Route::get('/laravel_google_chart', 'ChartController@index')->name('pieChart');
     Route::get('/donut_chart', 'DonutChartController@index')->name('donut_chart');
-    Route::get('/columnChart', 'ColumnChartController@index')->name('column_chart');
+//    Route::get('/columnChart', 'ColumnChartController@index')->name('column_chart');
 //    project
     Route::prefix('projects')->group(function () {
         Route::get('/dashboard/', 'ProjectController@index')->name('project');
@@ -101,8 +100,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', 'ProjectController@edit')->name('project.edit');
         Route::patch('/{id}', 'ProjectController@update')->name('project.update');
         Route::delete('/{id}', 'ProjectController@destroy')->name('project.destroy');
-
-
+//        membre de projet
         Route::get('/membre/{id}', 'ProjectController@afficher_membre_projet')->name('membre_projet');
         Route::post('/nouveau/membre/', 'ProjectController@membre_projet')->name('membre');
 //Gantt project
@@ -110,6 +108,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/gantt/{id}', 'GanttController@get')->name('gantt');
 
     });
+    Route::prefix('super_admin')->group(function () {
+        Route::get('/superAdmin', 'superAdmin\SuperAdminController@index')->name('super_admin');
+//        Route::get('/{user}/edit', 'superAdmin\SuperAdminController@edit')->name('super_admin.edit');
+//        Route::patch('/{user}', 'superAdmin\SuperAdminController@update')->name('super_admin.update');
+        Route::get('/create', 'superAdmin\CompanyController@create')->name('super_admin.create');
+        Route::post('/store', 'superAdmin\CompanyController@store')->name('super_admin.store');
+        Route::get('/{id}', 'superAdmin\CompanyController@show')->name('super_admin.show');
+        Route::get('/{id}/edit', 'superAdmin\CompanyController@edit')->name('super_admin.edit.company');
+        Route::patch('/{id}', 'superAdmin\CompanyController@update')->name('super_admin.update.company');
+        Route::delete('/{id}', 'superAdmin\CompanyController@destroy')->name('super_admin.destroy');
+    });
+
+
     Route::prefix('user')->group(function () {
         Route::get('/', 'UserContoller@index')->name('user');
         Route::get('/{user}/edit', 'UserContoller@edit')->name('user.edit');

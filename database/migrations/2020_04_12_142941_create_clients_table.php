@@ -27,6 +27,7 @@ class CreateClientsTable extends Migration
             $table->string('linked_in')->nullable();
             $table->string('skype')->nullable();
             $table->string('facebook')->nullable();
+            $table->string('image')->default('/images/user.png');
             $table->timestamps();
         });
     }

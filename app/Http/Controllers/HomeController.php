@@ -30,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (auth()->user()) {
+        if (auth()->user()->role_id == 1) {
             $userCount = Client::where('user_id', auth()->user()->id)->count();
             $employeesCount = Employee::whereHas('department', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
@@ -63,12 +63,12 @@ class HomeController extends Controller
             $projectsHome = Project::whereHas('client', function (Builder $query) {
                 $query->where('user_id', auth()->user()->id);
             })->get();
-            $feeds = Feed::whereHas('client', function (Builder $query) {
+          /*  $feeds = Feed::whereHas('client', function (Builder $query) {
                 $query->whereHas('user', function (Builder $query) {
                     $query->where('id', auth()->user()->id);
                 });
-            })->get();
-            return view('home', compact('userCount', 'feeds', 'employeesCount', 'projectsCount', 'tasksCount', 'tasksPadaing', 'projectsHome', 'tasksCompleted', 'homeTask'));
+            })->get();*/
+            return view('home', compact('userCount', 'employeesCount', 'projectsCount', 'tasksCount', 'tasksPadaing', 'projectsHome', 'tasksCompleted', 'homeTask'));
         }
     }
 }

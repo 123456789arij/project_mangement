@@ -62,6 +62,7 @@ return [
     'canceled' => 'Canceled',
     'finished' => 'Finished',
     'total_clients' => 'Total Clients',
+    'total_Companies' => 'Total Companies',
     'total_Employees' => 'Total Employees',
     'Total_Projects' => 'Total Projects',
     'Total_Tasks' => 'Total Tasks',
@@ -76,6 +77,13 @@ return [
     'feedback' => 'Feedback',
     'Pending_project' => 'Pending Project',
     'Completed_project' => 'Completed Project',
-
+    'Companies' => 'Companies',
+    'CompaniesDashboard' => 'Companies Dashboard',
+    'add_new_Company' => 'Add Company',
+    'superAdmin' => 'Super Admin',
+    'logo' => 'logo',
+    'Company_DETAILS' => 'Company DETAILS',
+    'Company_OTHER_DETAILS' => 'Company Other Details',
+    'UPDATE_Company_INFO' => 'Update Company Info',
 
 ];

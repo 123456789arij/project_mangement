@@ -61,10 +61,11 @@ return [
     'Incomplete' => 'Incomplète',
     'Completed' => 'Terminé',
     'total_clients' => 'Total Des Clients',
+    'total_Companies' => 'Total Des Sociétés',
     'total_Employees' => 'Total Des Employés',
     'Total_Projects' => 'Total Des Projets',
     'Total_Tasks' => 'Total Des Tâches',
-    'Pending_task' => 'Tâche en attente',
+    'Pending_task' => 'Tâche En Attente',
     'Completed_task' => 'Tâche Terminée',
     'Task_Calendar' => 'Calendrier Des Tâches',
     'TaskReport' => 'Rapport de tâche',
@@ -75,6 +76,14 @@ return [
     'feedback' => 'Feedback',
     'Pending_project' => 'Projet en attente',
     'Completed_project' => 'Projet Terminée',
+    'Companies' => 'Entreprises',
+    'CompaniesDashboard' => 'Tableau de bord des entreprises',
+    'add_new_Company' => 'Ajouter Une Entreprise',
+    'superAdmin' => 'Super Admin',
+    'logo' => 'logo',
+    'Company_DETAILS' => 'Détails De L\'Entreprise',
+    'Company_OTHER_DETAILS' => 'Société Autres Détails',
+    'UPDATE_Company_INFO' => 'METTRE À JOUR  INFORMATION Sur L\'Entreprise',
 
 
 ];

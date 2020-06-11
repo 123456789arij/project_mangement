@@ -2,7 +2,7 @@
     <ul class="vertical-nav-menu">
 
 
-        @if(auth()->user())
+        @if(auth()->user()&& auth()->user()->role_id == 1)
             <li>
                 <a href="{{route('home')}}" class="mm-active">
                     <i class="metismenu-icon pe-7s-rocket"></i>
@@ -76,35 +76,35 @@
                 </a>
             </li>
 
-                <li class="app-sidebar__heading">HR</li>
+            <li class="app-sidebar__heading">HR</li>
 
 
-                <li
+            <li
+
+
+            >
+                <a href="">
+                    <i class="metismenu-icon pe-7s-diamond"></i>
+                    HR
+                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                </a>
+                <ul
 
 
                 >
-                    <a href="">
-                        <i class="metismenu-icon pe-7s-diamond"></i>
-                        HR
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul
+
+                    <li>
+                        <a href="{{route('chef.employee.index')}}">
+                            <i class="metismenu-icon">
+                            </i> {{ trans('messages.employees') }}
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
 
 
-                    >
-
-                        <li>
-                            <a href="{{route('chef.employee.index')}}">
-                                <i class="metismenu-icon">
-                                </i> {{ trans('messages.employees') }}
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-
-                        <li class="app-sidebar__heading">Travaille</li>
+            <li class="app-sidebar__heading">Travaille</li>
             <li>
                 <a href="{{route('employee.project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
@@ -120,27 +120,27 @@
 
         @endif
         @if(auth()->guard('client')->user())
-                <li>
-                    <a href="{{route('client.dashborad')}}" class="mm-active">
-                        <i class="metismenu-icon pe-7s-rocket"></i>
-                        {{ trans('messages.Dashboard') }}
-                    </a>
-                </li>
+            <li>
+                <a href="{{route('client.dashborad')}}" class="mm-active">
+                    <i class="metismenu-icon pe-7s-rocket"></i>
+                    {{ trans('messages.Dashboard') }}
+                </a>
+            </li>
             <li>
                 <a href="{{route('client.project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
                     {{ trans('messages.projects') }}
                 </a>
             </li>
-                <li>
-                    <a href="{{route('client.feedback')}}">
-                        <i class="metismenu-icon pe-7s-display2"></i>
-                        {{ trans('messages.feedback') }}
-                    </a>
-                </li>
+            <li>
+                <a href="{{route('client.feedback')}}">
+                    <i class="metismenu-icon pe-7s-display2"></i>
+                    {{ trans('messages.feedback') }}
+                </a>
+            </li>
 
         @endif
-
+        @if(auth()->user()&& auth()->user()->role_id == 1)
             <li>
                 <a href="{{route('calendar')}}">
                     <i class='metismenu-icon fas fa-calendar-week'></i>
@@ -148,35 +148,36 @@
                 </a>
             </li>
             <li class="app-sidebar__heading">  {{ trans('messages.events') }}</li>
-        <li>
-            <a href="{{route('event')}}">
-                <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>
-                {{--                <i class="fa  fa-calendar pr-1 pl-1">--}}
-                {{--                <i class="metismenu-icon pe-7s-eyedropper">--}}
-                {{ trans('messages.events') }}
-            </a>
-        </li>
-        @if(auth()->user())
-      {{--  <li class="app-sidebar__heading">Charts</li>
-        <li>
-            <a href="{{route('pieChart')}}">
-                <i class="metismenu-icon  fas fa-chart-pie"></i> Pie Chart
-            </a>
-        </li>
-        <li>
-            <a href="{{route('donut_chart')}}">
-                <i class="metismenu-icon  fas fa-chart-pie"></i> Donut Chart
-            </a>
-        </li>--}}
+            <li>
+                <a href="{{route('event')}}">
+                    <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>
+                    {{--                <i class="fa  fa-calendar pr-1 pl-1">--}}
+                    {{--                <i class="metismenu-icon pe-7s-eyedropper">--}}
+                    {{ trans('messages.events') }}
+                </a>
+            </li>
+        @endif
+        @if(auth()->user()&& auth()->user()->role_id == 1)
+            {{--  <li class="app-sidebar__heading">Charts</li>
+              <li>
+                  <a href="{{route('pieChart')}}">
+                      <i class="metismenu-icon  fas fa-chart-pie"></i> Pie Chart
+                  </a>
+              </li>
+              <li>
+                  <a href="{{route('donut_chart')}}">
+                      <i class="metismenu-icon  fas fa-chart-pie"></i> Donut Chart
+                  </a>
+              </li>--}}
 
-{{--        <li class="app-sidebar__heading">Column Chart</li>--}}
-     {{--   <li>
-            <a href="{{route('column_chart')}}" target="_blank">
-                <i class="metismenu-icon pe-7s-graph2">
-                </i>
-                Column Chart
-            </a>
-        </li>--}}
+            {{--        <li class="app-sidebar__heading">Column Chart</li>--}}
+            {{--   <li>
+                   <a href="{{route('column_chart')}}" target="_blank">
+                       <i class="metismenu-icon pe-7s-graph2">
+                       </i>
+                       Column Chart
+                   </a>
+               </li>--}}
         @endif
     </ul>
 </div>

@@ -14,10 +14,7 @@ class Employee extends Authenticatable
         'name','email', 'password','role','gender','skills','image','address','joining_date','department_id','mobile',
     ];
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
+
 
     public function department()
     {

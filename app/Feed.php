@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Feed extends Model
 {
-    protected $fillable = [
+  /*  protected $fillable = [
         'body', 'client_id','project_id',
     ];
 
@@ -18,6 +18,6 @@ class Feed extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
+    }*/
 
 }
