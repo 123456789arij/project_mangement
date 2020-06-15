@@ -34,24 +34,21 @@
                             <h6 tabindex="-1" class="dropdown-header">
                                 @if(auth()->guard('client')->user())
                                     Client
-
                                     <div>
-                                       {{-- @foreach( $client_profile as $client)
-                                            <a href="{{route('client.profile',$client->id )}}">update</a>
-                                        @endforeach--}}
+                                        <a href="{{route('client.profile')}}">update</a>
                                     </div>
 
                                 @endif
-                                @if(auth()->user()&& auth()->user()->role_id == 1)
+                                @if(auth()->user() && auth()->user()->role_id == 1)
                                     Entreprise
                                 @endif
-                                @if(auth()->user()&& auth()->user()->role_id ==  0)
+                                @if(auth()->user() && auth()->user()->role_id ==  0)
                                     Super Admin
                                 @endif
                                 @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                     Chef de projet
                                 @endif
-                                @if(auth()->guard('employee')->user()&& auth()->guard('employee')->user()->role==1)
+                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
                                     Employee
                                 @endif
                             </h6>

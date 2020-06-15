@@ -92,6 +92,7 @@
                                                 <label for="password"> {{__('messages.Password') }} </label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
+                                                       value="{{ $password }}"
                                                        name="password" required>
                                             </div>
                                         </div>

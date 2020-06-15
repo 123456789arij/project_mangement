@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\superAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
@@ -34,7 +36,9 @@ class CompanyController extends Controller
     {
         if (auth()->user()->role_id == 0) {
             $users = User::where('role_id', 1);
-            return view('superAdmin.entreprise.create', compact('users'));
+            $password = self::generateRandomString(7);
+
+            return view('superAdmin.entreprise.create', compact('users', 'password'));
         }
         abort(403);
     }
@@ -59,6 +63,18 @@ class CompanyController extends Controller
             'password' => Hash::make($request['password']),
             'role_id' => '1',
         ]);
+
+        $mail = new SendMail([
+            'address_from' => config('mail.from.address'),
+            'name_from' => config('mail.from.name'),
+            'address_to' => $request['email'],
+            'name_to' => $request['name'],
+            'title' => 'password created',
+            'body' => $request['password'],
+            'subject' => 'hello company ',
+        ]);
+        Mail::send($mail);
+
         return redirect()->route('super_admin')->with('success', '  Entreprise is successfully saved');
     }
 
@@ -123,5 +139,15 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    static function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

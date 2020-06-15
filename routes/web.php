@@ -35,7 +35,7 @@ Route::prefix('client')->group(function () {
         Route::get('/feedback', 'client\FeedbackController@index')->name('client.feedback');
         Route::get('/client/feedback', 'client\FeedbackController@create')->name('client.feedback.create');
         Route::post('/client/feedback', 'client\FeedbackController@store')->name('client.feedback.store');
-        Route::get('/chart', 'ClientChartController@index')->name('clientChart');
+        //Route::get('/chart', 'ClientChartController@index')->name('clientChart');
     });
 });
 

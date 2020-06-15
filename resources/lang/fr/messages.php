@@ -86,5 +86,4 @@ return [
     'UPDATE_Company_INFO' => 'METTRE À JOUR  INFORMATION Sur L\'Entreprise',
     'SATISTIQUE_OF_PROJECT_STATUS' => 'SATISTIQUE DU STATUT DU PROJET',
 
-
 ];

@@ -26,9 +26,9 @@ class DashboradController extends Controller
 
     public function profile()
     {
-        $client_profile = auth()->guard('client')->user();
-//        $client_profile = Client::findOrFail($id);
-        return view('layouts.header_right', compact('client_profile'));
+        $client = auth()->guard('client')->user();
+//        $client = Client::findOrFail($id);
+        return view('client.edit', compact('client'));
 
     }
 

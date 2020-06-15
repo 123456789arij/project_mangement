@@ -1,15 +1,18 @@
-@extends('layouts.base')
-@section('cssBlock')
+<!doctype html>
 
-@endsection
-@section('content')
-    <h1>{{ $details['title'] }}</h1>
-    <p>{{ $details['body'] }}</p>
-    <p>Thank you</p>
-@endsection
-@section('jsBlock')
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
 
-@endsection
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+</head>
+
+<body>
+<h1>{{ $title }}</h1>
+<p>{{ $body }}</p>
+<p>Thank you</p>
+</body>
+</html>
