@@ -89,8 +89,6 @@
 </head>
 <body class="bg">
 <div class="flex-center position-ref full-height">
-
-
     <div class="content">
         {{--  superAdmin--}}
         <div class="page-title-actions">
@@ -104,6 +102,7 @@
                 </button>
             </div>
         </div>
+        {{--  superAdmin--}}
         <br>
 
         @if (Route::has('login'))
@@ -112,7 +111,6 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="{{ route('login') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
                            style="color: white;font-size:15px; padding: 8px;  font-weight: bold;">
                                 <span class="btn-icon-wrapper pr-2 opacity-7">
@@ -120,10 +118,10 @@
                           </span>
                             Entreprise</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
-                               style="color: white;font-size:15px;  font-weight: bold;">Register</a>
-                        @endif
+                        {{--    @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                                   style="color: white;font-size:15px;  font-weight: bold;">Register</a>
+                            @endif--}}
                     @endauth
                 </div>
             </div>
@@ -136,10 +134,11 @@
                             <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
                           </span>
                     <a href="{{ route('employee.login')}}"
-                       style="color: white;font-size:15px;  font-weight: bold;"> Emplyoee</a>&nbsp;&nbsp;
+                       style="color: white;font-size:15px;  font-weight: bold;"> Employee</a>&nbsp;&nbsp;
                 </button>
             </div>
         </div>
+        {{--  /employee--}}
         <br>
         {{--        client--}}
         <div class="page-title-actions">
@@ -153,8 +152,8 @@
                 </button>
             </div>
         </div>
-
-
+        {{--        client--}}
     </div>
+</div>
 </body>
 </html>

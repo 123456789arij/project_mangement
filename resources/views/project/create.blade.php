@@ -146,7 +146,7 @@
                                     <div class="divider"></div>
                                     <br>
                                     <div class="col">
-                                        <label for="description"><strong> Déscription du projet </strong></label>
+                                        <label><strong> Déscription du projet </strong></label>
                                         <textarea id="textarea" name="description"></textarea>
                                     </div>
                                     <br>

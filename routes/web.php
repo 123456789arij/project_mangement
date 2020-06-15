@@ -30,6 +30,7 @@ Route::prefix('client')->group(function () {
     Route::group(['middleware' => 'auth.client'], function () {
         Route::get('/dashboard', 'client\DashboradController@index')->name('client.dashborad');
         Route::get('/projects', 'client\ProjectController@index')->name('client.project');
+        Route::get('/profile', 'client\DashboradController@profile')->name('client.profile');
         Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
         Route::get('/feedback', 'client\FeedbackController@index')->name('client.feedback');
         Route::get('/client/feedback', 'client\FeedbackController@create')->name('client.feedback.create');
@@ -108,8 +109,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/gantt/{id}', 'GanttController@get')->name('gantt');
 
     });
-    Route::prefix('super_admin')->group(function () {
-        Route::get('/superAdmin', 'superAdmin\SuperAdminController@index')->name('super_admin');
+    Route::prefix('superAdmin')->group(function () {
+        Route::get('/index', 'superAdmin\SuperAdminController@index')->name('super_admin');
 //        Route::get('/{user}/edit', 'superAdmin\SuperAdminController@edit')->name('super_admin.edit');
 //        Route::patch('/{user}', 'superAdmin\SuperAdminController@update')->name('super_admin.update');
         Route::get('/create', 'superAdmin\CompanyController@create')->name('super_admin.create');
@@ -118,6 +119,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', 'superAdmin\CompanyController@edit')->name('super_admin.edit.company');
         Route::patch('/{id}', 'superAdmin\CompanyController@update')->name('super_admin.update.company');
         Route::delete('/{id}', 'superAdmin\CompanyController@destroy')->name('super_admin.destroy');
+        Route::get('/send-mail','MailSend@mailsend');
+
     });
 
 

@@ -34,6 +34,13 @@
                             <h6 tabindex="-1" class="dropdown-header">
                                 @if(auth()->guard('client')->user())
                                     Client
+
+                                    <div>
+                                       {{-- @foreach( $client_profile as $client)
+                                            <a href="{{route('client.profile',$client->id )}}">update</a>
+                                        @endforeach--}}
+                                    </div>
+
                                 @endif
                                 @if(auth()->user()&& auth()->user()->role_id == 1)
                                     Entreprise

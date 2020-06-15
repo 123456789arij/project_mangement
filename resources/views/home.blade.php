@@ -497,7 +497,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="main-card mb-3 card">
-                    <div class="card-header">Satistique of project status
+                    <div class="card-header">{{ __('messages.SATISTIQUE_OF_PROJECT_STATUS') }}
                     </div>
                     <div id="donut" style="width: 1000px; height: 400px;"></div>
 

@@ -21,6 +21,8 @@ class CompanyController extends Controller
             $users = User::where('role_id', 1)->get();
             return view('superAdmin.entreprise.index', compact('users'));
         }
+        abort(403);
+
     }
 
     /**
@@ -34,6 +36,7 @@ class CompanyController extends Controller
             $users = User::where('role_id', 1);
             return view('superAdmin.entreprise.create', compact('users'));
         }
+        abort(403);
     }
 
     /**

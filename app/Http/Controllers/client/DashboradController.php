@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use App\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DashboradController extends Controller
 {
@@ -17,10 +18,18 @@ class DashboradController extends Controller
     {
         $client = auth()->guard('client')->user();
         $projects_client_count = $client->projects()->count();
-        $projects_completed_client_count = $client->projects()->where('status',5)->count();
-        $projects_Pending_client_count = $client->projects()->where('status',1)->count();
+        $projects_completed_client_count = $client->projects()->where('status', 5)->count();
+        $projects_Pending_client_count = $client->projects()->where('status', 1)->count();
         $projects_client = $client->projects()->get();
-        return view('home',compact('projects_client_count','projects_Pending_client_count','projects_client','projects_completed_client_count'));
+        return view('home', compact('projects_client_count', 'projects_Pending_client_count', 'projects_client', 'projects_completed_client_count'));
+    }
+
+    public function profile()
+    {
+        $client_profile = auth()->guard('client')->user();
+//        $client_profile = Client::findOrFail($id);
+        return view('layouts.header_right', compact('client_profile'));
+
     }
 
     /**
@@ -28,7 +37,8 @@ class DashboradController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public
+    function create()
     {
         //
     }
@@ -39,7 +49,8 @@ class DashboradController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         //
     }
@@ -50,7 +61,8 @@ class DashboradController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
 
     }
@@ -61,12 +73,11 @@ class DashboradController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         $client = Client::find($id);
-        if ($client->user_id == auth()->id()) {
-            return view('client.edit', compact('client'));
-        }
+        return view('client.edit', compact('client'));
     }
 
     /**
@@ -76,7 +87,8 @@ class DashboradController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -86,6 +98,9 @@ class DashboradController extends Controller
         $client = Client::findOrFail($id);
         $client->name = $request->input('name');
         $client->email = $request->input('email');
+        if ($request->password != '') {
+            $client->password = Hash::make($request->input('password'));
+        }
         $client->mobile = $request->input('mobile');
         $client->address = $request->input('address');
         $client->linked_in = $request->input('linked_in');
@@ -102,7 +117,8 @@ class DashboradController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         //
     }

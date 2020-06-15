@@ -72,7 +72,6 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'category_id' => 'required',
             'status' => 'required',
             'start_date' => 'required|date',
             'deadline' => 'required|date|after_or_equal:start_date',
