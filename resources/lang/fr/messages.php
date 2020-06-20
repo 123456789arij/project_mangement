@@ -85,5 +85,8 @@ return [
     'Company_OTHER_DETAILS' => 'Société Autres Détails',
     'UPDATE_Company_INFO' => 'METTRE À JOUR  INFORMATION Sur L\'Entreprise',
     'SATISTIQUE_OF_PROJECT_STATUS' => 'SATISTIQUE DU STATUT DU PROJET',
+    'profileSettings' => 'Paramètres De Profil',
+    'delete' => 'Supprimer',
+    'EmployeesDashboard' => 'Tableau De Bord Des Employés',
 
 ];

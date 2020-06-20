@@ -26,51 +26,70 @@
                             @if(auth()->user()&& auth()->user()->role_id == 0)
                                 <img width="42" class="rounded-circle"
                                      src="{{asset(auth()->user()->logo)}}"
-                                     alt="">
+                                     alt="image">
                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                             @endif
                         </a>
-                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                            <h6 tabindex="-1" class="dropdown-header">
-                                @if(auth()->guard('client')->user())
-                                    Client
-                                    <div>
-                                        <a href="{{route('client.profile')}}">update</a>
-                                    </div>
+                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right"
+                             style="width: 200px">
+                            @if(auth()->guard('client')->user())
+                                <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
 
-                                @endif
-                                @if(auth()->user() && auth()->user()->role_id == 1)
-                                    Entreprise
-                                @endif
-                                @if(auth()->user() && auth()->user()->role_id ==  0)
-                                    Super Admin
-                                @endif
-                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
-                                    Chef de projet
-                                @endif
-                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
-                                    Employee
-                                @endif
-                            </h6>
-                            <h6 tabindex="-1" class="dropdown-header">
-                                @if(auth()->user()&& auth()->user()->role_id == 1)
+                                    {{auth()->guard('client')->user()->name}}
+                                </h6>
+                                <a href="{{route('client.profile')}}" class="dropdown-item"
+                                   style="font-size: 15px"><i
+                                        class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
+                            @endif
+                            @if(auth()->user() && auth()->user()->role_id == 1)
+                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+
+                                        {{auth()->user()->name}}
+                                    </h6>
+                            @endif
+                            @if(auth()->user() && auth()->user()->role_id ==  0)
+                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                        {{auth()->user()->name}}
+                                    </h6>
+                                    <a href="{{route('super_admin.profile')}}" class="dropdown-item"
+                                       style="font-size: 15px"><i
+                                            class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
+                            @endif
+                            @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                        {{auth()->guard('employee')->user()->name}}
+                                    </h6>
+                            @endif
+                            @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
+                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                        {{auth()->guard('employee')->user()->name}}
+                                    </h6>
+                             <a href="{{route('employee.profile')}}" class="dropdown-item"
+                                       style="font-size: 15px"><i
+                                            class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
+                            @endif
+
+                            @if(auth()->user()&& auth()->user()->role_id == 1)
+                                <h6 tabindex="-1" class="dropdown-header">
+
                                     {{--                                        <a href="{{route('user.edit',$user->id)}}">edit</a>--}}
-                                @endif
-                                {{--  @if(auth()->guard('employee')->user())
-                                      @foreach( $employee_profile as  $emp)
-                                              <a type="button" href="{{route('employee.profile.edit',$emp->id)}}"></a>
-                                          @endforeach
 
-                                  @endif--}}
-                            </h6>
+                                    {{--  @if(auth()->guard('employee')->user())
+                                          @foreach( $employee_profile as  $emp)
+                                                  <a type="button" href="{{route('employee.profile.edit',$emp->id)}}"></a>
+                                              @endforeach
+
+                                      @endif--}}
+                                </h6>
+                                @endif
                             <div tabindex="-1" class="dropdown-divider"></div>
                             <button type="button" tabindex="0" class="dropdown-item" style="float: left">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-power-off" style="font-size:18px;"></i>
-                                    {{ trans('messages.Logout') }}
-                                    {{--   {{ __('Logout') }}--}}
+                                    <i class="fa fa-power-off" style="font-size:18px;color: #48D1CC">
+                                        {{ trans('messages.Logout') }}
+                                        {{--   {{ __('Logout') }}--}}</i>
                                 </a>
 
                                 <form id="logout-form"
@@ -132,9 +151,15 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('locale/en') }}">
                                     <img src="{{asset('us.png')}}" width="30px" height="20x">
+                                    &nbsp;  Anglais
+
+
                                 </a>
                                 <a class="dropdown-item" href="{{ url('locale/fr') }}">
-                                    <img src="{{asset('fr.png')}}" width="30px" height="20x"></a>
+                                    <img src="{{asset('fr.png')}}" width="30px" height="20x">
+                                    &nbsp; français
+
+                                </a>
                             </div>
                         </li>
                     </ul>

@@ -671,7 +671,7 @@
         }
     </script>
 
-    {{--client chart--}}
+ {{--   --}}{{--client chart--}}{{--
     <script>
         google.charts.load('current', {'packages': ['bar']});
         google.charts.setOnLoadCallback(drawChart);
@@ -695,7 +695,7 @@
                 }
             });
         }
-    </script>
+    </script>--}}
 
     <script>
         google.charts.load('current', {'packages': ['corechart']});

@@ -27,32 +27,8 @@ class DashboradController extends Controller
     public function profile()
     {
         $client = auth()->guard('client')->user();
-//        $client = Client::findOrFail($id);
-        return view('client.edit', compact('client'));
+        return view('client.profile.edit', compact('client'));
 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public
-    function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public
-    function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -69,15 +45,14 @@ class DashboradController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param int $id
+     * lmmmmmmmmmmmmmmmml     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public
     function edit($id)
     {
-        $client = Client::find($id);
-        return view('client.edit', compact('client'));
+//        $client = Client::find($id);
+//        return view('client.edit', compact('client'));
     }
 
     /**
@@ -106,9 +81,9 @@ class DashboradController extends Controller
         $client->linked_in = $request->input('linked_in');
         $client->skype = $request->input('skype');
         $client->facebook = $request->input('facebook');
-        $client->user_id = auth()->user()->id;
-        $client->save(); //persist the data
-        return redirect()->route('client.index')->with('toast_success', 'Client is successfully updated');
+        $client->user_id = auth()->guard('client')->user()->id;
+        $client->save();
+        return redirect()->route('client.dashborad')->with('toast_success', 'Client is successfully updated');
     }
 
     /**

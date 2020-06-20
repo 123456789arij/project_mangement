@@ -86,5 +86,8 @@ return [
     'Company_OTHER_DETAILS' => 'Company Other Details',
     'UPDATE_Company_INFO' => 'Update Company Info',
     'SATISTIQUE_OF_PROJECT_STATUS' => 'SATISTIQUE OF PROJECT STATUS',
+    'profileSettings' => 'Profile Settings',
+    'delete' => 'Delete',
+    'EmployeesDashboard'=>'Employees Dashboard',
 
 ];

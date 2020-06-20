@@ -68,9 +68,12 @@ class SuperAdminController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        if (Auth::user()->role_id == 0) {
+            $users = User::where('role_id', 0);
+            return view('superAdmin.edit', compact('users'));
+        }
     }
 
     /**
@@ -82,7 +85,24 @@ class SuperAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+
+        ]);
+        $users = User::where('role_id', 0)->findorfail($id);
+        $users->name = $request->input('name');
+        $users->email = $request->input('email');
+        if ($request->password != '') {
+            $users->password = Hash::make($request->input('password'));
+        }
+        $users->mobile = $request->input('mobile');
+        $users->address = $request->input('address');
+        $users->linked_in = $request->input('linked_in');
+        $users->skype = $request->input('skype');
+        $users->facebook = $request->input('facebook');
+        $users->save();
+        return redirect()->route('super_admin')->with('toast_success', 'Client is successfully updated');
     }
 
     /**

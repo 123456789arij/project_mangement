@@ -155,7 +155,7 @@
                     <i class="fas fa-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div> Employees Dashboard
+                <div>       {{ __('messages.EmployeesDashboard') }}
                     <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
                         {{  $employeescount }}

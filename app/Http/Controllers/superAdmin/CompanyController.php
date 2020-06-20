@@ -126,8 +126,9 @@ class CompanyController extends Controller
         $users->email = $request->input('email');
         $users->password = $request->input('password');
         $users->address = $request->input('address');
+        $users->logo = $request->input('logo');
         $users->mobile = $request->input('mobile');
-        return redirect()->route('superAdmin.Entreprise.index')->with('success', 'Entreprise is successfully updated');
+        return redirect()->route('super_admin')->with('success', 'Entreprise is successfully updated');
     }
 
     /**
@@ -138,10 +139,15 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->user()->role_id == 0) {
+            $users = User::where('role_id', 1)->findorfail($id);
+            $users->delete();
+            return redirect()->route('super_admin')->with('success', 'employee is successfully deleted');
+        }
     }
 
-    static function generateRandomString($length = 10) {
+    static function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

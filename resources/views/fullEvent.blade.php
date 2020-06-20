@@ -109,8 +109,7 @@
         });
 
         function displayMessage(message) {
-            $(".response").html("
-            "+message+"");
+            $(".response").html(""+message+"");
             setInterval(function() { $(".success").fadeOut(); }, 1000);
         }
     </script>

@@ -103,29 +103,24 @@
                 <div class="page-title-icon">
                     <i class="fas fa-user-edit icon-gradient bg-arielle-smile"></i>
                 </div>
-                <div>
 
-                    <h4 class="page-title">
-                        {{__('messages.Companies') }} # {{$users->id}} [ {{$users->name}} ]
-                    </h4></div>
-                {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
-                        elements and components
-                    </div>--}}
+                <h4 class="page-title">
+                    {{__('messages.Companies') }} # {{$users->id}} [ {{$users->name}} ]
+                </h4>
             </div>
             {{--   /page-title-wrapper--}}
-
+            {{--home--}}
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                                     <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                                 </span>
-                               <a href="{{route('Entreprise.Employee.create')}}"
-                                  style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
-                           </button>--}}
+                    <div style="float: right">
+                        <a href="{{route('super_admin')}}">
+                            <i class="fa fa-home" style="font-size:36px">
+
+                            </i></a>
+                    </div>
                 </div>
             </div>
-
+            {{--home--}}
         </div>
     </div>
     {{--                /app-page-title--}}
@@ -167,7 +162,7 @@
                                                 <label for="image"> logo</label>
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit">
-                                                        <input type='file' name="image"
+                                                        <input type='file' name="logo"
                                                                value="{{$users->logo}}"
                                                                id="imageUpload"/>
                                                         <label for="imageUpload"></label>
@@ -215,7 +210,7 @@
                                             <div class="position-relative form-group">
                                                 <label for="password">Password</label>
                                                 <input type="password" data-toggle="password" class="form-control"
-                                                       id="password"  value="{{$users->password }}"
+                                                       id="password" value="{{$users->password }}"
                                                        name="password">
                                             </div>
                                         </div>

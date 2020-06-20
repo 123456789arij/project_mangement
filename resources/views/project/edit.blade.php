@@ -153,7 +153,6 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col-12">
-
                                             <label for="">Statut d'achèvement du projet</label>
                                             <input type="text" class="js-range-slider" name="my_range"
                                                    value="{{$project->progress_bar}}"/>

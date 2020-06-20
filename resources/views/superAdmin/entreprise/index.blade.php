@@ -167,7 +167,7 @@
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
-                                                    <a href="{{route('super_admin.show',$user->id)}}"> {{ $user->name}} </a>
+                                                    {{ $user->name}}
                                                 </div>
                                                 {{--                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
                                             </div>
@@ -191,7 +191,7 @@
                                                     <strong>
                                                         <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
                                                            style="font-size:20px;"></i>
-                                                        Edit
+                                                        {{ __('messages.edit') }}
                                                     </strong>
                                                 </a>
                                             </li>
@@ -205,7 +205,7 @@
                                                         <strong>
                                                             <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
                                                                style="font-size: 20px;" id="delete">
-                                                            </i> Delete
+                                                            </i>   {{ __('messages.delete') }}
                                                         </strong>
                                                     </button>
                                                 </form>

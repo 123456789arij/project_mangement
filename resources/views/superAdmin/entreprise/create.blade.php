@@ -16,18 +16,14 @@
                 <div>{{ __('messages.Companies') }}</div>
             </div>
             {{--   /page-title-wrapper--}}
-            <div style="float: right">
-                <a href="{{route('super_admin')}}"  class="btn btn-outline-secondary">Back</a>
-            </div>
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                                     <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                                 </span>
-                               <a href="{{route('entreprise.Employee.create')}}"
-                                  style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
-                           </button>--}}
+                    <div style="float: right">
+                        <a href="{{route('super_admin')}}">
+                            <i class="fa fa-home" style="font-size:36px">
+
+                            </i></a>
+                    </div>
                 </div>
             </div>
 

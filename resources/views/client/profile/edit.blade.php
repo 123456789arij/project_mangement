@@ -14,8 +14,8 @@
                 </div>
                 <div>
                     <h4 class="page-title">    {{__('messages.client') }}
-                    # {{$client->id}}
-                     [ {{$client->name}} ]
+                        # {{$client->id}}
+                        [ {{$client->name}} ]
                     </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                     elements and components
@@ -70,7 +70,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">      {{__('messages.CLIENT_DETAILS') }}</h5>
                                 <hr>
-                                <form action="{{ route('client.update', $client->id ) }}" method="POST">
+                                <form action="{{ route('client.profile.update',$client->id) }}" method="POST">
                                     {{--  partie email +adresse--}}
                                     <div class="form-row">
                                         @csrf

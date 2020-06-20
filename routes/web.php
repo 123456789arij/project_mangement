@@ -31,6 +31,7 @@ Route::prefix('client')->group(function () {
         Route::get('/dashboard', 'client\DashboradController@index')->name('client.dashborad');
         Route::get('/projects', 'client\ProjectController@index')->name('client.project');
         Route::get('/profile', 'client\DashboradController@profile')->name('client.profile');
+        Route::patch('/{id}/profile', 'client\DashboradController@update')->name('client.profile.update');
         Route::get('/{project}', 'client\ProjectController@show')->name('client.project.show');
         Route::get('/feedback', 'client\FeedbackController@index')->name('client.feedback');
         Route::get('/client/feedback', 'client\FeedbackController@create')->name('client.feedback.create');
@@ -52,6 +53,9 @@ Route::prefix('employee')->group(function () {
         Route::post('/store/employee', 'employee\EmployeeController@store')->name('chef.employee.store');
         Route::get('/{employee}/edit', 'employee\EmployeeController@edit')->name('chef.employee.edit');
         Route::patch('/{employee}', 'employee\EmployeeController@update')->name('chef.employee.update');
+//        profile
+        Route::get('/profile', 'employee\DashboradController@profile')->name('employee.profile');
+        Route::patch('/{id}/profile', 'employee\DashboradController@update')->name('employee.update.profile');
         Route::get('/{employee}', 'employee\EmployeeController@show')->name('chef.employee.show');
         //project
         Route::get('/projects/dashboard', 'employee\ProjectController@index')->name('employee.project');
@@ -68,11 +72,18 @@ Route::prefix('employee')->group(function () {
         Route::get('/create/feedback', 'employee\CommentController@create')->name('employee.feedback.create');
         Route::post('/store/feedback', 'employee\CommentController@store')->name('employee.feedback.store');
 
-
+        Route::prefix('discussions')->group(function () {
+            Route::get('/discussions', 'DiscussionController@discussions');
+            Route::get('/messages', 'DiscussionController@getMyDiscussions');//WS list discussions
+            Route::post('message', 'DiscussionController@saveMessage')->name('discussion.msg');
+            //using contact ID instead of discussion ID cause of a MOBILE need
+            //Route::post('{contact}/close', 'DiscussionController@closeDiscussion');//WS close discussions with contact
+            Route::get('{contact}', 'DiscussionController@getDiscussionMessages');//WS get messages with contact
+        });
 //employee profile
-        Route::get('/profile/em', 'employee\DashboradController@profile')->name('profile');
-        Route::get('/{id}/profile', 'employee\DashboradController@edit')->name('employee.profile.edit');
-        Route::patch('/employee/{id}', 'employee\DashboradController@update')->name('employee.profile.update');
+//        Route::get('/profile/em', 'employee\DashboradController@profile')->name('profile');
+//        Route::get('/{id}/profile', 'employee\DashboradController@edit')->name('employee.profile.edit');
+//        Route::patch('/employee/{id}', 'employee\DashboradController@update')->name('employee.profile.update');
 
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
@@ -111,15 +122,15 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('superAdmin')->group(function () {
         Route::get('/index', 'superAdmin\SuperAdminController@index')->name('super_admin');
-//        Route::get('/{user}/edit', 'superAdmin\SuperAdminController@edit')->name('super_admin.edit');
-//        Route::patch('/{user}', 'superAdmin\SuperAdminController@update')->name('super_admin.update');
+        Route::get('/edit', 'superAdmin\SuperAdminController@edit')->name('super_admin.profile');
+        Route::patch('/{id}/profile', 'superAdmin\SuperAdminController@update')->name('super_admin.update_profile');
         Route::get('/create', 'superAdmin\CompanyController@create')->name('super_admin.create');
         Route::post('/store', 'superAdmin\CompanyController@store')->name('super_admin.store');
         Route::get('/{id}', 'superAdmin\CompanyController@show')->name('super_admin.show');
         Route::get('/{id}/edit', 'superAdmin\CompanyController@edit')->name('super_admin.edit.company');
         Route::patch('/{id}', 'superAdmin\CompanyController@update')->name('super_admin.update.company');
         Route::delete('/{id}', 'superAdmin\CompanyController@destroy')->name('super_admin.destroy');
-        Route::get('/send-mail','MailSend@mailsend');
+        Route::get('/send-mail', 'MailSend@mailsend');
 
     });
 
@@ -160,8 +171,10 @@ Route::middleware('auth')->group(function () {
     Route::prefix('event')->group(function () {
         Route::get('/fullcalendareventmaster', 'EventController@index')->name('event');
         Route::post('/fullcalendareventmaster/create', 'EventController@create');
-        Route::post('/fullcalendareventmaster/update', 'EventController@update');
-        Route::post('/fullcalendareventmaster/delete', 'EventController@destroy');
+        Route::post('/fullcalendareventmaster/store', 'EventController@store')->name('admin.events.store');
+        Route::post('/fullcalendareventmaster/update', 'EventController@update')->name('admin.events.edit');
+        Route::post('/fullcalendareventmaster/delete', 'EventController@destroy')->name('admin.events.destroy');
+        Route::get('/{id}', 'EventController@show')->name('admin.events.show');
     });
 
     //department

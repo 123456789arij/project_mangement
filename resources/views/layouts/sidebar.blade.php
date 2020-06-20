@@ -5,7 +5,7 @@
         @if(auth()->user()&& auth()->user()->role_id == 1)
             <li>
                 <a href="{{route('home')}}" class="mm-active">
-                    <i class="metismenu-icon pe-7s-rocket"></i>
+                    <i class="metismenu-icon fa fa-tachometer"></i>
                     {{ trans('messages.Dashboard') }}
                 </a>
             </li>
@@ -71,7 +71,7 @@
         @if(auth()->guard('employee')->user())
             <li>
                 <a href="{{route('employee.dashborad')}}" class="mm-active">
-                    <i class="metismenu-icon pe-7s-rocket"></i>
+                    <i class="metismenu-icon fa fa-tachometer"></i>
                     {{ trans('messages.Dashboard') }}
                 </a>
             </li>
@@ -122,13 +122,15 @@
         @if(auth()->guard('client')->user())
             <li>
                 <a href="{{route('client.dashborad')}}" class="mm-active">
-                    <i class="metismenu-icon pe-7s-rocket"></i>
+                    <i class="metismenu-icon fa fa-tachometer"></i>
+{{--                    <i class="metismenu-icon fa-tachometer-alt"></i>--}}
                     {{ trans('messages.Dashboard') }}
                 </a>
             </li>
             <li>
                 <a href="{{route('client.project')}}">
-                    <i class="metismenu-icon pe-7s-display2"></i>
+                    <i class='metismenu-icon fas fa-layer-group'></i>
+
                     {{ trans('messages.projects') }}
                 </a>
             </li>

@@ -103,29 +103,24 @@
                 <div class="page-title-icon">
                     <i class="fas fa-user-edit icon-gradient bg-arielle-smile"></i>
                 </div>
-                <div>
 
-                    <h4 class="page-title">
-                        {{__('messages.employees') }} [ {{$employee->name}} ]
-                    </h4></div>
-                {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
-                        elements and components
-                    </div>--}}
+                <h4 class="page-title">
+                    {{__('messages.Companies') }} # {{$users->id}} [ {{$users->name}} ]
+                </h4>
             </div>
             {{--   /page-title-wrapper--}}
-
+            {{--home--}}
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown">
-                    {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                                     <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                                 </span>
-                               <a href="{{route('Entreprise.Employee.create')}}"
-                                  style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
-                           </button>--}}
+                    <div style="float: right">
+                        <a href="{{route('super_admin')}}">
+                            <i class="fa fa-home" style="font-size:36px">
+
+                            </i></a>
+                    </div>
                 </div>
             </div>
-
+            {{--home--}}
         </div>
     </div>
     {{--                /app-page-title--}}
@@ -146,35 +141,37 @@
 
 
                 <div class="card-header">
-                    {{ __('messages.UPDATE_EMPLOYEE_INFO') }}
+                    {{ __('messages.UPDATE_Company_INFO') }}
                 </div>
 
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <form method="POST" action="{{route('employee.update.profile',$employee->id)}}"
+                                {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
+
+                                <form method="POST" action="{{ route('super_admin.update_profile',$users->id) }}"
                                       class="container"
                                       enctype="multipart/form-data">
                                     @csrf
                                     @method('PATCH')
-                                    {{--upload image--}}
+                                    {{--                                      upload image--}}
                                     <div class="form-row">
                                         <div class="col-md-4" id="im">
                                             <div class="avatarContainer">
-                                                <label for="image"> Image Upload</label>
+                                                <label for="image"> logo</label>
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit">
-                                                        <input type='file' name="image"
-                                                               value="{{$employee->image}}"
+                                                        <input type='file' name="logo"
+                                                               value="{{$users->logo}}"
                                                                id="imageUpload"/>
                                                         <label for="imageUpload"></label>
                                                     </div>
                                                     <div class="avatar-preview">
 
-                                                        @if ("/images/{{$employee->image}}")
+                                                        @if ("/images/{{$users->logo}}")
                                                             <div id="clock"
-                                                                 style="background-image: url({{asset($employee->image)}});"
+                                                                 style="background-image: url({{asset($users->logo)}});"
                                                                  class="rounded-circle"
                                                                  height="40px" width="40px">
                                                             </div>
@@ -189,21 +186,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{--/upload image--}}
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> NOM </label>
+                                                <label> {{ __('messages.name') }} </label>
                                                 <input type="text" class="form-control" id="name" name="name"
-                                                       value="{{$employee->name }}">
+                                                       value="{{$users->name }}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">Email</label>
+                                                <label>{{ __('messages.email') }}</label>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                       value="{{$employee->email }}"
-                                                       class="@error('email', 'login') is-invalid @enderror" required>
+                                                       value="{{$users->email }}"
+                                                       class="@error('email', 'login') is-invalid @enderror"
+                                                       required>
                                                 @error('email', 'login')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
@@ -211,8 +208,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label>Password</label>
+                                                <label for="password">Password</label>
                                                 <input type="password" data-toggle="password" class="form-control"
+                                                       id="password" value="{{$users->password }}"
                                                        name="password">
                                             </div>
                                         </div>
@@ -220,49 +218,26 @@
                                     {{--  /partie email +adresse--}}
 
                                     <div class="form-row">
-                                        {{--   sex--}}
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="gender"> sex </label>
-                                                <select class="mb-2 form-control form-control" name="gender">
-                                                    <option value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
-                                                        femme
-                                                    </option>
-                                                    <option value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
-                                                        homme
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        {{--/sex--}}
                                         {{--mobile--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="mobile"> Mobile </label>
+                                                <label for="mobile"> {{ __('messages.mobile') }} </label>
                                                 <input type="tel" class="form-control" id="mobile"
-                                                       value="{{$employee->mobile}}"
+                                                       value="{{$users->mobile}}"
                                                        name="mobile">
                                             </div>
                                         </div>
                                         {{--/mobile--}}
                                     </div>
-                                    {{--skills--}}
-                                    <div class="position-relative form-group">
-                                        <div class="col-12">
-                                            <label for="skills">Compétence</label>
-                                            <input id="basic" type="text" name="skills" class="form-control"
-                                                   value="{{$employee->skills}}">
-                                        </div>
-                                    </div>
-                                    {{--skills--}}
+
+
                                     <div class="position-relative form-group">
                                         <div class="col-12 purple-border">
-                                            <label for="address">Adresse</label>
+                                            <label for="address">{{ __('messages.Address') }}</label>
                                             <textarea name="address" rows="5" id="exampleText" class="form-control">
-                                          {{$employee->address}}  </textarea>
+                                          {{$users->address}}  </textarea>
                                         </div>
                                     </div>
-
 
                                     <div class="d-block  card-footer">
                                         <button class="btn-wide btn btn-success" type="submit"><i
