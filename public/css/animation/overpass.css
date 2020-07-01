@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'Overpass';
+    font-style: normal;
+    font-weight: bold;
+    src: url('https://gabryxx7.github.io/css/overpass-bold.eot');
+    src: url('https://gabryxx7.github.io/css/overpass-bold.eot?') format('embedded-opentype'),
+         url('https://gabryxx7.github.io/css/overpass-bold.woff') format('woff'),
+         url('https://gabryxx7.github.io/css/overpass-bold.ttf') format('truetype');
+}
+
+
+@font-face {
+    font-family: 'Overpass';
+    font-style: normal;
+    font-weight: 500;
+    src: url('https://gabryxx7.github.io/css/overpass-regular.eot');
+    src: url('https://gabryxx7.github.io/css/overpass-regular.eot?') format('embedded-opentype'),
+         url('https://gabryxx7.github.io/css/overpass-regular.woff') format('woff'),
+         url('https://gabryxx7.github.io/css/overpass-regular.ttf') format('truetype');
+}
+
+
+@font-face {
+    font-family: 'Overpass';
+    font-style: normal;
+    font-weight: normal;
+    src: url('https://gabryxx7.github.io/css/overpass-light.eot');
+    src: url('https://gabryxx7.github.io/css/overpass-light.eot?') format('embedded-opentype'),
+         url('https://gabryxx7.github.io/css/overpass-light.woff') format('woff'),
+         url('https://gabryxx7.github.io/css/overpass-light.ttf') format('truetype');
+}
+
