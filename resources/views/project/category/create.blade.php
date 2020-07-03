@@ -13,7 +13,7 @@
                 <div class="page-title-icon">
                     <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
                 </div>
-                <div> Départment</div>
+                <div> <strong>          {{ __('messages.Category') }}</strong></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -74,7 +74,11 @@
                         </div>
                     </div>
                 </div>
-
+<div>
+    @foreach($categorys as $category)
+        <h1>{{$category->name}}</h1>
+    @endforeach
+</div>
 
             </div>
         </div>

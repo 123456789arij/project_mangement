@@ -61,19 +61,21 @@ Route::prefix('employee')->group(function () {
         Route::get('/projects/dashboard', 'employee\ProjectController@index')->name('employee.project');
 //task
         Route::get('/dashboard/tasks/', 'employee\TaskController@index')->name('employee.task');
-        Route::get('/{project}', 'employee\ProjectController@show')->name('employee.project.show');
-        Route::get('/tasks/create', 'employee\TaskController@create')->name('task.create');
-        Route::post('/tasks/store', 'employee\TaskController@store')->name('task.store');
-        Route::get('/{tasks}/employee', 'employee\TaskController@show')->name('employee.task.show');
-        Route::get('/{id}/task/edit', 'employee\TaskController@edit')->name('employee.task.edit');
+        Route::get('/{project}/project', 'employee\ProjectController@show')->name('employee.project.show');
+        Route::get('/tasks/create', 'employee\TaskController@create')->name('employee.task.create');
+        Route::post('/tasks/store', 'employee\TaskController@store')->name('employee.task.store');
+        Route::get('/{tasks}/task', 'employee\TaskController@show')->name('employee.task.show');
+        Route::get('/{task}/task/edit', 'employee\TaskController@edit')->name('employee.task.edit');
         Route::patch('/{id}/task/', 'employee\TaskController@update')->name('employee.task.update');
+        Route::delete('/{id}/task/', 'employee\TaskController@destroy')->name('employee.task.destroy');
+        Route::get('/calendar/tasks/', 'employee\CalendarTaskController@index')->name('calendar.task');
 //        feedback
         Route::get('/feedback', 'employee\CommentController@index')->name('employee.feedback');
         Route::get('/create/feedback', 'employee\CommentController@create')->name('employee.feedback.create');
         Route::post('/store/feedback', 'employee\CommentController@store')->name('employee.feedback.store');
 
         Route::prefix('discussions')->group(function () {
-            Route::get('/discussions', 'DiscussionController@discussions');
+            Route::get('/discussions', 'DiscussionController@discussions')->name('dashboard.discussions');
             Route::get('/messages', 'DiscussionController@getMyDiscussions');//WS list discussions
             Route::post('message', 'DiscussionController@saveMessage')->name('discussion.msg');
             //using contact ID instead of discussion ID cause of a MOBILE need
@@ -88,8 +90,8 @@ Route::prefix('employee')->group(function () {
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');
 
-        Route::get('/{id}/edit', 'employee\ProjectController@edit')->name('employee.project.edit');
-        Route::patch('/{id}', 'employee\ProjectController@update')->name('employee.project.update');
+        Route::get('/{id}/edit/projet', 'employee\ProjectController@edit')->name('employee.project.edit');
+        Route::patch('/{id}/projet', 'employee\ProjectController@update')->name('employee.project.update');
         Route::delete('/{id}', 'employee\ProjectController@destroy')->name('employee.project.destroy');
 
         Route::get('/membre/{id}', 'employee\ProjectController@afficher_membre_projet')->name('employee.membre_projet');
@@ -149,6 +151,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{id}', 'ClientController@update')->name('client.update');
         Route::delete('/{id}', 'ClientController@destroy')->name('client.destroy');
     });
+//    task calendar
     Route::get('/calendar', 'CalendarTaskController@index')->name('calendar');
 
     //task
@@ -169,11 +172,12 @@ Route::middleware('auth')->group(function () {
     });
     //fullcalender
     Route::prefix('event')->group(function () {
-        Route::get('/fullcalendareventmaster', 'EventController@index')->name('event');
-        Route::post('/fullcalendareventmaster/create', 'EventController@create');
-        Route::post('/fullcalendareventmaster/store', 'EventController@store')->name('admin.events.store');
-        Route::post('/fullcalendareventmaster/update', 'EventController@update')->name('admin.events.edit');
-        Route::post('/fullcalendareventmaster/delete', 'EventController@destroy')->name('admin.events.destroy');
+        Route::get('/fullcalendar', 'EventController@index')->name('event');
+        Route::get('/create', 'EventController@create')->name('events.create');
+        Route::post('/store', 'EventController@store')->name('admin.events.store');
+        Route::get('/{id}/edit', 'EventController@edit')->name('events.edit');
+        Route::patch('/{id}/', 'EventController@update')->name('events.update');
+        Route::post('/{id}/', 'EventController@destroy')->name('admin.events.destroy');
         Route::get('/{id}', 'EventController@show')->name('admin.events.show');
     });
 

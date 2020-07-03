@@ -195,9 +195,10 @@
                     <form action="{{route('employee.index')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                           method="get" role="search">
-                        <div style="float: right" class="container">
-                            <input type="text" name="search" placeholder="search" id="search">
+                        <div style="padding-left: 800px;"  class="container">
                             <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                            <input type="text" name="search" placeholder="search" id="search">
+
                         </div>
                     </form>
 
@@ -219,7 +220,7 @@
                         <tr>
                             <th scope="col">{{ __('messages.name') }}</th>
                             <th scope="col" id="employee">{{ __('messages.email') }}</th>
-                            <th scope="col" id="employee">{{ __('messages.role') }}</th>
+                            <th scope="col" id="employee">{{ __('messages.userRole') }}</th>
                             <th colspan="3">ACTIONS</th>
                         </tr>
                         </thead>
@@ -246,7 +247,7 @@
                                                     @endif
 
                                                 </div>
-                                                <div class="widget-subheading opacity-7">Web Developer</div>
+                                                <div class="widget-subheading opacity-7">{{$employee->specialty }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -273,7 +274,7 @@
                                                         <strong>
                                                             <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
                                                                style="font-size:20px;"></i>
-                                                            Edit
+                                                            {{ __('messages.edit') }}
                                                         </strong>
                                                     </a>
                                                 </li>

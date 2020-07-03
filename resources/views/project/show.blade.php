@@ -98,7 +98,7 @@
         #status {
             float: right;
             position: relative;
-            left: 250px;
+            left: 180px;
         }
 
         #edit {
@@ -170,7 +170,7 @@
                 </div>
                 <div>
                     <h5 class="page-title">
-                        {{__('messages.project') }} # {{$project->id}} - {{$project->name}}
+                     <strong> {{__('messages.project') }} # {{$project->id}} - {{$project->name}}</strong>
                     </h5>
                 </div>
                 <div id="status">
@@ -188,7 +188,7 @@
                 </div>
                 &nbsp;
                 @if(auth()->user())
-                    <button type="button" class="mr-2  btn-lg  btn btn-outline-primary" id="edit">
+                    <button type="button" class="mr-2  btn-lg  btn btn-outline-primary" id="edit" style="float: left">
                         <a href="{{route('project.edit',$project->id)}}">
                             <i class="pe-7s-note  btn-icon-wrapper"></i>{{ __('messages.update') }}
                         </a>
@@ -222,7 +222,7 @@
             <!------ carde tab ---------->
             <div class="mb-3 card">
                 <div class="card-header card-header-tab-animation">
-                    Projet
+                <strong>{{ __('messages.project') }}</strong>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -231,7 +231,7 @@
                             <div class="row">
                                 <div class="col-sm-8" style="max-height: 400px; overflow-y: auto;">
                                     <div class="panel-body b-all border-radius container" id="details_project">
-                                        <h5> {{ __('messages.Project Details') }}</h5>
+                                        <h5><strong>{{ __('messages.Project Details') }}</strong> </h5>
                                         {!! strip_tags($project->description) !!}
                                         <br>
                                     </div>
@@ -239,13 +239,13 @@
                                 <div class="col-sm-4" style="float: right">
                                     <div class="col-md-12">
                                         <div class="panel panel-inverse">
-                                            <div class="panel-heading">{{ __('messages.members') }}
+                                            <div class="panel-heading"><strong>{{ __('messages.members') }}</strong>
                                                 <span class="label label-rouded label-custom pull-right">
 {{$project->employees_count}}
                                                     </span>
                                             </div>
                                             <br>
-                                            <div class="panel-wrapper collapse in">
+                                            <div class="panel-wrapper">
                                                 <div class="panel-body container">
                                                     @foreach($project->employees as $employee)
                                                         <img src="{{asset($employee->image)}}"
@@ -275,12 +275,12 @@
                             </div>
                             <br> <br> <br>
                             <div class="card mb-3" style="max-width: 540px; position: center">
-                                <div class="panel-heading" id="CLIENT_DETAILS">{{ __('messages.CLIENT_DETAILS') }}</div>
+                                <div class="panel-heading" id="CLIENT_DETAILS"><strong>{{ __('messages.CLIENT_DETAILS') }}</strong></div>
                                 <div class="row no-gutters container">
                                     <div class="col-md-4">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ __('messages.name') }} :</h5>
-                                            <h5 class="card-title">{{ __('messages.email') }} :</h5>
+                                            <h5 class="card-title"><strong>{{ __('messages.name') }} :</strong></h5>
+                                            <h5 class="card-title"><strong>{{ __('messages.email') }} :</strong></h5>
                                         </div>
                                     </div>
                                     <div class="col-md-8">

@@ -6,12 +6,9 @@
             text-align: justify;
         }
 
-        #membres {
-            text-transform: capitalize;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 12px;
+        .pull-right {
+            float: right !important;
         }
-
         #create_department_btn {
             color: white;
             font-size: 18px;
@@ -27,6 +24,7 @@
         a:hover {
             text-decoration: none;
         }
+
         .active-purple-3 input[type=text] {
             border: 1px solid #ce93d8;
             box-shadow: 0 0 0 1px #ce93d8;
@@ -60,6 +58,24 @@
         .active-purple input[type=text] {
             border-bottom: 1px solid #ce93d8;
             box-shadow: 0 1px 0 0 #ce93d8;
+        }
+        /*  btn crud */
+        .m-r-10 {
+            margin-right: 10px !important;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 9px 20px;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
         }
     </style>
 @endsection
@@ -98,7 +114,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">{{ __('messages.departments') }}</div><br>
+                <div class="card-header">{{ __('messages.departments') }}</div>
+                <br>
                 @if(auth()->user())
                     <form action="{{route('department')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
@@ -114,7 +131,7 @@
                         <thead>
                         <tr class="text-center">
                             <th scope="col" style="text-align: justify"> {{ __('messages.departments') }}</th>
-                            <th colspan="2">Action</th>
+                            <th colspan="3">Action</th>
                         </tr>
                         </thead>
                         <tbody class="container text-center">
@@ -126,34 +143,58 @@
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading" id="name">
                                                     <a href="{{route('department.show',$department->id)}}"> {{ $department->name }}</a>
-                                                    &nbsp;&nbsp;
-                                                    <span class="badge badge-pill badge-success" id="membres">{{$department->employees_count}} &nbsp; Members</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </td>
+
 
                                 <td class="text-center">
-                                    <button class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
-                                        <a href="{{route('department.edit',$department->id)}}">
-                                            <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                        </a>
-                                    </button>
-                                </td>
-
-                                <td>
-                                    <form action="{{route('department.destroy',$department->id)}}"
-                                          method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper" style="font-size: 20px;"> </i>
+                                    <div class="btn-group dropdown m-r-10 open">
+                                        <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                type="button">
+                                            <i class="fa fa-ellipsis-h"></i>
                                         </button>
+                                        <ul role="menu" class="dropdown-menu pull-right">
+                                            <li>
+                                                <a href="{{route('department.edit',$department->id)}}">
+                                                    <strong>
+                                                        <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                           style="font-size:20px;"></i>
+                                                        {{ __('messages.edit') }}
+                                                    </strong>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{route('department.show',$department->id)}}">
+                                                    <strong> <i
+                                                            class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
+                                                            style="font-size: 20px;"></i>
+                                                        {{ __('messages.show') }}
+                                                    </strong>
+                                                </a>
+                                            </li>
 
-                                    </form>
+                                            <li>
+                                                <form action="{{route('department.destroy',$department->id)}}"
+                                                      method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    &nbsp;
+                                                    <button class="mr-2 btn-icon btn-icon-only btn">
+                                                        <strong>
+                                                            <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                               style="font-size: 20px;" id="delete">
+                                                            </i> {{ __('messages.delete') }}
+                                                        </strong>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
-
                             </tr>
 
 

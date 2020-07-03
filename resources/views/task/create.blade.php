@@ -13,7 +13,7 @@
                 <div class="page-title-icon">
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
-                <div> {{ __('messages.tasks') }}</div>
+                <div><strong>{{ __('messages.tasks') }}</strong></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -57,132 +57,262 @@
                 @endif
 
                 <div class="card-header">
-                    Ajouter une nouvelle Tâche
+                    <strong>{{ __('messages.add_new_task') }}</strong>
                 </div>
 
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('task.store') }}" class="container"
-                                      enctype="multipart/form-data">
-                                    {{--  partie email +adresse--}}
-                                    {{csrf_field()}}
-                                    <div class="form-row">
+                                @if(auth()->user()&& auth()->user()->role_id ==  1)
+                                    <form method="POST" action="{{ route('task.store') }}" class="container"
+                                          enctype="multipart/form-data">
+                                        {{--  partie email +adresse--}}
+                                        {{csrf_field()}}
+                                        <div class="form-row">
 
-                                        <div class="col-12 ">
-                                            <div class="position-relative form-group">
-                                                <label> {{ __('messages.title') }}</label>
-                                                <input type="text" class="form-control" id="titre" name="title"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group" for="projet_id">
-                                                <label><strong>Projet </strong></label>
-                                                <select class="mb-2 form-control-lg form-control" name="project_id"
-                                                        id="project_id">
-                                                    <option value="">select projet</option>
-                                                    @foreach( $projects as $project )
-                                                        <option value="{{$project->id}}"> {{$project->name}} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        {{--bouton radio--}}
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label>
-                                                    <strong> Priorité </strong>
-                                                </label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="priority"
-                                                           value="1"
-                                                           @if (old('priority')=="Medium")  checked @endif >
-                                                    <label class="form-check-label">
-                                                        Medium
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="priority"
-                                                           value="2"
-                                                           @if (old('priority')=="Low")  checked @endif >
-                                                    <label class="form-check-label">
-                                                        Low
-                                                    </label>
-                                                </div>
-
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="priority"
-                                                           value="3"
-                                                           @if (old('priority') == "High") checked @endif >
-                                                    <label class="form-check-label" for="exampleRadios3">
-                                                        High
-                                                    </label>
+                                            <div class="col-12 ">
+                                                <div class="position-relative form-group">
+                                                    <label> <strong>{{ __('messages.title') }}</strong></label>
+                                                    <input type="text" class="form-control" id="titre" name="title"
+                                                           required>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- /bouton radio--}}
-                                    </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group" for="projet_id">
+                                                    <label><strong>{{ __('messages.project') }}</strong></label>
+                                                    <select class="mb-2 form-control-lg form-control" name="project_id"
+                                                            id="project_id">
+                                                        <option value="">{{ __('messages.selectproject') }}</option>
+                                                        @foreach( $projects as $project )
+                                                            <option
+                                                                value="{{$project->id}}"> {{$project->name}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{--bouton radio--}}
+                                            <div class="col-md-6">
+                                                <div class="position-relative form-group">
+                                                    <label>
+                                                        <strong>{{ __('messages.Priority') }} </strong>
+                                                    </label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                               value="1"
+                                                               @if (old('priority')=="Medium")  checked @endif >
+                                                        <label class="form-check-label">
+                                                            Medium
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                               value="2"
+                                                               @if (old('priority')=="Low")  checked @endif >
+                                                        <label class="form-check-label">
+                                                            Low
+                                                        </label>
+                                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="col-4">
-                                            <div class="position-relative form-group">
-                                                <label for="start_date"> Date de début </label>
-                                                <input type="date" class="form-control date"
-                                                       name="start_date" required>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="priority"
+                                                               value="3"
+                                                               @if (old('priority') == "High") checked @endif >
+                                                        <label class="form-check-label" for="exampleRadios3">
+                                                            High
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- /bouton radio--}}
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="col-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="start_date">
+                                                        <strong> {{ __('messages.Start Date') }}  </strong> </label>
+                                                    <input type="date" class="form-control date"
+                                                           name="start_date" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="position-relative form-group">
+                                                    <label for="end_date">
+                                                        <strong> {{ __('messages.due date') }}</strong></label>
+                                                    <input type="date" class="form-control date"
+                                                           name="end_date" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="position-relative form-group">
+                                                    <label> <strong> {{ __('messages.assigned to') }}</strong></label>
+                                                    <select name="ids[]" multiple
+                                                            class="mb-2 form-control-lg form-control">
+                                                        @foreach($employees as $emplyoee)
+                                                            <option
+                                                                value="{{$emplyoee->id}}"> {{$emplyoee->name}} </option>
+                                                        @endforeach
+                                                    </select>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="position-relative form-group">
-                                                <label for="end_date"> Date limite</label>
-                                                <input type="date" class="form-control date"
-                                                       name="end_date" required>
+
+
+                                        <div class="divider"></div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <label
+                                                    for="description"><strong> {{ __('messages.task description') }}  </strong></label>
+                                                <textarea id="textarea" name="description"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="position-relative form-group">
-                                                <label> Assigné à</label>
-                                                <select name="ids[]" multiple class="mb-2 form-control-lg form-control">
-                                                    @foreach($employees as $emplyoee)
-                                                        <option value="{{$emplyoee->id}}"> {{$emplyoee->name}} </option>
-                                                    @endforeach
-                                                </select>
+                                        <br>
+                                        <br>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <label for="image_name"> importer vos fichier :</label>
+                                                {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
+                                                <input type="file" name="file[]" multiple/>
 
                                             </div>
                                         </div>
-                                    </div>
-
-
-                                    <div class="divider"></div>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <label for="description"><strong> Déscription du Tâche </strong></label>
-                                            <textarea id="textarea" name="description"></textarea>
+                                        <br>
+                                        <br>
+                                        <div class="d-block text-center">
+                                            <button class="btn btn-lg btn-success" type="submit"
+                                                    style="float:left;">{{ __('messages.Save') }}</button>
                                         </div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="form-row">
-                                        <div class="col-md-12">
-                                            <label for="image_name"> importer vos fichier :</label>
-                                            {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
-                                            <input type="file" name="file[]" multiple/>
 
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
-                                    </div>
+                                    </form>
+                                @endif
+                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                                        <form method="POST" action="{{ route('employee.task.store') }}" class="container"
+                                              enctype="multipart/form-data">
+                                            {{--  partie email +adresse--}}
+                                            {{csrf_field()}}
+                                            <div class="form-row">
 
-                                </form>
+                                                <div class="col-12 ">
+                                                    <div class="position-relative form-group">
+                                                        <label> <strong>{{ __('messages.title') }}</strong></label>
+                                                        <input type="text" class="form-control" id="titre" name="title"
+                                                               required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group" for="projet_id">
+                                                        <label><strong>{{ __('messages.project') }}</strong></label>
+                                                        <select class="mb-2 form-control-lg form-control" name="project_id"
+                                                                id="project_id">
+                                                            <option value="">{{ __('messages.selectproject') }}</option>
+                                                            @foreach( $projects as $project )
+                                                                <option
+                                                                    value="{{$project->id}}"> {{$project->name}} </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                {{--bouton radio--}}
+                                                <div class="col-md-6">
+                                                    <div class="position-relative form-group">
+                                                        <label>
+                                                            <strong>{{ __('messages.Priority') }} </strong>
+                                                        </label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="priority"
+                                                                   value="1"
+                                                                   @if (old('priority')=="Medium")  checked @endif >
+                                                            <label class="form-check-label">
+                                                                Medium
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="priority"
+                                                                   value="2"
+                                                                   @if (old('priority')=="Low")  checked @endif >
+                                                            <label class="form-check-label">
+                                                                Low
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="priority"
+                                                                   value="3"
+                                                                   @if (old('priority') == "High") checked @endif >
+                                                            <label class="form-check-label" for="exampleRadios3">
+                                                                High
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{-- /bouton radio--}}
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="col-4">
+                                                    <div class="position-relative form-group">
+                                                        <label for="start_date"><strong> {{ __('messages.Start Date') }}  </strong>  </label>
+                                                        <input type="date" class="form-control date"
+                                                               name="start_date" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="position-relative form-group">
+                                                        <label for="end_date">
+                                                            <strong> {{ __('messages.due date') }}</strong></label>
+                                                        <input type="date" class="form-control date"
+                                                               name="end_date">
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="position-relative form-group">
+                                                        <label> <strong> {{ __('messages.assigned to') }}</strong></label>
+                                                        <select name="ids[]" multiple
+                                                                class="mb-2 form-control-lg form-control">
+                                                            @foreach($employees as $emplyoee)
+                                                                <option
+                                                                    value="{{$emplyoee->id}}"> {{$emplyoee->name}} </option>
+                                                            @endforeach
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="divider"></div>
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <label
+                                                        for="description"><strong> {{ __('messages.task description') }}  </strong></label>
+                                                    <textarea id="textarea" name="description"></textarea>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="form-row">
+                                                <div class="col-md-12">
+                                                    <label for="image_name"> importer vos fichier :</label>
+                                                    {{--                                            <span id="drag-drop-area"  name="image_name"> </span>--}}
+                                                    <input type="file" name="file[]" multiple/>
+
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="d-block text-center">
+                                                <button class="btn btn-lg btn-success" type="submit"
+                                                        style="float:left;">{{ __('messages.Save') }}</button>
+                                            </div>
+
+                                        </form>
+                                @endif
                             </div>
                         </div>
                     </div>

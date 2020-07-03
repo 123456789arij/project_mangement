@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Employee extends Authenticatable
 {
@@ -14,12 +15,15 @@ class Employee extends Authenticatable
     protected $guard = 'employee';
 
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'gender', 'skills', 'image', 'address', 'joining_date', 'department_id', 'mobile',
+        'name', 'email', 'password', 'role', 'gender', 'skills', 'image', 'address', 'joining_date', 'department_id', 'mobile', 'specialty'
     ];
 
     protected $hidden = [
         'password',
     ];
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function discussions()
     {
@@ -65,8 +69,9 @@ class Employee extends Authenticatable
             group by `discussions`.`id`"));
     }
 
-    public function getOpenDiscussions($iPage = 1){
-       // $relations = $this->getRelationsIds();
+    public function getOpenDiscussions($iPage = 1)
+    {
+        // $relations = $this->getRelationsIds();
         $perPage = 10;
         $iPage = (int)$iPage ? abs($iPage) : 1;
         $offset = ($iPage - 1) * $perPage;
@@ -76,7 +81,7 @@ class Employee extends Authenticatable
             ->limit($perPage)
             ->get();
 
-        foreach($discussions as $key => &$discussion){
+        foreach ($discussions as $key => &$discussion) {
             $discussion->fillExtraFields($this->id);
         }
         return $discussions;

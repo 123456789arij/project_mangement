@@ -43,7 +43,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
                 <div class="card-header">
-                    {{ __('messages.UPDATE_DEPARTMENT')}}
+                <strong>  {{ __('messages.UPDATE_DEPARTMENT')}}</strong>
                 </div>
 
                 <div class="tab-content">
@@ -58,16 +58,14 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label>{{ __('messages.department') }}</label>
+                                                <label> <strong>{{ __('messages.department') }}</strong></label>
                                                 <input type="text" class="form-control" name="name"
                                                        value="{{$department->name}}">
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="d-block  card-footer">
-                                        <button class="btn-wide btn btn-success" type="submit"><i
-                                                class="fas fa-check"></i> {{ __('messages.update') }}</button>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-md btn-success" type="submit" style="float:left;" >{{ __('messages.update') }}</button>
                                     </div>
                                 </form>
                             </div>

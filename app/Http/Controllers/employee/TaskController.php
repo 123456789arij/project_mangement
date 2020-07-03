@@ -75,7 +75,17 @@ class TaskController extends Controller
     {
         if (auth()->guard('employee')->user()->role == 2) {
             $employees = auth()->guard('employee')->user();
-            $projects = $employees->projects()->get();
+//            $projects = $employees->projects()->get();
+            $projects = Project::whereHas('client', function (Builder $query) {
+                $query->whereHas('user', function (Builder $query) {
+                    $query->whereHas('departments', function (Builder $query) {
+                        $query->where('id', auth()->guard('employee')->user()->department_id);
+                    });
+                });
+            })->get();
+            $employees = Employee::whereHas('department', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            })->get();
             return view('task.create', compact('projects', 'employees'));
         }
     }
@@ -94,7 +104,7 @@ class TaskController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'priority' => 'required',
-            'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
+//            'file' => 'required|file|mimes:doc,docx,pdf,txt|max:2048',
         ]);
 
         $task = new Task();
@@ -111,17 +121,17 @@ class TaskController extends Controller
         $emplyeeIds = $request->input('ids');
         $task->save();
         $task->employees()->sync($emplyeeIds);
+        /*
+                if ($files = $request->file('file')) {
 
-        if ($files = $request->file('file')) {
-
-            $destinationPath = '/files/';
-            $file_doc = time() . "." . $files->getClientOriginalExtension();
-            $files->move(public_path('files'), $file_doc);
-            $file = new File();
-            $file->path = $destinationPath . $file_doc;
-            $task->files()->save($file);
-        }
-        return redirect()->route('task')->with('toast_success', 'task  is successfully saved');
+                    $destinationPath = '/files/';
+                    $file_doc = time() . "." . $files->getClientOriginalExtension();
+                    $files->move(public_path('files'), $file_doc);
+                    $file = new File();
+                    $file->path = $destinationPath . $file_doc;
+                    $task->files()->save($file);
+                }*/
+        return redirect()->route('employee.task')->with('toast_success', 'task  is successfully saved');
     }
 
     /**
@@ -154,7 +164,11 @@ class TaskController extends Controller
                 });
             });
         })->get();
-        return view('task.edit', compact('task', 'projects'));
+
+        $employees = Employee::whereHas('department', function (Builder $query) {
+            $query->where('id', auth()->guard('employee')->user()->department_id);
+        })->get();
+        return view('employee.task.edit', compact('task', 'projects', 'employees'));
     }
 
     /**
@@ -185,7 +199,7 @@ class TaskController extends Controller
         $emplyeeIds = $request->input('ids');
         $task->save();
         $task->employees()->sync($emplyeeIds);
-        return redirect()->route('task')->with('toast_success', 'task is successfully updated');
+        return redirect()->route('employee.task')->with('toast_success', 'task is successfully updated');
     }
 
     /**
@@ -196,7 +210,12 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->guard('employee')->user() && auth()->guard('employee')->user()->role == 2) {
+            $task = Task::findOrFail($id);
+            $task->delete();
+            return redirect()->route('employee.task')->with('success', 'task is successfully deleted');
+        }
+
     }
 
 

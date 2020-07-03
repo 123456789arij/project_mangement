@@ -12,7 +12,7 @@
                 <div class="page-title-icon">
                     <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
-                <div> {{ __('messages.projects') }}</div>
+                <div> <strong>{{ __('messages.projects') }}</strong></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -47,11 +47,9 @@
                         </ul>
                     </div>
                 @endif
-
                 <div class="card-header">
-                    {{ __('messages.add_new_Project') }}
+                   <strong>{{ __('messages.add_new_Project') }}</strong>
                 </div>
-
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
@@ -63,7 +61,7 @@
                                         {{csrf_field()}}
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label for="name"> nom du projet </label>
+                                                <label for="name"> <strong>{{ __('messages.project name') }}</strong> </label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
@@ -72,8 +70,9 @@
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label>categories </label>
+                                                <label><strong>{{ __('messages.ProjectCategory') }}</strong></label>
                                                 <select class="mb-2 form-control-lg form-control" name="category_id">
+                                                    <option value=""> {{ __('messages.selectCategory') }}</option>
                                                     @foreach($categories as $category)
                                                         <option
                                                             value="{{$category->id}}"> {{$category->name}} </option>
@@ -86,9 +85,9 @@
                                     <div class="form-row">
                                         <div class="col-12">
                                             <div class="position-relative form-group" for="client_id">
-                                                <label>Sélectionnez un client</label>
+                                                <label><strong> {{ __('messages.client') }}</strong></label>
                                                 <select class="mb-2 form-control-lg form-control" name="client_id">
-                                                    <option value="">Choose....</option>
+                                                    <option value="">{{ __('messages.selectClient') }}</option>
                                                     @foreach($clients as $client)
                                                         <option
                                                             value="{{$client->id}}"> {{$client->name}} </option>
@@ -101,21 +100,21 @@
                                     <div class="form-row">
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="start_date"> Date de début </label>
+                                                <label for="start_date"><strong> {{ __('messages.Start Date') }}  </strong></label>
                                                 <input type="date" class="form-control" id="start_date"
                                                        name="start_date" required>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="deadline"> Date limite</label>
+                                                <label for="deadline"><strong> {{ __('messages.due date') }}</strong></label>
                                                 <input type="date" class="form-control" id="deadline"
                                                        name="deadline" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="status"> L'état du projet </label>
+                                                <label for="status"> <strong>Ètat du projet </strong></label>
                                                 <select class="mb-2 form-control form-control" name="status" required>
                                                     <option value="1"
                                                             @if (old('status')=="pas encore commencé")  checked @endif >
@@ -146,16 +145,15 @@
                                     <div class="divider"></div>
                                     <br>
                                     <div class="col">
-                                        <label><strong> Déscription du projet </strong></label>
+                                        <label><strong> {{ __('messages.Project description') }}  </strong></label>
                                         <textarea id="textarea" name="description"></textarea>
                                     </div>
                                     <br>
-                                    <input type="file" name="file" class="form-control-file">
-                                    <br> <br>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <label for="file"><strong> {{ __('messages.file') }}</strong></label>
+                                    <input type="file" name="file" class="form-control-file container">
+                                    <br><br><br>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-lg btn-success" type="submit" style="float:left;" >{{ __('messages.Save') }}</button>
                                     </div>
 
                                 </form>

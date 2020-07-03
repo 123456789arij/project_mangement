@@ -77,7 +77,7 @@
 
         /*bordure de adresse*/
         .purple-border textarea {
-            border: 1px solid #ba68c8;
+            border: 1px solid #black;
         }
 
         .purple-border .form-control:focus {
@@ -146,7 +146,7 @@
 
 
                 <div class="card-header">
-                    {{ __('messages.UPDATE_EMPLOYEE_INFO') }}
+                    <strong>{{ __('messages.UPDATE_EMPLOYEE_INFO') }}</strong>
                 </div>
 
                 <div class="tab-content">
@@ -164,7 +164,9 @@
                                         <div class="form-row">
                                             <div class="col-md-4" id="im">
                                                 <div class="avatarContainer">
-                                                    <label for="image"> Image Upload</label>
+                                                    <label
+                                                        for="image"><strong>{{ __('messages.ProfileImage') }} </strong>
+                                                    </label>
                                                     <div class="avatar-upload">
                                                         <div class="avatar-edit">
                                                             <input type='file' name="image"
@@ -194,14 +196,14 @@
                                         <div class="form-row">
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="name"> NOM </label>
+                                                    <label for="name"><strong>{{ __('messages.name') }}</strong></label>
                                                     <input type="text" class="form-control" id="name" name="name"
                                                            value="{{$employee->name }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="email">Email</label>
+                                                    <label for="email"><strong>{{ __('messages.email') }}</strong></label>
                                                     <input type="email" class="form-control" id="email" name="email"
                                                            value="{{$employee->email }}"
                                                            class="@error('email', 'login') is-invalid @enderror"
@@ -213,7 +215,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="password">Password</label>
+                                                    <label for="password"><strong>{{ __('messages.Password') }}</strong></label>
                                                     <input type="password" data-toggle="password" class="form-control"
                                                            id="password"
                                                            name="password">
@@ -226,7 +228,7 @@
                                             {{--  date d'inscription--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="joining_date"> date d'inscription </label>
+                                                    <label for="joining_date"><strong>{{ __('messages.Joining_Date') }}</strong></label>
                                                     <input type="date" class="form-control" id="joining_date"
                                                            value="{{$employee->joining_date}}"
                                                            name="joining_date">
@@ -236,15 +238,15 @@
                                             {{--   sex--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="gender"> sex </label>
+                                                    <label for="gender"><strong>{{ __('messages.gender') }}</strong></label>
                                                     <select class="mb-2 form-control form-control" name="gender">
                                                         <option
                                                             value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
-                                                            femme
+                                                            {{ __('messages.female') }}
                                                         </option>
                                                         <option
                                                             value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
-                                                            homme
+                                                            {{ __('messages.male') }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -253,7 +255,7 @@
                                             {{--mobile--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="mobile"> Mobile </label>
+                                                    <label for="mobile"><strong>{{ __('messages.mobile') }}</strong>    </label>
                                                     <input type="tel" class="form-control" id="mobile"
                                                            value="{{$employee->mobile}}"
                                                            name="mobile">
@@ -265,43 +267,44 @@
 
                                         <div class="position-relative form-group">
                                             <div class="col-12 purple-border">
-                                                <label for="address">Adresse</label>
+                                                <label for="address"><strong>{{ __('messages.Address') }}</strong></label>
                                                 <textarea name="address" rows="5" id="exampleText" class="form-control">
                                           {{$employee->address}}  </textarea>
                                             </div>
                                         </div>
                                         <div class="position-relative form-group">
                                             <div class="col-12">
-                                                <label for="skills">Compétence</label>
+                                                <label for="skills"><strong> {{ __('messages.skills') }}</strong></label>
                                                 <input id="basic" type="text" name="skills" class="form-control"
                                                        value="{{$employee->skills}}">
                                             </div>
                                         </div>
                                         {{--  row role et departement--}}
                                         <div class="form-row">
-                                            <div class="col-md-4">
+                                            <div class="col">
                                                 <label for="role">
-                                                    <strong> role</strong>
+                                                    <strong> {{ __('messages.role') }}</strong>
                                                 </label>
                                                 <div class="custom-control custom-radio">
                                                     <input class="custom-control-input" id="1" type="radio" name="role"
                                                            value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
                                                     <label class="custom-control-label" for="1">
-                                                        Employée
+                                                        {{ __('messages.employee') }}
                                                     </label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
                                                     <input class="custom-control-input" type="radio" name="role" id="2"
                                                            value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
                                                     <label class="custom-control-label" for="2">
-                                                        Chef de projet
+                                                        {{ __('messages.projectManager') }}
                                                     </label>
                                                 </div>
                                             </div>
+
                                             {{--    Département--}}
                                             <div class="col-md-6">
                                                 <div class="position-relative form-group" for="department_id">
-                                                    <label>Département</label>
+                                                    <label><strong> {{ __('messages.department') }}</strong></label>
                                                     <select class="mb-2 form-control-lg form-control"
                                                             name="department_id">
                                                         @foreach( $departments as $department)
@@ -331,7 +334,7 @@
                                         <div class="form-row">
                                             <div class="col-md-4" id="im">
                                                 <div class="avatarContainer">
-                                                    <label for="image"> Image Upload</label>
+                                                    <label for="image"> <strong>{{ __('messages.ProfileImage') }} </strong></label>
                                                     <div class="avatar-upload">
                                                         <div class="avatar-edit">
                                                             <input type='file' name="image"
@@ -361,14 +364,14 @@
                                         <div class="form-row">
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="name"> NOM </label>
+                                                    <label for="name"> <strong> {{ __('messages.name') }}</strong> </label>
                                                     <input type="text" class="form-control" id="name" name="name"
                                                            value="{{$employee->name }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="email">Email</label>
+                                                    <label for="email"><strong>{{ __('messages.email') }}</strong></label>
                                                     <input type="email" class="form-control" id="email" name="email"
                                                            value="{{$employee->email }}"
                                                            class="@error('email', 'login') is-invalid @enderror"
@@ -380,7 +383,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="password">Password</label>
+                                                    <label for="password"><strong>{{ __('messages.Password') }}</strong></label>
                                                     <input type="password" data-toggle="password" class="form-control"
                                                            id="password"
                                                            name="password">
@@ -393,7 +396,7 @@
                                             {{--  date d'inscription--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="joining_date"> date d'inscription </label>
+                                                    <label for="joining_date">    <strong>{{ __('messages.Joining_Date') }}  </strong></label>
                                                     <input type="date" class="form-control" id="joining_date"
                                                            value="{{$employee->joining_date}}"
                                                            name="joining_date">
@@ -403,15 +406,15 @@
                                             {{--   sex--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="gender"> sex </label>
+                                                    <label for="gender"> <strong>{{ __('messages.gender') }} </strong></label>
                                                     <select class="mb-2 form-control form-control" name="gender">
                                                         <option
                                                             value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
-                                                            femme
+                                                            {{ __('messages.female') }}
                                                         </option>
                                                         <option
                                                             value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
-                                                            homme
+                                                            {{ __('messages.male') }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -420,7 +423,7 @@
                                             {{--mobile--}}
                                             <div class="col-md-4">
                                                 <div class="position-relative form-group">
-                                                    <label for="mobile"> Mobile </label>
+                                                    <label for="mobile"><strong>{{ __('messages.mobile') }}</strong></label>
                                                     <input type="tel" class="form-control" id="mobile"
                                                            value="{{$employee->mobile}}"
                                                            name="mobile">
@@ -432,43 +435,47 @@
 
                                         <div class="position-relative form-group">
                                             <div class="col-12 purple-border">
-                                                <label for="address">Adresse</label>
+                                                <label for="address"><strong>{{ __('messages.Address') }}</strong></label>
                                                 <textarea name="address" rows="5" id="exampleText" class="form-control">
                                           {{$employee->address}}  </textarea>
                                             </div>
                                         </div>
                                         <div class="position-relative form-group">
                                             <div class="col-12">
-                                                <label for="skills">Compétence</label>
+                                                <label for="skills"><strong> {{ __('messages.skills') }}</strong></label>
                                                 <input id="basic" type="text" name="skills" class="form-control"
                                                        value="{{$employee->skills}}">
                                             </div>
                                         </div>
                                         {{--  row role et departement--}}
                                         <div class="form-row">
-                                            <div class="col-md-4">
+                                            <div class="col">
                                                 <label for="role">
-                                                    <strong> role</strong>
+                                                    <strong> {{ __('messages.role') }}</strong>
                                                 </label>
                                                 <div class="custom-control custom-radio">
                                                     <input class="custom-control-input" id="1" type="radio" name="role"
                                                            value="1" {{ $employee->role == '1' ? 'checked' : ''}} >
                                                     <label class="custom-control-label" for="1">
-                                                        Employée
+                                                        {{ __('messages.employee') }}
                                                     </label>
                                                 </div>
                                                 <div class="custom-control custom-radio">
                                                     <input class="custom-control-input" type="radio" name="role" id="2"
                                                            value="2" {{ $employee->role == '2' ? 'checked' : ''}} >
                                                     <label class="custom-control-label" for="2">
-                                                        Chef de projet
+                                                        {{ __('messages.projectManager') }}
                                                     </label>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="specialty"><strong>{{ __('messages.specialty') }}</strong></label>
+                                                <input type="text" class="form-control" name="specialty"  value="{{$employee->specialty}}">
                                             </div>
                                             {{--    Département--}}
                                             <div class="col-md-6">
                                                 <div class="position-relative form-group" for="department_id">
-                                                    <label>Département</label>
+                                                    <label><strong> {{ __('messages.department') }}</strong></label>
                                                     <select class="mb-2 form-control-lg form-control"
                                                             name="department_id">
                                                         @foreach( $departments as $department)
@@ -481,7 +488,7 @@
                                             {{--/departement--}}
                                         </div>
 
-                                        <div class="d-block  card-footer">
+                                        <div class="d-block">
                                             <button class="btn-wide btn btn-success" type="submit"><i
                                                     class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                         </div>

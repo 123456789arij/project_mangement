@@ -19,7 +19,8 @@
                 <div class="page-title-icon">
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
-                <div> {{ __('messages.task') }} &nbsp; #{{$task->id}}
+                <div><strong style="text-transform:capitalize ;">{{ __('messages.task') }} &nbsp;
+                        #{{$task->title}}</strong>
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -44,17 +45,8 @@
         <div class="col-md-12">
             <!------ carde tab ---------->
             <div class="mb-3 card">
-                <div class="card-header card-header-tab-animation">
-                    <ul class="nav nav-justified">
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-0" class="active nav-link">Task</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-1" class="nav-link">Membre</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> Tache</a>
-                        </li>
-                        <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link"> facture</a>
-                        </li>
-                    </ul>
+                <div class="card-header">
+                    <strong> {{ __('messages.task') }}  </strong>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -77,19 +69,19 @@
                             <br>
                             <div class="row">
                                 <div class="col-4">
-                                    <label> {{$task->title}}</label>
+                                    <label> <strong>{{$task->title}}</strong></label>
 
                                     @if($task->priority == 0)
                                         <span class="badge badge-pill"
-                                              style="background-color: #fcf2ed;font-size: 75%;border-radius: 60px;">Priority =>
+                                              style="background-color: #fcf2ed;font-size: 80%;border-radius: 60px;">{{ __('messages.Priority') }}  =>
                                                 <label style="color: #fec107;">Medium</label> </span>
                                     @elseif($task->priority == 1)
                                         <span class="badge badge-pill"
-                                              style="background-color: #fcf2ed;font-size: 75%;border-radius: 60px;">Priority =>
+                                              style="background-color: #fcf2ed;font-size: 80%;border-radius: 60px;">Priority =>
                                                 <label style="color: #00c292;">Low</label> </span>
                                     @elseif($task->priority == 2)
                                         <span class="badge badge-pill"
-                                              style="background-color: #fcf2ed;font-size: 75%;border-radius: 60px;">Priority =>
+                                              style="background-color: #fcf2ed;font-size: 80%;border-radius: 60px;">Priority =>
                                                 <label style="color: #e15931">High</label> </span>
                                     @endif
                                 </div>
@@ -103,11 +95,11 @@
                                 <div class="main-card mb-3 card">
                                     {{--                                    <div class="card-header">Client</div>--}}
                                     <div class="card-body">
-                                        <h4 class="card-title"> {{ __('messages.Task_Details') }}</h4>
+                                        <h4 class="card-title"> <strong>{{ __('messages.Task_Details') }}</strong></h4>
                                         {!! strip_tags($task->description) !!}
 
                                         <div>
-                                            Due Date : {{$task->end_date }} &nbsp;
+                                            <strong>{{ __('messages.due date') }}:&nbsp; {{$task->end_date }} </strong>
 
                                             @if($task->status === 1)
                                                 <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
@@ -153,7 +145,7 @@
                                     <div class="form-group">
                                         <strong>
                                             <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                                           Post Comment </strong>
+                                            Post Comment </strong>
                                         <form method="post" action="{{ route('feedback.store') }}">
                                             @csrf
                                             <div class="form-group">
@@ -175,32 +167,6 @@
                             </div>
                         </div>
                         {{--projet--}}
-                        <div class="tab-pane" id="tab-eg115-1" role="tabpanel">
-                            <h4>Membre du projet</h4>
-                            <div class="row">
-                                <div class="col-6">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">role</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-6">
-                                    <h2>Ajouter les Membre du projets </h2>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab-eg115-2" role="tabpanel">
-                            <button>Ajouter une Nouvelle tache</button>
-                        </div>
                     </div>
                 </div>
             </div>

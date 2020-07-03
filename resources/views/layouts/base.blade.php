@@ -9,7 +9,7 @@
     <title>Gestion Des Projets</title>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    {{--    <meta name="description" content="This is an example dashboard created using build-in elements and components.">--}}
     <meta name="msapplication-tap-highlight" content="no">
     <!--
     =========================================================
@@ -29,7 +29,12 @@
     <!-- fonte  CSS -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css">
-
+    <link rel="icon" type="image/png" href="{{asset('assets/images/fav.png')}}"/>
+    <style>
+        body {
+            text-transform: capitalize;
+        }
+    </style>
     @yield('cssBlock')
 </head>
 
@@ -37,7 +42,9 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
     <div class="app-header header-shadow">
         <div class="app-header__logo">
-            <div class="logo-src"></div>
+            {{--            <div class="logo-src"></div>--}}
+            {{-- logo de l'application--}}
+            <img src="{{asset('assets/images/dev_logo.png')}}" width="180px">
             <div class="header__pane ml-auto">
                 <div>
                     <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
@@ -73,9 +80,9 @@
             @include('layouts.header_right')
         </div>
     </div>
-    <div class="ui-theme-settings">
-        @include('layouts.theme')
-    </div>
+    {{--  <div class="ui-theme-settings">
+          @include('layouts.theme')
+      </div>--}}
     <div class="app-main">
         <div class="app-sidebar sidebar-shadow">
             <div class="app-header__logo">

@@ -171,12 +171,14 @@ class ProjectController extends Controller
 
     public function afficher_membre_projet($id)
     {
-        $project = Project::findOrfail($id);
-        $membres = $project->employees;
-        $employees = Employee::whereHas('department', function (Builder $query) {
-            $query->where('id', auth()->guard('employee')->user()->department_id);
-        })->get();
-        return view('employee.project.membre', compact('employees', 'membres', 'project'));
+        if (auth()->guard('employee')->user()->role == 2) {
+            $project = Project::findOrfail($id);
+            $membres = $project->employees;
+            $employees = Employee::whereHas('department', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            })->get();
+            return view('employee.project.membre', compact('employees', 'membres', 'project'));
+        }
     }
 
     public function membre_projet(Request $request)

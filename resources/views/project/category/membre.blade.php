@@ -14,21 +14,21 @@
                 <div class="page-title-icon">
                     <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
-                <h5> {{ __('messages.project') }} {{$project->id}} #-<strong>{{$project->name}}</strong></h5>
+                {{--                <h5> {{ __('messages.project') }} {{$project->id}} #-<strong>{{$project->name}}</strong></h5>--}}
             </div>
             {{--   /page-title-wrapper--}}
 
-            <div class="page-title-actions">
-                <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                         <span class="btn-icon-wrapper pr-2 opacity-7">
-                              <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
-                          </span>
-                        <a href="{{route('project.edit',$project->id)}}"
-                           style="color: white;font-size: 15px;">   {{__('messages.edit') }}</a>&nbsp;&nbsp;
-                    </button>
-                </div>
-            </div>
+            {{--    <div class="page-title-actions">
+                    <div class="d-inline-block dropdown text-center">
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                             <span class="btn-icon-wrapper pr-2 opacity-7">
+                                  <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>
+                              </span>
+                          --}}{{--  <a href="{{route('project.edit',$project->id)}}"
+                               style="color: white;font-size: 15px;">   {{__('messages.edit') }}</a>&nbsp;&nbsp;--}}{{--
+                        </button>
+                    </div>
+                </div>--}}
         </div>
     </div>
     {{--                /app-page-title--}}
@@ -41,59 +41,47 @@
         <div class="col-md-12">
             <!------ carde tab ---------->
             <div class="mb-3 card">
-                <div class="card-header">{{ __('messages.Project_Membres') }}</div>
+                <div class="card-header">{{ __('messages.ProjectCategory') }}</div>
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="row">
                             {{--                   Project_Membres             --}}
                             <div class="col-6">
-                                <h4 style="text-align: center">{{ __('messages.Project_Membres') }}</h4>
+                                <h4 style="text-align: justify">{{ __('messages.ProjectCategory') }}</h4>
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th scope="col">{{ __('messages.name') }}</th>
-                                        <th scope="col">{{ __('messages.role') }}</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($membres as $employee)
+                                    @foreach($categories as $category)
                                         <tr>
                                             <th scope="row">
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
-                                                        <div class="widget-content-left mr-3">
-                                                            <div class="widget-content-left">
-                                                                <img src="{{asset($employee->image)}}"
-                                                                     class="rounded-circle"
-                                                                     height="40px" width="40px" alt="im"/>
-                                                            </div>
-                                                        </div>
                                                         <div class="widget-content-left flex2">
                                                             <div class="widget-heading">
-                                                                {{$employee->name }}   </div>
-                                                            {{--                                                                <div class="widget-subheading opacity-7">Web Developer</div>--}}
+                                                                {{ $category->name }}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </th>
-                                            <td style="text-align: justify;">
-                                                @if($employee->role  == 1)
-                                                    <span> Employée</span>
-                                                @else
-                                                    <span>Chef De Projet</span>
-                                                @endif
+                                            <th scope="row">
+                                                <form action="{{route('category.destroy',$category->id)}}"
+                                                      method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
+                                                        <i class="pe-7s-trash btn-icon-wrapper"
+                                                           style="font-size: 20px;"> </i>
+                                                    </button>
 
-                                                {{--       <form action="{{ route('destroy_membre',$employee->id) }}"
-                                                                          method="post">.
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button
-                                                                            class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                                                            <i class="pe-7s-trash btn-icon-wrapper"
-                                                                               style="font-size: 20px;"> </i></button>
-
-                                                                    </form>--}}
-                                            </td>
+                                                </form>
+                                            </th>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -102,22 +90,24 @@
                             {{--                   /Project_Membres             --}}
                             {{--                                add_Project_Membres     --}}
                             <div class="col-6">
-                                <h4 style="text-align: center">{{ __('messages.add_Project_Membres') }} </h4>
-                                <form method="POST" action="{{route('membre')}}">
+                                <h4 style="text-align: center">{{ __('messages.add_new_Category') }} </h4>
+                                <form method="POST" action="{{ route('category.store') }}">
                                     @csrf
-                                    <input type="hidden" name="project_id" value="{{$project->id}}">
-                                    <select class="mb-2 form-control-lg form-control" name="employee_id[]" multiple>
-                                        @foreach($employees as $employee)
-                                            <option
-                                                value="{{$employee->id}}"{{ in_array($employee->id,$membres->pluck('id')->toArray()) ? 'selected' : '' }}>
-                                                {{$employee->name}} </option>
-                                        @endforeach
-                                    </select>
-                                    <br>
-                                    <button class="btn-wide btn btn-success" type="submit">
-                                        <i class="fas fa-check"></i>
-                                        {{ __('messages.Save') }}
-                                    </button>
+                                    <div class="form-row">
+                                        @csrf
+                                        <div class="col-12 ">
+                                            <div class="position-relative form-group">
+                                                <label for="name"> nom du category</label>
+                                                <input type="text" class="form-control" id="name" name="name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-md btn-success" type="submit"
+                                                style="float:left;">{{ __('messages.Save') }}</button>
+                                    </div>
+
                                 </form>
                             </div>
                             {{--                               / add_Project_Membres     --}}

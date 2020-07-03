@@ -33,7 +33,8 @@
                 <div class="page-title-icon">
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
-                <div> {{ __('messages.task') }} &nbsp; #{{$task->id}}
+                <div><strong style="text-transform:capitalize ;">{{ __('messages.task') }} &nbsp;
+                        #{{$task->title}}</strong>
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
@@ -59,7 +60,7 @@
             <!------ carde tab ---------->
             <div class="mb-3 card">
                 <div class="card-header">
-                    {{ __('messages.task') }}
+                   <strong>{{ __('messages.task') }}</strong>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">

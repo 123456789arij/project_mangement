@@ -101,7 +101,16 @@ class TaskController extends Controller
         $task->save();
         $task->employees()->sync($emplyeeIds);
 
+    /*    if ($files = $request->file('file')) {
+            $destinationPath = '/files/';
+            $file_doc = time() . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('files'), $file_doc);
+            $file = new File();
+            $file->path = $destinationPath . $file_doc;
+            $task->files()->save($file);
+        }*/
         if ($files = $request->file('file')) {
+
             $destinationPath = '/files/';
             $file_doc = time() . "." . $files->getClientOriginalExtension();
             $files->move(public_path('files'), $file_doc);
@@ -109,6 +118,7 @@ class TaskController extends Controller
             $file->path = $destinationPath . $file_doc;
             $task->files()->save($file);
         }
+
         return redirect()->route('task')->with('toast_success', 'task  is successfully saved');
     }
 

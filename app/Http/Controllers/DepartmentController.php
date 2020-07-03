@@ -63,8 +63,10 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        $department = Department::with('employees')->findorfail($id);
-        return view('department.show',compact('department'));
+        $department = Department::withCount('employees')->findorfail($id);
+//        $departmentemployee = Department::withCount('employees')->findorfail($id);
+//        dd($department);
+     return view('department.show',compact('department'));
     }
 
     /**

@@ -77,7 +77,7 @@
 
         /*bordure de adresse*/
         .purple-border textarea {
-            border: 1px solid #ba68c8;
+            border: 1px solid black;
         }
 
         .purple-border .form-control:focus {
@@ -103,7 +103,7 @@
                 <div class="page-title-icon">
                     <i class="far fa-user icon-gradient bg-arielle-smile"></i>
                 </div>
-                <div> Employée</div>
+                <div><strong>{{ __('messages.employee') }}</strong></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -142,14 +142,13 @@
 
 
                 <div class="card-header">
-                    Ajouter un nouveau Employée
+                    <strong> {{ __('messages.addNewEmployee') }} </strong>
                 </div>
 
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
                                 <form method="POST" action="{{ route('employee.store') }}" class="container"
                                       enctype="multipart/form-data">
                                     {{ csrf_field() }}
@@ -157,7 +156,7 @@
                                     <div class="form-row">
                                         <div class="col-md-4" id="im">
                                             <div class="avatarContainer">
-                                                <label> Image Upload</label>
+                                                <label><strong>{{ __('messages.ProfileImage') }} </strong></label>
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit">
                                                         <input type='file' name="image" value="{{ old('image') }}"
@@ -177,13 +176,13 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> {{ __('messages.name') }}</label>
+                                                <label for="name"><strong> {{ __('messages.name') }}</strong></label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">{{ __('messages.email') }}</label>
+                                                <label for="email"><strong>{{ __('messages.email') }}</strong></label>
                                                 <input type="email" class="form-control" id="email" name="email"
                                                        class="@error('email', 'login') is-invalid @enderror" required>
                                                 @error('email', 'login')
@@ -193,7 +192,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="password">{{ __('messages.Password') }}</label>
+                                                <label
+                                                    for="password"><strong>{{ __('messages.Password') }}</strong></label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
                                                        name="password" required>
@@ -206,7 +206,8 @@
                                         {{--  date d'inscription--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="joining_date"> {{ __('messages.Joining_Date') }}  </label>
+                                                <label for="joining_date">
+                                                    <strong>{{ __('messages.Joining_Date') }}  </strong></label>
                                                 <input type="date" class="form-control" id="joining_date"
                                                        name="joining_date">
                                             </div>
@@ -215,7 +216,8 @@
                                         {{--   sex--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="gender"> {{ __('messages.gender') }} </label>
+                                                <label for="gender">
+                                                    <strong>{{ __('messages.gender') }} </strong></label>
                                                 <select class="mb-2 form-control form-control" name="gender"
                                                         id="projet_id">
                                                     <option value="1" @if (old('gender')=="femme")  checked @endif >
@@ -228,51 +230,64 @@
                                             </div>
                                         </div>
                                         {{--/sex--}}
+                                        {{--mobile--}}
+                                        <div class="col-md-4">
+                                            <div class="position-relative form-group">
+                                                <label for="mobile"> <strong>{{ __('messages.mobile') }}</strong> </label>
+                                                <input type="tel" class="form-control" id="mobile" name="mobile">
+                                            </div>
+                                        </div>
+                                        {{--/mobile--}}
                                     </div>
 
 
                                     <div class="position-relative form-group">
-                                        <div class="col-12  purple-border">
-                                            <label for="address">Adresse</label>
+                                        <div class="col-12  black-border">
+                                            <label for="address"><strong>{{ __('messages.Address') }}</strong></label>
                                             <textarea name="address" id="exampleText" rows="5" class="form-control">
                                             </textarea>
                                         </div>
                                     </div>
                                     <div class="position-relative form-group">
                                         <div class="col-12">
-                                            <label for="skills">Compétence</label>
+                                            <label for="skills"> <strong> {{ __('messages.skills') }}</strong></label>
                                             <input id="basic" type="text" name="skills" class="form-control"
                                                    placeholder="Compétence">
                                         </div>
                                     </div>
                                     {{--  row role et departement--}}
                                     <div class="form-row">
-                                        <div class="col-md-4">
+                                        <div class="col">
                                             <label for="role">
-                                                <strong> role</strong>
+                                                <strong> {{ __('messages.role') }}</strong>
                                             </label>
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" id="1" type="radio" name="role"
                                                        value="1" @if (old('role')=="employee")  checked @endif >
                                                 <label class="custom-control-label" for="1">
-                                                    Employée
+                                                    {{ __('messages.employee') }}
                                                 </label>
                                             </div>
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" name="role" id="2"
                                                        value="2" @if (old('role')=="admin")  checked @endif >
                                                 <label class="custom-control-label" for="2">
-                                                    Chef De Projet
+                                                    {{ __('messages.projectManager') }}
                                                 </label>
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label
+                                                for="specialty"><strong>{{ __('messages.specialty') }}</strong></label>
+                                            <input type="text" class="form-control" name="specialty">
                                         </div>
                                         {{--    Département--}}
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="department_id">
-                                                <label>Département</label>
+                                                <label><strong> {{ __('messages.department') }}</strong></label>
                                                 <select class="mb-2 form-control-lg form-control"
                                                         name="department_id">
-                                                    <option value="">Choose....</option>
+                                                    <option value=""> {{ __('messages.selectDepartment') }} </option>
 
                                                     @foreach( $departments as $department)
                                                         <option
@@ -285,10 +300,9 @@
                                     </div>
 
                                     <br><br><br>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-lg btn-success" type="submit"
+                                                style="float:left;">{{ __('messages.Save') }}</button>
                                     </div>
 
                                 </form>

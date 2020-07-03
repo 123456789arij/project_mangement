@@ -355,7 +355,7 @@
             border-left: solid 2px #eee;
             padding: 0 0 23px 20px;
             font-size: 14px;
-            color: #787878;
+            color: #2F4F4F;
         }
 
         li {
@@ -406,10 +406,15 @@
             </div>
             {{--   /page-title-wrapper--}}
 
-            <div class="page-title-actions">
+          {{--  <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
+                            <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                                <a href="{{route('employee.edit',$employee->id)}}" id="edit_Projet_btn"
+                                   style="color: white;font-size: 15px;">
+                                    <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>  {{__('messages.edit') }}</a>
+                            </button>
                 </div>
-            </div>
+            </div>--}}
         </div>
     </div>
 
@@ -429,19 +434,21 @@
                     </figure>
                     <ul class="profile-information">
                         <li></li>
-                        <li><p><span>{{ __('messages.name') }} : {{$employee->name }}</span></p></li>
-                        <li><p><span> EMAIL: <br><br> {{$employee->email }}</span></p></li>
-                        <li><p><span>  {{ __('messages.Joining_Date') }}: &nbsp; {{$employee->joining_date}}</span></p>
+                        <li><p><span><strong>{{ __('messages.name') }} : {{$employee->name }}</strong></span></p></li>
+                        <li><p><span><strong> EMAIL: <br><br> {{$employee->email }}</strong></span></p></li>
+                        <li><p>
+                                <span><strong>  {{ __('messages.Joining_Date') }}: &nbsp; {{$employee->joining_date}}</strong></span>
+                            </p>
                         </li>
-                        <li><p><span>   {{ __('messages.gender') }}  :&nbsp;
+                        <li><p><span><strong>   {{ __('messages.gender') }}  :&nbsp;
                                     @if($employee->gender == '1')
-                                        {{ __('messages.female') }}
-                                    @else
-                                        {{ __('messages.male') }}
-                                    @endif</span></p></li>
-                        <li><p><span>     {{ __('messages.mobile') }}: &nbsp; {{$employee->mobile}}</span></p></li>
-                        <li><p><span>  {{ __('messages.Address') }}: &nbsp; {{$employee->address}} </span></p></li>
-                        <li><p><span>      {{ __('messages.skills') }}: <br> {{$employee->skills}}</span></p></li>
+                                            {{ __('messages.female') }}
+                                        @else
+                                            {{ __('messages.male') }}
+                                        @endif  </strong></span></p></li>
+                        <li><p><span>  <strong>   {{ __('messages.mobile') }}: &nbsp; {{$employee->mobile}} </strong></span></p></li>
+                        <li><p><span> <strong> {{ __('messages.Address') }}: &nbsp; {{$employee->address}} </strong></span></p></li>
+                        <li><p><span> <strong> {{ __('messages.skills') }}: <br>  {{$employee->skills}} </strong></span></p></li>
                     </ul>
                 </div>
             </div>
@@ -469,7 +476,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @if(auth()->user())
+                                                @if(auth()->user()&& auth()->user()->role_id ==  1)
                                                     @foreach($projects as $project)
                                                         <tr>
                                                             <td>
@@ -478,7 +485,7 @@
                                                             <td>{{ $project->deadline}}</td>
                                                             <td class="text-center">
                                                                 @if($project->progress_bar <50)
-                                                                    <h5>Progress
+                                                                    <h5> Progress
                                                                         <span class="pull-right">{{ $project->progress_bar }} %</span>
                                                                     </h5>
                                                                     <div class="progress">
@@ -530,7 +537,8 @@
                                                     @foreach($employee->projects as $project)
                                                         <tr>
                                                             <td>
-                                                                <a href="{{route('employee.project')}}">{{$project->name}}</a></td>
+                                                                <a href="{{route('employee.project')}}">{{$project->name}}</a>
+                                                            </td>
                                                             <td>{{ $project->deadline}}</td>
                                                             <td class="text-center">
                                                                 @if($project->progress_bar <50)
@@ -539,7 +547,8 @@
                                                                             class="pull-right">{{ $project->progress_bar }} %</span>
                                                                     </h5>
                                                                     <div class="progress">
-                                                                        <div class="progress-bar bg-danger" role="progressbar"
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
                                                                              style="width: 25%"
                                                                              aria-valuenow="40" aria-valuemin="0"
                                                                              aria-valuemax="100">
@@ -552,7 +561,8 @@
                                                                             class="pull-right">{{ $project->progress_bar }} %</span>
                                                                     </h5>
                                                                     <div class="progress">
-                                                                        <div class="progress-bar bg-warning" role="progressbar"
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
                                                                              style="width: 80%"
                                                                              aria-valuenow="80" aria-valuemin="0"
                                                                              aria-valuemax="100">
@@ -568,7 +578,8 @@
                                                                             class="pull-right">{{ $project->progress_bar }} %</span>
                                                                     </h5>
                                                                     <div class="progress">
-                                                                        <div class="progress-bar bg-success" role="progressbar"
+                                                                        <div class="progress-bar bg-success"
+                                                                             role="progressbar"
                                                                              style="width: 90%"
                                                                              aria-valuenow="90" aria-valuemin="0"
                                                                              aria-valuemax="100">
@@ -586,7 +597,7 @@
 
                                     </section>
                                 </div>
-                                {{--/project    --}}
+                                {{--/project --}}
                                 {{--task--}}
                                 <div class="row">
                                     <section class="services line graybg col-md-12 padding_50 padbot_50">

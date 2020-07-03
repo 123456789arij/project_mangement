@@ -10,11 +10,14 @@
                 {{--  partie email +adresse--}}
                 {{csrf_field()}}
                 <div class="form-row">
-                    <input name="receiver" placeholder="receiver">
-                    <textarea name="content"></textarea>
-                    <input type="submit" value="submit">
-                </div>
+                    <label for="exampleFormControlInput1">Membre</label>
+                    <input name="receiver" placeholder="receiver" class="form-control">
+                    <br>
+                    <label for="exampleFormControlTextarea1">Message</label>
+                    <textarea  class="form-control"name="content" rows="3"></textarea>
 
+                </div> <br>
+                <button type="submit" class="btn btn-primary mb-2">send</button>
             </form>
         </div>
     </div>

@@ -30,7 +30,7 @@ class EmployeeController extends Controller
             $employees = $employees->where("name", "LIKE", "%{$search}%");
 
         }
-        $employees = $employees->paginate(5);
+        $employees = $employees->paginate(3);
         return view('employee.index', compact('employees', 'employeescount'));
 
     }

@@ -6,16 +6,18 @@
             <li>
                 <a href="{{route('home')}}" class="mm-active">
                     <i class="metismenu-icon fa fa-tachometer"></i>
-                    {{ trans('messages.Dashboard') }}
+                    <strong> {{ trans('messages.Dashboard') }}</strong>
                 </a>
             </li>
             <li class="app-sidebar__heading">Clients</li>
             <li>
                 <a href="{{route('client.index')}}">
                     <i class="metismenu-icon fas fa-user-tie"></i>
-                    {{ trans('messages.clients') }}
+                    <strong>   {{ trans('messages.clients') }} </strong>
                 </a>
             </li>
+
+
             <li class="app-sidebar__heading">HR</li>
 
 
@@ -25,8 +27,8 @@
             >
                 <a href="">
                     <i class="metismenu-icon pe-7s-diamond"></i>
-                    HR
-                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <strong> HR</strong>
+                    <strong> <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i></strong>
                 </a>
                 <ul
 
@@ -36,7 +38,7 @@
                     <li>
                         <a href="{{route('employee.index')}}">
                             <i class="metismenu-icon">
-                            </i> {{ trans('messages.employees') }}
+                            </i> <strong>{{ trans('messages.employees') }}</strong>
                         </a>
                     </li>
 
@@ -44,7 +46,7 @@
                     <li>
                         <a href="{{route('department')}}">
                             <i class="metismenu-icon"></i>
-                            {{ trans('messages.departments') }}
+                            <strong>   {{ trans('messages.departments') }} </strong>
                         </a>
                     </li>
 
@@ -56,13 +58,13 @@
             <li>
                 <a href="{{route('project')}}">
                     <i class='metismenu-icon fas fa-layer-group'></i>
-                    {{ trans('messages.projects') }}
+                    <strong>   {{ trans('messages.projects') }}</strong>
                 </a>
             </li>
             <li>
                 <a href="{{route('task')}}">
                     <i class="metismenu-icon fas fa-tasks"></i>
-                    {{ trans('messages.tasks') }}
+                    <strong> {{ trans('messages.tasks') }}</strong>
                 </a>
             </li>
         @endif
@@ -72,58 +74,72 @@
             <li>
                 <a href="{{route('employee.dashborad')}}" class="mm-active">
                     <i class="metismenu-icon fa fa-tachometer"></i>
-                    {{ trans('messages.Dashboard') }}
+                    <strong> {{ trans('messages.Dashboard') }}</strong>
                 </a>
             </li>
-
-            <li class="app-sidebar__heading">HR</li>
-
-
-            <li
+            @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                <li class="app-sidebar__heading">HR</li>
 
 
-            >
-                <a href="">
-                    <i class="metismenu-icon pe-7s-diamond"></i>
-                    HR
-                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                </a>
-                <ul
+                <li
 
 
                 >
-
-                    <li>
-                        <a href="{{route('chef.employee.index')}}">
-                            <i class="metismenu-icon">
-                            </i> {{ trans('messages.employees') }}
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
+                    <a href="">
+                        <i class="metismenu-icon pe-7s-diamond"></i>
+                        HR
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul
 
 
-            <li class="app-sidebar__heading">Travaille</li>
+                    >
+
+                        <li>
+                            <a href="{{route('chef.employee.index')}}">
+                                <i class="metismenu-icon">
+                                </i> <strong>{{ trans('messages.employees') }}</strong>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+            @endif
+
+            <li class="app-sidebar__heading"><strong> {{ trans('messages.work') }}</strong></li>
             <li>
                 <a href="{{route('employee.project')}}">
                     <i class="metismenu-icon pe-7s-display2"></i>
-                    {{ trans('messages.projects') }}
+                    <strong> {{ trans('messages.projects') }}</strong>
                 </a>
             </li>
             <li>
                 <a href="{{route('employee.task')}}">
                     <i class="metismenu-icon fas fa-tasks"></i>
-                    {{ trans('messages.tasks') }}
+                    <strong>    {{ trans('messages.tasks') }}</strong>
                 </a>
             </li>
+            <li>
+                <a href="{{route('calendar.task')}}">
+                    <i class='metismenu-icon fas fa-calendar-week'></i>
+                    <strong>   {{ trans('messages.task_calendar') }}</strong>
+                </a>
+            </li>
+            <li class="app-sidebar__heading">Contact</li>
+            <li>
+                <a href="{{route('dashboard.discussions')}}">
+                    <strong> <i class="metismenu-icon fa fa-envelope-o"></i>
+                        {{ trans('messages.messages') }}</strong>
+                </a>
+            </li>
+
 
         @endif
         @if(auth()->guard('client')->user())
             <li>
                 <a href="{{route('client.dashborad')}}" class="mm-active">
                     <i class="metismenu-icon fa fa-tachometer"></i>
-{{--                    <i class="metismenu-icon fa-tachometer-alt"></i>--}}
+                    {{--                    <i class="metismenu-icon fa-tachometer-alt"></i>--}}
                     {{ trans('messages.Dashboard') }}
                 </a>
             </li>
@@ -146,16 +162,16 @@
             <li>
                 <a href="{{route('calendar')}}">
                     <i class='metismenu-icon fas fa-calendar-week'></i>
-                    {{ trans('messages.task_calendar') }}
+                    <strong>   {{ trans('messages.task_calendar') }}</strong>
                 </a>
             </li>
-            <li class="app-sidebar__heading">  {{ trans('messages.events') }}</li>
+            <li class="app-sidebar__heading"><strong> {{ trans('messages.events') }} </strong></li>
             <li>
                 <a href="{{route('event')}}">
                     <i class="metismenu-icon fa fa-calendar" aria-hidden="true"></i>
                     {{--                <i class="fa  fa-calendar pr-1 pl-1">--}}
                     {{--                <i class="metismenu-icon pe-7s-eyedropper">--}}
-                    {{ trans('messages.events') }}
+                    <strong>   {{ trans('messages.events') }}</strong>
                 </a>
             </li>
         @endif

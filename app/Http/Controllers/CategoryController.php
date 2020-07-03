@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Project;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,7 +17,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::wherehas('projects', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        })->get();
+        return view('project.category.membre', compact('categories'));
     }
 
     /**
@@ -25,7 +32,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view("project.category.create");
+        $categories = Category::wherehas('projects', function (Builder $query) {
+            $query->whereHas('client', function (Builder $query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        })->get();
+        return view('project.category.membre', compact('categories'));
     }
 
     /**
@@ -39,9 +51,10 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-
-        Category::create($request->all());
-        return redirect()->route('project')->with('toast_success', 'Categoryis successfully saved');
+        $categories = new Category();
+        $categories->name = $request->input('name');
+        $categories->save();
+        return redirect()->route('project')->with('toast_success', 'Category successfully saved');
     }
 
     /**
@@ -90,6 +103,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->route('category')->with('success', 'task is successfully deleted');
     }
 }

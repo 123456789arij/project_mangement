@@ -13,10 +13,10 @@
                     <i class="fas fa-user-edit icon-gradient bg-arielle-smile"></i>
                 </div>
                 <div>
-                    <h4 class="page-title">    {{__('messages.client') }}
-                    # {{$client->id}}
-                     [ {{$client->name}} ]
-                    </h4></div>
+                    <h4 class="page-title"><strong>   {{__('messages.client') }}
+                            # {{$client->id}}
+                            [ {{$client->name}} ]
+                        </strong></h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                     elements and components
                 </div>--}}
@@ -61,14 +61,14 @@
 
                 <div class="card-header">
 
-                    METTRE À JOUR LES INFORMATIONS du Client
+                    <strong>   {{__('messages.UPDATE_CLIENT_INFO') }} </strong>
                 </div>
 
                 <div class="tab-content">
                     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">      {{__('messages.CLIENT_DETAILS') }}</h5>
+                                <h5 class="card-title"><strong>      {{__('messages.CLIENT_DETAILS') }}</strong></h5>
                                 <hr>
                                 <form action="{{ route('client.update', $client->id ) }}" method="POST">
                                     {{--  partie email +adresse--}}
@@ -77,14 +77,14 @@
                                         @method('PATCH')
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="name"> {{__('messages.name') }} </label>
+                                                <label for="name"> <strong> {{__('messages.name') }} </strong></label>
                                                 <input type="text" class="form-control" name="name"
                                                        value="{{$client->name}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="email">{{__('messages.email') }}</label>
+                                                <label for="email"> <strong> {{__('messages.email') }}</strong></label>
                                                 <input type="email" class="form-control" name="email"
                                                        value="{{$client->email}}"
                                                        class="@error('email', 'login') is-invalid @enderror">
@@ -95,7 +95,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="password">{{__('messages.Password') }} </label>
+                                                <label for="password">
+                                                    <strong> {{__('messages.Password') }} </strong></label>
                                                 <input type="password" class="form-control" name="password">
                                             </div>
                                         </div>
@@ -106,46 +107,48 @@
                                         @csrf
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="mobile"> {{__('messages.mobile') }} </label>
+                                                <label for="mobile">
+                                                    <strong>  {{__('messages.mobile') }} </strong></label>
                                                 <input type="text" class="form-control" id="mobile" name="mobile"
                                                        value="{{$client->mobile}}">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="address"> {{__('messages.Address') }}</label>
+                                                <label for="address">
+                                                    <strong> {{__('messages.Address') }}</strong></label>
                                                 <input type="text" class="form-control" id="address" name="address"
                                                        value="{{$client->address}}">
                                             </div>
                                         </div>
                                     </div>
-                                    <h5 class="card-title"> {{__('messages.CLIENT_OTHER_DETAILS') }}</h5>
+                                    <h5 class="card-title">   <strong> {{__('messages.CLIENT_OTHER_DETAILS') }} </strong></h5>
                                     <hr>
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="linked_in"> {{__('messages.Linkedin') }}</label>
+                                                <label for="linked_in">   <strong> {{__('messages.Linkedin') }}</strong></label>
                                                 <input type="text" class="form-control" value="{{$client->linked_in}}"
                                                        name="linked_in">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="facebook"> {{__('messages.Facebook') }}</label>
+                                                <label for="facebook">  <strong>  {{__('messages.Facebook') }}</strong></label>
                                                 <input type="text" class="form-control" value="{{$client->facebook}}"
                                                        name="facebook">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="skype"> {{__('messages.Skype') }}</label>
+                                                <label for="skype">  <strong>  {{__('messages.Skype') }}</strong></label>
                                                 <input type="text" class="form-control" value="{{$client->Skype}}"
                                                        name="skype">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="d-block  card-footer">
+                                    <div class="d-block">
                                         <button class="btn-wide btn btn-success" type="submit"><i
                                                 class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>

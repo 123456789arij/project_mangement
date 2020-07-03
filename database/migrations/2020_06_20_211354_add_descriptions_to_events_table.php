@@ -14,7 +14,9 @@ class AddDescriptionsToEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            //
+            $table->mediumText('description');
+
+//            todo change type description to text
         });
     }
 
@@ -26,7 +28,7 @@ class AddDescriptionsToEventsTable extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            //
+            $table->dropColumn(['description']);
         });
     }
 }

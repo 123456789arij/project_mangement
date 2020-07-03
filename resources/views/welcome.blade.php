@@ -74,21 +74,22 @@
             /* The image used */
             /*background-image: url("photo.jpg");*/
             background-image: url({{asset('mt-image-59712777.jpg')}});
-            width: 100%;
-            display: inline-block;
+            /*width: 80%;*/
+            /*display: inline-block;*/
             /* Full height */
-            height: 100%;
-
+            /*height: 100%;*/
             /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            background-attachment: fixed;
+
         }
 
     </style>
 </head>
 <body class="bg">
-<div class="flex-center position-ref full-height">
+<div class="flex-center position-ref full-height" style="position: absolute;left: 150px">
     <div class="content">
         {{--  superAdmin--}}
         <div class="page-title-actions">
@@ -128,7 +129,7 @@
         @endif
         {{--  employee--}}
         <div class="page-title-actions">
-            <div class="d-inline-block dropdown text-center">
+            <div class="d-inline-block dropdown text-center links container">
                 <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                     <span class="btn-icon-wrapper pr-2 opacity-7">
                             <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>

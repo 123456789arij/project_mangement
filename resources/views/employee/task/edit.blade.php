@@ -11,10 +11,10 @@
             {{-- page-title-wrapper--}}
             <div class="page-title-heading">
                 <div class="page-title-icon">
-                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                    <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div><h4 class="page-title">
-                        {{__('messages.task') }} # {{$task->id}} - {{$task->titre}}
+                        <strong>{{__('messages.task') }} # {{$task->id}} - {{$task->title}}</strong>
                     </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
@@ -59,7 +59,7 @@
                 @endif
 
                 <div class="card-header">
-                    MISE À JOUR DE LA TÂCHE
+                    <strong> {{ __('messages.UPDATE TASK') }}  </strong>
                 </div>
 
                 <div class="tab-content">
@@ -74,18 +74,17 @@
                                     <div class="form-row">
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label> Titre </label>
+                                                <label><strong>{{ __('messages.title') }}</strong> </label>
                                                 <input type="text" class="form-control" id="titre" name="titre"
-                                                       value="{{$task->titre}}">
+                                                       value="{{$task->title}}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="projet_id">
-                                                <label><strong>Projet </strong></label>
+                                                <label><strong>{{ __('messages.project') }}</strong></label>
                                                 <select class="mb-2 form-control-lg form-control" name="project_id">
-                                                    <option value="">select projet</option>
                                                     @foreach( $projects as $project )
                                                         <option
                                                             value="{{$project->id}}" {{old('project_id',$project->id) == $project->id ? 'selected' : ''}}> {{$project->name}} </option>
@@ -93,44 +92,54 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-4">
-                                            <div class="position-relative form-group" style="float: right">
-                                                <label class="text-center"> Assigné à</label>
-                                                <select name="ids[]" class="mb-2 form-control-lg form-control" multiple>
-                                                    @foreach($employees as $emplyoee)
-                                                        <option
-                                                            value="{{$emplyoee->id}}" {{ (collect(old('ids'))->contains($emplyoee->id)) ? 'selected':'' }} {{in_array($emplyoee->id, old("ids") ?: []) ? "selected": ""}}> {{$emplyoee->name}} </option>
-                                                    @endforeach
-                                                </select>
+                                        {{--chef de projet peut assiné les membre de tache--}}
+                                        @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                                            <div class="col-4">
+                                                <div class="position-relative form-group" style="float: right">
+                                                    <strong> {{ __('messages.assigned to') }}</strong>
+                                                    <select name="ids[]" class="mb-2 form-control-lg form-control"
+                                                            multiple>
+                                                        @foreach($employees as $emplyoee)
+                                                            <option
+                                                                value="{{$emplyoee->id}}" {{ (collect(old('ids'))->contains($emplyoee->id)) ? 'selected':'' }} {{in_array($emplyoee->id, old("ids") ?: []) ? "selected": ""}}> {{$emplyoee->name}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-
+                                        @endif
+                                        {{--/chef de projet peut assiné les membre de tache--}}
                                     </div>
 
                                     <div class="form-row">
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="start_date"> Date de début </label>
+                                                <label for="start_date">
+                                                    <strong> {{ __('messages.Start Date') }}  </strong> </label>
                                                 <input type="date" class="form-control" id="start_date"
                                                        name="start_date" value="{{$task->start_date}}">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="end_date"> Date limite</label>
+                                                <label for="end_date">
+                                                    <strong> {{ __('messages.due date') }}</strong></label>
                                                 <input type="date" class="form-control"
                                                        name="end_date" value="{{$task->end_date}}">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="status"> Statut</label>
+                                                <label
+                                                    for="status"><strong> {{ __('messages.status') }}</strong></label>
                                                 <select class="mb-2 form-control form-control" name="status">
-                                                    <option value="1" {{$task->status == '0' ? 'selected' : ''}} >
-                                                        TERMINÉ
+                                                    <option value="1" {{$task->status == '1' ? 'selected' : ''}} >
+                                                        {{ __('messages.Completed') }}
                                                     </option>
                                                     <option value="2" {{$task->status == '2' ? 'selected' : ''}} >
-                                                        incomplète
+                                                        {{ __('messages.Incomplete') }}
+                                                    </option>
+                                                    <option value="3" {{$task->status == '3' ? 'selected' : ''}} >
+                                                        {{ __('messages.In Progress') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -141,7 +150,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label>
-                                                <strong> Priorité </strong>
+                                                <strong> {{ __('messages.Priority') }} </strong>
                                             </label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
@@ -171,7 +180,7 @@
                                     <div class="divider"></div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label for="description"><strong> Déscription du Tâche </strong></label>
+                                            <label for="description"><strong> {{ __('messages.task description') }}  </strong></label>
                                             <textarea id="textarea" name="description">
                                                        {{$task->description }}
                                             </textarea>

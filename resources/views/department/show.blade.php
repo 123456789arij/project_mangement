@@ -23,6 +23,16 @@
 
         }
 
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
         .card {
             font-size: 1em;
             overflow: hidden;
@@ -32,39 +42,32 @@
             margin-top: 20px;
         }
 
-        .carousel-indicators li {
-            border-radius: 12px;
-            width: 12px;
-            height: 12px;
-            background-color: #404040;
+        label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
         }
 
-        .carousel-indicators li {
-            border-radius: 12px;
-            width: 12px;
-            height: 12px;
-            background-color: #404040;
+        .label-custom {
+            background-color: #01c0c8;
         }
 
-        .carousel-indicators .active {
-            background-color: white;
-            max-width: 12px;
-            margin: 0 3px;
-            height: 12px;
+        .pull-right {
+            float: right !important;
         }
 
-        .carousel-control-prev-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 100%;
+            font-weight: 800;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
         }
 
-        .carousel-control-next-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
-        }
-
-        lex-direction: column
-
-        ;
-        }
 
         .btn {
             margin-top: auto;
@@ -85,6 +88,40 @@
         a:hover {
             text-decoration: none;
         }
+
+        .panel-inverse {
+            border-color: #4c5667;
+        }
+
+        .panel {
+            margin-bottom: 15px;
+            border: 0;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: none;
+        }
+
+        .panel-heading {
+            padding: 10px 15px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid transparent;
+            border-radius: 0;
+        }
+
+        .panel .panel-heading {
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .panel-inverse .panel-heading {
+            border-color: #f6f7f9;
+            color: inherit;
+            background-color: #f6f7f9;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -104,17 +141,6 @@
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
-
-            <div class="page-title-actions">
-                <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                        <i class="fa fa-plus">
-                            <a href="{{ route('department.create') }}" id="create_department_btn"> Ajouter un nouveau
-                                Départment </a>&nbsp;&nbsp;
-                        </i>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
     {{--                /app-page-title--}}
@@ -122,38 +148,67 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-                <div class="card-header">{{ __('messages.departments') }}</div>
+                <div class="card-header">{{ __('messages.departments') }} : {{ $department->name }} </div>
 
                 <div class="container py-3">
                     <!-- Card Start -->
-                    <div class="card">
-                        <div class="row ">
-                            <div class="col-md-7 px-3">
-                                <div class="card-block px-6">
-                                    <h1 class="card-title">{{ __('messages.departments') }} : {{ $department->name }}</h1>
-                                    <br>
-                                    <h5 class="card-title"><u>Membres :</u></h5>
-                                    <div class="widget-content-left mr-3">
-                                        <div class="widget-content-left container">
-                                            @foreach( $department->employees as $employee )
-                                                <a href="{{route('employee.index')}}" style="display: inline-block">
-                                                    <img
-                                                        src="{{asset($employee->image)}}" data-toggle="tooltip"
-                                                        data-original-title="{{ $employee->name}}"
-                                                        class="rounded-circle"
-                                                        height="42px" width="42px" alt="employee"/>
-                                                    <strong class="text-center"><a href="{{route('employee.index')}}">{{ $employee->name  }}</a></strong>  </a>
+                    <div class="card col-sm-6">
+                        {{--           <div class="col-md-7 px-3">
+                                       <div class="card-block px-6">
+                                           <h1 class="card-title">{{ __('messages.departments') }}
+                                               : {{ $department->name }}</h1>
+                                           {{$department->employees_count}}
+                                           <br>
+                                           <h5 class="card-title"><strong>Membres :</strong></h5>
+                                           <div class="widget-content-left mr-3">
+                                               <div class="widget-content-left container">
+                                                   @foreach( $department->employees as $employee )
+                                                       <a href="{{route('employee.index')}}" style="display: inline-block">
+                                                           <img
+                                                               src="{{asset($employee->image)}}" data-toggle="tooltip"
+                                                               data-original-title="{{ $employee->name}}"
+                                                               class="rounded-circle"
+                                                               height="42px" width="42px" alt="employee"/>
+                                                           <strong class="text-center"><a
+                                                                   href="{{route('employee.index')}}">{{ $employee->name  }}</a></strong>
+                                                       </a>
 
-<br>
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                                       <br>
+                                                   @endforeach
+                                               </div>
+                                           </div>
 
-                                    <br>
+                                           <br>
+                                       </div>
+                                   </div>--}}
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">{{ __('messages.members') }}
+                                <span class="label label-rouded label-custom pull-right">
+                              <strong> {{$department->employees_count}}</strong>
+                                                    </span>
+                            </div>
+                            <br>
+                            <div class="panel-wrapper">
+                                <div class="panel-body container">
+                                    @foreach( $department->employees as $employee )
+                                        <a href="{{route('employee.index')}}" style="display: inline-block">
+                                            <img
+                                                src="{{asset($employee->image)}}" data-toggle="tooltip"
+                                                data-original-title="{{ $employee->name}}"
+                                                class="rounded-circle"
+                                                height="42px" width="42px" alt="employee"/>
+                                            <strong class="text-center"><a
+                                                    href="{{route('employee.index')}}">{{ $employee->name  }}</a></strong>
+                                        </a>
+                                        <br>
+                                        <br>
+                                    @endforeach
                                 </div>
                             </div>
-                            <br><br>
                         </div>
+
+
+                        <br><br>
                     </div>
                     <!-- End of card -->
 

@@ -14,7 +14,7 @@
                     <i class="fas fa-building icon-gradient bg-premium-dark">
                     </i>
                 </div>
-                <div> Départment</div>
+                <div><strong>{{ __('messages.department') }}</strong></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
                     </div>--}}
@@ -42,7 +42,7 @@
             <div class="main-card mb-3 card">
 
                 <div class="card-header">
-                    Ajouter Un Nouveau Département
+                  <strong>{{ __('messages.add_new_Department') }}</strong>
                 </div>
 
                 <div class="tab-content">
@@ -56,15 +56,13 @@
                                         @csrf
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label for="name"> Nom du Département</label>
+                                                <label for="name"> <strong>{{ __('messages.department') }}</strong></label>
                                                 <input type="text" class="form-control" id="name" name="name" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger">
-                                            <i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success" type="submit">Save</button>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-md btn-success" type="submit" style="float:left;" >{{ __('messages.Save') }}</button>
                                     </div>
 
                                 </form>

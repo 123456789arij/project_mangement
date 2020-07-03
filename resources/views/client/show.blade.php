@@ -400,7 +400,7 @@
                 </div>
                 <div>
                     <h5 class="page-title">
-                        {{__('messages.client') }} # {{ $client->id }}
+                     <strong>  {{__('messages.client') }} {{ $client->id }}#  [ {{$client->name}} ]</strong>
                     </h5>
                 </div>
             </div>
@@ -419,7 +419,7 @@
             <div class="col-lg-4 col-md-3">
                 <div class="profile">
                     <div class="profile-name" style="background: #ffc500 !important; ">
-                        <span class="name"> {{ $client->name }}  </span>
+                        <span class="name">   <strong>{{ $client->name }} </strong> </span>
                         <br>
                         <span class="job"></span>
                     </div>
@@ -429,15 +429,23 @@
                      </figure>--}}
                     <ul class="profile-information">
                         <li></li>
-                        <li><p><span>{{ __('messages.name') }} : {{ $client->name }}</span></p></li>
-                        <li><p><span> EMAIL: <br><br> {{$client->email }}</span></p></li>
-                        <li><p><span>  {{ __('messages.Joining_Date') }}: <br> <br>{{ $client->created_at }}</span></p>
+                        <li><p><span><strong>{{ __('messages.name') }} : {{ $client->name }}</strong></span></p></li>
+                        <li><p><span> <strong>EMAIL: <br><br> {{$client->email }}</strong></span></p></li>
+                        <li><p>
+                                <span> <strong> {{ __('messages.Joining_Date') }}: <br> <br>{{ $client->created_at }}</strong></span>
+                            </p>
                         </li>
-                        <li><p><span>     {{ __('messages.mobile') }}: &nbsp; {{$client->mobile}}</span></p></li>
-                        <li><p><span>  {{ __('messages.Address') }}: &nbsp; {{$client->address}} </span></p></li>
-                        <li><p><span> {{__('messages.Linkedin') }}  :  {{$client->linkedin}}</span></p></li>
-                        <li><p><span> {{__('messages.Facebook') }}  :{{$client->facebook}}</span></p></li>
-                        <li><p><span> {{__('messages.Skype') }} :  {{$client->skype}}</span></p></li>
+                        <li><p>
+                                <span>  <strong>   {{ __('messages.mobile') }}: &nbsp; {{$client->mobile}}</strong></span>
+                            </p></li>
+                        <li><p>
+                                <span> <strong> {{ __('messages.Address') }}: &nbsp; {{$client->address}}</strong> </span>
+                            </p></li>
+                        <li><p><span> <strong>{{__('messages.Linkedin') }}  :  {{$client->linkedin}}</strong></span></p>
+                        </li>
+                        <li><p><span> <strong>{{__('messages.Facebook') }}  :{{$client->facebook}}</strong></span></p>
+                        </li>
+                        <li><p><span> <strong>{{__('messages.Skype') }} :  {{$client->skype}}</strong></span></p></li>
 
                         {{--                        <li><p><span>      {{ __('messages.skills') }}: <br> {{$employee->skills}}</span></p></li>--}}
                     </ul>
@@ -467,63 +475,63 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                              @if(auth()->user())
-                                                          @foreach($projects as $project)
-                                                              <tr>
-                                                                  <td>
-                                                                      <a href="{{route('project')}}">{{$project->name}}</a>
-                                                                  </td>
-                                                                  <td>{{ $project->deadline}}</td>
-                                                                  <td class="text-center">
-                                                                      @if($project->progress_bar <50)
-                                                                          <h5>Progress
-                                                                              <span class="pull-right">{{ $project->progress_bar }} %</span>
-                                                                          </h5>
-                                                                          <div class="progress">
-                                                                              <div class="progress-bar bg-danger"
-                                                                                   role="progressbar"
-                                                                                   style="width: 25%"
-                                                                                   aria-valuenow="40" aria-valuemin="0"
-                                                                                   aria-valuemax="100">
-                                                                                  {{ $project->progress_bar }}
-                                                                              </div>
-                                                                          </div>
-                                                                      @elseif($project->progress_bar<80)
-                                                                          <h5>Progress
-                                                                              <span
-                                                                                  class="pull-right">{{ $project->progress_bar }} %</span>
-                                                                          </h5>
-                                                                          <div class="progress">
-                                                                              <div class="progress-bar bg-warning"
-                                                                                   role="progressbar"
-                                                                                   style="width: 80%"
-                                                                                   aria-valuenow="80" aria-valuemin="0"
-                                                                                   aria-valuemax="100">
-                                                                                  {{ $project->progress_bar }}
-                                                                                  <span
-                                                                                      class="sr-only">          {{ $project->progress_bar }}</span>
-                                                                              </div>
+                                                @if(auth()->user())
+                                                    @foreach($projects as $project)
+                                                        <tr>
+                                                            <td>
+                                                                <a href="{{route('project')}}">{{$project->name}}</a>
+                                                            </td>
+                                                            <td>{{ $project->deadline}}</td>
+                                                            <td class="text-center">
+                                                                @if($project->progress_bar <50)
+                                                                    <h5>Progress
+                                                                        <span class="pull-right">{{ $project->progress_bar }} %</span>
+                                                                    </h5>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-danger"
+                                                                             role="progressbar"
+                                                                             style="width: 25%"
+                                                                             aria-valuenow="40" aria-valuemin="0"
+                                                                             aria-valuemax="100">
+                                                                            {{ $project->progress_bar }}
+                                                                        </div>
+                                                                    </div>
+                                                                @elseif($project->progress_bar<80)
+                                                                    <h5>Progress
+                                                                        <span
+                                                                            class="pull-right">{{ $project->progress_bar }} %</span>
+                                                                    </h5>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-warning"
+                                                                             role="progressbar"
+                                                                             style="width: 80%"
+                                                                             aria-valuenow="80" aria-valuemin="0"
+                                                                             aria-valuemax="100">
+                                                                            {{ $project->progress_bar }}
+                                                                            <span
+                                                                                class="sr-only">          {{ $project->progress_bar }}</span>
+                                                                        </div>
 
-                                                                          </div>
-                                                                      @elseif($project->progress_bar >= 80)
-                                                                          <h5>Progress
-                                                                              <span
-                                                                                  class="pull-right">{{ $project->progress_bar }} %</span>
-                                                                          </h5>
-                                                                          <div class="progress">
-                                                                              <div class="progress-bar bg-success"
-                                                                                   role="progressbar"
-                                                                                   style="width: 90%"
-                                                                                   aria-valuenow="90" aria-valuemin="0"
-                                                                                   aria-valuemax="100">
-                                                                                  {{ $project->progress_bar }}
-                                                                              </div>
-                                                                          </div>
-                                                                      @endif
-                                                                  </td>
-                                                              </tr>
-                                                          @endforeach
-                                                      @endif
+                                                                    </div>
+                                                                @elseif($project->progress_bar >= 80)
+                                                                    <h5>Progress
+                                                                        <span
+                                                                            class="pull-right">{{ $project->progress_bar }} %</span>
+                                                                    </h5>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-success"
+                                                                             role="progressbar"
+                                                                             style="width: 90%"
+                                                                             aria-valuenow="90" aria-valuemin="0"
+                                                                             aria-valuemax="100">
+                                                                            {{ $project->progress_bar }}
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                                 </tbody>
                                             </table>
                                         </div>

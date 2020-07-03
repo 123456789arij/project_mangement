@@ -16,7 +16,7 @@
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div><h4 class="page-title">
-                        {{__('messages.task') }} # {{$task->id}} - {{$task->title}}
+                      <strong>{{__('messages.task') }} # {{$task->id}} - {{$task->title}}</strong>
                     </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
@@ -61,7 +61,7 @@
                 @endif
 
                 <div class="card-header">
-                    MISE À JOUR DE LA TÂCHE
+                    <strong> {{ __('messages.UPDATE TASK') }}  </strong>
                 </div>
 
                 <div class="tab-content">
@@ -76,7 +76,7 @@
                                     <div class="form-row">
                                         <div class="col-12 ">
                                             <div class="position-relative form-group">
-                                                <label> Titre </label>
+                                                <label><strong>{{ __('messages.title') }}</strong> </label>
                                                 <input type="text" class="form-control" id="title" name="title"
                                                        value="{{$task->title}}">
                                             </div>
@@ -85,9 +85,9 @@
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group" for="projet_id">
-                                                <label><strong>Projet </strong></label>
+                                                <label><strong>{{ __('messages.project') }}</strong></label>
                                                 <select class="mb-2 form-control-lg form-control" name="project_id">
-                                                    <option value="">select projet</option>
+                                                    <option value="">{{ __('messages.selectproject') }}</option>
                                                     @foreach( $projects as $project )
                                                         <option
                                                             value="{{$project->id}}" {{old('project_id',$project->id) == $project->id ? 'selected' : ''}}> {{$project->name}} </option>
@@ -97,7 +97,8 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group" style="float: right">
-                                                <label class="text-center"> Assigné à</label>
+                                                <label class="text-center">
+                                                    <strong> {{ __('messages.assigned to') }}</strong></label>
                                                 <select name="ids[]" class="mb-2 form-control-lg form-control" multiple>
                                                     @foreach($employees as $emplyoee)
                                                         <option
@@ -112,21 +113,24 @@
                                     <div class="form-row">
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="start_date"> Date de début </label>
+                                                <label for="start_date">
+                                                    <strong> {{ __('messages.Start Date') }}  </strong> </label>
                                                 <input type="date" class="form-control" id="start_date"
                                                        name="start_date" value="{{$task->start_date}}">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="end_date"> Date limite</label>
+                                                <label for="end_date">
+                                                    <strong> {{ __('messages.due date') }}</strong></label>
                                                 <input type="date" class="form-control"
                                                        name="end_date" value="{{$task->end_date}}">
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <div class="position-relative form-group">
-                                                <label for="status"> Statut</label>
+                                                <label
+                                                    for="status"><strong> {{ __('messages.status') }}</strong></label>
                                                 <select class="mb-2 form-control form-control" name="status">
                                                     <option value="1" {{$task->status == '1' ? 'selected' : ''}} >
                                                         {{ __('messages.Completed') }}
@@ -146,7 +150,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label>
-                                                <strong> Priorité </strong>
+                                                <strong> {{ __('messages.Priority') }} </strong>
                                             </label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
@@ -176,8 +180,10 @@
                                     <div class="divider"></div>
                                     <div class="form-row">
                                         <div class="col">
-                                            <label  class="control-label"><strong> Déscription du Tâche </strong></label>
-                                            <textarea id="description" name="description" class="form-control summernote">
+                                            <label
+                                                class="control-label"><strong> {{ __('messages.task description') }}  </strong></label>
+                                            <textarea id="description" name="description"
+                                                      class="form-control summernote">
                                                        {{$task->description }}
                                             </textarea>
                                         </div>
@@ -214,18 +220,18 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-{{--    <script src="https://cdn.tiny.cloud/1/z16d94mf443baw8z854loin2821iav5xoeeauwqbzs789l2h/tinymce/5/tinymce.min.js"
-            referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'link code',
-            branding: false,
-            plugins: "fullscreen",
-            menubar: false,
-            //  toolbar: "fullscreen",
-        });
-    </script>--}}
+    {{--    <script src="https://cdn.tiny.cloud/1/z16d94mf443baw8z854loin2821iav5xoeeauwqbzs789l2h/tinymce/5/tinymce.min.js"
+                referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'link code',
+                branding: false,
+                plugins: "fullscreen",
+                menubar: false,
+                //  toolbar: "fullscreen",
+            });
+        </script>--}}
     <script src="{{ asset('plugins/bower_components/custom-select/custom-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('plugins/bower_components/summernote/dist/summernote.min.js') }}"></script>

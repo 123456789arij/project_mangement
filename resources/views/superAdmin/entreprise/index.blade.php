@@ -56,13 +56,7 @@
             box-shadow: 0 0 0 1px #ce93d8;
         }
 
-        .ml-3, .mx-3 {
-            margin-left: 1rem !important;
-        }
 
-        .w-75 {
-            width: 75% !important;
-        }
 
         .active-purple .fas, .active-purple-2 .fas, .active-purple-3 .fas, .active-purple-4 .fas {
             color: #ce93d8;
@@ -89,6 +83,149 @@
         thead {
             text-align: justify;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #A9A9A9;
+            display: inline-block;
+            height: 20px;
+            margin: 20px 10px;
+        }
+
+
+
+
+        .label-rouded, .label-rounded {
+            border-radius: 50%;
+            padding: 6px 8px;
+            font-weight: 400;
+        }
+
+        .label-custom {
+            background-color: #01c0c8;
+        }
+
+        .pull-right {
+            float: right !important;
+        }
+
+        .label {
+            display: inline;
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+        }
+
+        .vertical-line {
+            border-left: 2px solid #A9A9A9;
+            display: inline-block;
+            height: 20px;
+            margin: 20px 10px;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+
+        /*  btn crud */
+        .m-r-10 {
+            margin-right: 10px !important;
+        }
+
+        .dropdown-menu > li > a {
+            padding: 9px 20px;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
+        /*search */
+        .active-purple-3 input[type=text] {
+            border: 1px solid #ce93d8;
+            box-shadow: 0 0 0 1px #ce93d8;
+        }
+
+
+        .active-purple .fas, .active-purple-2 .fas, .active-purple-3 .fas, .active-purple-4 .fas {
+            color: #ce93d8;
+        }
+
+        .active-purple .fa, .active-purple-2 .fa {
+            color: #ce93d8;
+        }
+
+        #search:hover {
+            border: 1px solid #ce93d8;
+        }
+
+        button {
+            border: transparent;
+            background-color: transparent;
+        }
+
+        .active-purple input[type=text] {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -179,7 +316,7 @@
                                     <div class="badge badge-warning">{{ $user->created_at }}</div>
                                 </td>
 
-                                <td>
+                                <td class="text-center">
                                     <div class="btn-group dropdown m-r-10 open">
                                         <button aria-expanded="true" data-toggle="dropdown" class="btn"
                                                 type="button">

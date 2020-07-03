@@ -198,7 +198,7 @@
                 <div class="page-title-icon">
                     <i class='metismenu-icon fas fa-layer-group'></i>
                 </div>
-                <div> Projets Dashboard
+                <div><strong>   {{ __('messages.projects') }} Dashboard</strong>
                     @if(auth()->user())
                         <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
@@ -212,26 +212,25 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                  {{--  @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                         <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                             <i class="fa fa-plus" style="font-size: 20px;">
                                 <a href="{{ route('employee.project.create')}}" id="create_Projet_btn">
-                                    Ajouter un nouveau Projet </a>&nbsp;
+                                    {{ __('messages.add_new_Project') }}     </a>&nbsp;
                                 &nbsp;</i>
                         </button>
-                    @endif
-                    @if(auth()->user())
-
-                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                    @endif--}}
+                    @if(auth()->user()&& auth()->user()->role_id ==  1)
+                        <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
                             <i class="fa fa-plus" style="font-size: 20px;">
                                 <a href="{{ route('project.create')}}" id="create_Projet_btn">
-                                    Ajouter un nouveau Projet
+                                    {{ __('messages.add_new_Project') }}
                                 </a></i>
                         </button>
-                        <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info">
+                        <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info  btn-lg">
                             <i class="fa fa-plus" style="font-size: 20px;">
                                 <a href="{{route('category.create')}}" id="create_Projet_btn">
-                                    Ajouter Catégories du projet
+                                    {{ __('messages.add_new_Category') }}
                                 </a>
                             </i>
                         </button>
@@ -253,7 +252,7 @@
                     </div>
                 @endif
 
-                <div class="card-header">{{ __('messages.projects') }}</div>
+                <div class="card-header"><strong>{{ __('messages.projects') }}</strong></div>
                 <br>
                 @if(auth()->guard('employee')->user())
                     <div style="float: right;" class="container">
@@ -281,13 +280,13 @@
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" class="display">
                         <thead>
                         <tr style="text-align: justify">
-                            <th>{{ __('messages.project name') }}</th>
-                            <th>{{ __('messages.members') }}</th>
-                            <th>{{ __('messages.deadline') }}</th>
-                            <th>{{ __('messages.client') }}</th>
-                            <th>{{ __('messages.completion') }}</th>
-                            <th>{{ __('messages.status') }}</th>
-                            <th colspan="4">Action</th>
+                            <th><strong>{{ __('messages.project name') }}</strong></th>
+                            <th><strong>{{ __('messages.members') }}</strong></th>
+                            <th><strong>{{ __('messages.deadline') }}</strong></th>
+                            <th><strong>{{ __('messages.client') }}</strong></th>
+                            <th><strong>{{ __('messages.completion') }}</strong></th>
+                            <th><strong>{{ __('messages.status') }}</strong></th>
+                            <th colspan="4"><strong>Action</strong></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -393,8 +392,9 @@
                                     @endif
                                 </td>
 
-                                @if(auth()->guard('employee')->user())
-
+                                {{--                                @if(auth()->guard('employee')->user())--}}
+                                {{--                                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)--}}
+                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                     <td class="text-center">
                                         <div class="btn-group dropdown m-r-10 open">
                                             <button aria-expanded="true" data-toggle="dropdown" class="btn"
@@ -436,8 +436,27 @@
                                                     </form>
                                                 </li>
                                             </ul>
+                                @endif
 
-                                @else
+                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
+                                    <td class="text-center">
+                                        <div class="btn-group dropdown m-r-10 open">
+                                            <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                    type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="{{route('employee.project.show',$project->id)}}">
+                                                        <strong> <i
+                                                                class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
+                                                                style="font-size: 20px;"></i>
+                                                            Show
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                @endif
+                                @if(auth()->user() && auth()->user()->role_id == 1)
                                     <td class="text-center">
                                         <div class="btn-group dropdown m-r-10 open">
                                             <button aria-expanded="true" data-toggle="dropdown" class="btn"
@@ -450,7 +469,7 @@
                                                         <strong>
                                                             <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
                                                                style="font-size:20px;"></i>
-                                                            Edit
+                                                            {{ __('messages.edit') }}
                                                         </strong>
                                                     </a>
                                                 </li>
@@ -459,7 +478,7 @@
                                                         <strong> <i
                                                                 class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
                                                                 style="font-size: 20px;"></i>
-                                                            Show
+                                                            {{ __('messages.show') }}
                                                         </strong>
                                                     </a>
                                                 </li>
@@ -482,7 +501,7 @@
                                                             <strong>
                                                                 <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
                                                                    style="font-size: 20px;" id="delete">
-                                                                </i> Delete
+                                                                </i> {{ __('messages.delete') }}
                                                             </strong>
                                                         </button>
                                                     </form>

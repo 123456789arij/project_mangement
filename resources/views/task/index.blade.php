@@ -123,8 +123,27 @@
             box-shadow: 0 1px 0 0 #ce93d8;
         }
 
-        #btn_search {
+        /*  btn crud */
+        .m-r-10 {
+            margin-right: 10px !important;
+        }
 
+        .dropdown-menu > li > a {
+            padding: 9px 20px;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: 400;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .pull-right {
+            float: right !important;
         }
     </style>
 @endsection
@@ -152,13 +171,27 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                        <i class="fa fa-plus">
-                            <a href="{{ route('task.create')}}" id="create_task_btn">
-                                Ajouter une nouvelle Tâche
-                            </a>
-                            &nbsp;&nbsp;</i>
-                    </button>
+                    @if(auth()->user()&& auth()->user()->role_id ==  1)
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                            <i class="fa fa-plus">
+
+                                <a href="{{ route('task.create')}}" id="create_task_btn">
+                                    <strong> {{ __('messages.add_new_task') }}  </strong>
+                                </a>
+                                &nbsp;&nbsp;</i></button>
+                    @endif
+                    {{--chef de projet--}}
+                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                            <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                                <i class="fa fa-plus">
+                        <a href="{{ route('employee.task.create')}}" id="create_task_btn">
+                            <strong> {{ __('messages.add_new_task') }}  </strong>
+                        </a>
+                                </i></button>
+                    @endif
+                    {{--/chef de projet--}}
+
+
                 </div>
             </div>
         </div>
@@ -169,7 +202,7 @@
         <form action="{{route('employee.task')}}" type="get">
             <div class="row">
                 <div class="col-3">
-                    <label>Project </label>
+                    <label> <strong> {{ __('messages.project') }}  </strong></label>
                     <select class="mb-2 form-control-lg form-control" name="project_id">
                         <option value="">all</option>
                         @foreach($projects as $project)
@@ -179,7 +212,7 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <label>Status </label>
+                    <label><strong> {{ __('messages.status') }}  </strong></label>
                     <select class="mb-2 form-control-lg form-control" name="status">
                         <option value="">all</option>
                         @foreach( $status  as  $key=> $value)
@@ -201,11 +234,11 @@
 
 
     {{--entreprise task filtre--}}
-    @if(auth()->user())
+    @if(auth()->user()&& auth()->user()->role_id ==  1)
         <form action="{{route('task')}}" type="get">
             <div class="row">
                 <div class="col-3">
-                    <label>Project </label>
+                    <label> <strong> {{ __('messages.project') }}  </strong></label>
                     <select class="mb-2 form-control-lg form-control custom-select" name="project_id">
                         <option value="">all</option>
                         @foreach($projects as $project)
@@ -215,7 +248,7 @@
                     </select>
                 </div>
                 <div class="col-3">
-                    <label>Status </label>
+                    <label><strong> {{ __('messages.status') }}  </strong></label>
                     <select class="mb-2 form-control-lg form-control custom-select" name="status">
                         <option value="">all</option>
                         @foreach($status  as  $key=> $value)
@@ -238,7 +271,7 @@
                 <div class="card-header">{{ __('messages.tasks') }}</div>
                 <br>
                 {{--search--}}
-                @if(auth()->user())
+                @if(auth()->user()&& auth()->user()->role_id ==  1)
                     <form action="{{route('task')}}"
                           class="d-flex mb-5 active-purple-3 active-purple-4"
                           method="get" role="search">
@@ -283,7 +316,8 @@
                                                     <div>
                                                         <a href="{{route('employee.task.show',$task->id)}}">{{ $task->title}}</a>
                                                     </div>
-                                                @else
+                                                @endif
+                                                @if(auth()->user()&& auth()->user()->role_id ==  1)
                                                     <div>
                                                         <a href="{{route('task.show',$task->id)}}">{{ $task->title}}</a>
                                                     </div>
@@ -294,77 +328,141 @@
                                 </td>
                                 @if(auth()->guard('employee')->user())
                                     <td>
-                                        <a href="{{route('employee.project')}}"
+                                        <a href="{{route('employee.project.show',$project->id)}}"
                                            class="project_task">{{ $task->project->name}}</a>
                                     </td>
-                                @endif
-                                @if(auth()->user())
+
                                     <td>
-                                        <a href="{{route('project')}}"
-                                           class="project_task">{{ $task->project->name}}</a>
+                                        @foreach($task->employees as $employee)
+                                            <div style="display:inline-block">
+                                                <img src="{{asset($employee->image)}}" data-toggle="tooltip"
+                                                     data-original-title="{{$employee->name}}" class="rounded-circle"
+                                                     height="30px" width="30px" alt="employee"/>
+                                            </div>
+                                        @endforeach
+                                    </td>
+
+                                    <td style="color: green;font-size: 15px;">
+                                        {{$task->end_date }}
+                                    </td>
+
+                                    <td style="color: tomato;font-size: 15px;">
+                                        @if($task->status === 1)
+                                            <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
+                                        @elseif($task->status === 2)
+                                            <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
+                                        @else
+                                            <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
+                                        @endif
+                                    </td>
+                                    {{--                                action btn--}}
+                                    <td class="text-center">
+                                        <div class="btn-group dropdown m-r-10 open">
+                                            <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                    type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="{{route('employee.task.edit',$task->id)}}">
+                                                        <strong>
+                                                            <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                               style="font-size:20px;"></i>
+                                                            {{ __('messages.edit') }}
+                                                        </strong>
+                                                    </a>
+                                                </li>
+                                                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                                                    <li>
+                                                        <form action="{{route('employee.task.destroy',$task->id)}}"
+                                                              method="post">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            &nbsp;
+                                                            <button class="mr-2 btn-icon btn-icon-only btn">
+                                                                <strong>
+                                                                    <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                                       style="font-size: 20px;" id="delete">
+                                                                    </i> {{ __('messages.delete') }}
+                                                                </strong>
+
+                                                            </button>
+                                                        </form>
+                                                    </li>
+                                                @endif
+                                            </ul>
+
+                                        </div>
+
                                     </td>
                                 @endif
-                                <td>
-                                    @foreach($task->employees as $employee)
-                                        <div style="display:inline-block">
-                                            <img src="{{asset($employee->image)}}" data-toggle="tooltip"
-                                                 data-original-title="{{$employee->name}}" class="rounded-circle"
-                                                 height="30px" width="30px" alt="employee"/>
-                                        </div>
-                                    @endforeach
-                                </td>
+                                @if(auth()->user()&& auth()->user()->role_id ==  1)
+                                    <td>
+                                        <a href="{{route('project.show',$project->id)}}"
+                                           class="project_task">{{ $task->project->name}}</a>
+                                    </td>
 
-                                <td style="color: green;font-size: 15px;">
-                                    {{$task->end_date }}
-                                </td>
+                                    <td>
+                                        @foreach($task->employees as $employee)
+                                            <div style="display:inline-block">
+                                                <img src="{{asset($employee->image)}}" data-toggle="tooltip"
+                                                     data-original-title="{{$employee->name}}" class="rounded-circle"
+                                                     height="30px" width="30px" alt="employee"/>
+                                            </div>
+                                        @endforeach
+                                    </td>
 
-                                <td style="color: tomato;font-size: 15px;">
-                                    @if($task->status === 1)
-                                        <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
-                                    @elseif($task->status === 2)
-                                        <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
-                                    @else
-                                        <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
-                                    @endif
-                                </td>
+                                    <td style="color: green;font-size: 15px;">
+                                        {{$task->end_date }}
+                                    </td>
 
-
-                                <td class="text-center">
-                                    <div class="btn-group dropdown m-r-10 open">
-                                        <button aria-expanded="true" data-toggle="dropdown" class="btn"
-                                                type="button">
-                                            <i class="fa fa-ellipsis-h"></i>
-                                        </button>
-                                        <ul role="menu" class="dropdown-menu pull-right">
-                                            <li>
-                                                <a href="{{route('task.edit',$task->id)}}">
-                                                    <strong>
-                                                        <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
-                                                           style="font-size:20px;"></i>
-                                                        Edit
-                                                    </strong>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <form action="{{route('task.destroy',$task->id)}}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="mr-2 btn-icon btn-icon-only btn">
+                                    <td style="color: tomato;font-size: 15px;">
+                                        @if($task->status === 1)
+                                            <span class="badge badge-success"> {{ __('messages.Completed') }}</span>
+                                        @elseif($task->status === 2)
+                                            <span class="badge badge-danger"> {{ __('messages.Incomplete') }}</span>
+                                        @else
+                                            <span class="badge badge-info"> {{ __('messages.In Progress') }}</span>
+                                        @endif
+                                    </td>
+                                    {{--                                action btn--}}
+                                    <td class="text-center">
+                                        <div class="btn-group dropdown m-r-10 open">
+                                            <button aria-expanded="true" data-toggle="dropdown" class="btn"
+                                                    type="button">
+                                                <i class="fa fa-ellipsis-h"></i>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="{{route('task.edit',$task->id)}}">
                                                         <strong>
-                                                            <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
-                                                               style="font-size: 20px;" id="delete">
-                                                            </i> Delete
+                                                            <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
+                                                               style="font-size:20px;"></i>
+                                                            {{ __('messages.edit') }}
                                                         </strong>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{route('task.destroy',$task->id)}}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        &nbsp;
+                                                        <button class="mr-2 btn-icon btn-icon-only btn">
+                                                            <strong>
+                                                                <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
+                                                                   style="font-size: 20px;" id="delete">
+                                                                </i> {{ __('messages.delete') }}
+                                                            </strong>
 
-                                                    </button>
-                                                </form>
-                                            </li>
-                                        </ul>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
 
-                                    </div>
+                                        </div>
 
-                                </td>
-
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

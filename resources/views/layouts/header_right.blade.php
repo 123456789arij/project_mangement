@@ -42,31 +42,31 @@
                                         class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
                             @endif
                             @if(auth()->user() && auth()->user()->role_id == 1)
-                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
 
-                                        {{auth()->user()->name}}
-                                    </h6>
+                                    {{auth()->user()->name}}
+                                </h6>
                             @endif
                             @if(auth()->user() && auth()->user()->role_id ==  0)
-                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
-                                        {{auth()->user()->name}}
-                                    </h6>
-                                    <a href="{{route('super_admin.profile')}}" class="dropdown-item"
-                                       style="font-size: 15px"><i
-                                            class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
+                                <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                    {{auth()->user()->name}}
+                                </h6>
+                                <a href="{{route('super_admin.profile')}}" class="dropdown-item"
+                                   style="font-size: 15px"><i
+                                        class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
                             @endif
                             @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
-                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
-                                        {{auth()->guard('employee')->user()->name}}
-                                    </h6>
+                                <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                    {{auth()->guard('employee')->user()->name}}
+                                </h6>
                             @endif
                             @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
-                                    <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
-                                        {{auth()->guard('employee')->user()->name}}
-                                    </h6>
-                             <a href="{{route('employee.profile')}}" class="dropdown-item"
-                                       style="font-size: 15px"><i
-                                            class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
+                                <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
+                                    {{auth()->guard('employee')->user()->name}}
+                                </h6>
+                                <a href="{{route('employee.profile')}}" class="dropdown-item"
+                                   style="font-size: 15px"><i
+                                        class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
                             @endif
 
                             @if(auth()->user()&& auth()->user()->role_id == 1)
@@ -81,7 +81,7 @@
 
                                       @endif--}}
                                 </h6>
-                                @endif
+                            @endif
                             <div tabindex="-1" class="dropdown-divider"></div>
                             <button type="button" tabindex="0" class="dropdown-item" style="float: left">
                                 <a class="nav-link" href="{{ route('logout') }}"
@@ -118,17 +118,21 @@
                     </div>
                     <div class="widget-subheading">
                         @if(auth()->guard('client')->user())
-                            Client
+                            {{ __('messages.client') }}
                         @endif
                         @if(auth()->user()&& auth()->user()->role_id ==  1)
-                            Entreprise
+                            {{ __('messages.Company') }}
                         @endif
                         @if(auth()->user()&& auth()->user()->role_id ==  0)
-                            Super Admin
+                            {{ __('messages.superAdmin') }}
                         @endif
-                        @if(auth()->guard('employee')->user())
-                            Employee
+                        @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
+                            {{ __('messages.employee') }}
                         @endif
+                        @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                            {{ __('messages.projectManager') }}
+                        @endif
+
                     </div>
                 </div>
                 <div class="widget-content-right header-user-info ml-3">
@@ -151,7 +155,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('locale/en') }}">
                                     <img src="{{asset('us.png')}}" width="30px" height="20x">
-                                    &nbsp;  Anglais
+                                    &nbsp; Anglais
 
 
                                 </a>

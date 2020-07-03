@@ -51,7 +51,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('client.index')}}" class="widget-heading text-secondary">
-                                    {{ __('messages.total_clients') }}
+                                    <strong>    {{ __('messages.total_clients') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,7 +77,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('employee.index')}}" class="widget-heading text-secondary">
-                                    {{ __('messages.total_Employees') }}
+                                    <strong>    {{ __('messages.total_Employees') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -101,7 +101,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('project')}}" class="widget-heading  text-secondary">
-                                    {{ __('messages.Total_Projects') }}
+                                    <strong>  {{ __('messages.Total_Projects') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -128,7 +128,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('task')}}" class="widget-heading text-secondary">
-                                    {{ __('messages.Total_Tasks') }}
+                                    <strong>  {{ __('messages.Total_Tasks') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -154,7 +154,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('task')}}" class="widget-heading text-secondary">
-                                    {{ __('messages.Pending_task') }}
+                                    <strong>   {{ __('messages.Pending_task') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -179,7 +179,7 @@
                             </div>
                             <div class="widget-content-left">
                                 <a href="{{route('task')}}" class="widget-heading text-secondary">
-                                    {{ __('messages.Completed_task') }}
+                                    <strong> {{ __('messages.Completed_task') }}</strong>
                                 </a>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -495,47 +495,45 @@
     @if(auth()->user() && auth()->user()->role_id == 1)
         {{-- place for diagramme --}}
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="main-card mb-3 card">
-                    <div class="card-header">{{ __('messages.SATISTIQUE_OF_PROJECT_STATUS') }}
+                    <div class="card-header"><strong>{{ __('messages.SATISTIQUE_OF_PROJECT_STATUS') }}</strong>
                     </div>
-                    <div id="donut" style="width: 1000px; height: 400px;"></div>
+                    <div id="donut" style="height: 400px;"></div>
 
                 </div>
             </div>
-        </div>
-        {{--/place for diagramme --}}
-    @endif
-    @if(auth()->user()&& auth()->user()->role_id == 1)
-        <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="mb-3 card">
-                    <div class="card-header-tab card-header-tab-animation card-header">
-                        <div class="card-header-title">
-                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                            Satistique of task status
-                        </div>
+                    <div class="card-header">
+                        <strong>{{ __('messages.SATISTIQUE_OF_Task_STATUS') }}</strong>
                     </div>
+                    <div id="piechart_3d" style="height: 400px;"></div>
 
-                    <div class="card-body">
-                        <div class="tab-content">
-                            <div class="tab-pane fade show active" id="tabs-eg-77">
-                                <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
-                                    <div class="widget-chat-wrapper-outer">
-                                        <div
-                                            class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                    {{--    <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tabs-eg-77">
+                                    <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                        <div class="widget-chat-wrapper-outer">
+                                            <div
+                                                class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
 
-                                            <div id="piechart_3d" style="width: 700px; height: 400px;"></div>
+                                                <div id="piechart_3d" style="width: 700px; height: 400px;"></div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>--}}
                 </div>
             </div>
-            <div class="col-md-12 col-lg-6">
+        </div>
+        {{--/place for diagramme --}}
+
+
+
+            <div class="row"> <div class="col-md-12 col-lg-6">
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
                         <div class="card-header-title">
@@ -660,9 +658,9 @@
                     var analytics = (response.data);
                     var data = google.visualization.arrayToDataTable(analytics);
                     var options = {
-                        title: 'Percentage of status Project',
+                        title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES PROJETS',
                         pieHole: 0.4,
-                        chartArea: {left: 250},
+                        chartArea: {left: 120},
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('donut'));
                     chart.draw(data, options);
@@ -671,31 +669,31 @@
         }
     </script>
 
- {{--   --}}{{--client chart--}}{{--
-    <script>
-        google.charts.load('current', {'packages': ['bar']});
-        google.charts.setOnLoadCallback(drawChart);
+    {{--   --}}{{--client chart--}}{{--
+       <script>
+           google.charts.load('current', {'packages': ['bar']});
+           google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
-            $.ajax({
-                url: '{{route('clientChart')}}',
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    var analytics = (response.data);
-                    var data = google.visualization.arrayToDataTable(analytics);
-                    var options = {
-                        chart: {
-                            title: 'Company Performance',
-                            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                        }
-                    };
-                    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-                    chart.draw(data, google.charts.Bar.convertOptions(options));
-                }
-            });
-        }
-    </script>--}}
+           function drawChart() {
+               $.ajax({
+                   url: '{{route('clientChart')}}',
+                   type: 'GET',
+                   dataType: 'json',
+                   success: function (response) {
+                       var analytics = (response.data);
+                       var data = google.visualization.arrayToDataTable(analytics);
+                       var options = {
+                           chart: {
+                               title: 'Company Performance',
+                               subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                           }
+                       };
+                       var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+                       chart.draw(data, google.charts.Bar.convertOptions(options));
+                   }
+               });
+           }
+       </script>--}}
 
     <script>
         google.charts.load('current', {'packages': ['corechart']});
@@ -711,9 +709,9 @@
                     var analytics = (response.data);
                     var data = google.visualization.arrayToDataTable(analytics);
                     var options = {
-                        title: 'Percentage of status task',
+                        title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES TACHES',
                         is3D: true,
-                        chartArea: {left: 340},
+                        chartArea: {left: 120},
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
                     chart.draw(data, options);
