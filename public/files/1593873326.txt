@@ -1,0 +1,26 @@
+Généralement dans un PFE, nous sommes confronté à un problème qu'on
+ va lui concevoir et réaliser une solution. 
+
+- Problématique : explique le problème à résoudre par le travail du PFE.
+
+ - Objectifs du projet : indique à quoi sert le projet que tu souhaite réaliser.
+
+ - Etude de l'existant : tu cites s'il y a des solutions existantes qui pourrait
+ résoudre la problématique posé par le sujet du PFE. Ces solutions existantes 
+sont généralement similaires à la solution que tu vas proposer. 
+
+- Le critique de l'existant va montrer les avantages et inconvénients 
+des solutions existantes. ça pourra être fait sous la forme d'un tableau
+ comparatif entre solutions.
+
+ - Solution proposée : ça la solution que tu vas proposer pour résoudre le
+ problème de ton PFE.
+ Normalement cette solution dois aussi inclure les solutions aux inconvénients 
+des solutions existantes cités. 
+
+- Ensuite la solution existante 
+tu vas la décrire comme 
+un ensemble des besoins fonctionnels pour chaque utilisateur
+ et des besoins non fonctionnels qui sont des besoins non exigé directement mais
+ qui devrait être présent dans la solution; comme la sécurité, la fiabilité
+, l'ergonomie..

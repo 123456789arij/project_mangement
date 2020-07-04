@@ -67,7 +67,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 {{--                                    <h5 class="card-title">Grid Rows</h5>--}}
-                                <form method="POST" action="{{ route('task.update',$task->id) }}" class="container">
+                                <form method="POST" action="{{ route('employee.task.update',$task->id) }}" class="container">
                                     {{--  partie email +adresse--}}
                                     @csrf
                                     @method('PATCH')
@@ -97,11 +97,9 @@
                                             <div class="col-4">
                                                 <div class="position-relative form-group" style="float: right">
                                                     <strong> {{ __('messages.assigned to') }}</strong>
-                                                    <select name="ids[]" class="mb-2 form-control-lg form-control"
-                                                            multiple>
+                                                    <select name="ids[]" class="mb-2 form-control-lg form-control" multiple>
                                                         @foreach($employees as $emplyoee)
-                                                            <option
-                                                                value="{{$emplyoee->id}}" {{ (collect(old('ids'))->contains($emplyoee->id)) ? 'selected':'' }} {{in_array($emplyoee->id, old("ids") ?: []) ? "selected": ""}}> {{$emplyoee->name}} </option>
+                                                            <option value="{{$emplyoee->id}}" {{in_array($emplyoee->id, $taskEmployeesIds) ? "selected": ""}}> {{$emplyoee->name}} </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

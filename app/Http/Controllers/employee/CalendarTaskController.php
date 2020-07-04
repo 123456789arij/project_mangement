@@ -24,7 +24,7 @@ class CalendarTaskController extends Controller
             })->get();
 
         } else {
-            $tasks = $employee->tasks();
+            $tasks = $employee->tasks;
         }
         return view('employee.task.fullcalender', compact('tasks'));
     }

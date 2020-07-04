@@ -400,21 +400,21 @@
                 </div>
                 <div>
                     <h5 class="page-title">
-                        {{__('messages.employee') }} # {{$employee->id}}
+                    <strong> {{__('messages.employee') }} # {{$employee->id}}  {{$employee->name}}</strong>
                     </h5>
                 </div>
             </div>
             {{--   /page-title-wrapper--}}
 
-          {{--  <div class="page-title-actions">
-                <div class="d-inline-block dropdown text-center">
-                            <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                                <a href="{{route('employee.edit',$employee->id)}}" id="edit_Projet_btn"
-                                   style="color: white;font-size: 15px;">
-                                    <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>  {{__('messages.edit') }}</a>
-                            </button>
-                </div>
-            </div>--}}
+            {{--  <div class="page-title-actions">
+                  <div class="d-inline-block dropdown text-center">
+                              <button type="button" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                                  <a href="{{route('employee.edit',$employee->id)}}" id="edit_Projet_btn"
+                                     style="color: white;font-size: 15px;">
+                                      <i class="pe-7s-note  btn-icon-wrapper" style="font-size: 20px;"></i>  {{__('messages.edit') }}</a>
+                              </button>
+                  </div>
+              </div>--}}
         </div>
     </div>
 
@@ -446,9 +446,14 @@
                                         @else
                                             {{ __('messages.male') }}
                                         @endif  </strong></span></p></li>
-                        <li><p><span>  <strong>   {{ __('messages.mobile') }}: &nbsp; {{$employee->mobile}} </strong></span></p></li>
-                        <li><p><span> <strong> {{ __('messages.Address') }}: &nbsp; {{$employee->address}} </strong></span></p></li>
-                        <li><p><span> <strong> {{ __('messages.skills') }}: <br>  {{$employee->skills}} </strong></span></p></li>
+                        <li><p>
+                                <span>  <strong>   {{ __('messages.mobile') }}: &nbsp; {{$employee->mobile}} </strong></span>
+                            </p></li>
+                        <li><p>
+                                <span> <strong> {{ __('messages.Address') }}: &nbsp; {{$employee->address}} </strong></span>
+                            </p></li>
+                        <li><p><span> <strong> {{ __('messages.skills') }}: <br>  {{$employee->skills}} </strong></span>
+                            </p></li>
                     </ul>
                 </div>
             </div>
@@ -462,8 +467,7 @@
                                 <div class="row">
                                     <section class="about-me line col-md-12 padding_30 padbot_45">
                                         <div class="section-title">
-                                            <span></span>
-                                            <h2>{{ __('messages.projects') }}</h2>
+                                            <h2><strong>{{ __('messages.projects') }}</strong></h2>
                                         </div>
                                         <div class="top_30">
                                             <table
@@ -537,7 +541,7 @@
                                                     @foreach($employee->projects as $project)
                                                         <tr>
                                                             <td>
-                                                                <a href="{{route('employee.project')}}">{{$project->name}}</a>
+                                                                <a href="{{route('employee.project.show',$project->id)}}">{{$project->name}}</a>
                                                             </td>
                                                             <td>{{ $project->deadline}}</td>
                                                             <td class="text-center">

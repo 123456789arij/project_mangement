@@ -144,11 +144,11 @@
                             <a id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false" v-pre>
                                 @switch($locale)
-                                    @case('fr')
-                                    <img src="{{asset('fr.png')}}" width="30px" height="20x">
+                                    @case('en')
+                                    <img src="{{asset('us.png')}}" width="30px" height="20x">
                                     @break
                                     @default
-                                    <img src="{{asset('us.png')}}" width="30px" height="20x">
+                                    <img src="{{asset('fr.png')}}" width="30px" height="20x">
                                 @endswitch
                                 <span class="caret"></span>
                             </a>

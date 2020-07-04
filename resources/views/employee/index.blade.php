@@ -108,6 +108,7 @@
             color: #333;
             white-space: nowrap;
         }
+
         /*search */
         .active-purple-3 input[type=text] {
             border: 1px solid #ce93d8;
@@ -155,7 +156,7 @@
                     <i class="fas fa-users icon-gradient bg-mean-fruit">
                     </i>
                 </div>
-                <div>       {{ __('messages.EmployeesDashboard') }}
+                <div><strong>  {{ __('messages.EmployeesDashboard') }}</strong>
                     <span class="vertical-line">  	&nbsp;
                         <span class="label label-rouded label-custom pull-right">
                         {{  $employeescount }}
@@ -168,12 +169,22 @@
 
             <div class="page-title-actions">
                 <div class="d-inline-block dropdown text-center">
-                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                        <i class="fas fa-user-plus" style="font-size: 15px;">
-                            &nbsp;&nbsp;
-                            <a href="{{route('employee.create')}}"
-                               id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
-                    </button>
+                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                            <i class="fas fa-user-plus" style="font-size: 15px;">
+                                &nbsp;&nbsp;
+                                <a href="{{route('chef.employee.create')}}"
+                                   id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
+                        </button>
+                    @endif
+                    @if(auth()->user()&& auth()->user()->role_id ==  1)
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                            <i class="fas fa-user-plus" style="font-size: 15px;">
+                                &nbsp;&nbsp;
+                                <a href="{{route('employee.create')}}"
+                                   id="create_employee_btn">   {{__('messages.add_new_employee') }}</a>&nbsp;&nbsp;</i>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -190,12 +201,12 @@
                 @endif
                 <div class="card-header">{{ __('messages.employees') }}</div>
                 <br>
-                @if(auth()->user())
-
+                {{--                    search btn company --}}
+                @if(auth()->user()&& auth()->user()->role_id ==  1)
                     <form action="{{route('employee.index')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                           method="get" role="search">
-                        <div style="padding-left: 800px;"  class="container">
+                        <div style="padding-left: 800px;" class="container">
                             <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
                             <input type="text" name="search" placeholder="search" id="search">
 
@@ -203,15 +214,15 @@
                     </form>
 
                 @endif
-                @if(auth()->guard('employee')->user())
-                        <form action="{{route('chef.employee.index')}}"
-                              class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
-                              method="get" role="search">
-                            <div style="float: right" class="container">
-                                <input type="text" name="search" placeholder="search" id="search">
-                                <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
-                            </div>
-                        </form>
+                @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+                    <form action="{{route('chef.employee.index')}}"
+                          class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
+                          method="get" role="search">
+                        <div style="float: right" class="container">
+                            <input type="text" name="search" placeholder="search" id="search">
+                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                        </div>
+                    </form>
                 @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
@@ -242,7 +253,7 @@
                                                     @if(auth()->user())
                                                         <a href="{{route('employee.show',$employee->id)}}"> {{$employee->name }} </a>
                                                     @endif
-                                                    @if(auth()->guard('employee')->user())
+                                                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                                         <a href="{{route('chef.employee.show',$employee->id)}}"> {{$employee->name }} </a>
                                                     @endif
 
@@ -262,7 +273,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    @if(auth()->user())
+                                    @if(auth()->user()&& auth()->user()->role_id ==  1)
                                         <div class="btn-group dropdown m-r-10 open">
                                             <button aria-expanded="true" data-toggle="dropdown" class="btn"
                                                     type="button">
@@ -305,7 +316,7 @@
                                             </ul>
                                         </div>
                                     @endif
-                                    @if(auth()->guard('employee')->user())
+                                    @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                         <div class="btn-group dropdown m-r-10 open">
                                             <button aria-expanded="true" data-toggle="dropdown" class="btn"
                                                     type="button">

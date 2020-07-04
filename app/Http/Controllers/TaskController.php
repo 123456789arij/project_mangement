@@ -95,20 +95,20 @@ class TaskController extends Controller
         $task->priority = $request->input('priority');
         $task->status = 0;
         $task->project_id = $request->input('project_id');
-
-
         $emplyeeIds = $request->input('ids');
         $task->save();
         $task->employees()->sync($emplyeeIds);
 
-    /*    if ($files = $request->file('file')) {
-            $destinationPath = '/files/';
-            $file_doc = time() . "." . $files->getClientOriginalExtension();
-            $files->move(public_path('files'), $file_doc);
-            $file = new File();
-            $file->path = $destinationPath . $file_doc;
-            $task->files()->save($file);
-        }*/
+        /*    if ($files = $request->file('file')) {
+                $destinationPath = '/files/';
+                $file_doc = time() . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('files'), $file_doc);
+                $file = new File();
+                $file->path = $destinationPath . $file_doc;
+                $task->files()->save($file);
+            }*/
+
+
         if ($files = $request->file('file')) {
 
             $destinationPath = '/files/';
@@ -118,7 +118,7 @@ class TaskController extends Controller
             $file->path = $destinationPath . $file_doc;
             $task->files()->save($file);
         }
-
+//        dd($files);
         return redirect()->route('task')->with('toast_success', 'task  is successfully saved');
     }
 
@@ -131,7 +131,7 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::findorfail($id);
-        $comments = $task->comments()->with('employee')->orderBy('created_at','desc')->get();
+        $comments = $task->comments()->with('employee')->orderBy('created_at', 'desc')->get();
         return view('task.show', compact('task', 'comments'));
     }
 

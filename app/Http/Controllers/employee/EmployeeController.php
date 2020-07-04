@@ -6,6 +6,7 @@ use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
 use App\Project;
+use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -18,20 +19,22 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
-        $employeescount = Employee::whereHas('department', function (Builder $query) {
-            $query->where('id', auth()->guard('employee')->user()->department_id);
-        })->count();
+        if (auth()->guard('employee')->user()->role == 2) {
+            $search = $request->input('search');
+            $employeescount = Employee::whereHas('department', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            })->count();
 
-        $employees = Employee::whereHas('department', function (Builder $query) {
-            $query->where('id', auth()->guard('employee')->user()->department_id);
-        });
-        if ($search) {
-            $employees = $employees->where("name", "LIKE", "%{$search}%");
+            $employees = Employee::whereHas('department', function (Builder $query) {
+                $query->where('id', auth()->guard('employee')->user()->department_id);
+            });
+            if ($search) {
+                $employees = $employees->where("name", "LIKE", "%{$search}%");
 
+            }
+            $employees = $employees->paginate(5);
+            return view('employee.index', compact('employees', 'employeescount'));
         }
-        $employees = $employees->paginate(5);
-        return view('employee.index', compact('employees', 'employeescount'));
     }
 
     /**
@@ -41,7 +44,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        if (auth()->guard('employee')->user()->role == 2) {
+            $department = Department::where('id', auth()->guard('employee')->user()->department_id)->first();
+            $departments = Department::where('user_id', $department->user_id)->get();
+            return view('employee.profile.create', compact('departments'));
+        }
     }
 
     /**
@@ -52,7 +59,38 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required', 'string', 'min:6',
+            'role' => 'required',
+            'gender' => 'required',
+            'joining_date' => 'required',
+            'department_id' => 'required',
+            'image' => 'image | mimes:jpeg,png,jpg,gif,svg | max:2048',
+        ]);
+
+        $emplyoee = new Employee();
+        $emplyoee->name = $request->input('name');
+        $emplyoee->email = $request->input('email');
+        $emplyoee->password = $request->input('password');
+        $emplyoee->role = $request->input('role');
+        $emplyoee->gender = $request->input('gender');
+        $emplyoee->skills = $request->input('skills');
+        $emplyoee->mobile = $request->input('mobile');
+        $emplyoee->address = $request->input('address');
+        $emplyoee->joining_date = $request->input('joining_date');
+        $emplyoee->department_id = $request->input('department_id');
+
+        if ($files = $request->file('image')) {
+//       dd(request()->all());
+            $destinationPath = '/images/';
+            $profileImage = time() . "." . $files->getClientOriginalExtension();
+            $files->move(public_path('images'), $profileImage);
+            $emplyoee->image = $destinationPath . $profileImage;
+        }
+        $emplyoee->save();
+        return redirect()->route('chef.employee.index')->with('sucess');
     }
 
     /**

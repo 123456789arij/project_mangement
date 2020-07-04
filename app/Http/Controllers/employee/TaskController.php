@@ -157,6 +157,7 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
+
         $projects = Project::whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->whereHas('departments', function (Builder $query) {
@@ -168,7 +169,10 @@ class TaskController extends Controller
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('id', auth()->guard('employee')->user()->department_id);
         })->get();
-        return view('employee.task.edit', compact('task', 'projects', 'employees'));
+
+        $taskEmployeesIds = $task->employees()->pluck('id')->toArray();
+
+        return view('employee.task.edit', compact('task', 'projects', 'employees', 'taskEmployeesIds'));
     }
 
     /**
@@ -189,7 +193,7 @@ class TaskController extends Controller
 
         ]);
         $task = Task::findOrFail($id);
-        $task->titre = $request->input('titre');
+        $task->title = $request->input('titre');
         $task->description = $request->input('description');
         $task->start_date = $request->input('start_date');
         $task->end_date = $request->input('end_date');

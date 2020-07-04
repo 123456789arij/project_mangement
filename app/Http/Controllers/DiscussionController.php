@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Discussion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Employee;
@@ -11,7 +12,12 @@ class DiscussionController extends Controller
 {
     public function discussions()
     {
-        return view('discussion.index');
+        $user = auth()->guard('employee')->user();
+
+        $employees = Employee::whereHas('department', function (Builder $query) use ($user) {
+            $query->where('id', $user->department_id);
+        })->where('id', '<>', $user->id)->get();
+        return view('discussion.index', compact('employees'));
     }
 
     public function getMyDiscussions(Request $request)
@@ -22,11 +28,10 @@ class DiscussionController extends Controller
         $discussions = $employee->getOpenDiscussions($page);
         $unreadDiscussionCount = $employee->countMyUnreadDiscussions();
 
-  /* return response()->json([
+        return response()->json([
             'unread_discussion_count' => $unreadDiscussionCount,
             'discussions' => $discussions
-        ]);*/
-     return view('discussion.listDiscussions',compact('unreadDiscussionCount','discussions'))->with('success');
+        ]);
     }
 
 //    public function closeDiscussion(user $contact)
@@ -82,9 +87,9 @@ class DiscussionController extends Controller
         }
 
         $messages = $messages->get();
-        return view('discussion.messages_contact',compact('messages','contact'));
+        //return view('discussion.messages_contact',compact('messages','contact'));
 
-//        return response()->json($messages, 200);
+        return response()->json($messages, 200);
 
     }
 
@@ -141,8 +146,8 @@ class DiscussionController extends Controller
         $discussion->updated_at = time();
         $discussion->save();
 
-//        return 'success';
-        return view('discussion.index')->with('success');
+        return 'success';
+        //return view('discussion.index')->with('success');
     }
 
 }

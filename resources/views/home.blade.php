@@ -432,13 +432,21 @@
                 </div>
             </div>
         </div>
-        {{--project date --}}
+        {{-- place for diagramme --}}
         <div class="row">
-            <div class="col-md-12 col-lg-6">
+            <div class="col-md-6">
                 <div class="main-card mb-3 card">
-                    <div class="card-header">{{ __('messages.projects') }}</div>
+                    <div class="card-header"><strong>{{ __('messages.SATISTIQUE_OF_PROJECT_STATUS') }}</strong>
+                    </div>
+                    <div id="clientChart" style="height: 300px;"></div>
+                </div>
+            </div>
+            {{--project date --}}
+            <div class="col-md-6">
+                <div class="main-card mb-3 card">
+                    <div class="card-header"><strong>{{ __('messages.projects') }}</strong></div>
                     <div class="table-responsive">
-                        <table class="align-middle mb-0 table table-borderless">
+                        <table class="align-middle mb-0 table table-borderless" style="height: 300px;">
                             <thead>
                             <tr>
                                 <th scope="col">{{ __('messages.title') }}</th>
@@ -472,18 +480,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {{--/project date--}}
+            {{--/project date--}}
 
-        {{-- place for diagramme --}}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="main-card mb-3 card">
-                    <div class="card-header">Satistique of project status
-                    </div>
-                    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
-                </div>
-            </div>
         </div>
         {{--/place for diagramme --}}
 
@@ -533,7 +531,8 @@
 
 
 
-            <div class="row"> <div class="col-md-12 col-lg-6">
+        <div class="row">
+            <div class="col-md-12 col-lg-6">
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
                         <div class="card-header-title">
@@ -669,32 +668,6 @@
         }
     </script>
 
-    {{--   --}}{{--client chart--}}{{--
-       <script>
-           google.charts.load('current', {'packages': ['bar']});
-           google.charts.setOnLoadCallback(drawChart);
-
-           function drawChart() {
-               $.ajax({
-                   url: '{{route('clientChart')}}',
-                   type: 'GET',
-                   dataType: 'json',
-                   success: function (response) {
-                       var analytics = (response.data);
-                       var data = google.visualization.arrayToDataTable(analytics);
-                       var options = {
-                           chart: {
-                               title: 'Company Performance',
-                               subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                           }
-                       };
-                       var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-                       chart.draw(data, google.charts.Bar.convertOptions(options));
-                   }
-               });
-           }
-       </script>--}}
-
     <script>
         google.charts.load('current', {'packages': ['corechart']});
 
@@ -719,4 +692,45 @@
             });
         }
     </script>
+
+    {{--client chart--}}
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '{{route('clientChart')}}',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var analytics = (response.data);
+                    var data = google.visualization.arrayToDataTable(analytics);
+                    var options = {
+                        title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES PROJETS',
+                        sliceVisibilityThreshold: .2,
+                        chartArea: {left: 120},
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('clientChart'));
+                    chart.draw(data, options);
+                }
+            });
+        }
+    </script>
+    @if(auth()->guard('employee')->user())
+    <script>
+        $.ajax({
+            method: 'get',
+            url: '/employee/discussions/messages',
+        }).done((data) => {
+            var unreadDiscussions = data.unread_discussion_count;
+            if(unreadDiscussions) {
+                //TODO show notification icone
+            }
+        }).fail((error) => {
+            console.log(error)
+        });
+    </script>
+    @endif
+
 @endsection

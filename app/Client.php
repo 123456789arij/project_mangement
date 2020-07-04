@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class Client extends Authenticatable
 {
@@ -15,7 +16,9 @@ class Client extends Authenticatable
         'name', 'email', 'password', 'mobile', 'address', 'linked_in', 'skype', 'facebook', 'user_id',
     ];
 
-
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
+    }
 
     public function user()
     {

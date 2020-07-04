@@ -21,6 +21,7 @@ class Employee extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
     }

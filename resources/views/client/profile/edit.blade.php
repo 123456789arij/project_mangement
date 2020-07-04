@@ -96,7 +96,7 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="password">{{__('messages.Password') }} </label>
-                                                <input type="password" class="form-control" name="password">
+                                                <input type="password" class="form-control" name="password" data-toggle="password" value="{{$client->password}}">
                                             </div>
                                         </div>
                                     </div>
