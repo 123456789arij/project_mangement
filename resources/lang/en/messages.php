@@ -115,6 +115,9 @@ return [
     'Priority' => 'Priority',
     'UPDATE TASK' => 'update Task',
     'work' => 'Work',
+    'startconversation' => 'Start Conversation',
+    'listofmessages' => 'list of messages',
+    'listofdiscussions' => 'list of discussions',
 
 
 ];

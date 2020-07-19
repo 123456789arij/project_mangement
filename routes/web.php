@@ -47,12 +47,16 @@ Route::prefix('employee')->group(function () {
     Route::post('logout/', 'Auth\EmployeeController@logout')->name('employee.logout');
     Route::group(['middleware' => 'auth.employee'], function () {
         Route::get('/dashboard', 'employee\DashboradController@index')->name('employee.dashborad');
+        Route::get('/chart/project', 'employee\ChartController@index')->name('employee.pieChart');
+        Route::get('/donut_chart/task', 'employee\DonutChartController@index')->name('employee.donut_chart');
         //        add employee
         Route::get('/dashboard/employee', 'employee\EmployeeController@index')->name('chef.employee.index');
         Route::get('/create/employee', 'employee\EmployeeController@create')->name('chef.employee.create');
         Route::post('/store/employee', 'employee\EmployeeController@store')->name('chef.employee.store');
         Route::get('/{employee}/edit', 'employee\EmployeeController@edit')->name('chef.employee.edit');
         Route::patch('/{employee}', 'employee\EmployeeController@update')->name('chef.employee.update');
+        Route::delete('/delete/{id}', 'employee\EmployeeController@destroy')->name('chef.employee.destroy');
+
 //        profile
         Route::get('/profile', 'employee\DashboradController@profile')->name('employee.profile');
         Route::patch('/{id}/profile', 'employee\DashboradController@update')->name('employee.update.profile');
@@ -84,8 +88,8 @@ Route::prefix('employee')->group(function () {
         });
 //employee profile
 //        Route::get('/profile/em', 'employee\DashboradController@profile')->name('profile');
-//        Route::get('/{id}/profile', 'employee\DashboradController@edit')->name('employee.profile.edit');
-//        Route::patch('/employee/{id}', 'employee\DashboradController@update')->name('employee.profile.update');
+      Route::get('/profile', 'employee\DashboradController@profile')->name('employee.profile');
+        Route::patch('/employee/{id}', 'employee\DashboradController@update')->name('employee.profile.update');
 
         Route::get('/project/create', 'employee\ProjectController@create')->name('employee.project.create');
         Route::post('/project/store', 'employee\ProjectController@store')->name('employee.project.store');

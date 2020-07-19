@@ -4,6 +4,7 @@
     <!--Plugin CSS file with desired skin-->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+    <link rel="stylesheet" href="{{ asset('plugins/bower_components/summernote/dist/summernote.css') }}">
 @endsection
 @section('content')
     {{-- app-page-title--}}
@@ -159,9 +160,15 @@
                                     </div>
                                     <div class="divider"></div>
                                     <br>
-                                    <div class="col">
-                                        <label for="description"><strong> {{ __('messages.Project description') }}  </strong></label>
-                                        <textarea id="textarea" name="description">{{$project->description}}</textarea>
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <label
+                                                class="control-label"><strong> {{ __('messages.Project description') }}   </strong></label>
+                                            <textarea id="description" name="description"
+                                                      class="form-control summernote">
+                                                    {{$project->description}}
+                                            </textarea>
+                                        </div>
                                     </div>
                                     <br><br>
                                     <div class="d-block text-center">
@@ -185,8 +192,26 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ asset('plugins/bower_components/summernote/dist/summernote.min.js') }}"></script>
+    <script>
+        $('.summernote').summernote({
+            height: 100,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: false,
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ["view", ["fullscreen"]]
+            ]
+        });
 
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    </script>
+
+{{--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script>
         tinymce.init({
             selector: 'textarea',
@@ -204,7 +229,7 @@
 
         //      tinymce.activeEditor.execCommand('mceFullScreen');
 
-    </script>
+    </script>--}}
     <!--Plugin JavaScript file-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
     <script>

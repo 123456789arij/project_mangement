@@ -3,8 +3,10 @@
         <div class="app-footer-right">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="javascript:void(0);" class="nav-link">
-                        Footer Link 3
+                    <a href="#lang_barre" class="nav-link">
+                        <div class="arrow-wrapper">
+                            <div class="arrow-up"></div>
+                        </div>
                     </a>
                 </li>
             </ul>

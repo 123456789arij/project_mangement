@@ -16,7 +16,7 @@
                     <i class="metismenu-icon fas fa-tasks"></i>
                 </div>
                 <div><h4 class="page-title">
-                      <strong>{{__('messages.task') }} # {{$task->id}} - {{$task->title}}</strong>
+                        <strong>{{__('messages.task') }} # {{$task->id}} - {{$task->title}}</strong>
                     </h4></div>
                 {{--    <div class="page-title-subheading">This is an example dashboard created using build-in
                         elements and components
@@ -102,7 +102,7 @@
                                                 <select name="ids[]" class="mb-2 form-control-lg form-control" multiple>
                                                     @foreach($employees as $emplyoee)
                                                         <option
-                                                            value="{{$emplyoee->id}}" {{ (collect(old('ids'))->contains($emplyoee->id)) ? 'selected':'' }} {{in_array($emplyoee->id, old("ids") ?: []) ? "selected": ""}}> {{$emplyoee->name}} </option>
+                                                            value="{{$emplyoee->id}}" {{in_array($emplyoee->id, $taskEmployeesIds) ? "selected": ""}}> {{$emplyoee->name}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -197,9 +197,10 @@
                                             <input type="file" name="file_name"/>
                                         </div>
                                     </div>
-
-                                    <div class="d-block  card-footer">
-                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                    <div class="divider"></div>
+                                    <br>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-lg btn-success" type="submit" style="float:left;"><i
                                                 class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
 

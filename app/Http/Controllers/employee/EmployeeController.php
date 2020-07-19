@@ -27,7 +27,8 @@ class EmployeeController extends Controller
 
             $employees = Employee::whereHas('department', function (Builder $query) {
                 $query->where('id', auth()->guard('employee')->user()->department_id);
-            });
+            })->where('id', '<>', auth()->guard('employee')->user()->id);
+
             if ($search) {
                 $employees = $employees->where("name", "LIKE", "%{$search}%");
 
@@ -69,6 +70,14 @@ class EmployeeController extends Controller
             'department_id' => 'required',
             'image' => 'image | mimes:jpeg,png,jpg,gif,svg | max:2048',
         ]);
+
+        $email = $request->input('email');
+
+        $exist = Employee::where('email', $email)->first();
+
+        if ($exist) {
+            return redirect()->back()->with("error", "employee exists");
+        }
 
         $emplyoee = new Employee();
         $emplyoee->name = $request->input('name');
@@ -170,6 +179,10 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (auth()->guard('employee')->user()->role == 2) {
+            $employee = Employee::findOrFail($id);
+            $employee->delete();
+            return redirect()->route('chef.employee.index')->with('success', 'employee is successfully deleted');
+        }
     }
 }

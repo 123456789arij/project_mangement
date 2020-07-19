@@ -113,7 +113,10 @@ return [
     'add_new_Department' => 'Ajouter un nouveau Département',
     'Priority' => 'Priorité',
     'UPDATE TASK' => 'Modifier Tâche',
-    'work'=>'Travaille',
+    'work' => 'Travaille',
+    'startconversation' => 'Commencer La Conversation',
+    'listofmessages' => 'liste des messages',
+    'listofdiscussions' => 'liste des discussions',
 
 
 ];

@@ -209,14 +209,39 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        {{--<div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label>Password</label>
+                                                <label> current Password</label>
                                                 <input type="password" data-toggle="password" class="form-control"
-                                                       name="password">
+                                                       name="current-password">
                                             </div>
+                                        </div>--}}
+                                    </div>
+                                    <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
+                                        <label for="new-password" class="col-md-4 control-label">New Password</label>
+
+                                        <div class="col-md-4">
+                                            <input id="new-password" type="password" class="form-control" data-toggle="password"
+                                                   name="new-password" required>
+
+                                            @if ($errors->has('new-password'))
+                                                <span class="help-block">
+                                        <strong>{{ $errors->first('new-password') }}</strong>
+                                    </span>
+                                            @endif
                                         </div>
                                     </div>
+                                    {{--new--}}
+                                    <div class="form-group">
+                                        <label for="new-password-confirm" class="col-md-4 control-label">Confirm New Password</label>
+
+                                        <div class="col-md-4">
+                                            <input id="new-password-confirm" type="password" class="form-control" data-toggle="password" name="new-password_confirmation" required>
+                                        </div>
+                                    </div>
+
+
+
                                     {{--  /partie email +adresse--}}
 
                                     <div class="form-row">

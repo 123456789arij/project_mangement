@@ -304,7 +304,29 @@
             </div>
         </div>
         {{--/2éme ligne--}}
+        {{--chef de  projet--}}
+        @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
+            {{-- place for diagramme --}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="main-card mb-3 card">
+                        <div class="card-header"><strong>{{ __('messages.SATISTIQUE_OF_PROJECT_STATUS') }}</strong>
+                        </div>
+                        <div id="chef_donut" style="height: 400px;"></div>
 
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3 card">
+                        <div class="card-header">
+                            <strong>{{ __('messages.SATISTIQUE_OF_Task_STATUS') }}</strong>
+                        </div>
+                        <div id="chef_piechart_3d" style="height: 400px;"></div>
+                    </div>
+                </div>
+            </div>
+            {{--/place for diagramme --}}
+        @endif
         {{-- employee tasks --}}
         <div class="row">
             <div class="col-md-12 col-lg-6">
@@ -489,7 +511,7 @@
     {{--/count coll of client--}}
 
 
-    {{--graph donuts--}}
+    {{--graph donuts--}}    {{--entreprise--}}
     @if(auth()->user() && auth()->user()->role_id == 1)
         {{-- place for diagramme --}}
         <div class="row">
@@ -633,9 +655,6 @@
     @endif
     {{--/graph--}}
 
-
-
-
 @endsection
 @section('jsBlock')
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
@@ -659,7 +678,7 @@
                     var options = {
                         title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES PROJETS',
                         pieHole: 0.4,
-                        chartArea: {left: 120},
+                        chartArea: {left: 95},
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('donut'));
                     chart.draw(data, options);
@@ -684,7 +703,7 @@
                     var options = {
                         title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES TACHES',
                         is3D: true,
-                        chartArea: {left: 120},
+                        chartArea: {left: 95},
                     };
                     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
                     chart.draw(data, options);
@@ -718,19 +737,67 @@
         }
     </script>
     @if(auth()->guard('employee')->user())
-    <script>
-        $.ajax({
-            method: 'get',
-            url: '/employee/discussions/messages',
-        }).done((data) => {
-            var unreadDiscussions = data.unread_discussion_count;
-            if(unreadDiscussions) {
-                //TODO show notification icone
-            }
-        }).fail((error) => {
-            console.log(error)
-        });
-    </script>
+        <script>
+            $.ajax({
+                method: 'get',
+                url: '/employee/discussions/messages',
+            }).done((data) => {
+                var unreadDiscussions = data.unread_discussion_count;
+                if (unreadDiscussions) {
+                    $('#message_notification').removeClass('d-none').text(unreadDiscussions);
+                }
+            }).fail((error) => {
+                console.log(error)
+            });
+        </script>
     @endif
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '/laravel_google_chart',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var analytics = (response.data);
+                    var data = google.visualization.arrayToDataTable(analytics);
+                    var options = {
+                        title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES TACHES',
+                        is3D: true,
+                        chartArea: {left: 95},
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('chef_piechart_3d'));
+                    chart.draw(data, options);
+                }
+            });
+        }
+    </script>
+    <script>
+        google.charts.load('current', {'packages': ['corechart']});
+
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            $.ajax({
+                url: '/donut_chart',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var analytics = (response.data);
+                    var data = google.visualization.arrayToDataTable(analytics);
+                    var options = {
+                        title: 'STATISTIQUE DE L\'ÉTAT D\'AVANCEMENT DES PROJETS',
+                        pieHole: 0.4,
+                        chartArea: {left: 95},
+                    };
+                    var chart = new google.visualization.PieChart(document.getElementById('chef_donut'));
+                    chart.draw(data, options);
+                }
+            });
+        }
+    </script>
 
 @endsection

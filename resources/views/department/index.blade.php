@@ -9,6 +9,7 @@
         .pull-right {
             float: right !important;
         }
+
         #create_department_btn {
             color: white;
             font-size: 18px;
@@ -59,6 +60,7 @@
             border-bottom: 1px solid #ce93d8;
             box-shadow: 0 1px 0 0 #ce93d8;
         }
+
         /*  btn crud */
         .m-r-10 {
             margin-right: 10px !important;
@@ -117,14 +119,26 @@
                 <div class="card-header">{{ __('messages.departments') }}</div>
                 <br>
                 @if(auth()->user())
-                    <form action="{{route('department')}}"
+                    {{--                    search--}}
+             {{--       <form action="{{route('department')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                           method="get" role="search">
                         <div style="float: right" class="container">
                             <input type="text" name="search" placeholder="search" id="search">
                             <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
                         </div>
-                    </form>
+                    </form>--}}
+                    <div style="padding-left: 700px">
+                        <form class="form-inline my-2 my-lg-0" action="{{route('department')}}">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                   name="search">
+                            <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                    class="fa fa-search"
+                                    style="color: #cc00cc"></i>
+                            </button>
+                        </form>
+                    </div>
+                    {{--                    search--}}
                 @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">

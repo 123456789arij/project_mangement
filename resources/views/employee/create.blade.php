@@ -110,18 +110,6 @@
             </div>
             {{--   /page-title-wrapper--}}
 
-            <div class="page-title-actions">
-                <div class="d-inline-block dropdown">
-                    {{--       <button class="btn-shadow mb-2 mr-2 btn btn-alternate btn-lg">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                                     <i class="fa pe-7s-add-user " style="font-size: 20px;"></i>
-                                 </span>
-                               <a href="{{route('Entreprise.Employee.create')}}"
-                                  style="color: white;font-size: 15px;"> Ajouter un nouveau employée  </a>&nbsp;&nbsp;
-                           </button>--}}
-                </div>
-            </div>
-
         </div>
     </div>
     {{--                /app-page-title--}}
@@ -130,7 +118,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                @if ($errors->any())
+             {{--   @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -139,7 +127,7 @@
                         </ul>
                     </div>
                 @endif
-
+--}}
 
                 <div class="card-header">
                     <strong> {{ __('messages.addNewEmployee') }} </strong>

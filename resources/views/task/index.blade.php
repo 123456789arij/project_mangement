@@ -182,12 +182,12 @@
                     @endif
                     {{--chef de projet--}}
                     @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
-                            <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                                <i class="fa fa-plus">
-                        <a href="{{ route('employee.task.create')}}" id="create_task_btn">
-                            <strong> {{ __('messages.add_new_task') }}  </strong>
-                        </a>
-                                </i></button>
+                        <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                            <i class="fa fa-plus">
+                                <a href="{{ route('employee.task.create')}}" id="create_task_btn">
+                                    <strong> {{ __('messages.add_new_task') }}  </strong>
+                                </a>
+                            </i></button>
                     @endif
                     {{--/chef de projet--}}
 
@@ -197,74 +197,6 @@
         </div>
     </div>
     {{--/app-page-title--}}
-    {{--employee task filtre--}}
-    @if(auth()->guard('employee')->user())
-        <form action="{{route('employee.task')}}" type="get">
-            <div class="row">
-                <div class="col-3">
-                    <label> <strong> {{ __('messages.project') }}  </strong></label>
-                    <select class="mb-2 form-control-lg form-control" name="project_id">
-                        <option value="">all</option>
-                        @foreach($projects as $project)
-                            <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
-                                {{$project->name}} </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-3">
-                    <label><strong> {{ __('messages.status') }}  </strong></label>
-                    <select class="mb-2 form-control-lg form-control" name="status">
-                        <option value="">all</option>
-                        @foreach( $status  as  $key=> $value)
-                            <option value="{{ $value}}" @if($statusId==$value) selected @endif>
-                                {{trans("messages.$key")}} </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-3">
-                    <button class="font-icon-wrapper font-icon-lg" type="submit" data-toggle="tooltip" id="findBtn"
-                            data-original-title="filtre">
-                        <i class="pe-7s-filter icon-gradient bg-ripe-malin"></i></button>
-                </div>
-            </div>
-        </form>
-    @endif
-    {{--employee task filtre--}}
-
-
-    {{--entreprise task filtre--}}
-    @if(auth()->user()&& auth()->user()->role_id ==  1)
-        <form action="{{route('task')}}" type="get">
-            <div class="row">
-                <div class="col-3">
-                    <label> <strong> {{ __('messages.project') }}  </strong></label>
-                    <select class="mb-2 form-control-lg form-control custom-select" name="project_id">
-                        <option value="">all</option>
-                        @foreach($projects as $project)
-                            <option value="{{$project->id}}" @if($projectId==$project->id) selected @endif>
-                                {{$project->name}} </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-3">
-                    <label><strong> {{ __('messages.status') }}  </strong></label>
-                    <select class="mb-2 form-control-lg form-control custom-select" name="status">
-                        <option value="">all</option>
-                        @foreach($status  as  $key=> $value)
-                            <option value="{{ $value}}" @if($statusId==$value) selected @endif>
-                                {{trans("messages.$key")}} </option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="font-icon-wrapper font-icon-lg" data-toggle="tooltip" id="findBtn"
-                        data-original-title="filtre">
-                    <i class="pe-7s-filter icon-gradient bg-warm-flame"></i>
-                </button>
-            </div>
-        </form>
-    @endif
-    {{--/entreprise  task filtre--}}
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
@@ -272,25 +204,101 @@
                 <br>
                 {{--search--}}
                 @if(auth()->user()&& auth()->user()->role_id ==  1)
-                    <form action="{{route('task')}}"
-                          class="d-flex mb-5 active-purple-3 active-purple-4"
-                          method="get" role="search">
-                        <div id="btn_search" class="container">
-                            <input type="text" name="search" placeholder="search" id="search">
-                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                    <div class="row">
+                        <div class="col-6">
+                            <form action="{{route('task')}}" type="get">
+                                <div class="row container">
+                                    <div class="col">
+                                        <label> <strong> {{ __('messages.project') }}  </strong></label>
+                                        <select class="mb-2 form-control-lg form-control custom-select"
+                                                name="project_id">
+                                            <option value="">all</option>
+                                            @foreach($projects as $project)
+                                                <option value="{{$project->id}}"
+                                                        @if($projectId==$project->id) selected @endif>
+                                                    {{$project->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label><strong> {{ __('messages.status') }}  </strong></label>
+                                        <select class="mb-2 form-control-lg form-control custom-select" name="status">
+                                            <option value="">all</option>
+                                            @foreach($status  as  $key=> $value)
+                                                <option value="{{ $value}}" @if($statusId==$value) selected @endif>
+                                                    {{trans("messages.$key")}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-light my-2 my-sm-0 bg-transparent">
+                                        <i class="pe-7s-filter"
+                                           style="color:#4d4dff;font-size:30px;font-weight: bolder"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                        <div class="col-6" style="padding-left: 200px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('task')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                       aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+
                 @endif
                 {{--/search--}}
                 @if(auth()->guard('employee')->user())
-                    <form action="{{route('employee.task')}}"
-                          class="d-flex mb-5 active-purple-3 active-purple-4"
-                          method="get" role="search">
-                        <div id="btn_search" class="container">
-                            <input type="text" name="search" placeholder="search" id="search">
-                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                    <div class="row">
+                        <div class="col-6">
+                            <form action="{{route('employee.task')}}" type="get">
+                                <div class="row container">
+                                    <div class="col">
+                                        <label> <strong> {{ __('messages.project') }}  </strong></label>
+                                        <select class="mb-2 form-control-lg form-control" name="project_id">
+                                            <option value="">all</option>
+                                            @foreach($projects as $project)
+                                                <option value="{{$project->id}}"
+                                                        @if($projectId==$project->id) selected @endif>
+                                                    {{$project->name}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label><strong> {{ __('messages.status') }}  </strong></label>
+                                        <select class="mb-2 form-control-lg form-control" name="status">
+                                            <option value="">all</option>
+                                            @foreach( $status  as  $key=> $value)
+                                                <option value="{{ $value}}" @if($statusId==$value) selected @endif>
+                                                    {{trans("messages.$key")}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-light my-2 my-sm-0 bg-transparent">
+                                        <i class="pe-7s-filter"
+                                           style="color:#4d4dff;font-size:30px;font-weight: bolder"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                        <div class="col-6" style="padding-left: 200px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('employee.task')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                       aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
                 @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -467,9 +475,8 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <footer class="card-footer" style="float: right">
-                        {{ $tasks->links() }}
-                    </footer>
+                    <br>
+                    <span style="float: right">{{ $tasks->links() }}</span>
                 </div>
             </div>
         </div>

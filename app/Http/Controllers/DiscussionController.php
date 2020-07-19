@@ -86,7 +86,7 @@ class DiscussionController extends Controller
             $messages->limit(10);
         }
 
-        $messages = $messages->get();
+        $messages = $messages->with(['sender'])->get();
         //return view('discussion.messages_contact',compact('messages','contact'));
 
         return response()->json($messages, 200);

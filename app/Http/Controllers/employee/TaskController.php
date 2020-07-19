@@ -74,8 +74,6 @@ class TaskController extends Controller
     public function create()
     {
         if (auth()->guard('employee')->user()->role == 2) {
-            $employees = auth()->guard('employee')->user();
-//            $projects = $employees->projects()->get();
             $projects = Project::whereHas('client', function (Builder $query) {
                 $query->whereHas('user', function (Builder $query) {
                     $query->whereHas('departments', function (Builder $query) {
@@ -85,7 +83,8 @@ class TaskController extends Controller
             })->get();
             $employees = Employee::whereHas('department', function (Builder $query) {
                 $query->where('id', auth()->guard('employee')->user()->department_id);
-            })->get();
+            })->where('id', '<>',auth()->guard('employee')->user()->id)->get();
+
             return view('task.create', compact('projects', 'employees'));
         }
     }
@@ -99,7 +98,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'titre' => 'required',
+            'title' => 'required',
             'description' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -108,7 +107,7 @@ class TaskController extends Controller
         ]);
 
         $task = new Task();
-        $task->titre = $request->input('titre');
+        $task->title = $request->input('title');
         $task->description = $request->input('description');
         $task->start_date = $request->input('start_date');
         $task->end_date = $request->input('end_date');

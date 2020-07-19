@@ -298,116 +298,91 @@
 {{--                        <div class="row">--}}
 {{--                            <div class="col-12 container">--}}
 {{--                                <h4><strong>{{ __('messages.comments') }}</strong></h4><br>--}}
-{{--                                @foreach($feeds as $feed)--}}
-{{--                                    <div class="display-comment container">--}}
-{{--                                        --}}{{--  <div style="display:inline-block">--}}
-{{--                                              <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"--}}
-{{--                                                   data-original-title="{{ $comment->employee->name}}"--}}
-{{--                                                   class="rounded-circle"--}}
-{{--                                                   height="42px" width="42px" alt="employee"/>--}}
-{{--                                          </div>--}}
-{{--                                        &nbsp;&nbsp; <strong>{{$feed->client->name}}</strong>--}}
-{{--                                        <small class="text-muted ml-3"--}}
-{{--                                               style="float: right">{{ $feed->created_at->toDateString()}}</small>--}}
-{{--                                        <br><br>--}}
-{{--                                        <textarea class="form-control text-justify">{{$feed->body }}</textarea>--}}
+{{--                                --}}{{-- @foreach($feeds as $feed)--}}
+{{--                                     <div class="display-comment container">--}}
+{{--                                           <div style="display:inline-block">--}}
+{{--                                               <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"--}}
+{{--                                                    data-original-title="{{ $comment->employee->name}}"--}}
+{{--                                                    class="rounded-circle"--}}
+{{--                                                    height="42px" width="42px" alt="employee"/>--}}
+{{--                                           </div>--}}
+{{--                                         &nbsp;&nbsp; <strong>{{$feed->client->name}}</strong>--}}
+{{--                                         <small class="text-muted ml-3"--}}
+{{--                                                style="float: right">{{ $feed->created_at->toDateString()}}</small>--}}
+{{--                                         <br><br>--}}
+{{--                                         <textarea class="form-control text-justify">{{$feed->body }}</textarea>--}}
 
-{{--                                        --}}{{-- Ratings Block --}}
+{{--                                          Ratings Block--}}
 
-{{--                                        <div class="post_ratings">--}}
-{{--                                            --}}{{-- Form Open --}}
-{{--                                            <input type="hidden" name="project_id" value="{{$project->id}}">--}}
-{{--                                            <div class="rating_submit_inner">--}}
-{{--                                                <input id="radio1" type="radio" name="rating" value="5" class="star"/>--}}
-{{--                                                <label for="radio1">&#9733;</label>--}}
-{{--                                                <input id="radio2" type="radio" name="rating" value="4" class="star"/>--}}
-{{--                                                <label for="radio2">&#9733;</label>--}}
-{{--                                                <input id="radio3" type="radio" name="rating" value="3" class="star"/>--}}
-{{--                                                <label for="radio3">&#9733;</label>--}}
-{{--                                                <input id="radio4" type="radio" name="rating" value="2" class="star"/>--}}
-{{--                                                <label for="radio4">&#9733;</label>--}}
-{{--                                                <input id="radio5" type="radio" name="rating" value="1" class="star"/>--}}
-{{--                                                <label for="radio5">&#9733;</label>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="rating_submit_wrap">--}}
-{{--                                                --}}{{-- Form Open -- }}--}}
+{{--                                       --}}{{----}}{{--  <div class="post_ratings">--}}
+{{--                                              Form Open--}}
+{{--                                             <input type="hidden" name="project_id" value="{{$project->id}}">--}}
+{{--                                             <div class="rating_submit_inner">--}}
+{{--                                                 <input id="radio1" type="radio" name="rating" value="5" class="star"/>--}}
+{{--                                                 <label for="radio1">&#9733;</label>--}}
+{{--                                                 <input id="radio2" type="radio" name="rating" value="4" class="star"/>--}}
+{{--                                                 <label for="radio2">&#9733;</label>--}}
+{{--                                                 <input id="radio3" type="radio" name="rating" value="3" class="star"/>--}}
+{{--                                                 <label for="radio3">&#9733;</label>--}}
+{{--                                                 <input id="radio4" type="radio" name="rating" value="2" class="star"/>--}}
+{{--                                                 <label for="radio4">&#9733;</label>--}}
+{{--                                                 <input id="radio5" type="radio" name="rating" value="1" class="star"/>--}}
+{{--                                                 <label for="radio5">&#9733;</label>--}}
 {{--                                             </div>--}}
-{{--                                            --}}{{-- Form Close--}}
-{{--                                            </div>--}}
+{{--                                             <div class="rating_submit_wrap">--}}
+{{--                                                  Form Open -- }}--}}
+{{--                                              </div>--}}
+{{--                                              Form Close--}}
+{{--                                             </div>--}}{{----}}{{----}}
 
-{{--                                            --}}{{-- Ratings Block End --}}
-{{--                                            <?php--}}
-{{--                                            $avg = $project->feeds()->avg('rating_count');--}}
-{{--                                            $ov_rating = number_format($avg);   // this is used to convert no from decimal--}}
-{{--                                            ?>--}}
-{{--                                            @if(count($project->feeds) > 1)--}}
-{{--                                                <div class="rating_inner">--}}
-{{--      <span class="rating_icon">--}}
-{{--         @for($i = 0; $i < $ov_rating; $i++)--}}
-{{--              <span class="fa fa-star"></span>--}}
-{{--          @endfor--}}
-{{--          @for($i = 0; $i < 5 - $ov_rating; $i++)--}}
-{{--              <span class="fa fa-star light"></span>--}}
-{{--          @endfor--}}
-{{--      </span>--}}
-{{--                                                    @if($avg)--}}
-{{--                                                        <span class="rating_count">{{$avg}}</span>--}}
-{{--                                                        <span class="max_rating">{{_('5')}}</span>--}}
-{{--                                                    @else--}}
-{{--                                                        {{_('No Ratings Yet')}}--}}
-{{--                                                    @endif--}}
-{{--                                                    <span--}}
-{{--                                                        class="rating_total">{{_('(')}}<span>{{count($project->feeds)}}</span>{{_(' votes)')}}</span>--}}
-{{--                                                </div>--}}
-{{--                                            @endif--}}
-
-{{--                                        </div>--}}
-{{--                                        @endforeach--}}
-{{--                                        <br>--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-lg-12">--}}
+{{--                                         </div>--}}
+{{--                                         @endforeach--}}
+{{--                                <br>--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-12">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <strong>--}}
+{{--                                                <i class="pe-7s-note  btn-icon-wrapper"--}}
+{{--                                                   style="font-size: 20px;"></i>--}}
+{{--                                                Add Comment </strong>--}}
+{{--                                            <form method="post" action="{{ route('client.feedback.store') }}">--}}
+{{--                                                @csrf--}}
 {{--                                                <div class="form-group">--}}
-{{--                                                    <strong>--}}
-{{--                                                        <i class="pe-7s-note  btn-icon-wrapper"--}}
-{{--                                                           style="font-size: 20px;"></i>--}}
-{{--                                                        Add Comment </strong>--}}
-{{--                                                    <form method="post" action="{{ route('client.feedback.store') }}">--}}
-{{--                                                        @csrf--}}
-{{--                                                        <div class="form-group">--}}
-{{--                                                <textarea name="body" class="form-control" rows="3"--}}
-{{--                                                          placeholder="votre commentaire"></textarea>--}}
-{{--                                                            <input type="hidden" name="project_id"--}}
-{{--                                                                   value="{{ $project->id }}"/>--}}
-{{--                                                        </div>--}}
-
-{{--                                                        <input type="submit" style="float: right"--}}
-{{--                                                               class="btn btn-warning col-sm-4"--}}
-{{--                                                               value="Add Comment"/>--}}
-{{--                                                    </form>--}}
+{{--                                                                        <textarea name="body" class="form-control"--}}
+{{--                                                                                  rows="3"--}}
+{{--                                                                                  placeholder="votre commentaire"></textarea>--}}
+{{--                                                    <input type="hidden" name="project_id"--}}
+{{--                                                           value="{{ $project->id }}"/>--}}
 {{--                                                </div>--}}
 
-{{--                                            </div>--}}
-{{--                                            --}}{{-- add feedback --}}
-{{--                                            <div class="col-sm-4">--}}
-
-{{--                                            </div>--}}
-{{--                                            --}}{{--/add feedback --}}
+{{--                                                <input type="submit" style="float: right"--}}
+{{--                                                       class="btn btn-warning col-sm-4"--}}
+{{--                                                       value="Add Comment"/>--}}
+{{--                                            </form>--}}
 {{--                                        </div>--}}
-{{--                                        <div tabindex="-1" class="dropdown-divider"></div>--}}
+
 {{--                                    </div>--}}
+{{--                                    add feedback--}}
+{{--                                    <div class="col-sm-4">--}}
+
+{{--                                    </div>--}}
+{{--                                    --}}{{--                                                                    add feedback--}}
+{{--                                </div>--}}
+{{--                                <div tabindex="-1" class="dropdown-divider"></div>--}}
 {{--                            </div>--}}
-{{--                            --}}{{--/feedback --}}
 {{--                        </div>--}}
+                        {{--                                                    /feedback--}}
                     </div>
                 </div>
-                {{--                /carde tab--}}
-
             </div>
+            {{--                /carde tab--}}
+
         </div>
-        @endsection
-        @section('jsBlock')
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </div>
+@endsection
+@section('jsBlock')
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 @endsection

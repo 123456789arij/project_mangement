@@ -255,7 +255,7 @@
                 <div class="card-header"><strong>{{ __('messages.projects') }}</strong></div>
                 <br>
                 @if(auth()->guard('employee')->user())
-                    <div style="float: right;" class="container">
+          {{--          <div style="float: right;" class="container">
                         <form action="{{route('employee.project')}}"
                               class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                               method="get" role="search">
@@ -264,18 +264,40 @@
                                 <i class="fas fa-search active" aria-hidden="true" type="submit"></i>
                             </button>
                         </form>
-                    </div>
+                    </div>--}}
+                        <div style="padding-left: 300px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('employee.project')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
+                        </div>
+
                 @endif
                 @if(auth()->user())
-                    <form action="{{route('project')}}"
+               {{--     <form action="{{route('project')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                           method="get" role="search">
                         <div style="float: right" class="container">
                             <input type="text" name="search" placeholder="search" id="search">
                             <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
                         </div>
-                    </form>
-                @endif
+                    </form>--}}
+                        <div style="padding-left: 700px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('project')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                    @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" class="display">
                         <thead>
@@ -416,24 +438,9 @@
                                                         <strong>
                                                             <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
                                                                style="font-size:20px;"></i>
-                                                            Edit
+                                                            {{ __('messages.edit') }}
                                                         </strong>
                                                     </a>
-                                                </li>
-                                                <li>
-                                                    <form action="{{route('employee.project.destroy',$project->id)}}"
-                                                          method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        &nbsp;
-                                                        <button class="mr-2 btn-icon btn-icon-only btn">
-                                                            <strong>
-                                                                <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
-                                                                   style="font-size: 20px;" id="delete">
-                                                                </i> Delete
-                                                            </strong>
-                                                        </button>
-                                                    </form>
                                                 </li>
                                             </ul>
                                 @endif
@@ -451,7 +458,7 @@
                                                         <strong> <i
                                                                 class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
                                                                 style="font-size: 20px;"></i>
-                                                            Show
+                                                            {{ __('messages.show') }}
                                                         </strong>
                                                     </a>
                                                 </li>
@@ -516,9 +523,8 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <footer class="card-footer" style="float: right">
-                        {{ $projects->links() }}
-                    </footer>
+                    <br>
+                    <span style="float: right"> {{ $projects->links() }}</span>
                 </div>
 
             </div>

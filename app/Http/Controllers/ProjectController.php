@@ -42,7 +42,7 @@ class ProjectController extends Controller
             $projects = $projects->where("name", "LIKE", "%{$search}%");
 
         }
-        $projects = $projects->paginate(5);
+        $projects = $projects->paginate(3);
         return view('project.index', compact('projects','projectsCount'));
     }
 

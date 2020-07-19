@@ -203,7 +203,7 @@
                 <br>
                 {{--                    search btn company --}}
                 @if(auth()->user()&& auth()->user()->role_id ==  1)
-                    <form action="{{route('employee.index')}}"
+                  {{--  <form action="{{route('employee.index')}}"
                           class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
                           method="get" role="search">
                         <div style="padding-left: 800px;" class="container">
@@ -211,18 +211,30 @@
                             <input type="text" name="search" placeholder="search" id="search">
 
                         </div>
-                    </form>
+                    </form>--}}
 
+                        <div style="padding-left: 700px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('employee.index')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
+                        </div>
                 @endif
                 @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
-                    <form action="{{route('chef.employee.index')}}"
-                          class="form-inline d-flex mb-5 active-purple-3 active-purple-4 d-flex "
-                          method="get" role="search">
-                        <div style="float: right" class="container">
-                            <input type="text" name="search" placeholder="search" id="search">
-                            <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                        <div style="padding-left: 700px">
+                            <form class="form-inline my-2 my-lg-0" action="{{route('chef.employee.index')}}">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                                       name="search">
+                                <button class="btn btn-light my-2 my-sm-0" style="background: #ffe6ff" type="submit"><i
+                                        class="fa fa-search"
+                                        style="color: #cc00cc"></i>
+                                </button>
+                            </form>
                         </div>
-                    </form>
                 @endif
                 <div class="table-responsive container">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover" id="example"
@@ -250,13 +262,12 @@
                                             </div>
                                             <div class="widget-content-left flex2">
                                                 <div class="widget-heading">
-                                                    @if(auth()->user())
+                                                    @if(auth()->user()&& auth()->user()->role_id ==  1)
                                                         <a href="{{route('employee.show',$employee->id)}}"> {{$employee->name }} </a>
                                                     @endif
                                                     @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==2)
                                                         <a href="{{route('chef.employee.show',$employee->id)}}"> {{$employee->name }} </a>
                                                     @endif
-
                                                 </div>
                                                 <div class="widget-subheading opacity-7">{{$employee->specialty }}</div>
                                             </div>
@@ -294,7 +305,7 @@
                                                         <strong> <i
                                                                 class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
                                                                 style="font-size: 20px;"></i>
-                                                            Show
+                                                            {{ __('messages.show') }}
                                                         </strong>
                                                     </a>
                                                 </li>
@@ -308,7 +319,7 @@
                                                             <strong>
                                                                 <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
                                                                    style="font-size: 20px;" id="delete">
-                                                                </i> Delete
+                                                                </i>            {{ __('messages.delete') }}
                                                             </strong>
                                                         </button>
                                                     </form>
@@ -328,7 +339,7 @@
                                                         <strong>
                                                             <i class="fa fa-edit btn-icon-wrapper icon-gradient bg-sunny-morning"
                                                                style="font-size:20px;"></i>
-                                                            Edit
+                                                                {{ __('messages.edit') }}
                                                         </strong>
                                                     </a>
                                                 </li>
@@ -337,12 +348,12 @@
                                                         <strong> <i
                                                                 class="fa fa-search  btn-icon-wrapper icon-gradient bg-plum-plate"
                                                                 style="font-size: 20px;"></i>
-                                                            Show
+                                                            {{ __('messages.show') }}
                                                         </strong>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <form action="{{route('employee.destroy',$employee->id)}}"
+                                                    <form action="{{route('chef.employee.destroy',$employee->id)}}"
                                                           method="post">
                                                         @csrf
                                                         @method('DELETE')
@@ -351,7 +362,7 @@
                                                             <strong>
                                                                 <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
                                                                    style="font-size: 20px;" id="delete">
-                                                                </i> Delete
+                                                                </i>    {{ __('messages.delete') }}
                                                             </strong>
                                                         </button>
                                                     </form>
@@ -364,9 +375,8 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <footer class="card-footer" style="float: right">
-                        {{ $employees->links() }}
-                    </footer>
+                    <br>
+                    <span style="float: right"> {{ $employees->links() }}</span>
                 </div>
             </div>
         </div>

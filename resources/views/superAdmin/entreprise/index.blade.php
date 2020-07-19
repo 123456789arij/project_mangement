@@ -57,7 +57,6 @@
         }
 
 
-
         .active-purple .fas, .active-purple-2 .fas, .active-purple-3 .fas, .active-purple-4 .fas {
             color: #ce93d8;
         }
@@ -83,26 +82,6 @@
         thead {
             text-align: justify;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         .label-rouded, .label-rounded {
@@ -137,8 +116,6 @@
             height: 20px;
             margin: 20px 10px;
         }
-
-
 
 
         .label-rouded, .label-rounded {
@@ -197,6 +174,7 @@
             color: #333;
             white-space: nowrap;
         }
+
         /*search */
         .active-purple-3 input[type=text] {
             border: 1px solid #ce93d8;
@@ -275,14 +253,24 @@
                 <div class="card-header">{{ __('messages.Companies') }}</div>
                 <br>
                 {{--search--}}
-                <form action="{{route('super_admin')}}"
-                      class="d-flex mb-5 active-purple-3 active-purple-4"
-                      method="get" role="search">
-                    <div id="btn_search" class="container">
-                        <input type="text" name="search" placeholder="search" id="search">
-                        <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
-                    </div>
-                </form>
+                {{--      <form action="{{route('super_admin')}}"
+                            class="d-flex mb-5 active-purple-3 active-purple-4"
+                            method="get" role="search">
+                          <div id="btn_search" class="container">
+                              <input type="text" name="search" placeholder="search" id="search">
+                              <button><i class="fas fa-search active" aria-hidden="true" type="submit"></i></button>
+                          </div>
+                      </form>--}}
+                <div style="padding-left: 700px">
+                    <form class="form-inline my-2 my-lg-0" action="{{route('super_admin')}}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                               name="search">
+                        <button class="btn btn-light my-2 my-sm-0" type="submit"><i class="fa fa-search"
+                                                                                                  style="color: #cc00cc"></i>
+                        </button>
+                    </form>
+                </div>
+
                 {{--/search--}}
                 <br>
                 <div class="table-responsive container">
@@ -342,7 +330,7 @@
                                                         <strong>
                                                             <i class="fa fa-trash btn-icon-wrapper icon-gradient bg-love-kiss"
                                                                style="font-size: 20px;" id="delete">
-                                                            </i>   {{ __('messages.delete') }}
+                                                            </i> {{ __('messages.delete') }}
                                                         </strong>
                                                     </button>
                                                 </form>

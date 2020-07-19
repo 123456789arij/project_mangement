@@ -1,4 +1,4 @@
-<div class="app-header-right">
+<div class="app-header-right" id="lang_barre">
     <div class="header-btn-lg pr-0">
         <div class="widget-content p-0">
             <div class="widget-content-wrapper">

@@ -85,7 +85,7 @@ class EmployeeController extends Controller
             $emplyoee->image = $destinationPath . $profileImage;
         }
         $emplyoee->save();
-        return redirect()->route('employee.index')->with('sucess');
+        return redirect()->route('employee.index')->with('success','Item created successfully!');;
     }
 
 

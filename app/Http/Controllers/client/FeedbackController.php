@@ -17,12 +17,12 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-      /*  $feed = Feed::whereHas('client', function (Builder $query) {
+        $feed = Feed::whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->guard('client')->user()->user_id);
             });
         })->get();
-        return view('client.project.show', compact('feed'));*/
+        return view('client.project.show', compact('feed'));
     }
 
     /**

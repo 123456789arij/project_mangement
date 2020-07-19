@@ -1,41 +1,78 @@
 @extends('layouts.base')
 @section('cssBlock')
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: black;
+        }
+
+        #example1 {
+            border: 1px solid #778899;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-4">
-            <h2>list of discussions</h2>
-            <div id="discussions_container"></div>
-        </div>
-        <div class="col-8">
-            <h2>list of messages</h2>
-            <div id="messages_container"></div>
-        </div>
-        <br>
-        <div class="col">
-            <form action="{{route('discussion.msg')}}" method="POST" id="message_form">
-                {{--  partie email +adresse--}}
-                {{csrf_field()}}
-                <div class="form-row">
-                    <label for="exampleFormControlInput1">Membre</label>
-                    {{--                    <input name="receiver" placeholder="receiver" class="form-control">--}}
-                    <select name="receiver" id="exampleFormControlInput1" class="form-control">
-                        @foreach($employees as $employee)
-                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
-                        @endforeach
-                    </select>
-                    <br>
-                    <label for="exampleFormControlTextarea1">Message</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3"></textarea>
-
+            <div class="card">
+                <div class="card-body">
+                    <strong><h2 class="card-title"> {{ __('messages.listofdiscussions') }}</h2></strong>
+                    <div class="divider"></div>
+                    <div id="discussions_container"></div>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-primary mb-2">send</button>
-            </form>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                    <strong><h2 class="card-title"> {{ __('messages.listofmessages') }}</h2></strong>
+                    <div class="divider"></div>
+                    <div id="messages_container"></div>
+                </div>
+            </div>
         </div>
     </div>
+    <br><br>
+    <div class="row">
+        <div class="col  container">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"> {{ __('messages.startconversation') }}</h3>
+                    <div class="divider"></div>
+                    <form action="{{route('discussion.msg')}}" method="POST" id="message_form">
+                        {{--  partie email +adresse--}}
+                        {{csrf_field()}}
+                        <div class="form-row">
+                            <label for="exampleFormControlInput1">Membre</label>
+                            {{--                    <input name="receiver" placeholder="receiver" class="form-control">--}}
+                            <select name="receiver" id="exampleFormControlInput1" class="form-control">
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                                @endforeach
+                            </select>
+                            <br>
+                            <label for="exampleFormControlTextarea1">Message</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="content"
+                                      rows="3"></textarea>
+
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary mb-2">send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('jsBlock')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,7 +94,7 @@
                 $.each(discussions, function (index, value) {
                     $('#discussions_container').append(makeDiscussionItem(value));
                 });
-                if($message) _callback();
+                if ($message) _callback();
             }).fail((error) => {
                 console.log(error)
             });
@@ -86,14 +123,37 @@
             var $id = $contact.id;
             return `<div data-id="${$id}" class="discussion_item">
                     <a href="javascript:void(0)" data-id="${$id}">
-                        <img src="${$image}" alt="user-img" width="25px" height="25px">
-                        <span>${$name}<small class="text-simple">${$date}</small></span>
+  <div class="widget-content p-0">
+                                        <div class="widget-content-wrapper">
+                     <div class="widget-content-left mr-3">
+                         <div class="widget-content-left">
+                              <img src="${$image}" alt="user-img" width="38px" height="38px">
+                          </div>
+                     </div>
+               <div class="widget-content-left flex2">
+                     <div class="widget-heading">
+                       ${$name}
+                     </div>
+                    <div class="widget-subheading opacity-7"><small>${$date}</small></div>
+
+               </div>
+</div></div>
                     </a>
                 </div>`;
         }
 
         function makeMessageItem(message) {
-            return `<div><span>${message.content}</span><span>${message.created_at}</span></div>`;
+            return `
+                <div id="example1">
+<p>${message.sender.name}</p>
+<img src="${message.sender.image}" width="20px" height="20px">
+            <p >${message.content}<br>
+<small>${message.created_at}</small>
+</p>
+
+                </div>`;
+
+
         }
 
         //event on click discussionItem

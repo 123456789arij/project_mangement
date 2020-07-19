@@ -67,12 +67,6 @@
                         {{--projet--}}
                         <div class="tab-pane active container" id="tab-eg115-0" role="tabpanel">
                             <div class="row">
-                                <div class="col-4">
-                                    <a href="" class="btn btn-outline-success status-class" data-id="{{ $task->id }}"
-                                       name="status">
-                                        <i class="fa fa-check" style="font-size: 20px;"></i>
-                                        {{ __('messages.marke_as_complete') }}  </a>
-                                </div>
                                 @if(auth()->user())
                                     <div class="col-4 container">
                                         <div style="float: right">
@@ -87,7 +81,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-4">
-                                    <h5>   {{ __('messages.title') }} : <u>{{$task->title}}</u></h5>
+                                    <h5>   {{ __('messages.title') }} : &nbsp;{{$task->title}}</h5>
                                     @if($task->priority == 0)
                                         <span class="badge badge-pill"
                                               style="background-color: #fcf2ed;font-size: 75%;border-radius: 60px;">Priority =>

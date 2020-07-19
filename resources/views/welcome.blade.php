@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>Gestion Des Projets</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -92,68 +92,104 @@
 <div class="flex-center position-ref full-height" style="position: absolute;left: 150px">
     <div class="content">
         {{--  superAdmin--}}
-        <div class="page-title-actions">
-            <div class="d-inline-block dropdown text-center">
-                <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                    <span class="btn-icon-wrapper pr-2 opacity-7">
-                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
-                          </span>
-                    <a href="{{ route('super_admin')}}"
-                       style="color: white;font-size:15px;  font-weight: bold;"> Super Admin</a>&nbsp;&nbsp;
-                </button>
-            </div>
-        </div>
-        {{--  superAdmin--}}
-        <br>
+        {{--        <div class="page-title-actions">
+                    <div class="d-inline-block dropdown text-center">
+                            <a href="{{ route('super_admin')}}"class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                               style="color: white;font-size:15px;  font-weight: bold;">
+                              <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                                  </span>
+                                Super Admin</a>&nbsp;&nbsp;
 
-        @if (Route::has('login'))
-            <div class="page-title-actions">
-                <div class="d-inline-block dropdown text-center links container">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
-                           style="color: white;font-size:15px; padding: 8px;  font-weight: bold;">
-                                <span class="btn-icon-wrapper pr-2 opacity-7">
-                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
-                          </span>
-                            Entreprise</a>
-
-                        {{--    @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
-                                   style="color: white;font-size:15px;  font-weight: bold;">Register</a>
-                            @endif--}}
-                    @endauth
+                    </div>
                 </div>
-            </div>
-        @endif
-        {{--  employee--}}
-        <div class="page-title-actions">
-            <div class="d-inline-block dropdown text-center links container">
-                <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                    <span class="btn-icon-wrapper pr-2 opacity-7">
-                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
-                          </span>
+                --}}{{--  superAdmin--}}{{--
+
+                @if (Route::has('login'))
+                    <div class="page-title-actions">
+                        <div class="d-inline-block dropdown text-center links container">
+                            @auth
+                                <a href="{{ url('/home') }}">Home</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                                   style="color: white;font-size:15px; padding: 8px;  font-weight: bold;">
+                                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                                  </span>
+                                    Entreprise</a>
+                            @endauth
+                        </div>
+                    </div>
+                @endif
+                --}}{{--  employee--}}{{--
+                <div class="page-title-actions">
+                    <div class="d-inline-block dropdown text-center links container">
+                            <a href="{{ route('employee.login')}}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                               style="color: white;font-size:15px;  padding: 8px;  font-weight: bold;">
+                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                                  </span> Employee</a>&nbsp;&nbsp;
+                    </div>
+                </div>
+                --}}{{--  /employee--}}{{--
+                --}}{{--        client--}}{{--
+                <div class="page-title-actions">
+                    <div class="d-inline-block dropdown text-center links container">
+                            <a href="{{route('client.login')}}" class="btn-shadow mb-2 mr-2 btn btn-info btn-lg"
+                               style="color: white;font-size:15px;  padding: 8px;  font-weight: bold;">
+                                <span class="btn-icon-wrapper pr-2 opacity-7">
+                                    <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
+                                  </span>
+                                Client</a>&nbsp;&nbsp;
+                    </div>
+                </div>
+                --}}{{--        client--}}
+
+        <div>
+            <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
+                <i class="fas fa-user-cog" style="font-size: 20px; color: white">&nbsp;
+                    <a href="{{ route('super_admin')}}"
+                       style="color: white;font-size:15px; font-weight: bold;">
+                        Super Admin</a> </i>
+                &nbsp;&nbsp;
+            </button>
+        </div>
+        <div>    @if (Route::has('login'))
+                @auth
+                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg" style="width: 170px">
+                        <i class="fa  fad fa-user" style="font-size: 20px; color: white">
+                            <a href="{{ url('/home') }}">Home</a>
+                        </i>
+                    </button>
+
+                @else
+                    <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg" style="width: 170px">
+                        <i class="fa  fad fa-user" style="font-size: 20px; color: white">&nbsp;
+                            <a href="{{ route('login') }}"
+                               style="color: white;font-size:15px;  padding-right: 30px; font-weight: bold;">
+                                Entreprise</a>
+                        </i>
+                    </button>
+                @endauth
+            @endif
+        </div>
+        <div>
+            <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg" style="width: 170px">
+                <i class="fa  fad fa-user" style="font-size: 20px; color: white">&nbsp;
                     <a href="{{ route('employee.login')}}"
-                       style="color: white;font-size:15px;  font-weight: bold;"> Employee</a>&nbsp;&nbsp;
-                </button>
-            </div>
+                       style="color: white;font-size:15px;   padding-right: 30px; font-weight: bolder;">
+                        Employé</a>&nbsp;&nbsp;
+                </i>
+            </button>
         </div>
-        {{--  /employee--}}
-        <br>
-        {{--        client--}}
-        <div class="page-title-actions">
-            <div class="d-inline-block dropdown text-center">
-                <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg">
-                    <span class="btn-icon-wrapper pr-2 opacity-7">
-                            <i class="fa  fad fa-user" style="font-size: 20px; color: white"></i>
-                          </span>
+        <div>
+            <button class="btn-shadow mb-2 mr-2 btn btn-info btn-lg" style="width: 170px">
+                <i class="fas fa-user-tie" style="font-size: 20px; color: white">&nbsp;
                     <a href="{{route('client.login')}}"
-                       style="color: white;font-size:15px;  font-weight: bold;">Client</a>&nbsp;&nbsp;
-                </button>
-            </div>
+                       style="color: white;font-size:15px;  padding-right: 50px;  font-weight: bold;">
+                        Client</a></i>
+            </button>
         </div>
-        {{--        client--}}
     </div>
 </div>
 </body>

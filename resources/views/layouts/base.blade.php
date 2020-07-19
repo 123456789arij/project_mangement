@@ -34,6 +34,13 @@
         body {
             text-transform: capitalize;
         }
+        .arrow-up {
+            width: 32px;
+            height: 20px;
+            background-color: #8888e8;
+
+            clip-path: polygon(50% 0, 0 100%, 100% 100%);
+        }
     </style>
     @yield('cssBlock')
 </head>
@@ -123,6 +130,7 @@
         </div>
         <div class="app-main__outer">
             <div class="app-main__inner">
+                @include('flash-message')
                 @yield('content')
             </div>
             <div class="app-wrapper-footer">
@@ -142,7 +150,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>--}}
 
 
 @include('sweetalert::alert')

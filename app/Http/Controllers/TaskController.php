@@ -143,14 +143,16 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
+        $task = Task::find($id);
         $projects = Project::whereHas('client', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->get();
         $employees = Employee::whereHas('department', function (Builder $query) {
             $query->where('user_id', auth()->user()->id);
         })->get();
-        $task = Task::find($id);
-        return view('task.edit', compact('task', 'projects', 'employees'));
+        $taskEmployeesIds = $task->employees()->pluck('id')->toArray();
+
+        return view('task.edit', compact('task', 'projects', 'employees', 'taskEmployeesIds'));
     }
 
     /**
