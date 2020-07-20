@@ -87,6 +87,7 @@ class DashboradController extends Controller
         return view('employee.profile.edit', compact('employee'));
 
     }
+
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -104,7 +105,7 @@ class DashboradController extends Controller
         $employee->email = $request->input('email');
         $employee->gender = $request->input('gender');
         if ($password) {
-            $employee->password = bcrypt($password);
+            $employee->password = $password;
         }
         //optional
         $employee->skills = $request->input('skills');

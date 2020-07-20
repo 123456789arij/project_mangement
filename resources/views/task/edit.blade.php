@@ -154,14 +154,14 @@
                                             </label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="0" {{ $task->priority == '1' ? 'checked' : ''}}>
+                                                       value="1" {{ $task->priority == '1' ? 'checked' : ''}}>
                                                 <label class="form-check-label">
                                                     Medium
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="1" {{ $task->priority == '2' ? 'checked' : ''}}>
+                                                       value="2" {{ $task->priority == '2' ? 'checked' : ''}}>
                                                 <label class="form-check-label">
                                                     Low
                                                 </label>
@@ -169,7 +169,7 @@
 
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="priority"
-                                                       value="2"{{ $task->priority == '3' ? 'checked' : ''}}>
+                                                       value="3"{{ $task->priority == '3' ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="exampleRadios3">
                                                     High
                                                 </label>

@@ -92,7 +92,6 @@ class EmployeeController extends Controller
         $emplyoee->department_id = $request->input('department_id');
 
         if ($files = $request->file('image')) {
-//       dd(request()->all());
             $destinationPath = '/images/';
             $profileImage = time() . "." . $files->getClientOriginalExtension();
             $files->move(public_path('images'), $profileImage);

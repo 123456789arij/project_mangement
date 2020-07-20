@@ -11,8 +11,8 @@
 </head>
 
 <body>
-<h1>{{ $title }}</h1>
-<p>{{ $body }}</p>
-<p>Thank you</p>
+<h3>{{ $title }} </h3>
+<p> votre mot de passe est : {{ $body }}</p>
+
 </body>
 </html>

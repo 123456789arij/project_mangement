@@ -58,6 +58,17 @@
                     <button type="submit" class="btn btn-success">Add Event</button>
                 </div>
             </div>
+            <div>
+                <select class="mb-2 form-control-lg form-control" name="category_id">
+                    <option value=""> {{ __('messages.employee') }}</option>
+                    @foreach($employees as $employee)
+                        <option
+                            value="{{$employee->id}}"> {{$employee->name}} </option>
+                    @endforeach
+                </select>
+
+
+            </div>
         </form>
     </div>
 @endsection

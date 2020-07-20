@@ -165,14 +165,14 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="name"><strong> {{ __('messages.name') }}</strong></label>
-                                                <input type="text" class="form-control" id="name" name="name" required>
+                                                <input type="text" class="form-control" id="name" name="name">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="email"><strong>{{ __('messages.email') }}</strong></label>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                       class="@error('email', 'login') is-invalid @enderror" required>
+                                                       class="@error('email', 'login') is-invalid @enderror">
                                                 @error('email', 'login')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
@@ -184,7 +184,7 @@
                                                     for="password"><strong>{{ __('messages.Password') }}</strong></label>
                                                 <input type="password" data-toggle="password" class="form-control"
                                                        id="password"
-                                                       name="password" required>
+                                                       name="password">
                                             </div>
                                         </div>
                                     </div>

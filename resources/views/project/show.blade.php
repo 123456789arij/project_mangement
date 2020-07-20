@@ -170,7 +170,7 @@
                 </div>
                 <div>
                     <h5 class="page-title">
-                     <strong> {{__('messages.project') }} # {{$project->id}} - {{$project->name}}</strong>
+                        <strong> {{__('messages.project') }} # {{$project->id}} - {{$project->name}}</strong>
                     </h5>
                 </div>
                 <div id="status">
@@ -222,7 +222,7 @@
             <!------ carde tab ---------->
             <div class="mb-3 card">
                 <div class="card-header card-header-tab-animation">
-                <strong>{{ __('messages.project') }}</strong>
+                    <strong>{{ __('messages.project') }}</strong>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
@@ -231,7 +231,7 @@
                             <div class="row">
                                 <div class="col-sm-8" style="max-height: 400px; overflow-y: auto;">
                                     <div class="panel-body b-all border-radius container" id="details_project">
-                                        <h5><strong>{{ __('messages.Project Details') }}</strong> </h5>
+                                        <h5><strong>{{ __('messages.Project Details') }}</strong></h5>
                                         {!! strip_tags($project->description) !!}
                                         <br>
                                     </div>
@@ -275,7 +275,8 @@
                             </div>
                             <br> <br> <br>
                             <div class="card mb-3" style="max-width: 540px; position: center">
-                                <div class="panel-heading" id="CLIENT_DETAILS"><strong>{{ __('messages.CLIENT_DETAILS') }}</strong></div>
+                                <div class="panel-heading" id="CLIENT_DETAILS">
+                                    <strong>{{ __('messages.CLIENT_DETAILS') }}</strong></div>
                                 <div class="row no-gutters container">
                                     <div class="col-md-4">
                                         <div class="card-body">
@@ -293,58 +294,58 @@
                             </div>
                             {{-- / client détailles--}}
                         </div>
-                        @if(auth()->guard('client')->user())
-                            {{--feedback --}}
-                            <div class="row">
-                                <div class="col-12 container">
-                                    <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
-                                    @foreach($feedbacks as $feedback)
-                                        <div class="display-comment">
-                                            {{--  <div style="display:inline-block">
-                                                  <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
-                                                       data-original-title="{{ $comment->employee->name}}"
-                                                       class="rounded-circle"
-                                                       height="42px" width="42px" alt="employee"/>
-                                              </div>--}}
-                                            &nbsp;&nbsp; <strong>{{ $feedback->client->name  }}</strong>
-                                            <br>
-                                            <p>{{ $feedback->body }}</p>
-                                            {{--                                        <h6>{{ $feedback->created_at->toDateString()}}</h6>--}}
-                                        </div>
-                                    @endforeach
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <strong>
-                                                    <i class="pe-7s-note  btn-icon-wrapper"
-                                                       style="font-size: 20px;"></i>
-                                                    Add Comment </strong>
-                                                <form method="post" action="{{ route('client.feedback.store') }}">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                <textarea name="body" class="form-control" rows="3"
-                                                          placeholder="votre commentaire"></textarea>
-                                                        <input type="hidden" name="project_id"
-                                                               value="{{ $project->id }}"/>
-                                                    </div>
-                                                    <input type="submit" style="float: right"
-                                                           class="btn btn-warning col-sm-4"
-                                                           value="Add Comment"/>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                        {{-- add feedback --}}
-                                        <div class="col-sm-4">
-
-                                        </div>
-                                        {{--/add feedback --}}
+                        {{--                        @if(auth()->guard('client')->user())--}}
+                        {{--feedback --}}
+                        <div class="row">
+                            <div class="col-12 container">
+                                <h4><strong>{{ __('messages.comments') }}</strong></h4><br>
+                                @foreach($project->feedbacks as $feedback)
+                                    <div class="display-comment">
+                                        {{--  <div style="display:inline-block">
+                                              <img src="{{asset($comment->employee->image)}}" data-toggle="tooltip"
+                                                   data-original-title="{{ $comment->employee->name}}"
+                                                   class="rounded-circle"
+                                                   height="42px" width="42px" alt="employee"/>
+                                          </div>--}}
+                                        &nbsp;&nbsp; <strong>{{ $feedback->client->name  }}</strong>
+                                        <br>
+                                        <p>{{ $feedback->text_feedback }}</p>
+                                        <h6>{{ $feedback->created_at->toDateString()}}</h6>
                                     </div>
-                                    <div tabindex="-1" class="dropdown-divider"></div>
-                                </div>
+                                @endforeach
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-lg-12">--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <strong>--}}
+{{--                                                <i class="pe-7s-note  btn-icon-wrapper"--}}
+{{--                                                   style="font-size: 20px;"></i>--}}
+{{--                                                Add Comment </strong>--}}
+{{--                                            <form method="post" action="{{ route('client.feedback.store') }}">--}}
+{{--                                                @csrf--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                <textarea name="body" class="form-control" rows="3"--}}
+{{--                                                          placeholder="votre commentaire"></textarea>--}}
+{{--                                                    <input type="hidden" name="project_id"--}}
+{{--                                                           value="{{ $project->id }}"/>--}}
+{{--                                                </div>--}}
+{{--                                                <input type="submit" style="float: right"--}}
+{{--                                                       class="btn btn-warning col-sm-4"--}}
+{{--                                                       value="Add Comment"/>--}}
+{{--                                            </form>--}}
+{{--                                        </div>--}}
+
+{{--                                    </div>--}}
+{{--                                    --}}{{-- add feedback --}}
+{{--                                    <div class="col-sm-4">--}}
+
+{{--                                    </div>--}}
+{{--                                    --}}{{--/add feedback --}}
+{{--                                </div>--}}
+                                <div tabindex="-1" class="dropdown-divider"></div>
                             </div>
-                            {{--/feedback --}}
-                        @endif
+                        </div>
+                        {{--/feedback --}}
+                        {{--                        @endif--}}
                     </div>
                 </div>
             </div>

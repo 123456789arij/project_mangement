@@ -25,6 +25,8 @@ return [
     'add_client' => 'Ajouter Un Nouveau Client',
     'CLIENT_DETAILS' => 'Détails Du Client',
     'Password' => 'Mot De Passe',
+    'ConfirmNewPassword' => 'Confirmer  mot de passe',
+    'New_Password' => 'Nouveau mot de passe',
     'mobile' => 'Télephone',
     'Address' => 'Adresse',
     'CLIENT_OTHER_DETAILS' => 'Autres Détails Du Client',

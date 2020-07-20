@@ -59,6 +59,9 @@
                                 <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">
                                     {{auth()->guard('employee')->user()->name}}
                                 </h6>
+                                    <a href="{{route('employee.profile')}}" class="dropdown-item"
+                                       style="font-size: 15px"><i
+                                            class="fas fa-user-alt"> {{ __('messages.profileSettings') }}</i></a>
                             @endif
                             @if(auth()->guard('employee')->user() && auth()->guard('employee')->user()->role==1)
                                 <h6 tabindex="-1" class="dropdown-item-text" style="background-color: DarkTurquoise">

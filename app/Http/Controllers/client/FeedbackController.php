@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\client;
 
 use App\Feed;
+use App\Feedback;
 use App\Http\Controllers\Controller;
 use App\Project;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,12 +18,13 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feed = Feed::whereHas('client', function (Builder $query) {
+        $feedback = Feedback::whereHas('client', function (Builder $query) {
             $query->whereHas('user', function (Builder $query) {
                 $query->where('id', auth()->guard('client')->user()->user_id);
             });
         })->get();
-        return view('client.project.show', compact('feed'));
+
+        return view('client.project.show', compact('feedback'));
     }
 
     /**
@@ -45,15 +47,14 @@ class FeedbackController extends Controller
     {
         $request->validate([
             'body' => 'required',
-//            'star' => 'required',
+            //'date_feedback' => 'required',
         ]);
 
-        $feed = new Feed();
-        $feed->body = $request->input('body');
-        $feed->rating_count = $request->input('rating_count');
+        $feed = new Feedback();
+        $feed->text_feedback = $request->input('body');
         $feed->client_id = auth()->guard('client')->user()->id;
         $project = Project::find($request->project_id);
-        $project->feeds()->save($feed);
+        $project->feedBacks()->save($feed);
         return back();
     }
 

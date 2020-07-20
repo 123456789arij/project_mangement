@@ -34,6 +34,7 @@
         body {
             text-transform: capitalize;
         }
+
         .arrow-up {
             width: 32px;
             height: 20px;
@@ -153,6 +154,6 @@
 {{--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>--}}
 
 
-@include('sweetalert::alert')
+{{--@include('sweetalert::alert')--}}
 @yield('jsBlock')
 </html>

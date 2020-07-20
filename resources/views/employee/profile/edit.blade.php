@@ -77,8 +77,9 @@
 
         /*bordure de adresse*/
         .purple-border textarea {
-            border: 1px solid #ba68c8;
+            border: 1px solid #DCDCDC;
         }
+
 
         .purple-border .form-control:focus {
             border: 1px solid #ba68c8;
@@ -88,6 +89,10 @@
         .green-border-focus .form-control:focus {
             border: 1px solid #8bc34a;
             box-shadow: 0 0 0 0.2rem rgba(139, 195, 74, .25);
+        }
+
+        label {
+            text-align: justify;
         }
 
         /* /bordure de adresse*/
@@ -162,7 +167,9 @@
                                     <div class="form-row">
                                         <div class="col-md-4" id="im">
                                             <div class="avatarContainer">
-                                                <label for="image"> Image Upload</label>
+                                                <label
+                                                    for="image"><strong>{{ __('messages.ProfileImage') }} </strong>
+                                                </label>
                                                 <div class="avatar-upload">
                                                     <div class="avatar-edit">
                                                         <input type='file' name="image"
@@ -191,70 +198,64 @@
                                     </div>
                                     {{--/upload image--}}
                                     <div class="form-row">
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="name"> NOM </label>
-                                                <input type="text" class="form-control" id="name" name="name"
-                                                       value="{{$employee->name }}">
-                                            </div>
+                                        <div class="col">
+                                            <strong><label for="name">   {{ __('messages.name') }} </label></strong>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                   value="{{$employee->name }}">
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label for="email">Email</label>
-                                                <input type="email" class="form-control" id="email" name="email"
-                                                       value="{{$employee->email }}"
-                                                       class="@error('email', 'login') is-invalid @enderror" required>
-                                                @error('email', 'login')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
+                                        <div class="col">
+                                            <strong> <label for="email">{{ __('messages.email') }}</label></strong>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                   value="{{$employee->email }}"
+                                                   class="@error('email', 'login') is-invalid @enderror">
+                                            @error('email', 'login')
+                                            <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        {{--<div class="col-md-4">
-                                            <div class="position-relative form-group">
-                                                <label> current Password</label>
-                                                <input type="password" data-toggle="password" class="form-control"
-                                                       name="current-password">
-                                            </div>
-                                        </div>--}}
-                                    </div>
-                                    <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
-                                        <label for="new-password" class="col-md-4 control-label">New Password</label>
+                                        {{--password--}}
+{{--                                        <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">--}}
 
-                                        <div class="col-md-4">
-                                            <input id="new-password" type="password" class="form-control" data-toggle="password"
-                                                   name="new-password" required>
-
-                                            @if ($errors->has('new-password'))
-                                                <span class="help-block">
+                                            <div class="col">
+                                                <strong>  <label for="new-password"> {{ __('messages.New_Password') }}</label></strong>
+                                                <input id="new-password" type="password" class="form-control"
+                                                       data-toggle="password"
+                                                       name="new-password">
+                                                @if ($errors->has('new-password'))
+                                                    <span class="help-block">
                                         <strong>{{ $errors->first('new-password') }}</strong>
                                     </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    {{--new--}}
-                                    <div class="form-group">
-                                        <label for="new-password-confirm" class="col-md-4 control-label">Confirm New Password</label>
+                                                @endif
+                                            </div>
 
-                                        <div class="col-md-4">
-                                            <input id="new-password-confirm" type="password" class="form-control" data-toggle="password" name="new-password_confirmation" required>
-                                        </div>
+                                        {{--password--}}
+                                        {{--new password--}}
+                                            <div class="col">
+                                                <strong>
+                                                    <label for="new-password-confirm"
+                                                           class="text-justify">  {{ __('messages.ConfirmNewPassword') }}
+                                                    </label>
+                                                </strong>
+                                                <input id="new-password-confirm" type="password" class="form-control"
+                                                       data-toggle="password" name="new-password_confirmation">
+                                            </div>
+                                        {{--/new password--}}
                                     </div>
-
 
 
                                     {{--  /partie email +adresse--}}
 
                                     <div class="form-row">
+
                                         {{--   sex--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="gender"> sex </label>
+                                                <strong> <label for="gender"> sex </label></strong>
                                                 <select class="mb-2 form-control form-control" name="gender">
                                                     <option value="1" {{$employee->gender == '1' ? 'selected' : ''}}>
-                                                        femme
+                                                        {{ __('messages.female') }}
                                                     </option>
                                                     <option value="2" {{$employee->gender == '2' ? 'selected' : ''}}>
-                                                        homme
+                                                        {{ __('messages.male') }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -263,7 +264,7 @@
                                         {{--mobile--}}
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
-                                                <label for="mobile"> Mobile </label>
+                                                <strong><label for="mobile">{{ __('messages.mobile') }}</label></strong>
                                                 <input type="tel" class="form-control" id="mobile"
                                                        value="{{$employee->mobile}}"
                                                        name="mobile">
@@ -274,23 +275,23 @@
                                     {{--skills--}}
                                     <div class="position-relative form-group">
                                         <div class="col-12">
-                                            <label for="skills">Compétence</label>
+                                            <strong> <label for="skills">{{ __('messages.skills') }}</label></strong>
                                             <input id="basic" type="text" name="skills" class="form-control"
                                                    value="{{$employee->skills}}">
                                         </div>
                                     </div>
-                                    {{--skills--}}
+                                    {{--address--}}
                                     <div class="position-relative form-group">
                                         <div class="col-12 purple-border">
-                                            <label for="address">Adresse</label>
+                                            <label for="address"><strong>{{ __('messages.Address') }}</strong></label>
                                             <textarea name="address" rows="5" id="exampleText" class="form-control">
                                           {{$employee->address}}  </textarea>
                                         </div>
                                     </div>
-
-
-                                    <div class="d-block  card-footer">
-                                        <button class="btn-wide btn btn-success" type="submit"><i
+                                    {{--/address--}}
+                                    <br>
+                                    <div class="d-block text-center">
+                                        <button class="btn btn-lg btn-success" type="submit" style="float:left;"><i
                                                 class="fas fa-check"></i> {{ __('messages.update') }}</button>
                                     </div>
 

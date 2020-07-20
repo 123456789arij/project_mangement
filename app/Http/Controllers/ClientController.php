@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Mail\SendMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 
 class ClientController extends Controller
@@ -19,12 +21,12 @@ class ClientController extends Controller
     {
         $search = $request->input('search');
         $clientsCount = Client::where('user_id', auth()->user()->id)->count();
-         $clients = Client::where('user_id', auth()->user()->id);
-         if ($search) {
+        $clients = Client::where('user_id', auth()->user()->id);
+        if ($search) {
             $clients = $clients->where("name", "LIKE", "%{$search}%");
 
         }
-        $clients =$clients->simplePaginate(5);
+        $clients = $clients->simplePaginate(5);
         return view('client.index', compact('clients', 'clientsCount'));
     }
 
@@ -35,7 +37,11 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('client.create');
+        if (auth()->user()->role_id == 1) {
+            $password = self::generateRandomString(7);
+            return view('client.create', compact('password'));
+        }
+        abort(403);
     }
 
     /**
@@ -51,6 +57,14 @@ class ClientController extends Controller
             'email' => 'required',
             'password' => 'required', 'string', 'min:6',
         ]);
+        $email = $request->input('email');
+        $exist = Client::where('email', $email)->first();
+
+        if ($exist) {
+            return redirect()->back()->with("error", "client exists");
+        }
+
+
         $client = new Client();
         $client->name = $request->input('name');
         $client->email = $request->input('email');
@@ -62,7 +76,18 @@ class ClientController extends Controller
         $client->facebook = $request->input('facebook');
         $client->user_id = Auth::user()->id;
         $client->save();
-        return redirect()->route('client.index')->with('toast_success', 'client is successfully saved');
+
+        $mail = new SendMail([
+            'address_from' => config('mail.from.address'),
+            'name_from' => config('mail.from.name'),
+            'address_to' => $request['email'],
+            'name_to' => $request['name'],
+            'title' => 'bonjour,voici votre mot de passe pour se connecter',
+            'body' => $request['password'],
+            'subject' => 'FÉLICITATIONS VOTRE COMPTE A ÉTÉ CRÉÉ',
+        ]);
+        Mail::send($mail);
+        return redirect()->route('client.index')->with('success', 'client is successfully saved');
     }
 
     /**
@@ -131,5 +156,16 @@ class ClientController extends Controller
     {
         Client::where('user_id', auth()->user()->id)->findorfail($id)->delete();
         return redirect()->route('client.index')->with('success', 'client  is successfully deleted');
+    }
+
+    static function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

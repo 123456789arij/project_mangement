@@ -69,9 +69,9 @@ class CompanyController extends Controller
             'name_from' => config('mail.from.name'),
             'address_to' => $request['email'],
             'name_to' => $request['name'],
-            'title' => 'password created',
+            'title' => 'bonjour,voici votre mot de passe pour se connecter',
             'body' => $request['password'],
-            'subject' => 'hello company ',
+            'subject' => 'FÉLICITATIONS VOTRE COMPTE A ÉTÉ CRÉÉ',
         ]);
         Mail::send($mail);
 

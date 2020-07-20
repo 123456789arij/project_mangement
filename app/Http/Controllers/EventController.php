@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use App\Event;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -15,22 +17,18 @@ class EventController extends Controller
 
     public function index()
     {
-        /*    if (request()->ajax()) {
-                $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
-                $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
-
-                $data = Event::whereDate('start', '>=', $start)->whereDate('end', '<=', $end)->get(['id', 'title', 'start', 'end']);
-                return Response::json($data);
-            }*/
-        $events = Event::all();
+        $events = Event::with('employee')->where('user_id', auth()->user()->id);
         return view('event.index', compact('events'));
     }
 
 
     public function create()
     {
-        $events = Event::all();
-        return view('event.create', compact('events'));
+        $events = Event::where('user_id', auth()->user()->id);
+        $employees = Employee::whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        });
+        return view('event.create', compact('events','employees'));
     }
 
     public function store(Request $request)

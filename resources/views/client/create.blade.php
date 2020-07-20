@@ -39,8 +39,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="main-card mb-3 card">
-
-                @if(Session::has('success'))
+{{--                @if ($message = Session::get('success'))--}}
+{{--                    <div class="alert alert-success alert-block">--}}
+{{--                        <button type="button" class="close" data-dismiss="alert">×</button>--}}
+{{--                        <strong>{{ $message }}</strong>--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+ {{--               @if(Session::has('success'))
                     <div class="alert alert-success">
                         {{Session::get('success')}}
                     </div>
@@ -55,9 +60,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
-
-
+                @endif--}}
                 <div class="card-header">
                     <strong>  {{__('messages.add_client') }}</strong>
                 </div>
@@ -74,14 +77,14 @@
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="name"> <strong> {{__('messages.name') }} </strong></label>
-                                                <input type="text" class="form-control" id="name" name="name" required>
+                                                <input type="text" class="form-control" id="name" name="name">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
                                                 <label for="email"> <strong> {{__('messages.email') }}</strong></label>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                       class="@error('email', 'login') is-invalid @enderror" required>
+                                                       class="@error('email', 'login') is-invalid @enderror">
                                                 @error('email', 'login')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
@@ -92,8 +95,8 @@
                                                 <label for="password">
                                                     <strong> {{__('messages.Password') }} </strong></label>
                                                 <input type="password" data-toggle="password" class="form-control"
-                                                       id="password"
-                                                       name="password" required>
+                                                       id="password"    value="{{ $password }}"
+                                                       name="password">
                                             </div>
                                         </div>
                                     </div>

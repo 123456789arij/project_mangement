@@ -30,4 +30,8 @@ class Client extends Authenticatable
         return $this->hasMany('App\Project');
     }
 
+    public function feedBacks()
+    {
+        return $this->hasMany('App\Feedback');
+    }
 }

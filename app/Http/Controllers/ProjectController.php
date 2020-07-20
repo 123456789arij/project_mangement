@@ -43,7 +43,7 @@ class ProjectController extends Controller
 
         }
         $projects = $projects->paginate(3);
-        return view('project.index', compact('projects','projectsCount'));
+        return view('project.index', compact('projects', 'projectsCount'));
     }
 
 
@@ -57,6 +57,9 @@ class ProjectController extends Controller
         $categories = Category::all();
         $file = File::all();
         $clients = auth()->user()->clients;
+     /*   $employees = Employee::with('projects')->whereHas('department', function (Builder $query) {
+            $query->where('user_id', auth()->user()->id);
+        })->get();*/
         return view('project.create', compact('clients', 'categories', 'file'));
     }
 
@@ -100,7 +103,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::withCount('employees')->with('employees')->findorfail($id);
+        $project = Project::withCount('employees')->with(['employees', 'feedBacks.client'])->findorfail($id);
         return view('project.show', compact('project'));
     }
 
@@ -188,7 +191,6 @@ class ProjectController extends Controller
         $project->employees()->sync($emplyeeIds);
         return redirect()->route('project')->with('toast_success', 'membre is successfully saved');
     }
-
 
 
 }

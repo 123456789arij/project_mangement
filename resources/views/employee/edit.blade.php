@@ -77,7 +77,7 @@
 
         /*bordure de adresse*/
         .purple-border textarea {
-            border: 1px solid #black;
+            border: 1px solid #DCDCDC;
         }
 
         .purple-border .form-control:focus {
@@ -385,8 +385,7 @@
                                                 <div class="position-relative form-group">
                                                     <label for="password"><strong>{{ __('messages.Password') }}</strong></label>
                                                     <input type="password" data-toggle="password" class="form-control"
-                                                           id="password"
-                                                           name="password">
+                                                           id="password" name="password">
                                                 </div>
                                             </div>
                                         </div>
@@ -487,7 +486,7 @@
                                             </div>
                                             {{--/departement--}}
                                         </div>
-
+<br>
                                         <div class="d-block">
                                             <button class="btn-wide btn btn-success" type="submit"><i
                                                     class="fas fa-check"></i> {{ __('messages.update') }}</button>

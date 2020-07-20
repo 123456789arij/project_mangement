@@ -65,6 +65,16 @@ class EmployeeController extends Controller
             'image' => 'image | mimes:jpeg,png,jpg,gif,svg | max:2048',
 
         ]);
+        $email = $request->input('email');
+
+        $exist = Employee::where('email', $email)->first();
+
+        if ($exist) {
+            return redirect()->back()->with("error", "employee exists");
+        }
+   /*     if (!$exist->isEmpty()) {
+            return redirect()->back()->with("error", "The email field is required.");
+        }*/
         $emplyoee = new Employee();
         $emplyoee->name = $request->input('name');
         $emplyoee->email = $request->input('email');
@@ -78,7 +88,6 @@ class EmployeeController extends Controller
         $emplyoee->department_id = $request->input('department_id');
 
         if ($files = $request->file('image')) {
-//       dd(request()->all());
             $destinationPath = '/images/';
             $profileImage = time() . "." . $files->getClientOriginalExtension();
             $files->move(public_path('images'), $profileImage);

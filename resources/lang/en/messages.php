@@ -24,6 +24,8 @@ return [
     'add_client' => 'Add Client Info',
     'CLIENT_DETAILS' => 'Client Details',
     'Password' => 'Password',
+    'ConfirmNewPassword' =>'Confirm New Password',
+    'New_Password' =>'New Password',
     'mobile' => 'mobile',
     'Address' => 'Address',
     'CLIENT_OTHER_DETAILS' => 'Client Other Details',
